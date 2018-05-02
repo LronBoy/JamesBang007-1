@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head lang=en>
+<meta charset=UTF-8>
+<meta name=apple-mobile-web-app-capable content=yes>
+<meta content="telephone=no" name=format-detection>
+<meta name=apple-touch-fullscreen content=no />
+<meta name=viewport content="width=750">
+<meta name=apple-mobile-web-app-status-bar-style content=black-translucent />
+<title>领导让我做一个红包攻略</title>
+<script src=https://cdn.staticfile.org/jquery/2.1.0/jquery.min.js charset=utf-8></script>
+<script src=http://res.wx.qq.com/open/js/jweixin-1.0.0.js></script>
+<base href="http://mercurymage.com/h5/20180128nxx/" />
+<script>
+    $.ajax({
+        url: "http://mercurymage.com:18080/wechat_sdk/getsignature",
+        type: "post",
+        data: {
+            url: location.href.split("#")[0]
+        }
+    }).done(function(e) {
+        wx.config({
+            debug: !1,
+            appId: e.appId,
+            timestamp: e.timestamp,
+            nonceStr: e.nonceStr,
+            signature: e.signature,
+            jsApiList: ["checkJsApi", "onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "onMenuShareWeibo", "hideMenuItems", "chooseImage"]
+        }), wx.ready(function() {
+            wx.onMenuShareTimeline({
+                title: "领导让我做一个红包攻略",
+                link: "http://mercurymage.com/h5/20180128nxx/",
+                imgUrl: "http://mercurymage.com/h5/20180128nxx/shareImg1.jpg",
+                success: function() {
+                    shareEvent && shareEvent()
+                },
+                cancel: function() {}
+            }), wx.onMenuShareAppMessage({
+                title: "领导让我做一个红包攻略",
+                desc: "小策划不可思议的人生",
+                link: "http://mercurymage.com/h5/20180128nxx/",
+                imgUrl: "http://mercurymage.com/h5/20180128nxx/shareImg1.jpg",
+                type: "",
+                dataUrl: "",
+                success: function() {
+                    shareEvent && shareEvent()
+                },
+                cancel: function() {}
+            })
+        })
+    })
+</script>
+<!--
+<script>
+    var _hmt = _hmt || [];
+    ! function() {
+        var e = document.createElement("script");
+        e.src = "https://hm.baidu.com/hm.js?aa97f9e0b161b146ecf32594f5ab4474";
+        var t = document.getElementsByTagName("script")[0];
+        t.parentNode.insertBefore(e, t)
+    }()
+</script>
+-->
+<link href="./css/b94419209787fea8eeac45ebc545b368.css" rel="stylesheet">
+</head>
+
+<body>
+<div class=loading-box> <img src=./images/6a2aae06139738404e45abeb9c7014c3loding-img.png class="loading-img center" alt="" />
+    <p class="center loading-text">Loading...</p>
+</div>
+
+<div class=container>
+    <div class=home-box> <img src=./images/b8ccf867d140d0df024f3bc55154fce6home-img.jpg class="home-img play-video-one" width=100% alt="" /> <img src=./images/f22eaa5e7bc11f7980d654712162205chome-message.png class="home-message play-video-one" alt="" /> </div>
+    <div class=video-box> <img src=./images/def634035c0513fb19448b5df9080a3bvideo-img.jpg class="video-img pa" alt="" />
+        <video id=my_video style=object-fit:fill;width:100%;height:100% preload=load playsinline=true webkit-playsinline=true x-webkit-airplay=allow airplay=allow x5-video-player-type=h5 x5-video-player-fullscreen=true x5-video-orientation=portrait src=http://qncdn1.aotumen.com/20180123nxx/video/video1.mp4> </video>
+    </div>
+    <div class=select-box> <img src=./images/670a2148dd28a5440ce77662272c5759wugu.png class=wugu alt=""> <img src=./images/7dd78ca77e8cf1029bcc883fec377bfbqu-btn.png class="qu btn qu-btn" alt=""> <img src=./images/0e80e1f799e7bbf787ec45c99b2a9d65buqu-btn.png class="buqu btn buqu-btn" alt=""> </div>
+    <div class=end-box> <img src=./images/db1be5d6d0798f5c1888eef260f3db34end-img.jpg class="end-img pa" alt="">
+        <a href=https://sale.suning.com/swell/home/index.html><img src=./images/4dbe04d2ba7faae7c6626a72d76f09adlink-btn.png class="link-btn btn pa center" alt=""></a> <img src=./images/25061f616415460a9eead7a4204bb0b2share-btn.png class="share-btn btn pa center" alt=""> </div>
+    <div class=share-box> <img src=./images/1795e5b613a918daea9b7ae8789ec17fshare-tip.png class=share-tip alt=""> </div>
+
+</div>
+
+<script type="text/javascript" src="./js/app.7e717eb409e16935b2b4.js"></script>
+
+</body>
+</html>

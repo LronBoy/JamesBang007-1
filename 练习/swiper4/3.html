@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Swiper 使用方法</title>
+<link href="static/swiper-4.1.0.min.css" rel="stylesheet" />
+<style>
+body{max-width: 1200px; margin: 0 auto; font-size: 16px; line-height: 1.8;}
+
+.swiper-container {
+    width: 700px;
+    height: 300px;
+    margin-bottom: 20px;  border: 1px solid #333; position: relative;
+}
+.parallax-bg{ width: 700px; height: 300px; position: absolute; top: 0; left: 0; display: none; }
+.swiper-slide{ padding: 10px; box-sizing: border-box; }
+.swiper-slide:nth-child(1){ background-image: url(https://n4-q.mafengwo.net/s11/M00/C2/7B/wKgBEFp5kFiAEA9hAAUuJadnMFI45.jpeg?imageMogr2/thumbnail/!800x300r); }
+.swiper-slide:nth-child(2){ background-image: url(https://p3-q.mafengwo.net/s11/M00/38/5E/wKgBEFp4PL-AM4bGAAuL3J6pd_o79.jpeg?imageMogr2/thumbnail/!800x300r); }
+.swiper-slide:nth-child(3){ background-image: url(https://n2-q.mafengwo.net/s11/M00/C8/7D/wKgBEFpy9LiAXUH5AAdhfjEadUc92.jpeg?imageMogr2/thumbnail/!800x300r); }
+.swiper-slide h2{ display: inline-block; line-height: 50px; font-size: 20px; color: #fff; background: rgba(0,0,0,.6); padding: 10px 30px; }
+
+
+
+</style>
+</head>
+<body>
+
+<div class="swiper-container" id="swiper-container3">
+    <!--<div class="parallax-bg" style="background-image:url(https://n4-q.mafengwo.net/s11/M00/C2/7B/wKgBEFp5kFiAEA9hAAUuJadnMFI45.jpeg?imageMogr2/thumbnail/!800x300r)" data-swiper-parallax="-23%"></div>-->
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <h2 data-swiper-parallax="-100">英伦 || 不列颠岛狂奔的日与夜</h2>
+
+        </div>
+        <div class="swiper-slide">
+            <h2 data-swiper-parallax="-100">把故事从头讲，福建土著海岛散记</h2>
+        </div>
+        <div class="swiper-slide">
+            <h2 data-swiper-parallax="-100">你的生活是我远道而来的风景——首刷红叶季，9日京都玩不够</h2>
+        </div>
+    </div>
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
+
+
+<script src="static/swiper-4.1.0.min.js"></script>
+<script>
+  var mySwiper3 = new Swiper ('#swiper-container3', {
+    autoplay :true,
+
+
+    // 如果需要前进后退按钮
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  })
+
+</script>
+
+
+</body>
+</html>

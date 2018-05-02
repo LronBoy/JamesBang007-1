@@ -1,0 +1,34 @@
+/*
+ *  作者：James邦  QQ：409865388
+ *  欢迎交流转载，但请尊重作者劳动成果，标明来源及作者
+ */
+@rex : 50rem;
+*{margin: 0; padding: 0; }
+html{ background: #fff;}
+body{ max-width: 750px; font-size: 14px; line-height: 1.8; background: #f3f3f3; margin: 0 auto; padding: 10px; padding-bottom: 1000px; }
+h3{ margin: 30px 0 10px;}
+p{ margin-bottom: 5px; }
+
+
+.demo2{
+    .video2{
+        width: 690/@rex; height: 380/@rex; margin-top: 40/@rex;
+        img{width: 690/@rex; height: 380/@rex;}
+    }
+    .videoCon{
+        width: 100%; max-width: 750/@rex; height: 100%; background: #000; margin-left: -30/@rex;
+        position: fixed; top: 0; bottom: 0; z-index: 1000; display: none;
+        .videoClose{ 
+            position: absolute; top: 0; right: 0;  z-index: 1002;
+            padding: 5/@rex 5/@rex 10/@rex 30/@rex; font-size: 0;
+            cursor: pointer; background: rgba(0,0,0,0);
+            i{
+                display: block; padding: 5/@rex; width: 25/@rex; height: 25/@rex; line-height: 25/@rex;
+                font-size: 20/@rex !important; color: #ddd; text-align: center;
+                background: #333; border: 1px solid #999; border-radius: 50%; box-shadow: 0 0 2px 0 rgba(0,0,0,.2);
+            }
+        }
+        .player{ width: 100%; height: 100%; position: relative; z-index: 1001; }
+        video{ position: absolute; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); }
+    }
+}

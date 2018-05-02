@@ -1,0 +1,243 @@
+170308 sina微博加载动效
+
+核心技术：
+CSS3动画 animation
+
+animation: loading 0.8s linear infinite;        其中 loading 是自定义动画规则
+
+@keyframes loading {
+    0% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
+}
+
+其他技术：
+CSS3变形 transform 中的 rotate （旋转）
+
+
+<style>
+i {
+    font-style: normal;
+    font-weight: normal;
+}
+
+.media_show_box{
+    position: relative;
+    overflow: hidden;
+}
+.media_show_box,
+.media_show_box li {
+    width: 500px;
+    margin-left: -2px;
+    margin-right: -2px;
+    padding: 0 2px;
+    
+    background:#eee;
+}
+.artwork_box {
+    position: relative;
+    width: 440px;
+    min-height: 38px;
+    margin: 0 auto;
+}
+.W_loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url(http://img.t.sinajs.cn/t6/style/images/common/loading.png?id=1404211047727);
+    background-image: url(http://img.t.sinajs.cn/t6/style/images/common/loading.gif) \9;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    -webkit-animation: loading .8s linear infinite;
+    -moz-animation: loading 0.8s linear infinite;
+    -o-animation: loading 0.8s linear infinite;
+    animation: loading 0.8s linear infinite;
+}
+.W_loading_big {
+	display:inline-block;
+	width:35px;
+	height:35px;
+	background-image:url("http://img.t.sinajs.cn/t6/style/images/common/loading_big.png?id=1404211047727");
+	background-image:url("http://img.t.sinajs.cn/t6/style/images/common/loading_big.gif?id=1404211047727") \9;
+	background-repeat:no-repeat;
+	vertical-align:middle;
+	-webkit-animation:loading .8s linear infinite;
+	animation:loading 0.8s linear infinite;
+}
+.media_show_box .W_loading {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+}
+
+@-webkit-keyframes loading {
+    0% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
+}
+@keyframes loading {
+    0% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
+}
+</style>
+
+
+<div class="media_show_box">
+    <ul>
+    <li>
+        <div class="artwork_box"></div>
+        <i node-type="loading" style="_display: none;" class="W_loading"></i>
+    </li>
+    <li>
+        <div class="artwork_box"></div>
+        <i node-type="loading" style="_display: none;" class="W_loading_big"></i>
+    </li>
+    </ul>
+</div>
+
+
+
+
+
+
+
+<div id="div1"></div>
+
+<style> 
+#div1{
+    width:100px;
+    height:100px;
+    background:red;
+    position:relative;
+    animation:mymove 3s;
+    animation: mymove 3s ease-in-out .25s infinite;
+    animation: mymove 3s ease-in-out .1s infinite alternate;
+    
+}
+
+@keyframes mymove
+{
+    from {left:0px;}
+    to {left:300px;}
+    0% {transform:rotate(0deg);}
+    100% {transform:rotate(720deg);}
+}
+</style>
+
+动画
+animation 属性是一个简写属性，用于设置六个动画属性：
+
+语法：
+    animation: name duration timing-function delay iteration-count direction;
+
+值                                                             描述
+animation-name              规定需要绑定到选择器的 keyframe 名称。。
+animation-duration          规定完成动画所花费的时间，以秒或毫秒计。
+animation-timing-function   规定动画的速度曲线。
+animation-delay             规定在动画开始之前的延迟。
+animation-iteration-count   规定动画应该播放的次数。
+animation-direction         规定是否应该轮流反向播放动画。
+
+
+
+
+
+
+
+<br><br>----------------<br>
+
+flickr 加载动效
+
+<div class="fluid">
+    <div class="flickr-dots"></div>
+</div>    
+
+
+<style>
+.fluid{ margin: 10px; padding: 10px; border: 1px solid #ccc; }
+
+.fluid .flickr-dots{
+    box-sizing:border-box;
+    position:relative;
+    font-size:0;
+    margin:0 auto;
+    width:24px;
+    height:12px;
+    -webkit-transform:translateZ(0);
+    transform:translateZ(0)
+}
+
+.fluid .flickr-dots:after,
+.fluid .flickr-dots:before{
+    content:"";
+    position:absolute;
+    display:block;
+    width:50%;
+    height:100%;
+    border-radius:50%
+}
+
+.fluid .flickr-dots:before{
+    background-color:#0063dc;
+    left:0;
+    -webkit-transform:translate3d(-12%,0,1px);
+    transform:translate3d(-12%,0,1px);
+    -webkit-animation:FluidFadeDot .25s ease 0s 1,FluidBlueDot 2s ease-in-out .25s infinite;
+    animation:FluidFadeDot .25s ease 0s 1,FluidBlueDot 2s ease-in-out .25s infinite
+}
+
+.fluid .flickr-dots:after{
+    background-color:#ff0084;
+    right:0;
+    -webkit-transform:translate3d(12%,0,1px);
+    transform:translate3d(12%,0,1px);
+    -webkit-animation:FluidFadeDot .25s ease 0s 1,FluidPinkDot 2s ease-in-out .25s infinite;
+    animation:FluidFadeDot .25s ease 0s 1,FluidPinkDot 2s ease-in-out .25s infinite
+}
+
+.fluid .flickr-dots.static:after,
+.fluid .flickr-dots.static:before{
+    -webkit-animation:none;
+    animation:none
+}
+
+
+/* @-webkit-keyframes FluidFadeDot */
+
+@keyframes FluidFadeDot{
+    0%{
+    opacity:0
+    }    
+    to{
+        opacity:1
+    }
+}
+@keyframes FluidBlueDot{
+    0%{
+    z-index:20
+    }    
+    50%{
+        -webkit-transform:translate3d(112%,0,1px);
+        transform:translate3d(112%,0,1px)
+    }    
+    to{
+        z-index:1
+    }
+}
+@keyframes FluidPinkDot{
+    0%{
+    z-index:1
+    }
+    50%{
+        -webkit-transform:translate3d(-112%,0,1px);
+        transform:translate3d(-112%,0,1px)
+    }
+    to{
+        z-index:20
+    }
+}
+</style>
+
+

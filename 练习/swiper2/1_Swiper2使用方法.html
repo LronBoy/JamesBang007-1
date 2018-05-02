@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Swiper2.x使用方法</title>
+<style type="text/css">
+body{max-width: 1200px; margin: 0 auto; font-size: 16px; line-height: 1.8;}
+</style>
+</head>
+<body>
+<br>
+1.首先加载插件，点击下载基础测试包，测试包里面已经包含了js和css文件。
+<link rel="stylesheet" href="static/idangerous.swiper2.7.6.css">
+<script src="static/idangerous.swiper2.7.6.min.js"></script>
+
+
+<br>
+2.HTML内容。
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+      <div class="swiper-slide"> Slide1</div>
+      <div class="swiper-slide"> Slide2</div>
+      <div class="swiper-slide"> Slide3</div>
+  </div>
+</div>
+
+
+<br>
+3.你可能想要给Swiper定义一个大小，当然不要也行。
+<style>
+.swiper-container {
+    width: 600px;
+    height: 300px;
+}
+.swiper-container .swiper-slide{ font-size: 20px; line-height: 3; text-align: center; background: #333; }
+.swiper-container .swiper-slide:nth-child(1){ background: #0063DC; }
+.swiper-container .swiper-slide:nth-child(2){ background: #4CD764; }
+.swiper-container .swiper-slide:nth-child(3){ background: #F6C338; }
+</style>
+
+
+<br>
+4.函数调用(初始化Swiper)。
+<script type="text/javascript">
+window.onload = function() {
+  var mySwiper = new Swiper('.swiper-container',{
+    loop: true
+    //其他设置
+
+  });
+}
+</script>
+
+
+<br>
+4.另外，函数调用还支持jQuery和Zepto，如果需要使用，请先加载jQuery.js或zepto.js。
+<!--
+<script type="text/javascript">
+$(function(){
+  var mySwiper = $('.swiper-container').swiper({
+    loop: true
+    //其他设置
+  });
+})
+</script>
+-->
+<br>
+由于IE7不支持querySelectorAll和querySelector方法，因此IE7必须要引入Jquery
+
+
+</body>
+</html>

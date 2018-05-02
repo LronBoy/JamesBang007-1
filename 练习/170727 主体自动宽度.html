@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>170727 主体自动宽度</title>
+<style>
+*{ margin: 0; padding: 0;}
+.div0{ height: 300px;  margin-bottom: 10px;}
+.div0 div{ height: 100%; font-size: 66px; line-height: 2; text-align: center;}
+.div1{ float: left; width: 120px; background: #FF6600;}
+.div2{ float: right; width: 320px; background: #2CB4E8;}
+.div3{ background: #8BC34A;}
+
+.div1_1{float: left; width: 120px; background: #FF6600;}
+.div2_1{ background: #2CB4E8;}
+
+.div1_2{float: left; width: 30%; background: #FF6600;}
+.div2_2{ background: #2CB4E8; margin-left: 30%;}
+</style>
+</head>
+<body>
+<div class="div0">
+    <div class="div1">111</div>
+    <div class="div2">222</div>
+    <div class="div3">333</div>
+</div>
+
+<div class="div0 div0_1">
+    <div class="div1_1">111</div>
+    <div class="div2_1">222</div>
+</div>
+
+
+<div class="div0 div0_2">
+    <div class="div1_2">111</div>
+    <div class="div2_2">222</div>
+</div>
+
+</body>
+</html>

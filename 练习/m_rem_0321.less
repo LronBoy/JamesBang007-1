@@ -1,0 +1,42 @@
+/*
+    720的设计图时: 15rem/48;   750的设计图时: 15rem/50 
+    750/15rem
+*/
+@rex : 50rem;
+
+body,h1,h2,h3,h4,p,dl,dt,dd,ul,li,form,button,input,textarea,th,td,a{margin:0;padding:0}
+body{width:15rem;margin:0 auto; font-family:Helvetica,Arial,"Microsoft YaHei";font-size:12px;color:#555;background:#f3f3f3;}
+body *{-webkit-text-size-adjust:100%;-webkit-user-select:none;}
+a,input,button{-webkit-tap-highlight-color:rgba(0,0,0,0);}
+input,button{-webkit-appearance:none;border-radius:0;}
+img{vertical-align:bottom;background:#f5f5f5;border:0}
+ul,ol,li{list-style:none;}em,i{font-style:normal;}
+a{color:#555;text-decoration:none;}
+input,textarea{outline:0;}
+.fl{float:left}.fr{float:right}.cb{clear:both}
+.p6{padding:6px;}.mb5{margin-bottom:10px;}.mb10{margin-bottom:10px;}
+
+/*index新闻*/
+.newsBox{ margin-bottom:20/@rex;padding-top: 10/@rex; padding:15/@rex;background: #fff; overflow: hidden; }
+.newsBox .hd{ margin-bottom: 10/@rex; padding-bottom: 10/@rex; height: 40/@rex; line-height: 40/@rex; border-bottom: 4/@rex solid #ccc;clear: both;}
+.newsBox .hd h2{ float:left;padding-left: 10/@rex;height: 40/@rex; line-height: 40/@rex; font-size:32/@rex; color: #222; font-weight:600;border-left: 6/@rex solid #fa7d3c;}
+.newsBox .hd a.more{ float: right; padding-right: 4/@rex; font-size: 20/@rex; color: #666; }
+.newsBox .hd ul{ float:right; margin-top:-10/@rex;height: 60/@rex; line-height: 60/@rex;}
+.newsBox .hd li{ float: left; margin:15/@rex 0; padding: 0 20/@rex; height: 30/@rex; line-height: 30/@rex; font-size: 30/@rex;text-align: center;border-right: 3/@rex solid #9d9d9d;}
+.newsBox .hd li:last-child{ border: none;}
+
+.newsBox .bd .listPic{overflow: hidden;}
+.newsBox .bd .listPic li{position: relative;float: left;width: 350/@rex;height: 218/@rex;text-align: center;}
+.newsBox .bd .listPic li:first-child{ margin-right: 20/@rex;}
+.newsBox .bd .listPic li a {width: 100%;display: block;}
+.newsBox .bd .listPic li img{width: 350/@rex;height: 218/@rex;}
+.newsBox .bd .listPic h3{position: absolute;bottom: 0;left: 0;display: inline-block; padding:0 5/@rex;width: 340/@rex;height: 50/@rex;line-height: 50/@rex;font-size: 25/@rex;color: #fff;text-align: center; font-weight: normal; background: rgba(0,0,0,.6);overflow: hidden;white-space: nowrap; text-overflow: ellipsis;}
+
+.newsBox .bd .listText li{height: 50/@rex;line-height: 50/@rex;overflow: hidden;border-bottom: 2/@rex dotted #d6d6d6;}
+.newsBox .bd .listText li a{font-size: 25/@rex;color: #333;display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+
+/*index更多*/
+.page{margin: 15/@rex 0;text-align: center;font-size: 20/@rex;}
+.page .dian{font-size: 20/@rex;color: #ccc;letter-spacing: 10/@rex;margin-left: 10/@rex;}
+.page a{ color:#888;}
+

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript练习</title>
+<link rel="stylesheet" type="text/css" href="css/1803.css"/>
+</head>
+<body>
+
+
+  <div class="tit-2">选择器——获取节点 </div>
+  <pre>
+    document.getElementById(元素id); //通过元素id获取节点
+    document.getElementsByTagName(元素标签); //通过元素标签获取节点
+    document.getElementsByName(元素name); //通过元素name获取节点
+
+    document.getElementsByClassName(class类名); //通过元素class类名获取节点  IE9+
+    document.querySelector(CSS选择器); //类似jQuery，匹配指定CSS选择器的一个元素   IE8+
+    document.querySelectorAll(CSS选择器); //HTML5中引入的新方法，匹配的CSS选择器的所有元素节点
+  </pre>
+
+  <div id="demo1" class="demo1 w100" name="demo1"><p>demo1</p></div>
+  <script type="text/javascript">
+    var demo1 = document.getElementById('demo1');
+    demo1.style.background = 'red';
+
+    var demo1P = document.getElementById('demo1').getElementsByTagName('p');
+    demo1P[0].style.color = '#fff';
+
+    var demo1 = document.getElementsByName('demo1');
+    demo1[0].style.background = 'blue';
+
+    var demo1 = document.getElementsByClassName('demo1');
+    demo1[0].style.background = 'blueviolet';
+
+    var demo1 = document.querySelector('.demo1');
+    demo1.style.background = 'lightblue';
+  </script>
+
+
+
+
+  <div class="tit-2">Date（日期）对象</div>
+  <script type="text/javascript">
+    //new Date(year, month, day, hours, minutes, seconds, milliseconds)
+  	var d = new Date(); //当前系统的时间对象
+  	document.write(d +'<br>');
+
+    var t = new Date().getTime(); //返回从1970年1月1日到现在的毫秒数（UTC时间标准时间）
+    document.write(t +'<br>');
+
+    /*
+     * 倒计时
+     * 现在的时间点（在变）
+     * 未来的时间点（不变）
+     *
+     * */
+    function Countdown(){
+      var iNow = new Date();
+      var iNew = new Date( 'Mon Mar 12 2020 20:00:00' );
+      var t = Math.floor((iNew - iNow)/1000);
+      var str = Math.floor(t/86400)+'天'+Math.floor(t%86400/3600)+'时'+Math.floor(t%86400%3600/60)+'分'+t%60+'秒';
+      //document.write(str +'<br>');
+      console.log(str);
+    }
+    var timer = setInterval(function(){
+      Countdown();
+    },1000)
+    setTimeout(function(){
+      clearInterval(timer);
+    },5001)
+
+  </script>
+  <script type="text/javascript">
+  	function sDay(str){
+        var result
+        var arr_week = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
+
+        var d = new Date(str+' 00:00:00'); //创建 Date 对象
+        var day = d.getDay(); //返回一周中的某一天 (0 ~ 6)
+        //var week;
+        //week = arr_week[day];
+        //console.log(week)
+
+        var now = new Date();
+        var t = d-now;
+        //console.log('d：'+d);
+        //console.log('n：'+now);
+        //console.log('t：'+t);
+        if( t<-86400000 ){
+          result = "昨天";
+        }else if( t<0 ){
+          result = "今天";
+        }else if( t<86400000 ){
+          result = "明天";
+        }else if( t<172800000 ){
+          result = "后天";
+        }else{
+          result = arr_week[day];
+        }
+
+        console.log(result)
+        return result;
+    }
+    sDay('2018-04-01');
+    sDay('2018-04-02');
+    sDay('2018-04-03');
+    sDay('2018-04-04');
+    sDay('2018-04-05');
+    sDay('2018-04-06');
+    sDay('2018-04-07');
+    sDay('2018-04-08');
+
+  </script>
+
+
+  <div class="tit-2">For循环</div>
+  <pre>
+    for (语句1; 语句2; 语句3)
+    {
+              被执行的代码块;
+    }
+  </pre>
+  <p>语句1 在循环（代码块）开始前执行<br>
+语句2 定义运行循环的条件<br>
+语句3 在循环已被执行之后执行</p>
+  <p>例1：说明for循环的执行顺序</p>
+  <pre>
+    for(var i=0; i<3; i++){
+       console.log(i);
+    }
+
+    var i = 0;
+    for ( ; i<3; ) {
+      console.log(1);
+      i++;
+    }
+
+    1) var i=0;
+    2) i<3; 关键！！
+    3) 括号里面的所有代码
+    4) i++
+  </pre>
+  <script>
+    for(var i=0; i<3; i++){
+       console.log(i);  // 弹出 0 1 2
+    }
+    console.log('i='+i);      // 弹出 3
+  </script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

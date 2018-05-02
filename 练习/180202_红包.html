@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>三亚七号印相</title>
+</head>
+<body>
+
+<div class="slide">
+    <div class="envelop-content"></div>
+    <div class="envelop-pulse pulse1"></div>
+</div>
+<div class="hongbao">
+    <div class="hongbaoCon1">
+        <div class="packetcon">
+            <h3>三亚七号印相<br><span>的红包</span></h3>
+            <div class="money">金额共 <strong>1000000</strong></div>
+            <div class="btn">拆红包</div>
+        </div>
+    </div>
+    <div class="hongbaoCon2">
+        <div class="packetcon packetcon2">
+            <h3><strong id="rebox_money">￥1000</strong>元婚照代金券</h3>
+            <div class="packetdetail">恭喜您!<br>抽到<strong>三亚七号印相</strong><br>发出的红包</div>
+            <div class="pkform">
+                <form action="http://www.beibaolv.com.cn/api/mail_qihao/form.php" method="post">          
+                <input class="text name" type="text" name="name" placeholder="请填写您的称呼" id="uname">
+                <input class="text phone" type="text" name="phone" placeholder="请填写您的手机号码" id="telephone">
+                <input type="hidden" name="urlf" id="urlf" value="http://www.qihao1314.com">
+                <input type="hidden" name='posttime' id='posttime'/>
+                <div class="btn"><input type="submit" value="立即领取" class="submit"><span></span></div>    
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="bg"></div>
+</div>
+
+<style>
+body{ height: 2000px; background: #2CB4E8; }
+.slide{
+    /*
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    cursor: pointer;
+    */
+    position: fixed; right: 100px; top: 400px;
+}
+
+.envelop-content {
+    position: absolute; left: 0; top: 0; z-index: 99;
+    width: 70px; height: 70px;
+    border-radius: 100%;
+    background-color: white;
+    background-image: url(http://www.kingho.cc/hongbao/images/hongbao.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 55%;
+    display: block;
+}
+.envelop-pulse {
+    width: 70px;
+    height: 70px;
+    background-color: red;
+    border-radius: 100%;
+    animation: pulse1 1s linear .5s infinite;
+}
+
+.hongbao{ display: none;}
+.hongbao .bg{ position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 10000; background: #000; opacity: .3; }
+.hongbaoCon1{
+    width: 360px; height: 410px; position: fixed; top: 50%; left: 50%; z-index: 10001; margin-top: -205px; margin-left: -180px; background:center center url(http://www.kingho.cc/hongbao/images/packetbg.png) no-repeat; background-size: contain;
+}
+.packetcon{ padding: 10px; text-align: center; }
+.packetcon h3 { margin: 0; font-size: 30px; font-family: "microsoft yahei"; color: #d20003; font-weight: normal; margin-top: 100px; line-height: 40px; }
+.packetcon h3 span { color: #e1a73b; }
+.money { font-family: "microsoft yahei"; color: #fff; font-size: 30px; margin-bottom: 30px; padding-top: 40px; }
+.money strong { font-size: 32px; color: #ffd40a; }
+.hongbaoCon1 .btn {
+    width: 90%; height: 60px; line-height: 60px; cursor: pointer; margin: 0 auto;
+    font-size: 30px; color: #630; font-family: "microsoft yahei";
+    text-align: center; text-decoration: none; background: #f7c745; border: 0; border-radius: 30px;
+}
+
+.hongbaoCon2{
+    width: 410px; height: 630px;
+    position: fixed; top: 50%; left: 50%; z-index: 10002; margin-top: -325px; margin-left: -205px; 
+    background: center top url(http://www.kingho.cc/hongbao/images/getbg.png)no-repeat;
+    background-size: contain; display: none;
+}
+.packetcon2 h3 { color: #6f3b11; font-size: 30px; }
+.packetcon2 h3 strong { font-size: 32px; color: #fff; text-shadow: 1px 1px 5px rgba(132, 10, 20, 0.75); margin-right: 10px; }
+.packetdetail { margin-bottom: 15px; padding-top: 95px; font-size: 26px; color: #fff; line-height: 34px; }
+.packetdetail strong { color: #fccf00; font-weight: normal; }
+
+.pkform{ width: 340px; margin: 0 auto; }
+.pkform input.text{
+    display: block; width: 100%; height: 40px; line-height: 40px; font-size: 16px; color: #222;
+    background: #fff; border: 1px solid #ccc;  margin: 0 auto 15px; padding-left: 10px; outline: 0; box-sizing: border-box; letter-spacing: 1px;
+    &::-webkit-input-placeholder{color: #444; opacity:1;}
+}
+.hongbaoCon2 input.text:focus{ border-color: #f60; }
+.pkform .btn{ width: 100%; height: 60px; }
+.pkform .btn .submit{ display: block; width: 100%; height: 45px; line-height: 45px; font-size: 25px; color: #630;     background: #f7c745; border-radius: 0; border: 0; margin-top: 20px; cursor: pointer; letter-spacing: 1px; outline: 0; }
+.pkform .btn .submit:hover{background: #f6c338;}
+
+
+
+.bounceIn{ animation: bounceIn .2s linear 0s; }
+.bounceOut{ animation: bounceOut .3s linear 0s; }
+.bounceIn2{ animation: bounceIn2 .2s linear 0s; }
+.yao1yao{ animation: yao1yao .3s linear 0s infinite; }
+
+@-webkit-keyframes pulse1 {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        opacity: 1
+    }
+    100% {
+        -webkit-transform: scale3d(1.5, 1.5, 1);
+        opacity: 0
+    }
+}
+
+@keyframes pulse1 {
+    0% {
+        transform: scale3d(1, 1, 1);
+        opacity: 1
+    }
+    100% {
+        transform: scale3d(1.5, 1.5, 1);
+        opacity: 0
+    }
+}
+
+@-webkit-keyframes yao1yao {
+    0% { -webkit-transform: rotate(0); }
+    25% { -webkit-transform: rotate(-3deg); }
+    75% { -webkit-transform: rotate(3deg); }
+    100% { -webkit-transform: rotate(0); }
+}
+@keyframes yao1yao {
+    0% { -webkit-transform: rotate(0); transform: rotate(0); }
+    25% { -webkit-transform: rotate(-3deg); transform: rotate(-3deg); }
+    75% { -webkit-transform: rotate(3deg); transform: rotate(3deg); }
+    100% { -webkit-transform: rotate(0); transform: rotate(0); }
+}
+
+@-webkit-keyframes bounceIn {
+    0%{ -webkit-transform:scale(.5); opacity:0;}
+    20%{ -webkit-transform:scale(1.1); opacity:.8;}
+    40%{ -webkit-transform:scale(1); opacity:1;}
+    60%{ -webkit-transform:scale(1.1);}
+    80%{ -webkit-transform:scale(1); }
+    90%{ -webkit-transform:scale(1.1);}
+    100%{ -webkit-transform:scale(1);}
+}
+@keyframes bounceIn {
+    0%{ -webkit-transform:scale(.5); -ms-transform:scale(.5); transform:scale(.5); opacity:0;}
+    20%{ -webkit-transform:scale(1.1); -ms-transform:scale(1.1); transform:scale(1.1); opacity:.8;}
+    40%{ -webkit-transform:scale(1); -ms-transform:scale(1); transform:scale(1); opacity:1;}
+    60%{ -webkit-transform:scale(1.1); -ms-transform:scale(1.1); transform:scale(1.1);}
+    80%{ -webkit-transform:scale(1); -ms-transform:scale(1); transform:scale(1);}
+    90%{ -webkit-transform:scale(1.1); -ms-transform:scale(1.1); transform:scale(1.1);}
+    100%{ -webkit-transform:scale(1); -ms-transform:scale(1); transform:scale(1);}
+}
+@-webkit-keyframes bounceIn2 {
+    0%{ -webkit-transform:scale(.8); opacity:0;}
+    20%{ -webkit-transform:scale(1.1); opacity:1;}
+    40%{ -webkit-transform:scale(1);}
+    60%{ -webkit-transform:scale(1.1);}
+    80%{ -webkit-transform:scale(1);}
+    90%{ -webkit-transform:scale(1.1);}
+    100%{ -webkit-transform:scale(1);}
+}
+@keyframes bounceIn2 {
+    0%{ -webkit-transform:scale(.8); -ms-transform:scale(.8); transform:scale(.8); opacity:0;}
+    20%{ -webkit-transform:scale(1.1); -ms-transform:scale(1.1); transform:scale(1.1); opacity:1;}
+    40%{ -webkit-transform:scale(1); -ms-transform:scale(1); transform:scale(1);}
+    60%{ -webkit-transform:scale(1.1); -ms-transform:scale(1.1); transform:scale(1.1);}
+    80%{ -webkit-transform:scale(1); -ms-transform:scale(1); transform:scale(1);}
+    90%{ -webkit-transform:scale(1.1); -ms-transform:scale(1.1); transform:scale(1.1);}
+    100%{ -webkit-transform:scale(1); -ms-transform:scale(1); transform:scale(1);}
+}
+
+/*
+@-webkit-keyframes bounceOut {
+    100%{ opacity:0;-webkit-transform:scale(.7); transform:scale(.7) }
+    30%{ -webkit-transform:scale(1.03); transform:scale(1.03) }
+    0%{ -webkit-transform:scale(1); transform:scale(1) }
+}
+@keyframes bounceOut {
+    100%{ opacity:0;-webkit-transform:scale(.7); transform:scale(.7) }
+    30%{ -webkit-transform:scale(1.03); transform:scale(1.03) }
+    0%{ -webkit-transform:scale(1); transform:scale(1) }
+}
+@keyframes bounceIn {
+    0%{ opacity:0; -webkit-transform:scale(.5); -ms-transform:scale(.5); transform:scale(.5)}
+    100%{ opacity:1; -webkit-transform:scale(1); -ms-transform:scale(1); transform:scale(1)}
+} 
+*/
+
+</style>
+
+<script src="http://www.qihao1314.com/js/jquery.js"></script>
+<script>
+$(document).ready(function(){
+    $('.slide').click(function(){
+        $('.hongbao').show();
+        $('.hongbaoCon1').addClass('bounceIn');
+        $(this).hide();
+    });
+    $('.hongbao .bg').click(function(){
+        $('.hongbao').hide();
+        $('.slide').show();
+        $('.hongbaoCon1').show();
+        $('.hongbaoCon2').hide();
+        $('.hongbaoCon1').removeClass('bounceIn yao1yao');
+        $('.hongbaoCon2').removeClass('bounceIn2');
+    });
+    
+    //拆红包
+    $('.hongbaoCon1 .btn').click(function(){
+        $('.hongbaoCon1').addClass('yao1yao');
+        setTimeout(function(){
+            $(this).hide();
+            $('.hongbaoCon2').show();
+            $('.hongbaoCon2').addClass('bounceIn2');
+        },1500)
+    });
+    
+    $("#urlf").val( window.location.href );
+    var mydate = new Date();
+    var dateStr = mydate.getFullYear() +"-"+ (mydate.getMonth()+1) +"-"+ mydate.getDate() +" "+ mydate.getHours() +":"+ mydate.getMinutes();
+    $("#posttime").val(dateStr);
+
+    //表单验证
+    $('.hongbao .submit').click(function(){        
+        if( $("#uname").val()==""){
+          alert('请填写您的称呼');
+          return false;
+        }
+        if( $("#telephone").val()=="" || ( !/^1((([3578])\d{9})|(4[57]\d{8}))$/.test( $("#telephone").val() ) ) ){
+          alert('请填写您的手机号码');
+          return false;
+        }
+        $('.hongbao .btn').addClass('dotting')
+        $('.hongbao .btn input').val('红包领取中')
+        //alert("领取成功！");
+        //window.location.reload();    
+    });
+
+
+});
+</script>
+</body>
+</html>

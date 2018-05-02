@@ -1,0 +1,165 @@
+/*
+    720的设计图时: 15rem/48;   750的设计图时: 15rem/50 
+    750/15rem
+*/
+@rex : 50rem;
+
+body,h1,h2,h3,h4,p,dl,dt,dd,ul,li,form,button,input,textarea,th,td,a{margin:0;padding:0}
+body{width:15rem;margin:0 auto; font-family:Helvetica,Arial,"Microsoft YaHei";font-size:12px;color:#555;background:#f3f3f3;}
+body *{-webkit-text-size-adjust:100%;-webkit-user-select:none;}
+a,input,button{-webkit-tap-highlight-color:rgba(0,0,0,0);}
+input,button{-webkit-appearance:none;border-radius:0;}
+img{vertical-align:bottom;background:#f5f5f5;border:0}
+ul,ol,li{list-style:none;}em,i{font-style:normal;}
+a{color:#555;text-decoration:none;}
+input,textarea{outline:0;}
+.fl{float:left}.fr{float:right}.cb{clear:both}
+.p6{padding:6px;}.mb5{margin-bottom:10px;}.mb10{margin-bottom:10px;}
+
+
+/*xBox*/
+.xBox{ 
+    margin-bottom:20/@rex;padding:15/@rex;padding-bottom: 10/@rex; background: #fff; overflow: hidden;
+    .hd{
+        margin-bottom: 10/@rex; padding-bottom: 10/@rex; height: 40/@rex; line-height: 40/@rex; border-bottom: 1.5px solid #ccc;clear: both;
+        h2{
+            float:left;padding-left: 10/@rex;height: 40/@rex; line-height: 40/@rex; font-size:32/@rex; color: #222; font-weight:600;border-left: 6/@rex solid #fa7d3c;
+        }
+        a.more{
+            float: right; padding-right: 4/@rex; font-size: 20/@rex; color: #666;
+        }
+        ul{
+            float:right; margin-top:-10/@rex;height: 60/@rex; line-height: 60/@rex;
+            li{
+                float: left; margin:15/@rex 0; padding: 0 20/@rex; height: 30/@rex; line-height: 30/@rex; font-size: 28/@rex;text-align: center;border-right: 1.5px solid #9d9d9d;
+                &:last-child{ border: none;}
+            }
+        }    
+    }
+}
+
+
+
+
+/*index新闻*/
+.newsBox{
+    .bd .listPic{
+        overflow: hidden;
+        li{
+            position: relative;float: left;width: 350/@rex;height: 218/@rex;text-align: center;
+            &:first-child{ margin-right: 20/@rex;}
+            a{width: 100%;display: block;}
+            img{width: 350/@rex;height: 218/@rex;}
+            h3{
+                position: absolute;bottom: 0;left: 0;display: inline-block; padding:0 5/@rex;width: 340/@rex;height: 50/@rex;line-height: 50/@rex;font-size: 25/@rex;color: #fff;text-align: center; font-weight: normal; background: rgba(0,0,0,.6);overflow: hidden;white-space: nowrap; text-overflow: ellipsis;
+            }
+        }
+    }
+    .bd .listText li{
+        /*margin-bottom: 5px; padding-bottom: 5px;*/
+        height: 72/@rex;line-height: 72/@rex;overflow: hidden;border-bottom: 1px dotted #d6d6d6;
+        a{font-size: 25/@rex;color: #333;display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+    }
+}
+
+
+/*index更多*/
+.page{margin: 15/@rex 0 5/@rex;text-align: center;font-size: 20/@rex;}
+.page .dian{font-size: 15/@rex;color: #ccc;letter-spacing: 10/@rex;margin-left: 10/@rex;}
+.page a{ color:#888;}
+
+/*index更多
+.page{margin: 10px 0;text-align: center;font-size: 10px;}
+.page .dian{font-size: 10px;color: #ccc;letter-spacing: 5px;margin-left: 5px;}
+.page a{ color:#888;}
+*/
+
+/*tourBox*/
+
+.xBox0.tourBox{
+    .bd li{
+        float: left;width: 350/@rex;height: 268/@rex;
+        &:nth-child(2n+1){ margin-right: 20/@rex;}
+        a{width: 100%;display: block;}
+        img{width: 350/@rex;height: 218/@rex;}
+        h3{
+            padding:0 2px;height: 50/@rex;line-height: 50/@rex;
+            font-size: 28/@rex;color: #333;text-align: center; font-weight: normal;
+        }
+            
+    }
+}
+
+
+
+.xBox1.tourBox{
+    .bd li{
+        float: left; margin:5px 5/@rex 0;width: 350/@rex;height: 268/@rex;
+        /*&:nth-child(2n+1){ margin-right: 20/@rex;}*/
+        a{width: 100%;display: block;}
+        img{width: 350/@rex;height: 218/@rex;}
+        h3{
+            padding:0 2px;height: 50/@rex;line-height: 50/@rex;
+            font-size: 28/@rex;color: #333;text-align: center; font-weight: normal;
+        }
+            
+    }
+}
+
+
+
+.xBox.xBox2{
+    padding: 15/@rex 0 10/@rex;
+    .hd{
+        margin-bottom: 10/@rex;padding:0 5/@rex;padding-bottom: 10/@rex; height: 40/@rex; line-height: 40/@rex; border-bottom: 1.5px solid #ccc;clear: both;
+    }
+    .bd{
+        padding:0 10/@rex; overflow: hidden;
+    }
+}
+
+
+.xBox2.tourBox{
+    .bd li{
+        float: left;margin:5px 7.5/@rex 0;width: 350/@rex;height: 268/@rex;
+        a{width: 100%;display: block;}
+        img{width: 350/@rex;height: 218/@rex;}
+        h3{
+            padding:0 2px;height: 50/@rex;line-height: 50/@rex;
+            font-size: 28/@rex;color: #333;text-align: center; font-weight: normal;
+        }
+            
+    }
+}
+
+
+
+
+
+.xBox.xBox3{
+    padding: 15/@rex 0 10/@rex;
+    .hd{
+        margin-bottom: 10/@rex;padding-bottom: 10/@rex; height: 40/@rex; line-height: 40/@rex; border-bottom: 1.5px solid #ccc;clear: both;
+        padding-right: 10/@rex;
+        h2{
+            float:left; margin-left: 5/@rex; padding-left: 10/@rex;height: 40/@rex; line-height: 40/@rex; font-size:32/@rex; color: #222; font-weight:600;border-left: 5/@rex solid #fa7d3c;
+        }
+    }
+    .bd{
+        padding:0 25/@rex; overflow: hidden;
+    }
+}
+
+.xBox3.tourBox{
+    .bd li{
+        float: left;margin-top:5px;width: 340/@rex;height: 263/@rex;
+        &:nth-child(2n+1){ margin-right: 20/@rex;}
+        a{width: 100%;display: block;}
+        img{width: 340/@rex;height: 213/@rex;}
+        h3{
+            padding:0 3px;height: 50/@rex;line-height: 50/@rex;
+            font-size: 28/@rex;color: #333;text-align: center; font-weight: normal;
+        }
+            
+    }
+}

@@ -1,0 +1,38 @@
+/* @rex : 15rem/50; 640的设计图时: 5rem/12;   750的设计图时: 16rem/45 */
+godcss.px2rem(50);
+
+body,h1,h2,h3,h4,p,dl,dt,dd,ul,li,form,button,input,textarea,th,td,a{margin:0;padding:0}
+body{width:15rem;margin:0 auto; font-family:Helvetica,Arial,"Microsoft YaHei";font-size:12px;color:#555;background:#f3f3f3;}
+body *{-webkit-text-size-adjust:100%;-webkit-user-select:none;}
+a,input,button{-webkit-tap-highlight-color:rgba(0,0,0,0);}
+input,button{-webkit-appearance:none;border-radius:0;}
+img{vertical-align:bottom;background:#f5f5f5;border:0}
+ul,ol,li{list-style:none;}em,i{font-style:normal;}
+a{color:#555;text-decoration:none;}
+input,textarea{outline:0;}
+.fl{float:left}.fr{float:right}.cb{clear:both}
+.p6{padding:6px;}.mb5{margin-bottom:10px;}.mb10{margin-bottom:10px;}
+
+/*index新闻*/
+.newsBox{ margin-bottom:20px;padding-top: 10px; padding:15px;background: #fff; overflow: hidden; }
+.newsBox .hd{ margin-bottom: 10px; padding-bottom: 10px; height: 40px; line-height: 40px; border-bottom: 4px solid #ccc;clear: both;}
+.newsBox .hd h2{ float:left;padding-left: 10px;height: 40px; line-height: 40px; font-size:32px; color: #222; font-weight:600;border-left: 6px solid #fa7d3c;}
+.newsBox .hd a.more{ float: right; padding-right: 4px; font-size: 20px; color: #666; }
+.newsBox .hd ul{ float:right; margin-top:-10px;height: 60px; line-height: 60px;}
+.newsBox .hd li{ float: left; margin:15px 0; padding: 0 20px; height: 30px; line-height: 30px; font-size: 30px;text-align: center;border-right: 3px solid #9d9d9d;}
+.newsBox .hd li:last-child{ border: none;}
+
+.newsBox .bd .listPic{overflow: hidden;}
+.newsBox .bd .listPic li{position: relative;float: left;width: 350px;height: 218px;text-align: center;}
+.newsBox .bd .listPic li:first-child{ margin-right: 10px;}
+.newsBox .bd .listPic li a {width: 100%;display: block;}
+.newsBox .bd .listPic li img{width: 350px;height: 218px;}
+.newsBox .bd .listPic h3{position: absolute;bottom: 0;left: 0;display: inline-block; padding:0 5px;width: 340px;height: 50px;line-height: 50px;font-size: 25px;color: #fff;text-align: center; font-weight: normal; background: rgba(0,0,0,.6);overflow: hidden;white-space: nowrap; text-overflow: ellipsis;}
+
+.newsBox .bd .listText li{height: 50px;line-height: 50px;overflow: hidden;border-bottom: 2px dotted #d6d6d6;}
+.newsBox .bd .listText li a{font-size: 25px;color: #333;display: block;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+
+/*index更多*/
+.page{margin: 15px 0;text-align: center;font-size: 20px;}
+.page .dian{font-size: 20px;color: #ccc;letter-spacing: 10px;margin-left: 10px;}
+.page a{ color:#888;}

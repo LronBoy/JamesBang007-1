@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport"/>
+<title>通过css3实现checkbox选择样式</title>
+</head>
+<body>
+<p>
+前端开发过程中，由于不同浏览器间的不兼容性，相同的标签在不同的浏览器中显示不同的效果。尤其在移动端开发中，安卓与iOS表单元素显示各不相共，所以在前端页面开发过程中，需要统一相关样式，前端er需要自己开发相应组件去实现对应标签功能。
+</p>
+<p>
+知识点： css3中before与after选择器，兄弟选择器，checked选择器
+</p>
+<p>
+本示例通过css3实现浏览器下checkbox选中与未选中效果。
+</p>
+<p>
+作者： 朽梨 
+链接：http://www.imooc.com/article/15815
+来源：慕课网
+</p>
+
+<div class='checkbox'>
+    <input type='checkbox' id='checkbox1' name='checkboox[]'>
+    <label for='checkbox1'>篮球</label>
+</div>
+<div class='checkbox'>
+    <input type='checkbox' id='checkbox2' name='checkboox[]'>
+    <label for='checkbox2'>乒乓球</label>
+</div>
+<div class='checkbox'>
+    <input type='checkbox' id='checkbox3' name='checkboox[]' checked>
+    <label for='checkbox3'>足球</label>
+</div>
+
+
+
+
+<style>
+body{ width: 1000px; margin: 0 auto;}
+p{ line-height: 1.8; font-size: 16px; margin-bottom: 10px;}
+
+.checkbox {
+    position: relative;
+    height: 30px;
+}
+.checkbox input[type='checkbox'] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+}
+.checkbox label {
+    position: absolute;
+    left: 30px;
+    top: 0;
+    height: 20px;
+    line-height: 20px;
+}
+.checkbox label:before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+}
+
+.checkbox label:after {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+    border: 0;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    background: #fff;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+}
+
+.checkbox input[type='checkbox']:checked + label:before {
+    background: #4cd764;
+    border-color: #4cd764;
+}
+.checkbox input[type='checkbox']:checked + label:after {
+    background: #4cd764;
+}
+</style>
+
+
+</body>
+</html>
