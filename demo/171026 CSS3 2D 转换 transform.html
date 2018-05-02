@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<title>CSS3变形 transform</title>
+<link rel="stylesheet" href="css/demo.css" />
+<style type="text/css">
+h2{ margin: 50px -20px 20px; padding-left: 20px; line-height: 50px; font-size: 22px; background: #e6e6da; clear: both;}
+p{ line-height: 24px; font-size: 16px; margin: 5px 0;}
+h3{ display: inline-block; margin: 30px 0 10px; padding:0 10px;line-height: 40px; font-size: 18px;background: #eee;}
+h4{padding-left: 10px;line-height: 36px; font-size: 16px; color: red; font-weight: normal; background: #eee; margin-bottom: 10px;}
+h2+h3{ margin-top: 10px;}
+span.code{padding:5px 10px; color: #fff;background-color: #333;border-radius: 5px;}
+p.desc {
+  margin: 5px 0;
+  padding:5px;
+  line-height: 1.5;
+  font-size: 14px;
+  background-color: #ccc;
+}
+p.code{
+  margin: 10px 0;
+  padding:10px;
+  line-height: 1.5;
+  font-size: 14px;
+  color: #000;
+  background-color: #f5f5d5;
+  letter-spacing: .5px;
+}
+
+.cr{ clear: both}
+</style>
+</head>
+<body>
+<div class="wp">
+   
+    <p>transform 字面上是：变换；改变，使…变形；转换的意思。</p>    
+    <p>在CSS3中 transform 的属性包括：旋转 rotate()、位移 translate()、缩放 scale()和扭曲(倾斜) skew()以及矩阵变形 matrix()。下面我们一起来看看CSS3中具体如何实现的吧。</p>
+    <p>
+        语法：<br>
+       transform ： none | &lt;transform-function&gt; [ &lt;transform-function&gt; ]* <br>
+        也就是：<br>
+       transform: rotate | scale | skew | translate |matrix; <br>
+    </p>
+
+    
+    <h2 id="rotate">一、旋转 rotate</h2>
+    <p class="code">.box{ transform: rotate(&lt;angle&gt;) ; }</p>
+    <div class="con">
+        <h4>demo：顺时针旋转30°</h4>
+        <div class="ex1">
+            <div class="div1">旋转30°</div>
+        </div>        
+        <style type="text/css">
+            .ex1{ width: 100px; height: 100px; background: #ccc; margin: 30px auto;}
+            .div1{
+                width: 100px; height: 100px; line-height: 100px; font-size: 16px; color: #fff; text-align: center;  background: #0f9ee4;
+                transform: rotate(30deg);
+             }
+        </style>
+    </div>
+    
+    
+    
+    <h2 id="translate">二、移动 translate</h2>
+    <div class="con">
+        <p class="desc">
+                          移动translate我们分为三种情况：
+            translate(x,y)水平方向和垂直方向同时移动（也就是X轴和Y轴同时移动）；<br>
+            translateX(x)仅水平方向移动（X轴移动）；<br>
+            translateY(Y)仅垂直方向移动（Y轴移动）
+        </p>
+        <p class="code">
+            demo1：水平向右和垂直向下，同时移动30px。       transform: translate(30px,30px);<br>
+            demo2：水平向右移动30px。       transform: translateX(30px);<br>
+            demo3：垂直向下移动30px。       transform: translateY(30px);<br>
+        </p>
+        <div class="box2">
+        	<div class="box-item">
+        		<div class="con1">demo1</div>
+        	</div>
+        	<div class="box-item">
+        		<div class="con2">demo2</div>
+        	</div>
+        	<div class="box-item">
+        		<div class="con3">demo3</div>
+        	</div>
+        </div>
+        <style>
+            .box2{ height: 150px;overflow: hidden; margin-bottom: 50px;}
+            .box2 .box-item{float: left; width: 100px; height: 100px; background: #ccc; margin: 20px 50px;}
+            .box2 .box-item div{ width: 100px; height: 100px; line-height: 100px; font-size: 20px; color: #fff; text-align: center;  background: #0f9ee4;}
+            .box2 .con1{ transform: translate(30px,30px); }
+            .box2 .con2{ transform: translateX(30px); }
+            .box2 .con3{ transform: translateY(30px); }
+        </style>
+    </div>
+    
+    
+    
+    <h2 id="scale">三、缩放 scale</h2>
+    <div class="con">
+        <div class="ex3 div3">
+            <div class="div3-0">
+                <img src="http://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg"/>
+                <p>原图</p>
+            </div>
+            <div class="div3-1">
+                <img src="http://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg"/>
+                <p>放大1.2倍</p>
+            </div>
+            <div class="div3-2">
+                <img src="http://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg"/>
+                <p>水平方向1.5倍</p>
+            </div>
+            <div class="div3-3">
+                <img src="http://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg"/>
+                <p>垂直方向1.5倍</p>
+            </div>
+        </div>  
+        <style type="text/css">
+            .ex3{ height: 150px; background: #ccc; margin: 20px 0; padding: 30px; text-align: center;}
+            .div3 div{ margin-right: 100px; float: left; background: #9cc9f9;}
+            .div3 div:last-child{ margin-right: 0;}
+            .div3 img{ width: 120px; height: 120px;}
+            .div3-0{
+             }             
+            .div3-1 img{transform: scale(1.2,1.2);}
+            .div3-2 img{transform: scaleX(1.5);}
+            .div3-3 img{transform: scaleY(1.5);}
+            
+        </style>
+        
+    </div>
+    
+    <h2 id="skew">四、扭曲 skew</h2>
+    <div class="con">
+        <p>            
+        扭曲skew和translate、scale一样同样具有三种情况：<br>
+        skew(x,y)使元素在水平和垂直方向同时扭曲（X轴和Y轴同时按一定的角度值进行扭曲变形）；<br>
+        skewX(x)仅使元素在水平方向扭曲变形（X轴扭曲变形）；<br>
+        skewY(y)仅使元素在垂直方向扭曲变形（Y轴扭曲变形），具体使用如下：
+        </p>
+        <div class="ex4 div4">
+            <div class="div4-0">
+                <img src="http://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg"/>
+                <p>原图</p>
+            </div>
+            <div class="div4-1">
+                <img src="http://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg"/>
+                <p>X轴+Y轴</p>
+            </div>
+            <div class="div4-2">
+                <img src="http://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg"/>
+                <p>水平方向</p>
+            </div>
+            <div class="div4-3">
+                <img src="http://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg"/>
+                <p>垂直方向</p>
+            </div>
+        </div>  
+        <style type="text/css">
+            .ex4{ height: 150px; background: #ccc; margin: 20px 0; padding: 30px; text-align: center;}
+            .div4 div{ margin-right: 100px; float: left; background: #9cc9f9;}
+            .div3 div:last-child{ margin-right: 0;}
+            .div4 img{ width: 120px; height: 120px; transition: .5s;}
+            .div4-0{}             
+            .div4-1 img:hover{transform: skew(15deg,15deg); }
+            .div4-2 img:hover{transform: skewX(30deg);}
+            .div4-3 img:hover{transform: skewY(30deg);}            
+        </style>        
+    </div>
+    
+    
+    
+    <h2 id="transform-origin">六、transform-origin 属性 </h2>
+    <div class="con">
+        <p>transform-origin定义的是旋转的基点</p>
+        <div class="box6">
+            <div class="box-item">
+                <div class="con1"><br>transform-origin:<br> left top;</div>
+            </div>
+            <div class="box-item">
+                <div class="con2"><br>transform-origin:<br> right;</div>
+            </div>
+            <div class="box-item">
+                <div class="con3"><br>transform-origin:<br> 20% 75%;</div>
+            </div>
+        </div>
+        <style>
+            .box6{ height: 250px;overflow: hidden; margin-bottom: 50px;}
+            .box6 .box-item{float: left; width: 100px; height: 100px; background: #ccc; margin: 50px;}
+            .box6 .box-item div{ width: 100px; height: 100px; line-height: 24px; font-size: 12px; color: #fff; text-align: center;  background: #0f9ee4;}
+            .box6 .con1{ transform: rotate(30deg); transform-origin: left top; }
+            .box6 .con2{ transform: rotate(30deg); transform-origin: right; }
+            .box6 .con3{ transform: rotate(30deg); transform-origin: 20% 75%; }
+        </style>       
+        <h4>demo：顺时针旋转15°</h4>
+        <div class="ex6">
+            <div class="div6">旋转</div>
+        </div>        
+        <style type="text/css">
+            .ex6{ width: 100px; height: 100px; background: #F3F3F3; margin: 20px auto;}
+            .div6{
+                width: 100px; height: 100px; line-height: 100px; font-size: 16px; color: #fff; text-align: center;  background: #f80;                
+                transform-origin: left top;
+             }           
+             .ex6:hover .div6{
+                transform: rotate(360deg);
+                transition: 1s;
+             }
+        </style>
+    </div>
+
+
+<h3>transition 过渡 + transform 转换 应用实例</h3>
+<br>
+
+1、css3 同时实现旋转和缩放(放大或缩小)
+<div class="demo demo1-1"></div>
+<div class="demo demo1-2"></div>
+<style type="text/css">
+    .demo{
+        margin: 10px 0 10px 10px; width: 100px; height: 100px; background: #60f19d; border-radius: 5px;
+        transition: transform 1s ease 0s;
+    }
+    .demo1-1:hover{
+        transform: rotate(360deg) scale(1.5);
+    }
+    .demo1-2:hover{
+        transform: rotate(360deg) scale(.5);
+    }
+</style>
+
+2、CSS3 实现位移并且带有放大或缩小的效果
+<div class="demo demo2-1"></div>
+<div class="demo demo2-2"></div>
+<style type="text/css">
+    .demo2-1:hover{
+        transform: scale(1.2) translateX(100px);
+    }
+    .demo2-2:hover{
+        transform: scale(.8) translateX(100px);
+    }
+</style>
+
+3、css3 旋转后发生位移
+<div class="demo demo3"></div>
+<style type="text/css">
+    .demo3{
+        animation: demo3 3s linear 0s infinite;
+    }
+    @keyframes demo3{
+        0%{}
+        30%{ transform: rotate(360deg); }
+        60%{ transform: translateX(100px); }
+        100%{ transform: translateX(100px); }
+    }
+</style>
+
+
+</div>
+
+
+
+
+
+
+</body>
+</html>

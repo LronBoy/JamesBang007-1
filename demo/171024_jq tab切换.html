@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<link rel="stylesheet" href="css/demo.css" />
+</head>
+<body>
+
+<div class="tab-con">
+    <ul class="on">
+    	<li>tab-1-1</li>
+    	<li>tab-1-2</li>
+    	<li>tab-1-3</li>
+    </ul>
+    <ul>
+    	<li>tab-2-1</li>
+    	<li>tab-2-2</li>
+    	<li>tab-2-2</li>
+    </ul>
+    <ul>
+        <li>tab-3-1</li>
+        <li>tab-3-2</li>
+        <li>tab-3-3</li>
+    </ul>
+    <ul>
+        <li>tab-4-1</li>
+        <li>tab-4-2</li>
+        <li>tab-4-3</li>
+    </ul>
+    <a href="javascript:void(0);" class="tBtn prev"></a>
+    <a href="javascript:void(0);" class="tBtn next"></a>
+</div>
+<style type="text/css">
+	.tab-con{ margin: 30px 0; padding: 10px; height: auto; background: #ccc;  clear: both; position: relative;}
+	.tab-con ul{ display: none;}
+	.tab-con ul.on{ display: block;}
+	.tab-con ul li{ margin: 10px 0; height: 50px; line-height: 50px; font-size: 20px; text-align: center; color: #fff; background: #007779;}
+	.tab-con ul li:nth-child(2){ background: #007AFF;}
+	.tab-con ul li:nth-child(3){ background: #f80;}
+	.tab-con .tBtn{ position: absolute; top: 50%; margin-top: -34px; width: 40px; height: 68px; font-size: 0; background-image: url(./img/icon-slides.png);}
+    .tab-con .prev{ left: 5px; background-position: -84px 0;}
+    .tab-con .next{ right: 5px;  background-position: -126px 0;}
+    .tab-con .prev:hover{ background-position: 0 0;}
+    .tab-con .next:hover{ background-position: -42px 0;}
+	
+</style>
+<script src="./js/jquery1.11.3.min.js"></script>
+<script>
+    
+// 方法一：
+/*
+var l = $(".tab-con ul").length;
+console.log( l );
+$(".tBtn.next").click(function(){
+    var i = $(".tab-con ul.on").index();
+    console.log( i );    
+    if(i+1<l){
+        $(".tab-con ul").eq(i).removeClass("on");
+        $(".tab-con ul").eq(i+1).addClass("on");
+    }else{        
+        $(".tab-con ul").eq(l-1).removeClass("on");
+        $(".tab-con ul").eq(0).addClass("on");
+    }    
+});
+$(".tBtn.prev").click(function(){
+    var i = $(".tab-con ul.on").index();
+    console.log( i );    
+    if(i>0){
+        $(".tab-con ul").eq(i).removeClass("on");
+        $(".tab-con ul").eq(i-1).addClass("on");
+    }else{        
+        $(".tab-con ul").eq(0).removeClass("on");
+        $(".tab-con ul").eq(l-1).addClass("on");
+    }    
+});
+*/
+
+
+//方法二：jQuery :visible 选择器 选取每个当前是可见的元素。
+
+var l = $(".tab-con ul").length;
+console.log( l );
+$(".tBtn.next").click(function(){
+    var i = $(".tab-con ul:visible").index();
+    console.log( i );    
+    if(i+1<l){
+        $(".tab-con ul").eq(i).hide();
+        $(".tab-con ul").eq(i+1).fadeIn();
+    }else{        
+        $(".tab-con ul").eq(l-1).hide();
+        $(".tab-con ul").eq(0).fadeIn();
+    }    
+});
+$(".tBtn.prev").click(function(){
+    var i = $(".tab-con ul:visible").index();
+    console.log( i );    
+    if(i>0){
+        $(".tab-con ul").eq(i).hide();
+        $(".tab-con ul").eq(i-1).fadeIn();
+    }else{        
+        $(".tab-con ul").eq(0).hide();
+        $(".tab-con ul").eq(l-1).fadeIn();
+    }    
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<title>CSS3 弹性盒模型(Flex Box)</title>
+<link rel="stylesheet" href="css/demo.css" />
+<style type="text/css">
+img{ width: 100%; height: auto;}
+
+h2{ margin: 50px -20px 20px; padding-left: 20px; line-height: 50px; font-size: 22px; background: #e6e6da;}
+p{ line-height: 24px; font-size: 16px; margin: 5px 0;}
+h3{ display: inline-block; margin: 30px 0 10px; padding:0 10px;line-height: 40px; font-size: 18px;background: #eee;}
+h4{padding-left: 10px;line-height: 36px; font-size: 16px; color: red; font-weight: normal; background: #eee; margin-bottom: 10px;}
+h2+h3{ margin-top: 10px;}
+span.code{padding:5px 10px; color: #fff;background-color: #333;border-radius: 5px;}
+
+.list{ margin: 10px;}
+.list li{margin: 5px; line-height: 24px; font-size: 14px; list-style: disc;}
+
+
+#box{
+    /*老版弹性盒模型*/
+    display: -webkit-box;
+    /*新版弹性盒模型*/
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #eee;
+    border: 2px solid #ccc;
+}
+p.desc {
+  margin: 5px 0;
+  padding:5px;
+  line-height: 1.5;
+  font-size: 14px;
+  background-color: #ccc;
+}
+p.code{
+  margin: 10px 0;
+  padding:10px;
+  line-height: 1.5;
+  font-size: 14px;
+  color: #000;
+  background-color: #f5f5d5;
+  letter-spacing: .5px;
+}
+
+.cr{ clear: both}
+</style>
+</head>
+<body>
+<div class="wp">
+
+<p>注意，设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。</p>
+
+<div class="box0">
+    <div class="box-item">1</div>
+    <div class="box-item">2</div>
+    <div class="box-item">3</div>
+</div>
+<style>
+.box0{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: auto;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #ccc;
+}
+.box0 .box-item{
+    margin: 5px;
+    line-height: 100px;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    background: #44cef6;
+    
+    flex: 1;
+}
+@media all and (max-width:500px){
+ .box0 .box-item{
+    height: 50px;
+    line-height: 50px;
+    
+    flex-basis: 1;
+ }
+}
+</style>
+
+
+
+<h2>CSS3 弹性盒子内容</h2>
+<p>
+弹性盒子由弹性容器(Flex container)和弹性子元素(Flex item)组成。<br>
+弹性容器通过设置 display 属性的值为 flex 或 inline-flex将其定义为弹性容器。<br>
+弹性容器内包含了一个或多个弹性子元素。<br>
+<span style="color: #f50;">注意：</span> 弹性容器外及弹性子元素内是正常渲染的。弹性盒子只定义了弹性子元素如何在弹性容器内布局。
+</p>
+
+
+<h2>弹性盒子属性</h2>
+<p><img src="http://saki007ster.github.io/public/images/flex-container.png" alt="placeholder" title="Flexbox properties" width="800px"></p>
+
+<ul class="list">
+ <li><strong>主轴(main axis)，主轴区域(main dimension)</strong>。弹性容器的主轴指的是弹性元素主要沿着哪个方向布局。它在主轴区域中延伸。</li>
+ <li><strong>主轴起点(main-Start)，主轴终点(main-end)</strong>。弹性元素被放置于容器中从主轴起点到主轴终点放置。</li>
+ <li><strong>主轴尺寸(main size)，主轴尺寸属性(main size property)</strong>。一个弹性元素的主轴尺寸指的是其在主轴区域内的长度。其主轴尺寸属性指的是其对应的属性。</li>
+ <li><strong>侧轴(cross axis)，侧轴区域(cross dimension)</strong>。侧轴垂直于主轴。它在侧轴区域中延伸。</li>
+ <li><strong>侧轴起点(cross-Start)，侧轴终点(cross-end)</strong>。浮动行被元素填充，并且在容器中沿侧轴方向从起点向终点分布。</li>
+ <li><strong>侧轴尺寸(cross size)，侧轴尺寸属性(cross size property)</strong>。一个弹性元素的侧轴尺寸指的是其在侧轴区域内的长度。其侧轴尺寸属性指的是其对应的属性</li>
+</ul>
+
+
+<h2 id="flexBox">弹性容器属性</h2>
+
+<h3 id="flex-direction">1、flex-direction属性</h3>
+<p class="desc">flex-direction属性决定主轴的方向（即项目的排列方向）。</p>
+<p class="code">.box { flex-direction: row | row-reverse | column | column-reverse; }</p>
+
+<div class="box1 box1-1">    
+    <div class="box-item">1</div>
+    <div class="box-item">2</div>
+    <div class="box-item">3</div>
+    <div class="box-item">4</div>
+    <div class="box-item">5</div>
+</div>
+<div class="box1 box1-2">
+    <div class="box-item">1</div>
+    <div class="box-item">2</div>
+    <div class="box-item">3</div>
+    <div class="box-item">4</div>
+    <div class="box-item">5</div>
+</div>
+<div class="box1 box1-3">
+    <div class="box-item">1</div>
+    <div class="box-item">2</div>
+    <div class="box-item">3</div>
+</div>
+<div class="box1 box1-4">
+    <div class="box-item">1</div>
+    <div class="box-item">2</div>
+    <div class="box-item">3</div>
+</div>
+<div class="cr"></div>
+
+<style>
+.box1{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: auto;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #ccc;
+}
+.box1 .box-item{
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    background: #44cef6;
+    background-image: linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%);
+}
+.box1-1{
+  flex-direction: row
+}
+.box1-2{
+  flex-direction: row-reverse
+}
+.box1-3{
+  float: left;
+  height: 250px;
+  flex-direction: column
+}
+.box1-4{
+  float: right;
+  height: 250px;
+  flex-direction: column-reverse
+}
+</style>
+
+
+
+<h3 id="flex-wrap">2、flex-wrap属性</h3>
+<p class="desc">默认情况下，项目都排在一条线（又称"轴线"）上。flex-wrap属性定义，如果一条轴线排不下，如何换行</p>
+<p class="code">
+.box { flex-wrap: nowrap | wrap | wrap-reverse; }
+</p>
+
+<p class="desc">nowrap（默认）：不换行。</p>
+<div class="box2 box2-1">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+  <div class="box-item"><span>4</span></div>
+  <div class="box-item"><span>5</span></div>
+  <div class="box-item"><span>6</span></div>
+  <div class="box-item"><span>7</span></div>
+  <div class="box-item"><span>8</span></div>
+  <div class="box-item"><span>9</span></div>
+  <div class="box-item"><span>10</span></div>
+</div>
+<p class="desc">wrap：换行，第一行在上方。</p>
+<div class="box2 box2-2">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+  <div class="box-item"><span>4</span></div>
+  <div class="box-item"><span>5</span></div>
+  <div class="box-item"><span>6</span></div>
+  <div class="box-item"><span>7</span></div>
+  <div class="box-item"><span>8</span></div>
+  <div class="box-item"><span>9</span></div>
+  <div class="box-item"><span>10</span></div>
+</div>
+<p class="desc">wrap-reverse：换行，第一行在下方。</p>
+<div class="box2 box2-3">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+  <div class="box-item"><span>4</span></div>
+  <div class="box-item"><span>5</span></div>
+  <div class="box-item"><span>6</span></div>
+  <div class="box-item"><span>7</span></div>
+  <div class="box-item"><span>8</span></div>
+  <div class="box-item"><span>9</span></div>
+  <div class="box-item"><span>10</span></div>
+</div>
+
+<style>
+.box2{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: auto;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #eee;
+}
+.box2 .box-item{
+    margin: 5px;
+    width: 100px;
+    height: 100px;
+    background: #44cef6;
+    background-image: linear-gradient( 135deg, #FEB692 10%, #EA5455 100%); 
+}
+.box2 .box-item span{
+    display: block;
+    margin: 15px auto 0;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+    color: #333;
+    text-align: center;
+    background: #fff;
+    border-radius: 50%;
+}
+.box2-1{
+  flex-wrap: nowrap;
+}
+.box2-2{
+  flex-wrap: wrap;
+}
+.box2-3{
+  flex-wrap: wrap-reverse;
+}
+@media all and (max-width:500px){
+ .box2-1 .box-item{
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+ }
+ .box2-2 .box-item,
+ .box2-3 .box-item{
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+ }
+ .box2 .box-item span{
+    margin: 10px auto 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+ }
+}
+</style>
+
+
+
+<h3 id="flex-flow">3、flex-flow 属性</h3>
+<p class="desc">flex-flow属性是 flex-direction 属性和 flex-wrap 属性的简写形式，可以同时定义主轴和侧轴，默认值为 row nowrap。</p>
+
+
+
+<h3 id="justify-content">4、justify-content 属性</h3>
+<p class="desc">justify-content 属性设置子元素在主轴（横轴）方向上的对齐方式。</p>
+<p class="code">
+.box { justify-content: flex-start | flex-end | center | space-between | space-around ; }
+</p>
+
+<p class="desc">flex-start（默认值）：左对齐</p>
+<div class="box4 box4-1">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+</div>
+<p class="desc">flex-end：右对齐</p>
+<div class="box4 box4-2">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+</div>
+<p class="desc">center： 居中对齐</p>
+<div class="box4 box4-3">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+</div>
+<p class="desc">space-between：两端对齐，项目之间的间隔都相等。</p>
+<div class="box4 box4-4">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+</div>
+<p class="desc">space-around：子元素两侧的间隔相等。所以，子元素之间的间隔比子元素与边框的间隔大一倍。</p>
+<div class="box4 box4-5">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+</div>
+
+<style>
+.box4{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: auto;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #ccc;
+}
+.box4 .box-item{
+    margin: 5px;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    background: #44cef6;
+    background-image: linear-gradient( 135deg, #CE9FFC 10%, #7367F0 100%);
+}
+.box4 .box-item span{
+    display: block;
+    margin: 15px auto 0;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+    color: #333;
+    text-align: center;
+    background: #fff;
+    border-radius: 50%;
+}
+.box4-1{
+  justify-content: flex-start;
+}
+.box4-2{
+  justify-content: flex-end;
+}
+.box4-3{
+  justify-content: center;
+}
+.box4-4{
+  justify-content: space-between;
+}
+.box4-5{
+  justify-content: space-around;
+}
+@media all and (max-width:500px){
+ .box4 .box-item{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+ }
+ .box4 .box-item span{
+    margin: 10px auto 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+ }
+}
+</style>
+
+
+
+<h3 id="align-items">5、align-items  属性</h3>
+<p class="desc">align-items 设置或检索弹性盒子元素在侧轴（纵轴）方向上的对齐方式。</p>
+<p class="code">
+.box { align-items: flex-start | flex-end | center | baseline | stretch ; }
+</p>
+
+<p class="desc">flex-start：侧轴（纵轴）起点对齐。</p>
+<div class="box5 box5-1">
+    <div class="box-item">1</div>
+    <div class="box-item box-item2">2</div>
+    <div class="box-item">3</div>
+    <div class="box-item box-item4">4</div>    
+    <div class="box-item box-item5">5</div>
+</div>
+<p class="desc">flex-end：侧轴（纵轴）终点对齐。</p>
+<div class="box5 box5-2">
+    <div class="box-item">1</div>
+    <div class="box-item box-item2">2</div>
+    <div class="box-item">3</div>
+    <div class="box-item box-item4">4</div>    
+    <div class="box-item box-item5">5</div>
+</div>
+<p class="desc">center：侧轴（纵轴）居中对齐。</p>
+<div class="box5 box5-3">
+    <div class="box-item">1</div>
+    <div class="box-item box-item2">2</div>
+    <div class="box-item">3</div>
+    <div class="box-item box-item4">4</div>    
+    <div class="box-item box-item5">5</div>
+</div>
+<p class="desc">baseline：第一行文字的基线对齐。</p>
+<div class="box5 box5-4">
+    <div class="box-item">1</div>
+    <div class="box-item box-item2">2</div>
+    <div class="box-item">3</div>
+    <div class="box-item box-item4">4</div>    
+    <div class="box-item box-item5">5</div>
+</div>
+<p class="desc">stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</p>
+<div class="box5 box5-5">
+    <div class="box-item">1</div>
+    <div class="box-item box-item2">2</div>
+    <div class="box-item">3</div>
+    <div class="box-item box-item4">4</div>    
+    <div class="box-item box-item5">5</div>
+</div>
+
+<style>
+.box5{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: 300px;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #ccc;
+}
+.box5 .box-item{
+    margin: 5px;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    background: #44cef6;
+    background-image: linear-gradient( 135deg, #81FBB8 10%, #28C76F 100%);
+}
+.box5 .box-item2{
+    font-size: 100px;
+    height: 250px;
+}
+.box5 .box-item4{
+    font-size: 80px;
+    height: 200px;
+}
+.box5-5 .box-item{ height: auto !important;}
+
+.box5-1{
+  align-items: flex-start;
+}
+.box5-2{
+  align-items: flex-end;
+}
+.box5-3{
+  align-items: center;
+}
+.box5-4{
+  align-items: baseline;
+}
+.box5-5{
+  align-items: stretch;
+}
+</style>
+
+
+
+<h3 id="align-content">6、align-content 属性</h3>
+<p class="desc">align-content 属性设置多根轴线的对齐方式（修改 flex-wrap 属性的行为）。</p>
+<p class="code">
+.box { align-content: flex-start | flex-end | center | space-between | space-around | stretch ; }
+</p>
+
+<p class="desc">flex-start：各行在侧轴（纵轴）起点对齐。</p>
+<div class="box6 box6-1">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+  <div class="box-item"><span>4</span></div>
+  <div class="box-item"><span>5</span></div>
+  <div class="box-item"><span>6</span></div>
+  <div class="box-item"><span>7</span></div>
+  <div class="box-item"><span>8</span></div>
+  <div class="box-item"><span>9</span></div>
+</div>
+<p class="desc">flex-end：各行在侧轴（纵轴）终点对齐。</p>
+<div class="box6 box6-2">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+  <div class="box-item"><span>4</span></div>
+  <div class="box-item"><span>5</span></div>
+  <div class="box-item"><span>6</span></div>
+  <div class="box-item"><span>7</span></div>
+  <div class="box-item"><span>8</span></div>
+  <div class="box-item"><span>9</span></div>
+</div>
+<p class="desc">center：各行在侧轴（纵轴）居中对齐。</p>
+<div class="box6 box6-3">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+  <div class="box-item"><span>4</span></div>
+  <div class="box-item"><span>5</span></div>
+  <div class="box-item"><span>6</span></div>
+  <div class="box-item"><span>7</span></div>
+  <div class="box-item"><span>8</span></div>
+  <div class="box-item"><span>9</span></div>
+</div>
+<p class="desc">space-between：两端对齐。各行在弹性盒容器中平均分布，两端子元素对齐边线。</p>
+<div class="box6 box6-4">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+  <div class="box-item"><span>4</span></div>
+  <div class="box-item"><span>5</span></div>
+  <div class="box-item"><span>6</span></div>
+  <div class="box-item"><span>7</span></div>
+  <div class="box-item"><span>8</span></div>
+  <div class="box-item"><span>9</span></div>
+  <div class="box-item"><span>10</span></div>
+</div>
+<p class="desc">space-around：各行在弹性盒容器中平均分布，两端保留子元素之间间距大小的一半。</p>
+<div class="box6 box6-5">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+  <div class="box-item"><span>4</span></div>
+  <div class="box-item"><span>5</span></div>
+  <div class="box-item"><span>6</span></div>
+  <div class="box-item"><span>7</span></div>
+  <div class="box-item"><span>8</span></div>
+  <div class="box-item"><span>9</span></div>
+  <div class="box-item"><span>10</span></div>
+  <div class="box-item"><span>11</span></div>
+</div>
+<p class="desc">默认。各行将会伸展以占用剩余的空间。</p>
+<div class="box6 box6-6">
+  <div class="box-item"><span>1</span></div>
+  <div class="box-item"><span>2</span></div>
+  <div class="box-item"><span>3</span></div>
+  <div class="box-item"><span>4</span></div>
+  <div class="box-item"><span>5</span></div>
+  <div class="box-item"><span>6</span></div>
+  <div class="box-item"><span>7</span></div>
+  <div class="box-item"><span>8</span></div>
+  <div class="box-item"><span>9</span></div>
+  <div class="box-item"><span>10</span></div>
+  <div class="box-item"><span>11</span></div>
+</div>
+<style>
+.box6{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: 350px;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #ccc;
+}
+.box6 .box-item{
+    margin: 5px;
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    background: #afdd22;
+    background-image: linear-gradient( 135deg, #FAD7A1 10%, #E96D71 100%);
+}
+.box6-4{
+    height: 400px;
+}
+.box6-5{
+    height: 600px;
+}
+.box6-4 .box-item,
+.box6-5 .box-item{
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+}
+.box6-6 .box-item{
+    height: auto;
+}
+.box6 .box-item span{
+    display: block;
+    margin: 15px auto 0;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+    color: #333;
+    text-align: center;
+    background: #fff;
+    border-radius: 50%;
+}
+.box6-1{
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+.box6-2{
+    flex-wrap: wrap;
+    align-content: flex-end;
+}
+.box6-3{
+    flex-wrap: wrap;
+    align-content: center;
+}
+.box6-4{
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+.box6-5{
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+.box6-6{
+    flex-wrap: wrap;
+    align-content: stretch;
+}
+@media all and (max-width:500px){
+ .box6{
+    height: 200px;
+ }
+ .box6-4,
+ .box6-5,
+ .box6-6{
+    height: 300px;
+ }
+ .box6 .box-item{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+ }
+ .box6-4 .box-item,
+ .box6-5 .box-item{
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+ }
+ .box6-6 .box-item{
+    height: auto;
+ }
+ .box6 .box-item span{
+    margin: 10px auto 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+ }
+}
+</style>
+
+
+
+
+
+<h2 id="subBox">弹性子元素属性</h2>
+
+
+<h3 id="order">（1）、order 排序</h3>
+<p class="desc">order属性定义子元素的排列顺序。数值越小，排列越靠前，默认为0。</p>
+
+<div class="sbox1">
+    <div class="box-item o4"><span>1</span><em>order:4</em></div>
+    <div class="box-item"><span>2</span></div>
+    <div class="box-item"><span>3</span></div>
+    <div class="box-item o-1"><span>4</span><em>order:-1</em></div>
+</div>
+<style>
+.sbox1{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: auto;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #ccc;
+}
+.sbox1 .box-item{
+    margin: 5px;
+    width: 100px;
+    height: 100px;
+    color: #fff;
+    text-align: center;
+    background: #44cef6;
+    background-image: linear-gradient( 135deg, #81FBB8 10%, #28C76F 100%);
+}
+.sbox1 .box-item span{
+    display: block;
+    padding-top: 20px;
+    line-height: 40px;
+    font-size: 30px;
+}
+.sbox1 .box-item em{
+    display: block;
+    line-height: 20px;
+    font-size: 16px;
+}
+.sbox1 .box-item.o4{
+    order: 4;
+}
+.sbox1 .box-item.o-1{
+    order: -1;
+}
+@media all and (max-width:500px){
+ .sbox1 .box-item{
+    width: 60px;
+    height: 60px;
+ }
+ .sbox1 .box-item span{
+    padding-top: 15px;
+    line-height: 20px;
+    font-size: 16px;
+ }
+ .sbox1 .box-item em{
+    line-height: 16px;
+    font-size: 12px;
+ }
+}
+</style>
+
+
+<h3 id="align-self">（2）、align-self 属性</h3>
+<p class="desc">align-self 属性用于设置弹性子元素在侧轴（纵轴）方向上的对齐方式。</p>
+<p class="code">
+    .item{ align-self: auto | flex-start | flex-end | center | baseline | stretch ; }
+</p>
+<div class="desc">以下实例演示了弹性子元素上 align-self 不同值的应用效果：</div>
+
+<div class="sbox2">
+    <div class="box-item fs">flex-start</div>
+    <div class="box-item fe">flex-end</div>
+    <div class="box-item ce">center</div>
+    <div class="box-item bl">baseline</div>
+    <div class="box-item st">stretch</div>
+</div>
+<style>
+.sbox2{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: 250px;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #ccc;
+}
+.sbox2 .box-item{
+    margin: 5px;
+    width: 100px;
+    line-height: 100px;
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+    background: #44cef6;
+    background-image: linear-gradient( 135deg, #CE9FFC 10%, #7367F0 100%);
+}
+.sbox2 .fs{
+    align-self: flex-start;
+}
+.sbox2 .fe{
+    align-self: flex-end;
+}
+.sbox2 .ce{
+    align-self: center;
+}
+.sbox2 .bl{
+    align-self: baseline;
+}
+.sbox2 .st{
+    align-self: stretch;
+}
+
+@media all and (max-width:500px){
+ .sbox2{
+     height: 150px;
+ }
+ .sbox2 .box-item{
+    width: 60px;
+    line-height: 60px;
+    font-size: 12px;
+ }
+}
+</style>
+
+
+
+<h3 id="flex-grow">（3）、flex-grow 属性</h3>
+<p class="desc">flex-grow属性设置弹性子元素放大比例，默认为0，即如果存在剩余空间，也不放大。</p>
+<p class="code">
+.item { flex-grow: number; }
+</p>
+
+<div class="sbox3">
+    <div class="box-item fg1">flex-grow: 1</div>
+    <div class="box-item fg1">flex-grow: 1</div>
+    <div class="box-item fg1">flex-grow: 1</div>
+</div>
+<div class="sbox3">
+    <div class="box-item fg1">flex-grow: 1</div>
+    <div class="box-item fg2">flex-grow: 2</div>
+    <div class="box-item fg1">flex-grow: 1</div>
+</div>
+<style>
+.sbox3{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: auto;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #ccc;
+}
+.sbox3 .box-item{
+    margin: 5px;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    background: #44cef6;
+    background-image: linear-gradient( 135deg, #FAD7A1 10%, #E96D71 100%);
+}
+.sbox3 .box-item.fg1{
+    flex-grow: 1;
+}
+.sbox3 .box-item.fg2{
+    flex-grow: 2;
+}
+
+@media all and (max-width:500px){
+ .sbox3 .box-item{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 12px;
+ }
+}
+</style>
+
+
+
+<h3 id="flex-shrink">（4）、flex-shrink 属性</h3>
+<p class="desc">flex-shrink属性设置弹性子元素的缩小比例，默认为1，即如果空间不足，该项目将缩小。</p>
+<p class="code">
+.item { flex-shrink: number; }
+</p>
+
+<div class="sbox4">
+    <div class="box-item fs1">flex-shrink: 1</div>
+    <div class="box-item fs1">flex-shrink: 1</div>
+    <div class="box-item fs1">flex-shrink: 1</div>
+</div>
+<div class="sbox4">
+    <div class="box-item fs1">flex-shrink: 1</div>
+    <div class="box-item fs0">flex-shrink: 0</div>
+    <div class="box-item fs1">flex-shrink: 1</div>
+</div>
+<style>
+.sbox4{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: auto;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #ccc;
+}
+.sbox4 .box-item{
+    margin: 5px;
+    width: 400px;
+    height: 100px;
+    line-height: 100px;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    background: #44cef6;
+    background-image: linear-gradient( 135deg, #81FBB8 10%, #28C76F 100%);
+}
+.sbox4 .box-item.fs0{
+    flex-shrink: 0;
+}
+
+@media all and (max-width:500px){
+ .sbox4 .box-item{
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 12px;
+ }
+}
+</style>
+
+
+
+<h3 class="flex-basis">（5）、flex-basis 属性</h3>
+<p class="desc">flex-basis属性定义弹性盒子元素的默认基准值。</p>
+<p class="code">
+.item { flex-basis: length | auto; }
+</p>
+
+<div class="sbox5">
+    <div class="box-item">1</div>
+    <div class="box-item">2</div>
+    <div class="box-item">3</div>
+</div>
+<style>
+.sbox5{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: auto;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #ccc;
+}
+.sbox5 .box-item{
+    margin: 5px;
+    width: 400px;
+    height: 100px;
+    line-height: 100px;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    background: #44cef6;
+    background-image: linear-gradient( 135deg, #CE9FFC 10%, #7367F0 100%);
+    
+    flex-basis: 250px;
+}
+@media all and (max-width:500px){
+ .sbox5 .box-item{
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    
+    flex-basis: 100px;
+ }
+}
+</style>
+
+
+
+<h3 class="flex">（6）、flex 属性</h3>
+<p class="desc">flex 属性用于指定弹性子元素如何分配空间。是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。</p>
+<p class="code">
+.item {  flex：none | [ flex-grow ] || [ flex-shrink ] || [ flex-basis ] ; }
+</p>
+
+<div class="sbox6">
+    <div class="box-item">1</div>
+    <div class="box-item">2</div>
+    <div class="box-item">3</div>
+</div>
+<style>
+.sbox6{
+    margin-bottom: 10px;
+    padding: 5px;
+    height: auto;
+    display: -webkit-flex; /* chrome & Safari */
+    display: flex;
+    background: #ccc;
+}
+.sbox6 .box-item{
+    margin: 5px;
+    height: 100px;
+    line-height: 100px;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    background: #44cef6;
+    background-image: linear-gradient( 135deg, #FAD7A1 10%, #E96D71 100%);
+    
+    flex: 1;
+}
+@media all and (max-width:500px){
+ .sbox6 .box-item{
+    height: 50px;
+    line-height: 50px;
+    
+    flex-basis: 1;
+ }
+}
+</style>
+
+
+
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0}
+body{font-family: arial,'Microsoft Yahei','\5b8b\4f53',sans-serif;font-size: 12px;line-height: 1.5;background: #f3f3f3;color: #444;}
+button,input,select,textarea{font-size:100%}
+h1,h2,h3,h4,h5,h6{font-size:100%}
+address,cite,dfn,em,var{font-style:normal}
+ul,ol,li{list-style:none;}
+a:link,a:visited{color:#136ec2;text-decoration:none;}
+a:hover,a:active{color:#d22222;text-decoration: underline;}
+::selection {background: #1ab4f7;color: #fff;text-shadow: none;}
+
+body{ width: 1000px; margin: 0 auto; font-size: 14px; color: #333; background: #eee; padding-bottom: 100px;}
+.wp{ max-width: 1000px;margin: 0 auto; padding: 20px; background: #fff;}
+
+@media all and (max-width:800px){
+ body{ width: 100%; min-width: 360px; margin: 0 auto; }
+ .wp{padding: 10px; overflow: hidden;}
+ h2{ margin: 50px -10px 20px; padding-left: 10px;}
+}

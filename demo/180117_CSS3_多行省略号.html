@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<title>CSS3 弹性盒模型(Flex Box)</title>
+<link rel="stylesheet" href="css/demo.css" />
+<style type="text/css">
+img{ width: 100%; height: auto;}
+
+h2{ margin: 50px -20px 20px; padding-left: 20px; line-height: 50px; font-size: 22px; background: #e6e6da;}
+p{ line-height: 24px; font-size: 16px; margin: 5px 0;}
+
+p.desc {
+  margin: 5px 0;
+  padding:5px;
+  line-height: 1.5;
+  font-size: 14px;
+  background-color: #ccc;
+}
+p.code{
+  margin: 10px 0;
+  padding:10px;
+  line-height: 1.5;
+  font-size: 14px;
+  color: #000;
+  background-color: #f5f5d5;
+  letter-spacing: .5px;
+}
+
+.cr{ clear: both}
+</style>
+</head>
+<body>
+<div class="wp">
+    <h2>单行文本 溢出显示省略号（…）</h2>
+    <div class="box1">
+        <p>邦邦的小站_分享Web前端技术和PHP技术的学习心得！这是一个demo，css单行文本溢出显示省略号。</p>
+    </div>
+    <style>
+        .box1{
+            width: 600px; max-width: 90%;
+        }
+        .box1 p{
+            line-height: 24px;
+            font-size: 14px;
+            
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+         }
+    </style>
+    
+
+    <h2>多行文本 溢出显示省略号（…）</h2>
+    <div class="box2">
+        <p>邦邦的小站_分享Web前端技术和PHP技术的学习心得！这是一个demo，css3多行文本溢出显示省略号。邦邦的小站_分享Web前端技术和PHP技术的学习心得！这是一个demo，css3多行文本溢出显示省略号。邦邦的小站_分享Web前端技术和PHP技术的学习心得！这是一个demo，css3多行文本溢出显示省略号。邦邦的小站_分享Web前端技术和PHP技术的学习心得！这是一个demo，css3多行文本溢出显示省略号。</p>
+    </div>
+    <style>
+        .box2{
+            width: 600px; max-width: 90%;
+        }
+        .box2 p{
+            line-height: 24px;
+            font-size: 14px;
+            
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+         }
+    </style>
+    
+    <!--
+    <h2>多行文本 溢出显示省略号（…）</h2>
+    <div class="box3">
+        <p>邦邦的小站_分享Web前端技术和PHP技术的学习心得！这是一个demo，css3多行文本溢出显示省略号。邦邦的小站_分享Web前端技术和PHP技术的学习心得！邦邦的小站_分享Web前端技术和PHP技术的学习心得！邦邦的小站_分享Web前端技术和PHP技术的学习心得！邦邦的小站_分享Web前端技术和PHP技术的学习心得！邦邦的小站_分享Web前端技术和PHP技术的学习心得！</p>
+    </div>
+    <style>
+        .box3{
+            width: 600px; max-width: 90%;
+        }
+        .box3 p{
+            height: 72px;
+            line-height: 24px;
+            font-size: 14px;            
+            overflow: hidden;
+         }
+    </style>
+    -->
+    
+</div>
+
+
+<!---
+
+CSS3实现多行文本溢出显示省略号（…）
+
+
+大家应该都知道用 text-overflow:ellipsis 属性，来实现单行文本的溢出显示省略号(…)。当然部分浏览器还需要加宽度width属性。
+
+实现方法：
+{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+效果如图：
+
+
+
+但是这个属性只支持单行文本的溢出显示省略号，如果我们要实现多行文本溢出显示省略号呢。
+
+接下来重点说一说多行文本溢出显示省略号，如下。
+
+实现方法：
+{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+效果如图：
+
+
+适用范围：
+因使用了WebKit的CSS扩展属性，该方法适用于WebKit浏览器及移动端；
+
+注：
+-webkit-line-clamp          用来限制在一个块元素显示的文本的行数。 
+
+为了实现该效果，它需要组合其他的WebKit属性。常见结合属性：
+display: -webkit-box;       必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。
+-webkit-box-orient          必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。
+text-overflow: ellipsis;    可以用来多行文本的情况下，用省略号“…”隐藏超出范围的文本 
+
+
+
+-->
+
+
+</body>
+</html>

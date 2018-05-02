@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<title>CSS3动画 animation</title>
+<link rel="stylesheet" href="css/demo.css" />
+<style type="text/css">
+img{ width: 100%; height: auto;}
+
+p{ line-height: 24px; font-size: 16px; margin: 5px 0;}
+h3{ display: inline-block; margin: 30px 0 10px; padding:0 10px;line-height: 40px; font-size: 18px;background: #ccc;}
+h4{padding-left: 10px;line-height: 36px; font-size: 16px; color: red; font-weight: normal; background: #eee; margin-bottom: 10px;}
+h2+h3{ margin-top: 10px;}
+span.code{padding:5px 10px; color: #fff;background-color: #333;border-radius: 5px;}
+
+.list{ margin: 10px;}
+.list li{margin: 5px; line-height: 24px; font-size: 14px; list-style: disc;}
+
+p.desc {
+  margin: 5px 0;
+  padding:5px;
+  line-height: 1.5;
+  font-size: 14px;
+  background-color: #e3e3e3;
+}
+p.code{
+  margin: 10px 0;
+  padding:10px;
+  line-height: 1.5;
+  font-size: 14px;
+  color: #000;
+  background-color: #f5f5d5;
+  letter-spacing: .5px;
+}
+
+.cr{ clear: both}
+</style>
+</head>
+<body>
+<div class="wp">
+<p class="desc">之前我们整理了CSS3中的动画属性 Transform 转换，今天我们接着一起来看看CSS3中的另一个动画属性 Transition 过渡。</p>
+
+<div class="box0">
+    <div class="box-item">CSS3 过渡</div>
+</div>
+<style type="text/css">
+.box0{ width: 140px; height: 70px; }
+.box0 .box-item{
+    width: 100px; height: 50px; line-height: 50px; font-size: 14px; color: #fff; text-align: center;
+    background: #92B901; border-radius: 5px; opacity: 0.4;	    
+    transition: all 1s ease 0s;
+}
+.box0:hover .box-item{
+    width: 140px; height: 70px; font-size: 18px; background: #1ec7e6; opacity: 1; transform: rotate(360deg);        
+}
+</style>
+
+
+<h3>transition 语法:</h3>
+<p class="code">
+transition：[ transition-property ] || [ transition-duration ] || [ transition-timing-function ] || [ transition-delay ]
+</p>
+<p>或</p>
+<p class="code">
+transition ： [<'transition-property'> || <'transition-duration'> || <'transition-timing-function'> || <'transition-delay'>][, [<'transition-property'> || <'transition-duration'> || <'transition-timing-function'> || <'transition-delay'>]]*
+</p>
+
+<p class="desc">transition是一个复合属性,通过下面这四个子属性的配合来完成一个完整的过渡效果。</p>
+<ul class="list">
+    <li>transition-property:        过渡的属性 (默认值为all)</li>
+    <li>transition-duration:        过渡的持续时间 (默认值为0s)</li>
+    <li>transiton-timing-function:  过渡的动画类型 (默认值为ease函数)</li>
+    <li>transition-delay:           过渡的延迟时间 (默认值为0s)</li>
+</ul>
+
+
+
+<h3 id="transition-property">transition-property 过渡属性</h3>
+<p class="code">
+transition-property: none | all | [ property ] [ ,property ]*
+</p>
+<p class="desc">transition-property 属性规定应用过渡效果的 CSS 属性的名称。（当指定的 CSS 属性改变时，过渡效果将开始）。</p>
+
+<div class="box1 box1-1">
+    <div class="box-item">CSS3 过渡</div>
+</div>
+<style>
+.box1{}
+.box1 .box-item{
+    width: 100px; height: 50px; line-height: 50px; font-size: 14px; color: #fff; text-align: center;
+    background: #60f19d; border-radius: 5px;
+    /* transition: width 1s,background 2s,font-size 1s ease 1s; */
+    transition: 1s;
+    transition-property: width ,background;
+}
+.box1 .box-item:hover{
+    width: 300px; font-size: 18px; background: #1ec7e6;
+}
+</style>
+
+
+<h3>transition-timing-function 过渡的动画类型</h3>
+<p>
+1、ease：平滑过渡（逐渐变慢）默认值，等同于贝塞尔曲线(0.25, 0.1, 0.25, 1.0).<br>
+2、linear：线性过渡（匀速），等同于贝塞尔曲线(0.0, 0.0, 1.0, 1.0).<br>
+3、ease-in：由慢到快(加速)，等同于贝塞尔曲线(0.42, 0, 1.0, 1.0).<br>
+4、ease-out：由快到慢（减速），等同于贝塞尔曲线(0, 0, 0.58, 1.0).<br>
+5、ease-in-out：由慢到快再到慢（加速然后减速），等同于贝塞尔曲线(0.42, 0, 0.58, 1.0)<br>
+6、cubic-bezier：（该值允许你去自定义一个时间曲线）， 特定的cubic-bezier曲线。 (x1, y1, x2, y2)四个值特定于曲线上点P1和点P2。所有值需在[0, 1]区域内，否则无效。
+</p>
+
+<div class="box3">
+    <div class="box-item1">ease</div>
+    <div class="box-item2">linear</div>
+    <div class="box-item3">ease-in</div>
+    <div class="box-item4">ease-out</div>
+    <div class="box-item5">ease-in-out</div>
+</div>
+<style>
+.box3{ width: 100%; }
+.box3 div{
+    margin: 5px 0; padding: 0 10px; width: 100px; height: 36px; line-height: 36px; font-size: 14px; color: #fff; text-align: center; box-sizing: border-box;
+    background: #60f19d; border-radius: 5px; overflow: hidden;
+    transition: 3s;
+}
+.box3 .box-item1{ transition-timing-function: ease; }
+.box3 .box-item2{ transition-timing-function: linear; }
+.box3 .box-item3{ transition-timing-function: ease-in; }
+.box3 .box-item4{ transition-timing-function: ease-out; }
+.box3 .box-item5{ transition-timing-function: ease-in-out; }
+.box3:hover div{
+    width: 90%; font-size: 18px; background: #1ec7e6;
+}
+.box3:active div{
+    width: 90%; font-size: 18px; background: #1ec7e6;
+}
+</style>
+
+
+<h3>触发过渡的方式</h3>
+<p class="desc">常见的就是伪类触发:hover，:active，:focus，:checked等。还有例如@media媒体查询，根据设备大小，横屏竖屏切换时触发。还有，如click，keydown等JS事件触发，页面加载也能触发就不一一列举了。</p>
+
+1、:hover 鼠标悬停触发
+<div class="boxT2 boxT2-1">触发</div>
+<style type="text/css">
+	.boxT2{
+	    margin: 10px 0; width: 100px; height: 50px;
+	    line-height: 50px; font-size: 14px; text-align: center; color: #fff; background: #60f19d; border-radius: 5px;
+	    transition: all 1s ease 0s;
+	}
+	.boxT2-1:hover{ width: 300px; }
+</style>
+
+2、:active 用户单击元素并按住鼠标时触发
+<div class="boxT2 boxT2-2">触发</div>
+<style type="text/css">
+    .boxT2-2:active{ width: 300px; }
+</style>
+
+3、:focus 获得焦点时触发
+<div class="boxT2-3"><input class="test" placeholder="有焦点时，我会变长"></div>
+<style type="text/css">
+    .boxT2-3 input{
+        margin: 10px 0; width: 100px; height: 50px;
+        line-height: 50px; font-size: 14px; text-align: center; color: #fff;
+        background: #60f19d; border: none; outline: 0; border-radius: 5px;
+        transition: all 1s ease 0s;
+    }
+    .boxT2-3 input:focus{ width: 300px; }
+</style>
+
+4、@media触发 符合媒体查询条件时触发
+<div class="boxT2 boxT2-4">触发</div>
+<style type="text/css">
+    /* 把浏览器的宽度拖动到小于1000px时触发 */
+    @media (max-width: 1000px){
+        .boxT2-4{ width: 300px; }
+    }    
+</style>
+
+5、点击事件 用户点击元素时触发
+<div class="boxT2 boxT2-5" id="boxT25">触发</div>
+<script>
+    boxT25.onclick = function(){
+        boxT25.style.width = '300px';
+        setTimeout(function(){
+            boxT25.style.width = '100px';
+        },2000);
+    }
+</script>
+
+<p>总之过渡的本质是在时间段内平滑过渡属性值，与怎么触发没有关系。</p>
+
+
+<h3>transition 过渡 + transform 转换 应用实例</h3>
+<br>
+
+1、css3 同时实现旋转和缩放(放大或缩小)
+<div class="demo demo1-1"></div>
+<div class="demo demo1-2"></div>
+<style type="text/css">
+    .demo{
+        margin: 10px 0 10px 10px; width: 100px; height: 100px; background: #60f19d; border-radius: 5px;
+        transition: transform 1s ease 0s;
+    }
+    .demo1-1:hover{
+        transform: rotate(360deg) scale(1.5);
+    }
+    .demo1-2:hover{
+        transform: rotate(360deg) scale(.5);
+    }
+</style>
+
+2、CSS3 实现位移并且带有放大或缩小的效果
+<div class="demo demo2-1"></div>
+<div class="demo demo2-2"></div>
+<style type="text/css">
+    .demo2-1:hover{
+        transform: scale(1.2) translateX(100px);
+    }
+    .demo2-2:hover{
+        transform: scale(.8) translateX(100px);
+    }
+</style>
+
+3、css3 旋转后发生位移
+<div class="demo demo3"></div>
+<style type="text/css">
+    .demo3{
+        animation: demo3 3s linear 0s infinite;
+    }
+    @keyframes demo3{
+    	0%{}
+    	30%{ transform: rotate(360deg); }
+    	60%{ transform: translateX(100px); }
+    	100%{ transform: translateX(100px); }
+    }
+</style>
+
+
+
+</div>
+
+</body>
+</html>
