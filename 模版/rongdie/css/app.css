@@ -358,23 +358,49 @@ header .mui-title {
   max-width: 15rem;
   background: #fff;
 }
-.filter_detail {
+.list-wrapper {
   display: -webkit-flex;
   -webkit-justify-content: space-around;
   display: flex;
   justify-content: space-around;
 }
-.filter_detail .left-list {
+.list-wrapper > div {
   float: left;
-  width: 33.3%;
+  width: 5.8rem;
   background: #f7f7f7;
   overflow: hidden;
 }
-.filter_detail .left-list li {
+.list-wrapper > div li {
   height: 2rem;
   line-height: 2rem;
-  font-size: 0.6rem;
+  font-size: 0.56rem;
   color: #262626;
   border-bottom: 1px solid #eee;
-  padding-left: 0.6rem;
+  padding-left: 0.5rem;
+  transition: all .5s;
+}
+.list-wrapper > div li:active,
+.list-wrapper > div li:hover {
+  color: #fd3953;
+  background: #fcfcfc;
+}
+.list-wrapper > div li:nth-child(4) {
+  color: #fd3953;
+  background: #fff;
+}
+.list-wrapper .right-item {
+  padding: 0 0.3rem;
+  width: 9.2rem;
+  background: #fff;
+}
+.list-wrapper .right-item li {
+  width: 50%;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  float: left;
+  border-bottom: 1px solid #eee;
+}
+.list-wrapper .right-item li:nth-child(2n+1) {
+  border-right: 1px solid #eee;
 }

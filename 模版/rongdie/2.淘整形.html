@@ -32,134 +32,84 @@
     </ul>
 </div>
 <!-- 导航 end -->
-<div class="nav-box">
+<div class="nav-box" id="nav-box">
     <!-- 项目 -->
-    <div id="filter_detail_1" class="filter_detail"></div>
+    <div id="filter_detail_1" class="filter_detail">
+      <div class="list-wrapper">
+        <div class="left-list" id="item_list_a">
+          <ul>
+            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in project">
+              {{ item.name }}
+            </li>
+          </ul>
+        </div>
+        <div class="right-item" id="item_list_c">
+          <ul>
+            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in project[4].son">
+              {{ item.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <!-- 地区 -->
-    <div id="filter_detail_2" class="filter_detail"></div>
+    <div id="filter_detail_2" class="filter_detail">      
+      <div class="left-list" id="item_list_a">
+        <ul>
+          <li :data-id="item.id" v-for="(item,i) in city">
+            {{ item.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="right-item" id="item_list_c">
+        <ul>
+        </ul>
+      </div>
+      
+    </div>
     <!-- 排序 -->
     <div id="filter_detail_3" class="filter_detail"></div>
 </div>
 
-<!-- －－－项目过滤－－－ -->
-<!-- 一级项目 -->
-<script type="text/html" id="item_a">
-  <div class="list-wrapper">
-    <div class="left-list" id="item_list_a">
-      <ul>
-        <? for(var i = 0; i < this.data.length; i++){ ?>
-          <li menu1-id="<?= this.data[i].menu1_id ?>" data-id="<?= i ?>"><?= this.data[i].name ?></li>
-        <? } ?>
-      </ul>
-    </div>
-    
-    <div class="right-item" id="item_list_c">
-    </div>
-    <div class="middle-list" id="item_list_b">
-    </div>
-  </div>
-</script>
-<!-- 二级项目 -->
-<script type="text/html" id="item_b">
-  <ul>
-    <? for(var i = 0; i < this.data.length; i++){ ?>
-      <li menu-id="<?= this.data[i].menu1_id ?>" data-id="<?= i ?>"><?= this.data[i].name ?></li>
-    <? } ?>
-  </ul>
-</script>
-<!-- 三级项目 -->
-<script type="text/html" id="item_c">
-  <ul>
-    <? for(var i = 0; i < this.data.length; i++){ ?>
-      <li menu-id="<?= this.data[i].menu1_id ?>" item-id="<?= this.data[i].item_id ?>"><?= this.data[i].name ?></li>
-    <? } ?>
-  </ul>
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="bottom-bar">
-	<ul>
-		<li class="home active"><a href="#bNav">
-			<span class="icon"></span>
-			<p>首页</p>
-		</a></li>
-		<li class="doctor"><a href="#bNav">
-			<span class="icon"></span>
-			<p>医生</p>
-		</a></li>
-		<li class="online"><a href="#bNav">
-			<span class="icon"></span>
-			<p>在线咨询</p>
-		</a></li>
-		<li class="hospital"><a href="#bNav">
-			<span class="icon"></span>
-			<p>医院</p>
-		</a></li>
-		<li class="my"><a href="#bNav">
-			<span class="icon"></span>
-			<p>我的</p>
-		</a></li>
-	</ul>
-</div>
 
 <script src="js/mui.min.js"></script>
 <script src="js/jquery.min.js"></script>
+<script src="js/vue.js"></script>
 <script>
 $("#nav li").each(function(){
  
 });
 
-$("#nav_1").on("click",function(){
-  $.get("temporary/product.json", function(result){
-    //console.log(result.responseData.menu1_info);
-    this.data = result.responseData.menu1_info;
-    var str = '';
-    
-    for(var i = 0; i < this.data.length; i++){
-      //console.log(this.data[i]);
-      str += '<li menu1-id="'+ this.data[i].menu1_id +'" data-id="'+ i +'">'+ this.data[i].name +'</li>';
-    }
-    var str_a = '<div class="left-list" id="item_list_a"><ul>'+ str +'</ul></div>';
-    //console.log(str_a);
-    str = ''
-    
-    $("#filter_detail_1").html(str_a);
-    $("filter_detail_1 #item_list_a").each(function(){
-      $(this).on("click",function(){
-        console.log(1);
-      });
-      
-    });
-    
-    
-    
-    /*
-    '  <div class="list-wrapper">
-    
-    
-    <div class="right-item" id="item_list_c">
-    </div>
-    <div class="middle-list" id="item_list_b">
-    </div>
-  </div>'
-  */
-    
-    
-  });
+var vm = new Vue({
+  el:".nav-box",
+  data:{
+    project: [],
+    city: []
+  },
   
 });
+
+function filterProject(){
+  $.get("temporary/product.json", function(result){
+    console.log(result.responseData.menu1_info);
+    vm.project = result.responseData.menu1_info;
+        
+  });
+}
+
+function filterCity(){
+  $.get("temporary/product.json", function(result){
+    console.log(result.responseData.menu1_info);
+    vm.city = result.responseData.city;
+        
+  });
+  
+  
+}
+
+//$("#nav_1").on("click",filterProject);
+filterProject();
+//$("#nav_1").on("click",filterCity);
 
 
 </script>
