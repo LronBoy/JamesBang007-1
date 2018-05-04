@@ -1,9 +1,12 @@
-@rex : 50rem;
+@rex: 50rem;
+@nice-black: rgb(38,38,38);
+@light-black: rgb(153,153,153);
 
-html{ margin: 0 auto; background: #f3f3f3; font-size: 50px;}
+html{ margin: 0 auto; background: #eee; font-size: 50px; max-width: 750px;}
 body,h1,h2,h3,h4,p,dl,dt,dd,ul,li,form,button,input,textarea,th,td,a{margin:0;padding:0}
 body {
-    font-family: "PingFang SC",Helvetica,Arial,"Microsoft YaHei"; color:#444;
+    font-family: "PingFang SC",Helvetica,Arial,"Microsoft YaHei"; color:#444; background: #fff;
+    padding-bottom: 100/@rex;
 }
 body * {
     -webkit-text-size-adjust: 100%; /*文本的大小调整*/
@@ -24,6 +27,9 @@ input, textarea, select, option {outline: 0;}
 .fl{float:left}.fr{float:right}.cb{clear:both}
 
 
+/*
+    首页
+ * */
 header{
     height: 96/@rex; background: linear-gradient(to right, #eb568e, #fd3953);
     padding: 33/@rex 32/@rex 0;
@@ -31,4 +37,131 @@ header{
 
 }
 
+.mui-content{
+        
+}
 
+.home-banner{
+    margin-bottom: 30/@rex; padding: 0 40/@rex;
+    li{ height: 400/@rex; border-radius: 20/@rex; background: #b5e1fe; }
+    
+}
+.home-nav{
+    ul{
+        display: -webkit-flex; -webkit-flex-wrap: wrap; -webkit-justify-content: space-around;
+        display: flex; flex-wrap: wrap; justify-content: space-around;
+        overflow: hidden;
+    }
+    li{
+        width: 100/@rex; margin: 0 40/@rex 30/@rex;
+        img{ width: 100/@rex; height: 100/@rex; }
+        p{ line-height: 50/@rex; font-size: 24/@rex; color: rgb(38,38,38); text-align: center; }
+    }
+}
+.banner-min{
+    height: 200/@rex; margin-bottom: 30/@rex; overflow: hidden;
+    img{ width: 750/@rex; height: 200/@rex; }
+}
+.home-note{
+    margin-bottom: 30/@rex; padding:0 20/@rex;
+    .hd{
+        text-align: center; margin-bottom: 20/@rex;
+        h2{
+            line-height: 40/@rex; font-size: 34/@rex; color: @nice-black; margin-bottom: 15/@rex; position: relative;
+            &:before,
+            &:after{
+                display: block; content: ''; width: 10/@rex; height: 10/@rex; border-radius: 100%; background: @nice-black;
+                position: absolute; top: 15/@rex;
+            }
+            &:before{ left: 255/@rex; }
+            &:after{ right: 255/@rex; }
+            
+        }
+        p{ line-height: 25/@rex; font-size: 24/@rex; color: @light-black; }
+    }
+    ul{ }
+    li{
+        margin: 20/@rex 0; padding: 15/@rex; height: 240/@rex; border-radius: 20/@rex;
+        box-shadow: 2/@rex 4/@rex 10/@rex 0 rgb( 227, 227, 227 );
+        .pic{
+            img{ width: 210/@rex; height: 210/@rex; float: left; margin-right: 5/@rex; }            
+        }
+        .info{
+            width: 245/@rex; float: right;
+            h3{ margin-top: -9/@rex; line-height: 46/@rex; font-size: 28/@rex; color: @nice-black; margin-bottom: 12px; }
+            .desc{ height: 52/@rex; line-height: 26/@rex; font-size: 20/@rex; color: @light-black; margin-bottom: 30/@rex; overflow: hidden; }
+            .yy{
+                height: 30/@rex; line-height: 30/@rex; font-size: 20/@rex; color: @nice-black;  overflow: hidden;
+                img{ width: 30/@rex; height: 30/@rex; border-radius: 100%; margin-right: 10/@rex; float: left; }
+            }
+        }
+    }
+    .more{
+        line-height: 22/@rex; font-size: 22/@rex; text-align: right; color: @nice-black; background: right center url(../img/icon-more.png) no-repeat; margin-right: 15/@rex; padding-right: 32/@rex;
+    }
+}
+
+.bottom-bar{
+    position: fixed; bottom: 0; max-width: 750/@rex; height: 100/@rex; padding: 10/@rex 0; background: #fff; border-top: 1px solid #eee;
+    ul{
+        display: -webkit-flex; -webkit-flex-wrap: wrap; -webkit-justify-content: space-around;
+        display: flex; flex-wrap: wrap; justify-content: space-around;
+    }
+    li{
+        text-align: center;
+        .icon{ display: block; width: 50/@rex; height: 50/@rex; margin-bottom: 10/@rex; }
+        p{ line-height: 20/@rex; font-size: 20/@rex; color: @nice-black; }
+        &.home{ background: url(../img/b_Home.png) no-repeat; background-size: 50/@rex; }
+        &.doctor{ background: url(../img/b_Doctor.png) no-repeat; background-size: 50/@rex;}        
+        &.online{ background: url(../img/b_Online.png) no-repeat; background-size: 50/@rex;}
+        &.hospital{ background: url(../img/b_Hospital.png) no-repeat; background-size: 50/@rex;}
+        &.my{ background: url(../img/b_My.png) no-repeat; background-size: 50/@rex;}
+    }
+    .active,
+    li:hover{
+        p{ color: #fd3953; }
+        &.home{ background: url(../img/b_Home_active.png) no-repeat; background-size: 50/@rex; }
+        &.doctor{ background: url(../img/b_Doctor_active.png) no-repeat; background-size: 50/@rex;}        
+        &.online{ background: url(../img/b_Online_active.png) no-repeat; background-size: 50/@rex;}
+        &.hospital{ background: url(../img/b_Hospital_active.png) no-repeat; background-size: 50/@rex;}
+        &.my{ background: url(../img/b_My_active.png) no-repeat; background-size: 50/@rex;}
+    }
+}
+
+
+/**
+ * 淘整形    
+ * */
+
+//导航
+#nav{
+    height: 100/@rex; padding: 35/@rex 50/@rex 0; background: linear-gradient(to right, #eb568e, #fd3953);
+    position: relative;
+    &:after{
+        display: block; content: ''; width: 100/@rex; height: 2/@rex; background: #fff;
+        position: absolute; bottom: 0; left: 113/@rex;
+    }
+    ul{
+        display: -webkit-flex; -webkit-justify-content: space-around;
+        display: flex; justify-content: space-around;
+        width: 100%;
+    }
+    li{
+        width: 33.3%; line-height: 30/@rex; font-size: 30/@rex; color: #fff; text-align: center;
+    }
+}
+.nav-box{
+    position: fixed; top:196/@rex; bottom: 0; z-index: 99; width: 100%; max-width: 750/@rex; background: #fff;
+}
+.filter_detail{
+    display: -webkit-flex; -webkit-justify-content: space-around;
+    display: flex;  justify-content: space-around;
+    .left-list{
+        float: left; width: 33.3%; background: #f7f7f7; overflow: hidden;
+        ul{}
+        li{
+            height: 100/@rex; line-height: 100/@rex; font-size: 30/@rex; color: @nice-black;
+            border-bottom: 1px solid #eee; padding-left: 30/@rex;
+        }
+    }
+}

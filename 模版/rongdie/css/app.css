@@ -1,7 +1,8 @@
 html {
   margin: 0 auto;
-  background: #f3f3f3;
+  background: #eee;
   font-size: 50px;
+  max-width: 750px;
 }
 body,
 h1,
@@ -27,6 +28,8 @@ a {
 body {
   font-family: "PingFang SC", Helvetica, Arial, "Microsoft YaHei";
   color: #444;
+  background: #fff;
+  padding-bottom: 2rem;
 }
 body * {
   -webkit-text-size-adjust: 100%;
@@ -85,6 +88,9 @@ option {
 .cb {
   clear: both;
 }
+/*
+    首页
+ * */
 header {
   height: 1.92rem;
   background: linear-gradient(to right, #eb568e, #fd3953);
@@ -96,4 +102,279 @@ header .mui-title {
   text-align: center;
   color: #fff;
   font-weight: bold;
+}
+.home-banner {
+  margin-bottom: 0.6rem;
+  padding: 0 0.8rem;
+}
+.home-banner li {
+  height: 8rem;
+  border-radius: 0.4rem;
+  background: #b5e1fe;
+}
+.home-nav ul {
+  display: -webkit-flex;
+  -webkit-flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow: hidden;
+}
+.home-nav li {
+  width: 2rem;
+  margin: 0 0.8rem 0.6rem;
+}
+.home-nav li img {
+  width: 2rem;
+  height: 2rem;
+}
+.home-nav li p {
+  line-height: 1rem;
+  font-size: 0.48rem;
+  color: #262626;
+  text-align: center;
+}
+.banner-min {
+  height: 4rem;
+  margin-bottom: 0.6rem;
+  overflow: hidden;
+}
+.banner-min img {
+  width: 15rem;
+  height: 4rem;
+}
+.home-note {
+  margin-bottom: 0.6rem;
+  padding: 0 0.4rem;
+}
+.home-note .hd {
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+.home-note .hd h2 {
+  line-height: 0.8rem;
+  font-size: 0.68rem;
+  color: #262626;
+  margin-bottom: 0.3rem;
+  position: relative;
+}
+.home-note .hd h2:before,
+.home-note .hd h2:after {
+  display: block;
+  content: '';
+  width: 0.2rem;
+  height: 0.2rem;
+  border-radius: 100%;
+  background: #262626;
+  position: absolute;
+  top: 0.3rem;
+}
+.home-note .hd h2:before {
+  left: 5.1rem;
+}
+.home-note .hd h2:after {
+  right: 5.1rem;
+}
+.home-note .hd p {
+  line-height: 0.5rem;
+  font-size: 0.48rem;
+  color: #999999;
+}
+.home-note li {
+  margin: 0.4rem 0;
+  padding: 0.3rem;
+  height: 4.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0.04rem 0.08rem 0.2rem 0 #e3e3e3;
+}
+.home-note li .pic img {
+  width: 4.2rem;
+  height: 4.2rem;
+  float: left;
+  margin-right: 0.1rem;
+}
+.home-note li .info {
+  width: 4.9rem;
+  float: right;
+}
+.home-note li .info h3 {
+  margin-top: -0.18rem;
+  line-height: 0.92rem;
+  font-size: 0.56rem;
+  color: #262626;
+  margin-bottom: 12px;
+}
+.home-note li .info .desc {
+  height: 1.04rem;
+  line-height: 0.52rem;
+  font-size: 0.4rem;
+  color: #999999;
+  margin-bottom: 0.6rem;
+  overflow: hidden;
+}
+.home-note li .info .yy {
+  height: 0.6rem;
+  line-height: 0.6rem;
+  font-size: 0.4rem;
+  color: #262626;
+  overflow: hidden;
+}
+.home-note li .info .yy img {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 100%;
+  margin-right: 0.2rem;
+  float: left;
+}
+.home-note .more {
+  line-height: 0.44rem;
+  font-size: 0.44rem;
+  text-align: right;
+  color: #262626;
+  background: right center url(../img/icon-more.png) no-repeat;
+  margin-right: 0.3rem;
+  padding-right: 0.64rem;
+}
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  max-width: 15rem;
+  height: 2rem;
+  padding: 0.2rem 0;
+  background: #fff;
+  border-top: 1px solid #eee;
+}
+.bottom-bar ul {
+  display: -webkit-flex;
+  -webkit-flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.bottom-bar li {
+  text-align: center;
+}
+.bottom-bar li .icon {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  margin-bottom: 0.2rem;
+}
+.bottom-bar li p {
+  line-height: 0.4rem;
+  font-size: 0.4rem;
+  color: #262626;
+}
+.bottom-bar li.home {
+  background: url(../img/b_Home.png) no-repeat;
+  background-size: 1rem;
+}
+.bottom-bar li.doctor {
+  background: url(../img/b_Doctor.png) no-repeat;
+  background-size: 1rem;
+}
+.bottom-bar li.online {
+  background: url(../img/b_Online.png) no-repeat;
+  background-size: 1rem;
+}
+.bottom-bar li.hospital {
+  background: url(../img/b_Hospital.png) no-repeat;
+  background-size: 1rem;
+}
+.bottom-bar li.my {
+  background: url(../img/b_My.png) no-repeat;
+  background-size: 1rem;
+}
+.bottom-bar .active p,
+.bottom-bar li:hover p {
+  color: #fd3953;
+}
+.bottom-bar .active.home,
+.bottom-bar li:hover.home {
+  background: url(../img/b_Home_active.png) no-repeat;
+  background-size: 1rem;
+}
+.bottom-bar .active.doctor,
+.bottom-bar li:hover.doctor {
+  background: url(../img/b_Doctor_active.png) no-repeat;
+  background-size: 1rem;
+}
+.bottom-bar .active.online,
+.bottom-bar li:hover.online {
+  background: url(../img/b_Online_active.png) no-repeat;
+  background-size: 1rem;
+}
+.bottom-bar .active.hospital,
+.bottom-bar li:hover.hospital {
+  background: url(../img/b_Hospital_active.png) no-repeat;
+  background-size: 1rem;
+}
+.bottom-bar .active.my,
+.bottom-bar li:hover.my {
+  background: url(../img/b_My_active.png) no-repeat;
+  background-size: 1rem;
+}
+/**
+ * 淘整形    
+ * */
+#nav {
+  height: 2rem;
+  padding: 0.7rem 1rem 0;
+  background: linear-gradient(to right, #eb568e, #fd3953);
+  position: relative;
+}
+#nav:after {
+  display: block;
+  content: '';
+  width: 2rem;
+  height: 0.04rem;
+  background: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 2.26rem;
+}
+#nav ul {
+  display: -webkit-flex;
+  -webkit-justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+#nav li {
+  width: 33.3%;
+  line-height: 0.6rem;
+  font-size: 0.6rem;
+  color: #fff;
+  text-align: center;
+}
+.nav-box {
+  position: fixed;
+  top: 3.92rem;
+  bottom: 0;
+  z-index: 99;
+  width: 100%;
+  max-width: 15rem;
+  background: #fff;
+}
+.filter_detail {
+  display: -webkit-flex;
+  -webkit-justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
+}
+.filter_detail .left-list {
+  float: left;
+  width: 33.3%;
+  background: #f7f7f7;
+  overflow: hidden;
+}
+.filter_detail .left-list li {
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 0.6rem;
+  color: #262626;
+  border-bottom: 1px solid #eee;
+  padding-left: 0.6rem;
 }
