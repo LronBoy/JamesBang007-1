@@ -104,13 +104,35 @@ header .mui-title {
   font-weight: bold;
 }
 .home-banner {
-  margin-bottom: 0.6rem;
-  padding: 0 0.8rem;
+  height: 8rem;
+  margin: 0.4rem 0 0.6rem;
+  position: relative;
+  z-index: 9;
+  overflow: hidden;
 }
-.home-banner li {
+.home-banner .swiper-slide {
+  margin: 0 0.12rem;
+  width: 13.6rem;
   height: 8rem;
   border-radius: 0.4rem;
   background: #b5e1fe;
+  overflow: hidden;
+}
+.home-banner .swiper-pagination-bullet {
+  margin: 0 0.08rem;
+  width: 0.16rem;
+  height: 0.16rem;
+  border-radius: 100%;
+}
+.home-banner .swiper-pagination-bullet-active {
+  background: #fff;
+}
+.home-banner a {
+  display: block;
+}
+.home-banner img {
+  width: 13.6rem;
+  height: 8rem;
 }
 .home-nav ul {
   display: -webkit-flex;
@@ -186,7 +208,7 @@ header .mui-title {
   padding: 0.3rem;
   height: 4.8rem;
   border-radius: 0.4rem;
-  box-shadow: 0.04rem 0.08rem 0.2rem 0 #e3e3e3;
+  box-shadow: 0.06rem 0.08rem 0.2rem 0.02rem #e3e3e3;
 }
 .home-note li .pic img {
   width: 4.2rem;
@@ -199,11 +221,11 @@ header .mui-title {
   float: right;
 }
 .home-note li .info h3 {
-  margin-top: -0.18rem;
-  line-height: 0.92rem;
+  margin-top: -0.1rem;
+  line-height: 0.88rem;
   font-size: 0.56rem;
   color: #262626;
-  margin-bottom: 12px;
+  margin-bottom: 0.24rem;
 }
 .home-note li .info .desc {
   height: 1.04rem;
@@ -239,6 +261,8 @@ header .mui-title {
 .bottom-bar {
   position: fixed;
   bottom: 0;
+  z-index: 99;
+  width: 100%;
   max-width: 15rem;
   height: 2rem;
   padding: 0.2rem 0;
@@ -260,60 +284,60 @@ header .mui-title {
   display: block;
   width: 1rem;
   height: 1rem;
-  margin-bottom: 0.2rem;
+  margin: 0 auto 0.2rem;
 }
 .bottom-bar li p {
   line-height: 0.4rem;
   font-size: 0.4rem;
   color: #262626;
 }
-.bottom-bar li.home {
-  background: url(../img/b_Home.png) no-repeat;
+.bottom-bar li .home {
+  background: center center url(../img/b_Home.png) no-repeat;
   background-size: 1rem;
 }
-.bottom-bar li.doctor {
-  background: url(../img/b_Doctor.png) no-repeat;
+.bottom-bar li .doctor {
+  background: center center url(../img/b_Doctor.png) no-repeat;
   background-size: 1rem;
 }
-.bottom-bar li.online {
-  background: url(../img/b_Online.png) no-repeat;
+.bottom-bar li .online {
+  background: center center url(../img/b_Online.png) no-repeat;
   background-size: 1rem;
 }
-.bottom-bar li.hospital {
-  background: url(../img/b_Hospital.png) no-repeat;
+.bottom-bar li .hospital {
+  background: center center url(../img/b_Hospital.png) no-repeat;
   background-size: 1rem;
 }
-.bottom-bar li.my {
-  background: url(../img/b_My.png) no-repeat;
+.bottom-bar li .my {
+  background: center center url(../img/b_My.png) no-repeat;
   background-size: 1rem;
 }
 .bottom-bar .active p,
 .bottom-bar li:hover p {
   color: #fd3953;
 }
-.bottom-bar .active.home,
-.bottom-bar li:hover.home {
-  background: url(../img/b_Home_active.png) no-repeat;
+.bottom-bar .active .home,
+.bottom-bar li:hover .home {
+  background: center center url(../img/b_Home_active.png) no-repeat;
   background-size: 1rem;
 }
-.bottom-bar .active.doctor,
-.bottom-bar li:hover.doctor {
-  background: url(../img/b_Doctor_active.png) no-repeat;
+.bottom-bar .active .doctor,
+.bottom-bar li:hover .doctor {
+  background: center center url(../img/b_Doctor_active.png) no-repeat;
   background-size: 1rem;
 }
-.bottom-bar .active.online,
-.bottom-bar li:hover.online {
-  background: url(../img/b_Online_active.png) no-repeat;
+.bottom-bar .active .online,
+.bottom-bar li:hover .online {
+  background: center center url(../img/b_Online_active.png) no-repeat;
   background-size: 1rem;
 }
-.bottom-bar .active.hospital,
-.bottom-bar li:hover.hospital {
-  background: url(../img/b_Hospital_active.png) no-repeat;
+.bottom-bar .active .hospital,
+.bottom-bar li:hover .hospital {
+  background: center center url(../img/b_Hospital_active.png) no-repeat;
   background-size: 1rem;
 }
-.bottom-bar .active.my,
-.bottom-bar li:hover.my {
-  background: url(../img/b_My_active.png) no-repeat;
+.bottom-bar .active .my,
+.bottom-bar li:hover .my {
+  background: center center url(../img/b_My_active.png) no-repeat;
   background-size: 1rem;
 }
 /**

@@ -42,9 +42,12 @@ header{
 }
 
 .home-banner{
-    margin-bottom: 30/@rex; padding: 0 40/@rex;
-    li{ height: 400/@rex; border-radius: 20/@rex; background: #b5e1fe; }
-    
+    height: 400/@rex; margin:20/@rex 0 30/@rex; position: relative; z-index: 9; overflow: hidden;
+    .swiper-slide{ margin: 0 6/@rex; width: 680/@rex; height: 400/@rex; border-radius: 20/@rex; background: #b5e1fe; overflow: hidden; }
+    .swiper-pagination-bullet{ margin: 0 4/@rex; width: 8/@rex; height: 8/@rex; border-radius: 100%; }
+    .swiper-pagination-bullet-active{ background: #fff;}
+    a{ display: block;}
+    img{width: 680/@rex; height: 400/@rex;}
 }
 .home-nav{
     ul{
@@ -82,13 +85,13 @@ header{
     ul{ }
     li{
         margin: 20/@rex 0; padding: 15/@rex; height: 240/@rex; border-radius: 20/@rex;
-        box-shadow: 2/@rex 4/@rex 10/@rex 0 rgb( 227, 227, 227 );
+        box-shadow: 3/@rex 4/@rex 10/@rex 1/@rex rgb( 227, 227, 227 );
         .pic{
             img{ width: 210/@rex; height: 210/@rex; float: left; margin-right: 5/@rex; }            
         }
         .info{
             width: 245/@rex; float: right;
-            h3{ margin-top: -9/@rex; line-height: 46/@rex; font-size: 28/@rex; color: @nice-black; margin-bottom: 12px; }
+            h3{ margin-top: -5/@rex; line-height: 44/@rex; font-size: 28/@rex; color: @nice-black; margin-bottom: 12/@rex; }
             .desc{ height: 52/@rex; line-height: 26/@rex; font-size: 20/@rex; color: @light-black; margin-bottom: 30/@rex; overflow: hidden; }
             .yy{
                 height: 30/@rex; line-height: 30/@rex; font-size: 20/@rex; color: @nice-black;  overflow: hidden;
@@ -102,29 +105,28 @@ header{
 }
 
 .bottom-bar{
-    position: fixed; bottom: 0; max-width: 750/@rex; height: 100/@rex; padding: 10/@rex 0; background: #fff; border-top: 1px solid #eee;
+    position: fixed; bottom: 0; z-index: 99; width: 100%; max-width: 750/@rex; height: 100/@rex; padding: 10/@rex 0; background: #fff; border-top: 1px solid #eee;
     ul{
         display: -webkit-flex; -webkit-flex-wrap: wrap; -webkit-justify-content: space-around;
         display: flex; flex-wrap: wrap; justify-content: space-around;
     }
     li{
         text-align: center;
-        .icon{ display: block; width: 50/@rex; height: 50/@rex; margin-bottom: 10/@rex; }
+        .icon{ display: block; width: 50/@rex; height: 50/@rex; margin:0 auto 10/@rex; }
         p{ line-height: 20/@rex; font-size: 20/@rex; color: @nice-black; }
-        &.home{ background: url(../img/b_Home.png) no-repeat; background-size: 50/@rex; }
-        &.doctor{ background: url(../img/b_Doctor.png) no-repeat; background-size: 50/@rex;}        
-        &.online{ background: url(../img/b_Online.png) no-repeat; background-size: 50/@rex;}
-        &.hospital{ background: url(../img/b_Hospital.png) no-repeat; background-size: 50/@rex;}
-        &.my{ background: url(../img/b_My.png) no-repeat; background-size: 50/@rex;}
+        .home{ background: center center url(../img/b_Home.png) no-repeat; background-size: 50/@rex; }
+        .doctor{ background: center center url(../img/b_Doctor.png) no-repeat; background-size: 50/@rex;}        
+        .online{ background: center center url(../img/b_Online.png) no-repeat; background-size: 50/@rex;}
+        .hospital{ background: center center url(../img/b_Hospital.png) no-repeat; background-size: 50/@rex;}
+        .my{ background: center center url(../img/b_My.png) no-repeat; background-size: 50/@rex;}
     }
-    .active,
-    li:hover{
+    .active,li:hover{
         p{ color: #fd3953; }
-        &.home{ background: url(../img/b_Home_active.png) no-repeat; background-size: 50/@rex; }
-        &.doctor{ background: url(../img/b_Doctor_active.png) no-repeat; background-size: 50/@rex;}        
-        &.online{ background: url(../img/b_Online_active.png) no-repeat; background-size: 50/@rex;}
-        &.hospital{ background: url(../img/b_Hospital_active.png) no-repeat; background-size: 50/@rex;}
-        &.my{ background: url(../img/b_My_active.png) no-repeat; background-size: 50/@rex;}
+        .home{ background: center center url(../img/b_Home_active.png) no-repeat; background-size: 50/@rex; }
+        .doctor{ background: center center url(../img/b_Doctor_active.png) no-repeat; background-size: 50/@rex;}        
+        .online{ background: center center url(../img/b_Online_active.png) no-repeat; background-size: 50/@rex;}
+        .hospital{ background: center center url(../img/b_Hospital_active.png) no-repeat; background-size: 50/@rex;}
+        .my{ background: center center url(../img/b_My_active.png) no-repeat; background-size: 50/@rex;}
     }
 }
 
