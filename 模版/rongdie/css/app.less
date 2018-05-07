@@ -202,6 +202,8 @@ header{
         }
     }
     .order-by{
+        background: #f7f7f7; box-shadow: 0 4/@rex 5/@rex 0 rgb( 227, 227, 227 );
+
         ul{}
         li{
             height: 100/@rex; line-height: 100/@rex; font-size: 28/@rex; color: @nice-black;
@@ -260,6 +262,68 @@ header{
                 img{ width: 80/@rex; height: 80/@rex; border-radius: 100%; margin-right: 20/@rex; float: left; }
                 span{ display: inline-block; width: 410/@rex; font-size: 28/@rex; color: @nice-black; overflow: hidden; }
                 em{ display: inline-block; font-size: 24/@rex; color: #ccc; padding-right: 15/@rex; float: right; }
+            }
+            
+        }
+    }
+}
+
+/**
+ * 找医生
+ */
+
+.doctor-list{
+    margin-bottom: 30/@rex; padding:0 20/@rex;
+    ul{}
+    li{        
+        margin: 20/@rex 0; padding: 15/@rex; height: 240/@rex; border-radius: 20/@rex;
+        box-shadow: 3/@rex 4/@rex 10/@rex 1/@rex rgb( 227, 227, 227 ); overflow: hidden;
+        .pic{
+            float: left; width: 210/@rex; height: 210/@rex;
+            img{ width: 210/@rex; height: 210/@rex; }
+        }
+        .info{
+            width: 450/@rex; float: right;
+            h3{ line-height: 32/@rex; font-size: 32/@rex; color: @nice-black; }
+            p{
+                height: 24/@rex; line-height: 24/@rex; font-size: 24/@rex; color: @light-black; margin-top: 20/@rex; 
+                overflow: hidden; text-overflow: ellipsis; white-space : nowrap; 
+            }
+            .zxBtn{
+                display: block; line-height: 24/@rex; font-size: 24/@rex; color: @hig-color; text-align: right;
+                margin-top: 20/@rex;
+            }
+            
+        }
+    }
+}
+
+/*
+ * 找医院
+ */
+.hospital-list{
+    margin-bottom: 30/@rex; padding:0 20/@rex;
+    ul{}
+    li{        
+        margin: 20/@rex 0; padding: 15/@rex; height: 240/@rex; border-radius: 20/@rex;
+        box-shadow: 3/@rex 4/@rex 10/@rex 1/@rex rgb( 227, 227, 227 ); overflow: hidden;
+        .pic{
+            float: left; width: 210/@rex; height: 210/@rex;
+            img{ width: 210/@rex; height: 210/@rex; }
+        }
+        .info{
+            width: 450/@rex; float: right;
+            h3{ line-height: 32/@rex; font-size: 32/@rex; color: @nice-black; }
+            p{
+                height: 24/@rex; line-height: 24/@rex; font-size: 24/@rex; color: @light-black; margin-top: 20/@rex; 
+                overflow: hidden; text-overflow: ellipsis; white-space : nowrap; 
+            }
+            .address{
+                height: 88/@rex; line-height: 44/@rex; white-space: pre-wrap; margin-top: 10/@rex;
+            }
+            .zxBtn{
+                display: block; line-height: 24/@rex; font-size: 24/@rex; color: @hig-color;
+                text-align: right; margin-top: 10/@rex;
             }
             
         }

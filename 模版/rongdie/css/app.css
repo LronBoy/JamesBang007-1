@@ -491,6 +491,10 @@ header .action-back {
   color: #fd3953;
   background: #fcfcfc;
 }
+.filter_detail .order-by {
+  background: #f7f7f7;
+  box-shadow: 0 0.08rem 0.1rem 0 #e3e3e3;
+}
 .filter_detail .order-by li {
   height: 2rem;
   line-height: 2rem;
@@ -621,4 +625,112 @@ header .action-back {
   color: #ccc;
   padding-right: 0.3rem;
   float: right;
+}
+/**
+ * 找医生
+ */
+.doctor-list {
+  margin-bottom: 0.6rem;
+  padding: 0 0.4rem;
+}
+.doctor-list li {
+  margin: 0.4rem 0;
+  padding: 0.3rem;
+  height: 4.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0.06rem 0.08rem 0.2rem 0.02rem #e3e3e3;
+  overflow: hidden;
+}
+.doctor-list li .pic {
+  float: left;
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.doctor-list li .pic img {
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.doctor-list li .info {
+  width: 9rem;
+  float: right;
+}
+.doctor-list li .info h3 {
+  line-height: 0.64rem;
+  font-size: 0.64rem;
+  color: #262626;
+}
+.doctor-list li .info p {
+  height: 0.48rem;
+  line-height: 0.48rem;
+  font-size: 0.48rem;
+  color: #999999;
+  margin-top: 0.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.doctor-list li .info .zxBtn {
+  display: block;
+  line-height: 0.48rem;
+  font-size: 0.48rem;
+  color: #fd3953;
+  text-align: right;
+  margin-top: 0.4rem;
+}
+/*
+ * 找医院
+ */
+.hospital-list {
+  margin-bottom: 0.6rem;
+  padding: 0 0.4rem;
+}
+.hospital-list li {
+  margin: 0.4rem 0;
+  padding: 0.3rem;
+  height: 4.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0.06rem 0.08rem 0.2rem 0.02rem #e3e3e3;
+  overflow: hidden;
+}
+.hospital-list li .pic {
+  float: left;
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.hospital-list li .pic img {
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.hospital-list li .info {
+  width: 9rem;
+  float: right;
+}
+.hospital-list li .info h3 {
+  line-height: 0.64rem;
+  font-size: 0.64rem;
+  color: #262626;
+}
+.hospital-list li .info p {
+  height: 0.48rem;
+  line-height: 0.48rem;
+  font-size: 0.48rem;
+  color: #999999;
+  margin-top: 0.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hospital-list li .info .address {
+  height: 1.76rem;
+  line-height: 0.88rem;
+  white-space: pre-wrap;
+  margin-top: 0.2rem;
+}
+.hospital-list li .info .zxBtn {
+  display: block;
+  line-height: 0.48rem;
+  font-size: 0.48rem;
+  color: #fd3953;
+  text-align: right;
+  margin-top: 0.2rem;
 }
