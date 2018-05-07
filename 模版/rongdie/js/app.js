@@ -27,3 +27,15 @@ function formatSearch(se){
     };  
 }
 
+window.onload = function(){
+  //返回按钮
+  document.querySelector('.action-back').onclick = function(){  
+    if(history.length>0){
+      history.back(); //加载历史列表中的前一个 URL（如果存在）
+    }else{
+      console.log("无历史页面");
+    }    
+  };
+
+
+};

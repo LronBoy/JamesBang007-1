@@ -99,14 +99,15 @@ header {
   padding: 0.66rem 0.64rem 0;
   position: relative;
 }
-header .m-title,
-header .mui-title {
+header .m-title {
   margin: 0 auto;
+  height: 0.6rem;
   line-height: 0.6rem;
   font-size: 0.6rem;
   text-align: center;
   color: #fff;
   font-weight: bold;
+  overflow: hidden;
 }
 header .action-back {
   display: block;
@@ -843,7 +844,7 @@ header .action-back {
   margin-top: 0.4rem;
 }
 .card-list li .info .btn {
-  display: inline-block;
+  display: block;
   width: 3rem;
   height: 1.2rem;
   line-height: 1.2rem;
@@ -853,9 +854,95 @@ header .action-back {
   border: 0.04rem solid #fd3953;
   border-radius: 0.16rem;
   margin: 0.36rem 0 0 2rem;
-  transition: all .5s;
 }
 .card-list li .info .btn:focus {
   color: #fff;
   background: #fd3953;
+  transition: all .5s;
+}
+/*
+ * 项目大全
+ */
+.product {
+  display: -webkit-flex;
+  -webkit-justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  top: 2rem;
+  bottom: 0;
+  z-index: 99;
+  overflow: hidden;
+}
+.product .left-list {
+  float: left;
+  width: 5.8rem;
+  background: #f7f7f7;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.product .left-list li {
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 0.56rem;
+  color: #262626;
+  border-bottom: 1px solid #eee;
+  padding-left: 0.5rem;
+  transition: all .5s;
+}
+.product .left-list li.active,
+.product .left-list li:hover {
+  color: #fd3953;
+  background: #fcfcfc;
+}
+.product .right-item {
+  width: 9.2rem;
+  background: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.product .right-item li {
+  margin-left: 1rem;
+}
+.product .right-item li.active,
+.product .right-item li:hover {
+  color: #fd3953;
+}
+.product .right-item li h3 {
+  margin-top: 1rem;
+  line-height: 0.6rem;
+  font-size: 0.56rem;
+  color: #fd3953;
+}
+.product .right-item li a {
+  display: inline-block;
+  width: 3.2rem;
+  height: 1rem;
+  line-height: 1rem;
+  font-size: 0.5rem;
+  text-align: center;
+  background: #f7f7f7;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin: 0.8rem 0.8rem 0 0;
+}
+.product .right-item li a:nth-child(2n) {
+  margin-right: 0;
+}
+/*
+ * 项目详情  -- 百科
+ */
+.baike .banner-baike li {
+  width: 5.4rem;
+  float: left;
+}
+.baike .banner-baike li img {
+  width: 5.4rem;
+  height: 5.4rem;
+}
+.baike .banner-baike li P {
+  line-height: 0.48rem;
+  font-size: 0.48rem;
+  text-align: center;
+  color: #262626;
 }
