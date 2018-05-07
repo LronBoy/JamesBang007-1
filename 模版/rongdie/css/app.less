@@ -24,7 +24,7 @@ h1,h2,h3,h4{ font-weight: normal;}
 ul,ol,li{list-style:none;}
 em,i{ font-style: normal;}
 a{color:#555;text-decoration:none;}
-input, textarea, select, option {outline: 0;}
+a,input, textarea, select, option { outline: 0; /*点击时虚线边框*/ }
 .fl{float:left}.fr{float:right}.cb{clear:both}
 
 
@@ -240,38 +240,9 @@ header{
 }
 
 
-/*
- * 专题栏
- * */
-
-.topics-list{
-    ul{}
-    li{
-        padding: 20/@rex 40/@rex 30/@rex;
-        .pic{
-            width: 670/@rex; height: 440/@rex; border-radius: 8/@rex; margin-bottom: 25/@rex; overflow: hidden;
-            img{ width: 670/@rex; height: 440/@rex; }
-        }
-        .info{
-            h3{
-                height: 45/@rex; line-height: 45/@rex; font-size: 35/@rex; color: @nice-black; overflow: hidden;
-                margin-bottom: 15/@rex;
-            }
-            .yy{
-                height: 80/@rex; line-height: 80/@rex;overflow: hidden;
-                img{ width: 80/@rex; height: 80/@rex; border-radius: 100%; margin-right: 20/@rex; float: left; }
-                span{ display: inline-block; width: 410/@rex; font-size: 28/@rex; color: @nice-black; overflow: hidden; }
-                em{ display: inline-block; font-size: 24/@rex; color: #ccc; padding-right: 15/@rex; float: right; }
-            }
-            
-        }
-    }
-}
-
 /**
  * 找医生
  */
-
 .doctor-list{
     margin-bottom: 30/@rex; padding:0 20/@rex;
     ul{}
@@ -329,5 +300,103 @@ header{
         }
     }
 }
+
+/*
+ * 专题栏
+ * */
+.topics-list{
+    ul{}
+    li{
+        padding: 20/@rex 40/@rex 30/@rex;
+        .pic{
+            width: 670/@rex; height: 440/@rex; border-radius: 8/@rex; margin-bottom: 25/@rex; overflow: hidden;
+            img{ width: 100%; height: 100%; }
+        }
+        .info{
+            h3{
+                height: 45/@rex; line-height: 45/@rex; font-size: 35/@rex; color: @nice-black; overflow: hidden;
+                margin-bottom: 15/@rex;
+            }
+            .yy{
+                height: 80/@rex; line-height: 80/@rex;overflow: hidden;
+                img{ width: 80/@rex; height: 80/@rex; border-radius: 100%; margin-right: 20/@rex; float: left; }
+                span{ display: inline-block; width: 410/@rex; font-size: 28/@rex; color: @nice-black; overflow: hidden; }
+                em{ display: inline-block; font-size: 24/@rex; color: #ccc; padding-right: 15/@rex; float: right; }
+            }
+            
+        }
+    }
+}
+
+/*
+ * 活动集
+ */
+.activity-list,.list2{
+    padding: 0 50/@rex;
+    ul{}
+    li{
+        margin: 50/@rex 0; border-radius: 15/@rex;
+        box-shadow: 3/@rex 4/@rex 10/@rex 1/@rex rgb( 227, 227, 227 );
+        .pic{
+            width: 650/@rex; height: 400/@rex; border-radius: 15/@rex 15/@rex 0 0; margin-bottom: 30/@rex; overflow: hidden;
+            img{ width: 100%; height: 100%;}
+        }
+        .info{
+            text-align: center; padding-bottom: 20/@rex;
+            h3{
+                line-height: 32/@rex; height: 32/@rex; font-size: 32/@rex; color: @nice-black;
+                margin-bottom: 20/@rex;
+            }
+            p{
+                height: 25/@rex; line-height: 25/@rex; font-size: 25/@rex; color: @light-black; 
+                overflow: hidden; text-overflow: ellipsis; white-space : nowrap; margin-bottom: 20/@rex; 
+            }
+            .btn{
+                overflow: hidden;
+                a{
+                    display: inline-block; width: 150/@rex; height: 60/@rex; line-height: 60/@rex;
+                    font-size:24/@rex; color: #fff; background: @hig-color; border-radius: 8/@rex;
+                    margin: 0 87/@rex; float: left;
+                }
+            }
+        }
+    }
+    
+}
+
+/*
+ * 优惠券
+ */
+.card-list{
+    ul{}
+    li{
+        margin: 20/@rex; height: 240/@rex; border-radius: 15/@rex; overflow: hidden;
+        box-shadow: 3/@rex 4/@rex 10/@rex 1/@rex rgb( 227, 227, 227 );
+        .pic{
+            width: 225/@rex; height: 240/@rex; float: right;
+            img{ width: 100%; height: 100%;}
+        }
+        .info{
+            width: 460/@rex; padding:25/@rex 0 0 60/@rex;
+            h3{
+                line-height: 32/@rex; height: 32/@rex; font-size: 32/@rex; color: @nice-black;
+            }
+            p{
+                height: 24/@rex; line-height: 24/@rex; font-size: 24/@rex; color: @light-black; 
+                overflow: hidden; text-overflow: ellipsis; white-space : nowrap; margin-top: 20/@rex; 
+            }
+            .btn{
+                display: inline-block; width: 150/@rex; height: 60/@rex; line-height: 60/@rex;
+                font-size:24/@rex; color: @hig-color; text-align: center;
+                border:2/@rex solid @hig-color; border-radius: 8/@rex; margin: 18/@rex 0 0 100/@rex;
+                transition: all .5s; 
+                &:focus{
+                    color: #fff; background: @hig-color;
+                }
+            }
+        }
+    }
+}
+
 
 

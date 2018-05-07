@@ -73,11 +73,13 @@ a {
   color: #555;
   text-decoration: none;
 }
+a,
 input,
 textarea,
 select,
 option {
   outline: 0;
+  /*点击时虚线边框*/
 }
 .fl {
   float: left;
@@ -575,57 +577,6 @@ header .action-back {
   font-size: 0.48rem;
   float: right;
 }
-/*
- * 专题栏
- * */
-.topics-list li {
-  padding: 0.4rem 0.8rem 0.6rem;
-}
-.topics-list li .pic {
-  width: 13.4rem;
-  height: 8.8rem;
-  border-radius: 0.16rem;
-  margin-bottom: 0.5rem;
-  overflow: hidden;
-}
-.topics-list li .pic img {
-  width: 13.4rem;
-  height: 8.8rem;
-}
-.topics-list li .info h3 {
-  height: 0.9rem;
-  line-height: 0.9rem;
-  font-size: 0.7rem;
-  color: #262626;
-  overflow: hidden;
-  margin-bottom: 0.3rem;
-}
-.topics-list li .info .yy {
-  height: 1.6rem;
-  line-height: 1.6rem;
-  overflow: hidden;
-}
-.topics-list li .info .yy img {
-  width: 1.6rem;
-  height: 1.6rem;
-  border-radius: 100%;
-  margin-right: 0.4rem;
-  float: left;
-}
-.topics-list li .info .yy span {
-  display: inline-block;
-  width: 8.2rem;
-  font-size: 0.56rem;
-  color: #262626;
-  overflow: hidden;
-}
-.topics-list li .info .yy em {
-  display: inline-block;
-  font-size: 0.48rem;
-  color: #ccc;
-  padding-right: 0.3rem;
-  float: right;
-}
 /**
  * 找医生
  */
@@ -733,4 +684,178 @@ header .action-back {
   color: #fd3953;
   text-align: right;
   margin-top: 0.2rem;
+}
+/*
+ * 专题栏
+ * */
+.topics-list li {
+  padding: 0.4rem 0.8rem 0.6rem;
+}
+.topics-list li .pic {
+  width: 13.4rem;
+  height: 8.8rem;
+  border-radius: 0.16rem;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+.topics-list li .pic img {
+  width: 100%;
+  height: 100%;
+}
+.topics-list li .info h3 {
+  height: 0.9rem;
+  line-height: 0.9rem;
+  font-size: 0.7rem;
+  color: #262626;
+  overflow: hidden;
+  margin-bottom: 0.3rem;
+}
+.topics-list li .info .yy {
+  height: 1.6rem;
+  line-height: 1.6rem;
+  overflow: hidden;
+}
+.topics-list li .info .yy img {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 100%;
+  margin-right: 0.4rem;
+  float: left;
+}
+.topics-list li .info .yy span {
+  display: inline-block;
+  width: 8.2rem;
+  font-size: 0.56rem;
+  color: #262626;
+  overflow: hidden;
+}
+.topics-list li .info .yy em {
+  display: inline-block;
+  font-size: 0.48rem;
+  color: #ccc;
+  padding-right: 0.3rem;
+  float: right;
+}
+/*
+ * 活动集
+ */
+.activity-list,
+.list2 {
+  padding: 0 1rem;
+}
+.activity-list li,
+.list2 li {
+  margin: 1rem 0;
+  border-radius: 0.3rem;
+  box-shadow: 0.06rem 0.08rem 0.2rem 0.02rem #e3e3e3;
+}
+.activity-list li .pic,
+.list2 li .pic {
+  width: 13rem;
+  height: 8rem;
+  border-radius: 0.3rem 0.3rem 0 0;
+  margin-bottom: 0.6rem;
+  overflow: hidden;
+}
+.activity-list li .pic img,
+.list2 li .pic img {
+  width: 100%;
+  height: 100%;
+}
+.activity-list li .info,
+.list2 li .info {
+  text-align: center;
+  padding-bottom: 0.4rem;
+}
+.activity-list li .info h3,
+.list2 li .info h3 {
+  line-height: 0.64rem;
+  height: 0.64rem;
+  font-size: 0.64rem;
+  color: #262626;
+  margin-bottom: 0.4rem;
+}
+.activity-list li .info p,
+.list2 li .info p {
+  height: 0.5rem;
+  line-height: 0.5rem;
+  font-size: 0.5rem;
+  color: #999999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 0.4rem;
+}
+.activity-list li .info .btn,
+.list2 li .info .btn {
+  overflow: hidden;
+}
+.activity-list li .info .btn a,
+.list2 li .info .btn a {
+  display: inline-block;
+  width: 3rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  font-size: 0.48rem;
+  color: #fff;
+  background: #fd3953;
+  border-radius: 0.16rem;
+  margin: 0 1.74rem;
+  float: left;
+}
+/*
+ * 优惠券
+ */
+.card-list li {
+  margin: 0.4rem;
+  height: 4.8rem;
+  border-radius: 0.3rem;
+  overflow: hidden;
+  box-shadow: 0.06rem 0.08rem 0.2rem 0.02rem #e3e3e3;
+}
+.card-list li .pic {
+  width: 4.5rem;
+  height: 4.8rem;
+  float: right;
+}
+.card-list li .pic img {
+  width: 100%;
+  height: 100%;
+}
+.card-list li .info {
+  width: 9.2rem;
+  padding: 0.5rem 0 0 1.2rem;
+}
+.card-list li .info h3 {
+  line-height: 0.64rem;
+  height: 0.64rem;
+  font-size: 0.64rem;
+  color: #262626;
+}
+.card-list li .info p {
+  height: 0.48rem;
+  line-height: 0.48rem;
+  font-size: 0.48rem;
+  color: #999999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 0.4rem;
+}
+.card-list li .info .btn {
+  display: inline-block;
+  width: 3rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  font-size: 0.48rem;
+  color: #fd3953;
+  text-align: center;
+  border: 0.04rem solid #fd3953;
+  border-radius: 0.16rem;
+  margin: 0.36rem 0 0 2rem;
+  transition: all .5s;
+}
+.card-list li .info .btn:focus {
+  color: #fff;
+  background: #fd3953;
 }
