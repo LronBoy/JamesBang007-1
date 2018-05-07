@@ -95,13 +95,29 @@ header {
   height: 1.92rem;
   background: linear-gradient(to right, #eb568e, #fd3953);
   padding: 0.66rem 0.64rem 0;
+  position: relative;
 }
+header .m-title,
 header .mui-title {
   margin: 0 auto;
+  line-height: 0.6rem;
   font-size: 0.6rem;
   text-align: center;
   color: #fff;
   font-weight: bold;
+}
+header .action-back {
+  display: block;
+  width: 0.32rem;
+  height: 0.6rem;
+  background: center center url(../img/icon-left.png) no-repeat;
+  background-size: 0.32rem;
+  position: absolute;
+  top: 0.66rem;
+  left: 0;
+  z-index: 2;
+  padding: 0 0.6rem;
+  box-sizing: content-box;
 }
 .home-banner {
   height: 8rem;
@@ -118,13 +134,19 @@ header .mui-title {
   background: #b5e1fe;
   overflow: hidden;
 }
-.home-banner .swiper-pagination-bullet {
-  margin: 0 0.08rem;
+.home-banner .swiper-pagination {
+  height: 0.2rem;
+  line-height: 0.2rem;
+  bottom: 0.5rem !important;
+}
+.home-banner .swiper-pagination .swiper-pagination-bullet {
+  margin: 0 0.1rem !important;
   width: 0.16rem;
   height: 0.16rem;
   border-radius: 100%;
+  opacity: .7;
 }
-.home-banner .swiper-pagination-bullet-active {
+.home-banner .swiper-pagination .swiper-pagination-bullet-active {
   background: #fff;
 }
 .home-banner a {
@@ -160,7 +182,34 @@ header .mui-title {
 .banner-min {
   height: 4rem;
   margin-bottom: 0.6rem;
+  position: relative;
+  z-index: 9;
   overflow: hidden;
+}
+.banner-min .swiper-slide {
+  width: 15rem;
+  height: 4rem;
+  overflow: hidden;
+}
+.banner-min .swiper-pagination {
+  height: 0.2rem;
+  line-height: 0.2rem;
+  text-align: right;
+  padding-right: 0.2rem;
+  bottom: 0.4rem !important;
+}
+.banner-min .swiper-pagination .swiper-pagination-bullet {
+  margin: 0 0.1rem !important;
+  width: 0.16rem;
+  height: 0.16rem;
+  border-radius: 100%;
+  opacity: .7;
+}
+.banner-min .swiper-pagination .swiper-pagination-bullet-active {
+  background: #fff;
+}
+.banner-min a {
+  display: block;
 }
 .banner-min img {
   width: 15rem;
@@ -380,21 +429,31 @@ header .mui-title {
   z-index: 99;
   width: 100%;
   max-width: 15rem;
-  background: #fff;
+  overflow: hidden;
+  display: none;
 }
-.list-wrapper {
+.filter_detail {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  display: none;
+}
+.filter_detail .list-wrapper {
   display: -webkit-flex;
   -webkit-justify-content: space-around;
   display: flex;
   justify-content: space-around;
 }
-.list-wrapper > div {
+.filter_detail .left-list {
   float: left;
   width: 5.8rem;
   background: #f7f7f7;
   overflow: hidden;
 }
-.list-wrapper > div li {
+.filter_detail .left-list ul {
+  overflow-y: auto;
+}
+.filter_detail .left-list li {
   height: 2rem;
   line-height: 2rem;
   font-size: 0.56rem;
@@ -403,28 +462,163 @@ header .mui-title {
   padding-left: 0.5rem;
   transition: all .5s;
 }
-.list-wrapper > div li:active,
-.list-wrapper > div li:hover {
+.filter_detail .left-list li.active,
+.filter_detail .left-list li:hover {
   color: #fd3953;
   background: #fcfcfc;
 }
-.list-wrapper > div li:nth-child(4) {
-  color: #fd3953;
-  background: #fff;
-}
-.list-wrapper .right-item {
+.filter_detail .right-item {
   padding: 0 0.3rem;
   width: 9.2rem;
   background: #fff;
 }
-.list-wrapper .right-item li {
+.filter_detail .right-item li {
   width: 50%;
   height: 3rem;
   line-height: 3rem;
+  font-size: 0.56rem;
+  color: #262626;
   text-align: center;
   float: left;
   border-bottom: 1px solid #eee;
+  transition: all .5s;
 }
-.list-wrapper .right-item li:nth-child(2n+1) {
+.filter_detail .right-item li:nth-child(2n+1) {
   border-right: 1px solid #eee;
+}
+.filter_detail .right-item li.active,
+.filter_detail .right-item li:hover {
+  color: #fd3953;
+  background: #fcfcfc;
+}
+.filter_detail .order-by li {
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 0.56rem;
+  color: #262626;
+  border-bottom: 1px solid #eee;
+  padding-left: 0.5rem;
+  transition: all .5s;
+}
+.filter_detail .order-by li:active,
+.filter_detail .order-by li:hover {
+  color: #fd3953;
+  background: #fcfcfc;
+}
+.product-list {
+  margin-bottom: 0.6rem;
+  padding: 0 0.4rem;
+}
+.product-list li {
+  margin: 0.4rem 0;
+  padding: 0.3rem;
+  height: 4.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0.06rem 0.08rem 0.2rem 0.02rem #e3e3e3;
+  overflow: hidden;
+}
+.product-list li .pic {
+  float: left;
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.product-list li .pic img {
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.product-list li .info {
+  width: 9rem;
+  float: right;
+}
+.product-list li .info h3 {
+  margin-top: -0.1rem;
+  line-height: 0.88rem;
+  font-size: 0.56rem;
+  color: #262626;
+  margin-bottom: 0.48rem;
+  font-family: "PingFang SC Bold";
+}
+.product-list li .info .yy {
+  height: 0.6rem;
+  line-height: 0.6rem;
+  font-size: 0.52rem;
+  color: #999999;
+  margin-bottom: 0.6rem;
+  overflow: hidden;
+  font-family: "PingFang SC Medium";
+}
+.product-list li .info .foot {
+  height: 0.88rem;
+  line-height: 0.88rem;
+  color: #999999;
+}
+.product-list li .info .foot span {
+  display: inline-block;
+  float: left;
+  font-family: "PingFang SC Medium";
+}
+.product-list li .info .foot .price {
+  line-height: 0.88rem;
+  font-size: 0.88rem;
+  color: #fd3953;
+  margin-right: 0.4rem;
+}
+.product-list li .info .foot .origprice {
+  font-size: 0.6rem;
+  text-decoration: line-through;
+}
+.product-list li .info .foot .booking {
+  font-size: 0.48rem;
+  float: right;
+}
+/*
+ * 专题栏
+ * */
+.topics-list li {
+  padding: 0.4rem 0.8rem 0.6rem;
+}
+.topics-list li .pic {
+  width: 13.4rem;
+  height: 8.8rem;
+  border-radius: 0.16rem;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+.topics-list li .pic img {
+  width: 13.4rem;
+  height: 8.8rem;
+}
+.topics-list li .info h3 {
+  height: 0.9rem;
+  line-height: 0.9rem;
+  font-size: 0.7rem;
+  color: #262626;
+  overflow: hidden;
+  margin-bottom: 0.3rem;
+}
+.topics-list li .info .yy {
+  height: 1.6rem;
+  line-height: 1.6rem;
+  overflow: hidden;
+}
+.topics-list li .info .yy img {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 100%;
+  margin-right: 0.4rem;
+  float: left;
+}
+.topics-list li .info .yy span {
+  display: inline-block;
+  width: 8.2rem;
+  font-size: 0.56rem;
+  color: #262626;
+  overflow: hidden;
+}
+.topics-list li .info .yy em {
+  display: inline-block;
+  font-size: 0.48rem;
+  color: #ccc;
+  padding-right: 0.3rem;
+  float: right;
 }

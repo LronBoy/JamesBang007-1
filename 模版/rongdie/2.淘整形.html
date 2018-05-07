@@ -17,10 +17,11 @@
 <link href="css/app.css" rel="stylesheet"/>
 </head>
 <body>
-<header class=" mui-bar-nav">
-  <div class="mui-title">团购列表</div>
-  <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+<header class="top-bar-nav">
+    <div class="m-title">团购列表</div>
+    <a href="javascript:void(0);" class="action-back icon-left"></a>
 </header>
+
 
 <!-- 导航 start -->
 <div id="nav">
@@ -35,16 +36,18 @@
     <!-- 项目 -->
     <div id="filter_detail_1" class="filter_detail">
       <div class="list-wrapper">
-        <div class="left-list" id="item_list_a">
+        <div class="left-list">
           <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in project">
+            <li :menu-id="item.menu1_id" :data-id="i" :class="i==current?'active':''"
+                v-for="(item,i) in project" @click="tapList(i)">
               {{ item.name }}
             </li>
           </ul>
         </div>
-        <div class="right-item" id="item_list_c">
+        <div class="right-item">
           <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in project[4].son">
+            <li :menu-id="item.menu1_id" :data-id="i" :class="i==subCurrent?'active':''"
+                v-for="(item,i) in subProject" @click="tapItem(i)">
               {{ item.name }}
             </li>
           </ul>
@@ -52,63 +55,173 @@
       </div>
     </div>
     <!-- 地区 -->
-    <div id="filter_detail_2" class="filter_detail">      
-      <div class="left-list" id="item_list_a">
-        <ul>
-          <li :data-id="item.id" v-for="(item,i) in city">
-            {{ item.name }}
-          </li>
-        </ul>
-      </div>
-      <div class="right-item" id="item_list_c">
-        <ul>
-        </ul>
-      </div>
-      
+    <div id="filter_detail_2" class="filter_detail">
+      <div class="list-wrapper">
+        <div class="left-list">
+          <ul>
+            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in city">
+              {{ item.name }}
+            </li>
+          </ul>
+        </div>
+        <div class="right-item">
+          <ul>
+            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in subCity">
+              {{ item.name }}
+            </li>
+          </ul>
+        </div>
+      </div>      
     </div>
     <!-- 排序 -->
-    <div id="filter_detail_3" class="filter_detail"></div>
+    <div id="filter_detail_3" class="filter_detail">
+      <div class="order-by">
+        <ul>
+          <li data-by="desc">价格从高到低</li>
+          <li data-by="asc">价格从低到高</li>
+        </ul>
+      </div>
+    </div>
 </div>
+
+<!-- 商品列表 -->
+<section class="product-list">
+  <ul>
+    <li>
+      <div class="pic">
+        <a href="#"><img src="temporary/product-list_1.jpg" alt="" /></a>       
+      </div>
+      <div class="info">
+        <a href="#"><h3>“成都综合隆鼻”全面改善鼻部问题,告别平庸，塑造立体自信美！！</h3></a>
+        <div class="yy">成都韩美整形外科医院</div>
+        <div class="foot">          
+          <span class="price">¥8880</span>
+          <span class="origprice">¥24420</span>          
+          <span class="booking">18人预订</span>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="pic">
+        <a href="#"><img src="temporary/product-list_2.jpg" alt="" /></a>       
+      </div>
+      <div class="info">
+        <a href="#"><h3>“成都综合隆鼻套餐”综合隆鼻直接叫板明星美鼻，告别塌鼻子！</h3></a>
+        <div class="yy">成都华美整形外科医院</div>
+        <div class="foot">          
+          <span class="price">¥4581</span>
+          <span class="origprice">¥24420</span>          
+          <span class="booking">3人预订</span>
+        </div>
+      </div>
+    </li>
+    
+    
+    <li>
+      <div class="pic">
+        <a href="#"><img src="temporary/product-list_1.jpg" alt="" /></a>       
+      </div>
+      <div class="info">
+        <a href="#"><h3>“成都综合隆鼻”全面改善鼻部问题,告别平庸，塑造立体自信美！！</h3></a>
+        <div class="yy">成都韩美整形外科医院</div>
+        <div class="foot">          
+          <span class="price">¥8880</span>
+          <span class="origprice">¥24420</span>          
+          <span class="booking">18人预订</span>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="pic">
+        <a href="#"><img src="temporary/product-list_2.jpg" alt="" /></a>       
+      </div>
+      <div class="info">
+        <a href="#"><h3>“成都综合隆鼻套餐”综合隆鼻直接叫板明星美鼻，告别塌鼻子！</h3></a>
+        <div class="yy">成都华美整形外科医院</div>
+        <div class="foot">          
+          <span class="price">¥4581</span>
+          <span class="origprice">¥24420</span>          
+          <span class="booking">3人预订</span>
+        </div>
+      </div>
+    </li>
+  </ul>
+  
+</section>
+<!-- 商品列表end -->
+
 
 
 <script src="js/mui.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/vue.js"></script>
 <script>
-$("#nav li").each(function(){
- 
+//顶部tab点击切换
+$("#nav li").click(function(){
+  console.log( $(this).index() );
+  $("#nav-box").show();
+  $("#nav-box .filter_detail").hide();
+  $("#nav-box .filter_detail").eq($(this).index()).show();
+  if( $(this).index()==0 ){
+    filterProject();
+  }else if( $(this).index()==1 ){
+    filterCity();
+  }
+});
+//filter_detail
+$("#nav-box li").click(function(){
+  console.log( $(this).index() );
+  
+  
 });
 
 var vm = new Vue({
   el:".nav-box",
   data:{
     project: [],
-    city: []
+    subProject: [],
+    city: [],
+    subCity: [],
+    current: 0,
+    subCurrent: 0,
   },
-  
+  methods:{
+    tapList: function(i){
+      console.log(i)
+      this.current = i;
+      this.subCurrent = 0;
+      this.subProject = this.project[i].son;
+    },
+    tapItem: function(i){
+      console.log(i);
+      this.subCurrent = i;      
+    }
+  }
 });
 
 function filterProject(){
   $.get("temporary/product.json", function(result){
     console.log(result.responseData.menu1_info);
     vm.project = result.responseData.menu1_info;
-        
+    vm.subProject = result.responseData.menu1_info[1].son;
   });
 }
 
 function filterCity(){
   $.get("temporary/product.json", function(result){
-    console.log(result.responseData.menu1_info);
+    console.log(result.responseData.city);
     vm.city = result.responseData.city;
-        
+    vm.subCity = result.responseData.city[0].son;
   });
   
   
 }
 
 //$("#nav_1").on("click",filterProject);
-filterProject();
+//;
 //$("#nav_1").on("click",filterCity);
+//
+
 
 
 </script>
