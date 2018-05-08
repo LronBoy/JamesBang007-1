@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+
+<title>资讯栏-容蝶网</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta content="telephone=no" name="format-detection">
+<script src="js/app.js"></script>
+<link href="css/app.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="top-bar-nav">
+    <div class="m-title">资讯列表</div>
+    <a href="javascript:void(0);" class="action-back icon-left"></a>
+</header>
+
+
+<!-- 导航 start -->
+<div id="nav">
+    <ul>
+    	<li>分类</li>
+      <li>排序</li>
+    </ul>
+</div>
+
+<div class="nav-box" id="nav-box">
+    <!-- 分类 -->
+    <div id="filter_detail_1" class="filter_detail">
+      <div class="order-by">
+        <ul>
+          <li data-id="0">不限</li>
+          <li data-id="1">行业动态</li>
+          <li data-id="2">医院</li>
+          <li data-id="3">医生</li>
+          <li data-id="4">深度</li>
+          <li data-id="5">娱乐</li>
+        </ul>
+      </div>
+    </div>    
+    <!-- 排序 -->
+    <div id="filter_detail_2" class="filter_detail">
+      <div class="order-by">
+        <ul>
+          <!--<li data-id="0">不限</li>-->
+          <li data-id="1">时间</li>
+          <li data-id="2">阅读量</li>
+        </ul>
+      </div>
+    </div>
+</div>
+<!-- 导航 end -->
+
+<!-- 资讯列表 -->
+<section class="news-list">
+  <ul>
+    <li>
+      <div class="pic">
+        <a href="#"><img src="temporary/new-list-1.jpg" alt="" /></a>       
+      </div>
+      <div class="info">
+        <a href="#">
+        <h3>做双眼皮，是埋线还是切开？</h3>
+        <p class="desc">整形美容行业发展至今,双眼皮也已经整形美容行业发展至今,双眼皮也已经</p>
+        <div class="author">
+          <img src="temporary/topics-list_1_yy.jpg" alt="" />芜湖伊莱美整形外科医院 
+        </div>
+        <div class="view-comment">
+          <span class="icon-view">4875</span>
+          <span class="icon-comment">127</span>          
+        </div>
+        </a>
+      </div>
+    </li>
+    <li>
+      <div class="pic">
+        <a href="#"><img src="temporary/new-list-2.jpg" alt="" /></a>       
+      </div>
+      <div class="info">
+        <a href="#">
+        <h3>假体垫下巴让你脸型更完美</h3>
+        <p class="desc">瓜子脸,是是如今流行的美人脸型,致使...</p>
+        <div class="author">
+          <img src="temporary/topics-list_1_yy.jpg" alt="" />成都武侯年华奥拉克医疗美容
+        </div>
+        <div class="view-comment">
+          <span class="icon-view">547</span>
+          <span class="icon-comment">68</span>          
+        </div>
+        </a>
+      </div>
+    </li>
+    
+    <li>
+      <div class="pic">
+        <a href="#"><img src="temporary/new-list-1.jpg" alt="" /></a>       
+      </div>
+      <div class="info">
+        <a href="#">
+        <h3>做双眼皮，是埋线还是切开？</h3>
+        <p class="desc">整形美容行业发展至今,双眼皮也已经整形美容行业发展至今,双眼皮也已经</p>
+        <div class="author">
+          <img src="temporary/topics-list_1_yy.jpg" alt="" />芜湖伊莱美整形外科医院 
+        </div>
+        <div class="view-comment">
+          <span class="icon-view">4875</span>
+          <span class="icon-comment">127</span>          
+        </div>
+        </a>
+      </div>
+    </li>
+    <li>
+      <div class="pic">
+        <a href="#"><img src="temporary/new-list-2.jpg" alt="" /></a>       
+      </div>
+      <div class="info">
+        <a href="#">
+        <h3>假体垫下巴让你脸型更完美</h3>
+        <p class="desc">瓜子脸,是是如今流行的美人脸型,致使...</p>
+        <div class="author">
+          <img src="temporary/topics-list_1_yy.jpg" alt="" />成都武侯年华奥拉克医疗美容
+        </div>
+        <div class="view-comment">
+          <span class="icon-view">547</span>
+          <span class="icon-comment">68</span>          
+        </div>
+        </a>
+      </div>
+    </li>
+    
+  </ul>
+  
+</section>
+<!-- 资讯列表end -->
+
+
+<section class="bottom-bar">
+  <ul>
+    <li><a href="#bNav">
+      <span class="icon home"></span>
+      <p>首页</p>
+    </a></li>
+    <li><a href="#bNav">
+      <span class="icon doctor"></span>
+      <p>医生</p>
+    </a></li>
+    <li><a href="#bNav">
+      <span class="icon online"></span>
+      <p>在线咨询</p>
+    </a></li>
+    <li><a href="#bNav">
+      <span class="icon hospital"></span>
+      <p>医院</p>
+    </a></li>
+    <li><a href="#bNav">
+      <span class="icon my"></span>
+      <p>我的</p>
+    </a></li>
+  </ul>
+</section>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/vue.js"></script>
+<script>
+//顶部tab点击切换
+$("#nav li").click(function(){
+  console.log( $(this).index() );
+  $("#nav-box").show();
+  $("#nav-box .filter_detail").hide();
+  $("#nav-box .filter_detail").eq($(this).index()).show();
+
+});
+//filter_detail
+$("#nav-box li").click(function(){
+  console.log( $(this).index() );
+  $("#nav-box").hide();
+});
+
+
+
+</script>
+
+
+</body>
+</html>

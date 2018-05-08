@@ -504,7 +504,7 @@ header .action-back {
   font-size: 0.56rem;
   color: #262626;
   border-bottom: 1px solid #eee;
-  padding-left: 0.5rem;
+  padding-left: 0.6rem;
   transition: all .5s;
 }
 .filter_detail .order-by li:active,
@@ -932,17 +932,195 @@ header .action-back {
 /*
  * 项目详情  -- 百科
  */
+.baike {
+  padding: 0.4rem 0;
+}
+.baike .banner-baike {
+  height: 6.76rem;
+  padding-top: 0.3rem;
+  position: relative;
+  border-radius: 0.4rem;
+  box-shadow: 0.06rem 0.08rem 0.2rem 0.02rem #e3e3e3;
+  margin: 0 0.8rem 1.5rem;
+}
+.baike .banner-baike .banner-baike-con {
+  overflow: hidden;
+}
+.baike .banner-baike .swiper-pagination {
+  height: 0.2rem;
+  line-height: 0.2rem;
+  bottom: -0.3rem !important;
+  opacity: .7;
+  width: 100%;
+  left: 0;
+}
+.baike .banner-baike .swiper-pagination .swiper-pagination-bullet {
+  margin: 0 0.1rem !important;
+  width: 0.2rem;
+  height: 0.2rem;
+  border-radius: 100%;
+  opacity: .5;
+}
+.baike .banner-baike .swiper-pagination .swiper-pagination-bullet-active {
+  background: #000;
+  opacity: .9;
+}
+.baike .banner-baike a {
+  display: block;
+}
 .baike .banner-baike li {
   width: 5.4rem;
   float: left;
+  margin-left: 0.88rem;
 }
 .baike .banner-baike li img {
   width: 5.4rem;
   height: 5.4rem;
+  margin-bottom: 0.3rem;
 }
 .baike .banner-baike li P {
   line-height: 0.48rem;
   font-size: 0.48rem;
   text-align: center;
   color: #262626;
+}
+.baike .home-nav li {
+  margin-bottom: 0;
+}
+.baike-wrapper {
+  padding: 0 0.8rem 0.8rem;
+}
+.baike-wrapper h3 {
+  line-height: 0.6rem;
+  font-size: 0.58rem;
+  color: #262626;
+  font-family: "PingFang SC Medium";
+  margin: 0.6rem 0 0.2rem;
+}
+.baike-wrapper .text,
+.baike-wrapper p {
+  line-height: 0.96rem;
+  font-size: 0.54rem;
+  color: #666666;
+  font-family: "PingFang SC Medium";
+}
+.baike-wrapper ul {
+  overflow: hidden;
+}
+.baike-wrapper ul li {
+  float: left;
+  width: 4.4rem;
+}
+/*
+ * 资讯列表
+ */
+.news-list {
+  padding: 0 0.4rem;
+}
+.news-list li {
+  margin: 0.4rem 0;
+  padding: 0.3rem;
+  height: 4.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0.06rem 0.08rem 0.2rem 0.02rem #e3e3e3;
+  overflow: hidden;
+}
+.news-list li .pic {
+  float: left;
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.news-list li .pic img {
+  width: 4.2rem;
+  height: 4.2rem;
+}
+.news-list li .info {
+  width: 9rem;
+  float: right;
+}
+.news-list li .info h3 {
+  height: 0.68rem;
+  line-height: 0.68rem;
+  font-size: 0.68rem;
+  color: #262626;
+  margin-bottom: 0.4rem;
+  font-family: "PingFang SC Medium";
+}
+.news-list li .info .desc {
+  height: 0.52rem;
+  line-height: 0.52rem;
+  font-size: 0.52rem;
+  color: #999999;
+  margin-bottom: 0.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.news-list li .info .author {
+  height: 1rem;
+  line-height: 1rem;
+  font-size: 0.56rem;
+  color: #262626;
+  overflow: hidden;
+  font-family: "PingFang SC Medium";
+  margin-bottom: 0.6rem;
+}
+.news-list li .info .author img {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 100%;
+  margin-right: 0.4rem;
+  float: left;
+}
+.news-list li .info .view-comment span {
+  display: block;
+  padding-left: 0.7rem;
+  width: 2.4rem;
+  height: 0.48rem;
+  float: left;
+  line-height: 0.48rem;
+  font-size: 0.48rem;
+  color: #999999;
+  font-family: "PingFang SC Medium";
+}
+.news-list li .info .icon-view {
+  background: 0 center url(../img/icon-view.png) no-repeat;
+  background-size: 0.6rem;
+}
+.news-list li .info .icon-comment {
+  background: 0 center url(../img/icon-comment.png) no-repeat;
+  background-size: 0.6rem;
+}
+/*
+ * 变美日记
+ */
+.diaryShow {
+  padding: 0.8rem;
+}
+.diaryShow .top {
+  height: 1rem;
+  overflow: hidden;
+  margin-bottom: 0.6rem;
+}
+.diaryShow .top img {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 100%;
+  margin-right: 0.6rem;
+  float: left;
+}
+.diaryShow .top .author {
+  line-height: 1rem;
+  font-size: 0.56rem;
+  color: #999999;
+  font-family: "PingFang SC Blod";
+}
+.diaryShow .top .time {
+  font-size: 0.48rem;
+}
+.diaryShow .title {
+  line-height: 0.9rem;
+  font-size: 0.7rem;
+  font-family: "PingFang SC Medium";
+  color: #000;
 }

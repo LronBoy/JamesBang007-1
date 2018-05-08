@@ -30,9 +30,11 @@ function formatSearch(se){
 window.onload = function(){
   //返回按钮
   document.querySelector('.action-back').onclick = function(){  
-    if(history.length>0){
-      history.back(); //加载历史列表中的前一个 URL（如果存在）
-    }else{
+    if(history.length>1){
+      console.log(history.length);
+      history.back(); //加载历史列表中的前一个 URL（如果存在）      
+    }else{      
+      window.location.assign('http://192.168.0.104:8020/rongdie/')
       console.log("无历史页面");
     }    
   };
