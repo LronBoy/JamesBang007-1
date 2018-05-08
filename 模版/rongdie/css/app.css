@@ -1147,7 +1147,8 @@ header .action-back {
 /*
  * 登录
  */
-.login {
+.login,
+.logup {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -1155,18 +1156,21 @@ header .action-back {
   padding: 0.6rem;
   width: 15rem;
 }
-.login .login-bar {
+.login .login-bar,
+.logup .login-bar {
   width: 0.6rem;
   height: 0.6rem;
   background: url(../img/icon-close.png) no-repeat;
   background-size: 0.6rem;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 }
-.login .form-wrapper {
+.login .form-wrapper,
+.logup .form-wrapper {
   width: 11.8rem;
   margin: 0 auto;
 }
-.login .form-item {
+.login .form-item,
+.logup .form-item {
   padding: 0.72rem 0;
   height: 2.16rem;
   line-height: 0.72rem;
@@ -1176,7 +1180,8 @@ header .action-back {
   margin-bottom: 0.4rem;
   position: relative;
 }
-.login .form-item .text-input {
+.login .form-item .text-input,
+.logup .form-item .text-input {
   display: inline-block;
   height: 0.72rem;
   line-height: 0.72rem;
@@ -1187,22 +1192,26 @@ header .action-back {
   border: 0 solid #eee;
   padding-left: 0.2rem;
 }
-.login .form-item .text-input::-webkit-input-placeholder {
+.login .form-item .text-input::-webkit-input-placeholder,
+.logup .form-item .text-input::-webkit-input-placeholder {
   color: #9a9b9f;
 }
-.login .form-item .tel-area {
+.login .form-item .tel-area,
+.logup .form-item .tel-area {
   float: left;
   width: 1.7rem;
   border-right: 1px solid #f0f0f0;
   margin-right: 0.4rem;
 }
-.login .form-item .btn-code {
+.login .form-item .btn-code,
+.logup .form-item .btn-code {
   float: right;
   display: inline-block;
   font-size: 0.52rem;
   color: #fd3953;
 }
-.login .form-item .tips {
+.login .form-item .tips,
+.logup .form-item .tips {
   display: none;
   position: relative;
   bottom: -0.84rem;
@@ -1212,19 +1221,23 @@ header .action-back {
   font-size: 0.4rem;
   color: #fd3953;
 }
-.login .form-item2 {
+.login .form-item2,
+.logup .form-item2 {
   line-height: 0.48rem;
   font-size: 0.48rem;
   text-align: right;
   margin-bottom: 1.7rem;
 }
-.login .form-item2 span {
+.login .form-item2 span,
+.logup .form-item2 span {
   color: #fd3953;
 }
-.login .form-item-btn {
+.login .form-item-btn,
+.logup .form-item-btn {
   position: relative;
 }
-.login .form-item-btn .submit {
+.login .form-item-btn .submit,
+.logup .form-item-btn .submit {
   display: block;
   width: 10rem;
   line-height: 2rem;
