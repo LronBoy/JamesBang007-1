@@ -24,7 +24,7 @@ h1,h2,h3,h4{ font-weight: normal;}
 ul,ol,li{list-style:none;}
 em,i{ font-style: normal;}
 a{color:#555;text-decoration:none;}
-a,input, textarea, select, option { outline: 0; /*点击时虚线边框*/ }
+a,input, textarea, select, option,button { outline: 0; /*点击时虚线边框*/ }
 .fl{float:left}.fr{float:right}.cb{clear:both}
 
 
@@ -522,18 +522,84 @@ header{
 .diaryShow{
     padding: 40/@rex;
     .top{
-        height: 50/@rex; overflow: hidden; margin-bottom: 30/@rex;
-        img{ width: 50/@rex; height: 50/@rex; border-radius: 100%; margin-right: 30/@rex; float: left; }
+        height: 80/@rex; overflow: hidden; margin-bottom: 30/@rex;
+        img{ width: 80/@rex; height: 80/@rex; border-radius: 100%; margin-right: 30/@rex; float: left; }
         .author{
-            line-height: 50/@rex; font-size: 28/@rex; color: @light-black;
-            font-family: "PingFang SC Blod";
+            height: 38/@rex; line-height: 38/@rex; font-size: 28/@rex; color: @light-black;
+            font-family: "PingFang SC Blod"; overflow: hidden; margin-bottom: 18/@rex;
         }
         .time{
-            font-size: 24/@rex;
+            line-height: 24/@rex; font-size: 24/@rex; color: rgb(204,204,204); font-family: "PingFang SC Regular";
         }
     }
     .title{
-        line-height: 45/@rex; font-size: 35/@rex; font-family: "PingFang SC Medium"; color: #000;
+        line-height: 45/@rex; font-size: 35/@rex; font-family: "PingFang SC Medium"; color: #000; margin-bottom: 30/@rex;
     }    
-    
+    .content{
+        padding-bottom: 30/@rex; line-height: 48/@rex; font-size: 28/@rex; color: rgb(17,17,17); font-family: "PingFang SC Medium";
+        img{ max-width: 100%; height: auto; margin:30/@rex 0; }
+    }
+}
+
+/*
+ * 登录
+ */
+.login{
+    position: fixed; top: 0; bottom: 0; background: #fff;
+    padding: 30/@rex; width: 15rem;
+    .login-bar{
+        width: 30/@rex; height: 30/@rex; background: url(../img/icon-close.png) no-repeat;
+        background-size: 30/@rex; margin-bottom: 100/@rex;
+    }
+    .form-wrapper{
+        width: 590/@rex; margin: 0 auto;
+    }
+    .form-item{
+        padding: 36/@rex 0; height: 108/@rex; line-height: 36/@rex; font-size: 32/@rex; color: @nice-black;
+        border-bottom: 2/@rex solid rgb(240,240,240); margin-bottom: 20/@rex; position: relative;
+        .text-input{
+            display: inline-block; height: 36/@rex; line-height: 36/@rex; width: 360/@rex; border: none;
+            font-size: 32/@rex; color: @nice-black; border: 0 solid #eee; padding-left: 10/@rex;
+            &::-webkit-input-placeholder{
+                color: rgb(154,155,159);
+            }
+        }
+        .tel-area{
+            float: left; width: 85/@rex; border-right: 1px solid rgb(240,240,240);
+            margin-right: 20/@rex;
+        }
+        .btn-code{
+            float: right; display: inline-block; font-size: 26/@rex; color: @hig-color;
+        }
+        .tips{
+            display: none; position: relative; bottom: -42/@rex; left: 10/@rex;
+            height: 20/@rex; line-height: 20/@rex; font-size: 20/@rex; color: @hig-color;
+        }
+    }
+    .form-item2{
+        line-height: 24/@rex; font-size: 24/@rex; text-align: right; margin-bottom: 85/@rex;
+        span{ color: @hig-color;}
+    }
+    .form-item-btn{
+        position: relative;
+        .submit{ 
+            display: block; width: 500/@rex; line-height: 100/@rex;
+            font-size: 32/@rex; color: #fff; text-align: center;
+            background: @hig-color; border: 0; border-radius: 50/@rex; margin: 0 auto;
+        }
+    }
+}
+.dotting:after{
+    display: inline-block; content: ''; width: 3/@rex; height: 3/@rex; background: #fff;
+    position: absolute; top: 50%; left: 50%; margin:.35em 0 0 2em;
+    padding-right: 3/@rex; color: #fff;
+    border-left: 3/@rex solid currentColor; border-right: 3/@rex solid currentColor;
+    box-sizing: border-box;
+    background-color: currentColor; background-clip: content-box;    
+    animation: dotting 3s infinite step-start both;
+}
+@keyframes dotting {
+    25% { border-color: transparent; background-color: transparent; }
+    50% { border-right-color: transparent; background-color: transparent; }
+    75% { border-right-color: transparent; }
 }
