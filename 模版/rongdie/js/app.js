@@ -34,7 +34,7 @@ window.onload = function(){
       console.log(history.length);
       history.back(); //加载历史列表中的前一个 URL（如果存在）      
     }else{      
-      window.location.assign('http://192.168.0.104:8020/rongdie/')
+      window.location.assign('http://m.rongdie.com')
       console.log("无历史页面");
     }    
   };

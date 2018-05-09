@@ -29,7 +29,7 @@ body {
   font-family: "PingFang SC", Helvetica, Arial, "Microsoft YaHei";
   color: #444;
   background: #fff;
-  padding-bottom: 2rem;
+  padding: 1.92rem 0 2rem;
   position: relative;
 }
 body * {
@@ -100,9 +100,8 @@ header {
   height: 1.92rem;
   background: linear-gradient(to right, #eb568e, #fd3953);
   padding: 0.66rem 0.64rem 0;
-  /*position: fixed;*/
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
+  /*position: -webkit-sticky;*/
   top: 0;
   z-index: 99;
 }
@@ -407,9 +406,8 @@ header .action-back {
   height: 2rem;
   padding: 0 1rem;
   background: linear-gradient(to right, #eb568e, #fd3953);
-  /*position: fixed;*/
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
+  /*position: -webkit-sticky;*/
   top: 1.9rem;
   z-index: 100;
 }
@@ -466,6 +464,7 @@ header .action-back {
   top: 0;
   bottom: 0;
   z-index: 99;
+  width: 15rem;
   display: none;
 }
 .filter_detail .list-wrapper {
@@ -549,7 +548,7 @@ header .action-back {
 }
 .product-list {
   margin-bottom: 0.6rem;
-  padding: 0 0.4rem;
+  padding: 2rem 0.4rem 0;
 }
 .product-list li {
   margin: 0.4rem 0;
@@ -568,17 +567,25 @@ header .action-back {
   width: 4.2rem;
   height: 4.2rem;
 }
+.product-list li .pic a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
 .product-list li .info {
   width: 9rem;
   float: right;
 }
 .product-list li .info h3 {
   margin-top: -0.1rem;
+  height: 1.76rem;
   line-height: 0.88rem;
   font-size: 0.56rem;
   color: #262626;
   font-weight: bold;
   margin-bottom: 0.48rem;
+  overflow: hidden;
 }
 .product-list li .info .yy {
   height: 0.6rem;
@@ -1313,5 +1320,49 @@ header .action-back {
   }
   75% {
     border-right-color: transparent;
+  }
+}
+.loading {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+  width: 100%;
+  text-align: center;
+}
+.loading .circular {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -25px 0 0 -25px;
+  height: 50px;
+  width: 50px;
+  animation: loading-rotate 2s linear infinite;
+}
+.loading .path {
+  animation: loading-dash 1.5s ease-in-out infinite;
+  stroke-dasharray: 90, 150;
+  stroke-dashoffset: 0;
+  stroke-width: 2;
+  stroke: #409eff;
+  stroke-linecap: round;
+}
+@keyframes loading-rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes loading-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -40px;
+  }
+  to {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -120px;
   }
 }

@@ -7,7 +7,7 @@ html{ margin: 0 auto; background: #eee; font-size: 50px; max-width: 750px;}
 body,h1,h2,h3,h4,p,dl,dt,dd,ul,li,form,button,input,textarea,th,td,a{margin:0;padding:0}
 body {
     font-family: "PingFang SC",Helvetica,Arial,"Microsoft YaHei"; color:#444; background: #fff;
-    padding-bottom: 100/@rex; position: relative;
+    padding:96/@rex 0 100/@rex; position: relative;
 }
 body * {
    -webkit-text-size-adjust: 100%; /*文本的大小调整*/
@@ -34,7 +34,7 @@ a,input, textarea, select, option,button { outline: 0; /*点击时虚线边框*/
 header{
     width: 15rem; height: 96/@rex; background: linear-gradient(to right, #eb568e, #fd3953);
     padding: 33/@rex 32/@rex 0;
-    /*position: fixed;*/ position: -webkit-sticky; position: sticky; top: 0; z-index: 99;
+    position: fixed; /*position: -webkit-sticky;*/ top: 0; z-index: 99;
     .m-title{ margin: 0 auto; height: 30/@rex; line-height: 30/@rex; font-size: 30/@rex; text-align: center; color: #fff; font-weight: bold; overflow: hidden; }
     .action-back{
         display: block; width: 16/@rex; height: 30/@rex; background: center center url(../img/icon-left.png) no-repeat;        
@@ -152,7 +152,7 @@ header{
 //导航
 #nav{
     width: 15rem; height: 100/@rex; padding: 0 50/@rex; background: linear-gradient(to right, #eb568e, #fd3953);
-    /*position: fixed;*/ position: -webkit-sticky; position: sticky; top: 95/@rex; z-index: 100;    
+    position: fixed; /*position: -webkit-sticky;*/ top: 95/@rex; z-index: 100;    
     ul{
         display: -webkit-flex; -webkit-justify-content: space-around;
         display: flex; justify-content: space-around;
@@ -175,7 +175,7 @@ header{
     }
 }
 .filter_detail{
-    position: absolute; top: 0; bottom: 0; z-index: 99; display: none;
+    position: absolute; top: 0; bottom: 0; z-index: 99; width: 15rem; display: none;
     .list-wrapper{
         display: -webkit-flex; -webkit-justify-content: space-around;
         display: flex;  justify-content: space-around;
@@ -218,7 +218,7 @@ header{
 }
 //商品列表
 .product-list{
-    margin-bottom: 30/@rex; padding:0 20/@rex;
+    margin-bottom: 30/@rex; padding:100/@rex 20/@rex 0;
     ul{}
     li{
         margin: 20/@rex 0; padding: 15/@rex; height: 240/@rex; border-radius: 20/@rex;
@@ -226,10 +226,13 @@ header{
         .pic{
             float: left; width: 210/@rex; height: 210/@rex;
             img{ width: 210/@rex; height: 210/@rex; }
+            a{
+                display: block; width: 100%; height: 100%; background-size: cover;
+            }
         }
         .info{
             width: 450/@rex; float: right;
-            h3{ margin-top: -5/@rex; line-height: 44/@rex; font-size: 28/@rex; color: @nice-black; font-weight: bold; margin-bottom: 24/@rex; }
+            h3{ margin-top: -5/@rex; height: 88/@rex; line-height: 44/@rex; font-size: 28/@rex; color: @nice-black; font-weight: bold; margin-bottom: 24/@rex; overflow: hidden; }
             .yy{ height: 30/@rex; line-height: 30/@rex; font-size: 26/@rex; color: @light-black; margin-bottom: 30/@rex; overflow: hidden; font-weight: 500; }
             .foot{
                 height: 44/@rex; line-height: 44/@rex; color: @light-black; font-weight: 500;
@@ -611,4 +614,35 @@ header{
     25% { border-color: transparent; background-color: transparent; }
     50% { border-right-color: transparent; background-color: transparent; }
     75% { border-right-color: transparent; }
+}
+
+.loading{
+    position: fixed; top: 0; bottom: 0; z-index: 999; width: 100%; text-align: center;// background: rgba(0,0,0,.3);    
+    .circular {
+        position: absolute; top: 50%; left: 50%; margin: -25px 0 0 -25px; 
+        height: 50px; width: 50px; animation: loading-rotate 2s linear infinite;
+    }
+    .path {
+        animation: loading-dash 1.5s ease-in-out infinite;
+        stroke-dasharray: 90, 150; stroke-dashoffset: 0; stroke-width: 2; stroke: #409eff; stroke-linecap: round
+    }
+}
+@keyframes loading-rotate {
+    to {
+        transform: rotate(1turn)
+    }
+}
+@keyframes loading-dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -40px
+    }
+    to {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -120px
+    }
 }
