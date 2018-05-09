@@ -29,7 +29,7 @@ body {
   font-family: "PingFang SC", Helvetica, Arial, "Microsoft YaHei";
   color: #444;
   background: #fff;
-  padding: 1.92rem 0 2rem;
+  padding-bottom: 2rem;
   position: relative;
 }
 body * {
@@ -100,7 +100,9 @@ header {
   height: 1.92rem;
   background: linear-gradient(to right, #eb568e, #fd3953);
   padding: 0.66rem 0.64rem 0;
-  position: fixed;
+  /*position: fixed;*/
+  position: -webkit-sticky;
+  position: sticky;
   top: 0;
   z-index: 99;
 }
@@ -403,21 +405,13 @@ header .action-back {
 #nav {
   width: 15rem;
   height: 2rem;
-  padding: 0.7rem 1rem 0;
+  padding: 0 1rem;
   background: linear-gradient(to right, #eb568e, #fd3953);
-  position: fixed;
+  /*position: fixed;*/
+  position: -webkit-sticky;
+  position: sticky;
   top: 1.9rem;
   z-index: 100;
-}
-#nav:after {
-  display: block;
-  content: '';
-  width: 2rem;
-  height: 0.04rem;
-  background: #fff;
-  position: absolute;
-  bottom: 0;
-  left: 2.26rem;
 }
 #nav ul {
   display: -webkit-flex;
@@ -428,11 +422,25 @@ header .action-back {
 }
 #nav li {
   width: 33.3%;
-  line-height: 0.6rem;
+  height: 2rem;
+  line-height: 2rem;
   font-size: 0.6rem;
   color: #fff;
   text-align: center;
   cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  position: relative;
+}
+#nav li.active:after {
+  display: block;
+  content: '';
+  width: 2rem;
+  height: 0.06rem;
+  background: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1rem;
 }
 .nav-box {
   position: fixed;
@@ -444,10 +452,20 @@ header .action-back {
   overflow: hidden;
   display: none;
 }
+.nav-box .nav-box-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 98;
+  background: rgba(0, 0, 0, 0.2);
+}
 .filter_detail {
-  position: relative;
+  position: absolute;
   top: 0;
   bottom: 0;
+  z-index: 99;
   display: none;
 }
 .filter_detail .list-wrapper {
@@ -455,12 +473,16 @@ header .action-back {
   -webkit-justify-content: space-around;
   display: flex;
   justify-content: space-around;
+  position: absolute;
+  top: 0;
+  bottom: 0;
 }
 .filter_detail .left-list {
   float: left;
   width: 5.8rem;
   background: #f7f7f7;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .filter_detail .left-list ul {
   overflow-y: auto;
@@ -484,6 +506,8 @@ header .action-back {
   padding: 0 0.3rem;
   width: 9.2rem;
   background: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .filter_detail .right-item li {
   width: 50%;
@@ -553,8 +577,8 @@ header .action-back {
   line-height: 0.88rem;
   font-size: 0.56rem;
   color: #262626;
+  font-weight: bold;
   margin-bottom: 0.48rem;
-  font-family: "PingFang SC Bold";
 }
 .product-list li .info .yy {
   height: 0.6rem;
@@ -563,17 +587,17 @@ header .action-back {
   color: #999999;
   margin-bottom: 0.6rem;
   overflow: hidden;
-  font-family: "PingFang SC Medium";
+  font-weight: 500;
 }
 .product-list li .info .foot {
   height: 0.88rem;
   line-height: 0.88rem;
   color: #999999;
+  font-weight: 500;
 }
 .product-list li .info .foot span {
   display: inline-block;
   float: left;
-  font-family: "PingFang SC Medium";
 }
 .product-list li .info .foot .price {
   line-height: 0.88rem;
@@ -1005,7 +1029,7 @@ header .action-back {
   line-height: 0.6rem;
   font-size: 0.58rem;
   color: #262626;
-  font-family: "PingFang SC Medium";
+  font-weight: 500;
   margin: 0.6rem 0 0.2rem;
 }
 .baike-wrapper .text,
@@ -1013,7 +1037,7 @@ header .action-back {
   line-height: 0.96rem;
   font-size: 0.54rem;
   color: #666666;
-  font-family: "PingFang SC Medium";
+  font-weight: 500;
 }
 .baike-wrapper ul {
   overflow: hidden;
@@ -1055,7 +1079,7 @@ header .action-back {
   font-size: 0.68rem;
   color: #262626;
   margin-bottom: 0.4rem;
-  font-family: "PingFang SC Medium";
+  font-weight: 500;
 }
 .news-list li .info .desc {
   height: 0.52rem;
@@ -1073,7 +1097,7 @@ header .action-back {
   font-size: 0.56rem;
   color: #262626;
   overflow: hidden;
-  font-family: "PingFang SC Medium";
+  font-weight: 500;
   margin-bottom: 0.6rem;
 }
 .news-list li .info .author img {
@@ -1092,7 +1116,7 @@ header .action-back {
   line-height: 0.48rem;
   font-size: 0.48rem;
   color: #999999;
-  font-family: "PingFang SC Medium";
+  font-weight: 500;
 }
 .news-list li .info .icon-view {
   background: 0 center url(../img/icon-view.png) no-repeat;
@@ -1138,7 +1162,7 @@ header .action-back {
 .diaryShow .title {
   line-height: 0.9rem;
   font-size: 0.7rem;
-  font-family: "PingFang SC Medium";
+  font-weight: 500;
   color: #000;
   margin-bottom: 0.6rem;
 }
@@ -1147,7 +1171,7 @@ header .action-back {
   line-height: 0.96rem;
   font-size: 0.56rem;
   color: #111111;
-  font-family: "PingFang SC Medium";
+  font-weight: 500;
 }
 .diaryShow .content img {
   max-width: 100%;

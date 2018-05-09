@@ -21,58 +21,49 @@
     <a href="javascript:void(0);" class="action-back icon-left"></a>
 </header>
 
-
 <!-- 导航 start -->
-<div id="nav">
-    <ul>
-    	<li>项目</li>
-      <li>城市</li>
-    	<li>排序</li>
-    </ul>
-</div>
-<!-- 导航 end -->
-<div class="nav-box" id="nav-box">
-    <!-- 项目 -->
-    <div id="filter_detail_1" class="filter_detail">
-      <div class="list-wrapper">
-        <div class="left-list">
-          <filter-ul :list="project" v-on:receive="changeCurrent"></filter-ul>
-        </div>
-        <div class="right-item">
-          <filter-ul :list="subProject" v-on:receive="changeSubCurrent"></filter-ul>
-          </ul>
-        </div>
+<section id="nav" class="nav-tab">
+  <ul>
+  	<li>项目</li>
+    <li>城市</li>
+  	<li>排序</li>
+  </ul>
+</section>  
+<section class="nav-box" id="nav-box">
+  <!-- 项目 -->
+  <div id="filter_detail_1" class="filter_detail">
+    <div class="list-wrapper">
+      <div class="left-list">
+        <filter-ul :list="project" v-on:receive="changeCurrent"></filter-ul>
       </div>
-    </div>
-    <!-- 地区 -->
-    <div id="filter_detail_2" class="filter_detail">
-      <div class="list-wrapper">
-        <div class="left-list">
-          <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in city">
-              {{ item.name }}
-            </li>
-          </ul>
-        </div>
-        <div class="right-item">
-          <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in subCity">
-              {{ item.name }}
-            </li>
-          </ul>
-        </div>
-      </div>      
-    </div>
-    <!-- 排序 -->
-    <div id="filter_detail_3" class="filter_detail">
-      <div class="order-by">
-        <ul>
-          <li data-by="desc">价格从高到低</li>
-          <li data-by="asc">价格从低到高</li>
+      <div class="right-item">
+        <filter-ul :list="filterItem" v-on:receive="changeProject"></filter-ul>
         </ul>
       </div>
     </div>
-</div>
+  </div>
+  <!-- 地区 -->
+  <div id="filter_detail_2" class="filter_detail">
+    <div class="list-wrapper">
+      <div class="left-list">
+        <filter-ul :list="city" v-on:receive="changeCurrent"></filter-ul>
+      </div>
+      <div class="right-item">
+        <filter-ul :list="filterItem" v-on:receive="changeCity"></filter-ul>
+      </div>
+    </div>      
+  </div>
+  <!-- 排序 -->
+  <div id="filter_detail_3" class="filter_detail">
+    <div class="order-by">
+      <ul>
+        <li v-for="item in order" @click="orderBy(item)">{{item.name}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="nav-box-bg" @click="hideNavBox"></div>
+</section>
+<!-- 导航 end -->
 
 <!-- 商品列表 -->
 <section class="product-list">
@@ -106,35 +97,8 @@
       </div>
     </li>
     
+    <li><div class="pic"><a href="#"><img src="temporary/product-list_1.jpg" alt="" /></a></div><div class="info"><a href="#"><h3>“成都综合隆鼻”全面改善鼻部问题,告别平庸，塑造立体自信美！！</h3></a><div class="yy">成都韩美整形外科医院</div><div class="foot"><span class="price">¥8880</span><span class="origprice">¥24420</span><span class="booking">18人预订</span></div></div></li><li><div class="pic"><a href="#"><img src="temporary/product-list_2.jpg" alt="" /></a></div><div class="info"><a href="#"><h3>“成都综合隆鼻套餐”综合隆鼻直接叫板明星美鼻，告别塌鼻子！</h3></a><div class="yy">成都华美整形外科医院</div><div class="foot"><span class="price">¥4581</span><span class="origprice">¥24420</span><span class="booking">3人预订</span></div></div></li><li><div class="pic"><a href="#"><img src="temporary/product-list_1.jpg" alt="" /></a></div><div class="info"><a href="#"><h3>“成都综合隆鼻”全面改善鼻部问题,告别平庸，塑造立体自信美！！</h3></a><div class="yy">成都韩美整形外科医院</div><div class="foot"><span class="price">¥8880</span><span class="origprice">¥24420</span><span class="booking">18人预订</span></div></div></li><li><div class="pic"><a href="#"><img src="temporary/product-list_2.jpg" alt="" /></a></div><div class="info"><a href="#"><h3>“成都综合隆鼻套餐”综合隆鼻直接叫板明星美鼻，告别塌鼻子！</h3></a><div class="yy">成都华美整形外科医院</div><div class="foot"><span class="price">¥4581</span><span class="origprice">¥24420</span><span class="booking">3人预订</span></div></div></li><li><div class="pic"><a href="#"><img src="temporary/product-list_1.jpg" alt="" /></a></div><div class="info"><a href="#"><h3>“成都综合隆鼻”全面改善鼻部问题,告别平庸，塑造立体自信美！！</h3></a><div class="yy">成都韩美整形外科医院</div><div class="foot"><span class="price">¥8880</span><span class="origprice">¥24420</span><span class="booking">18人预订</span></div></div></li><li><div class="pic"><a href="#"><img src="temporary/product-list_2.jpg" alt="" /></a></div><div class="info"><a href="#"><h3>“成都综合隆鼻套餐”综合隆鼻直接叫板明星美鼻，告别塌鼻子！</h3></a><div class="yy">成都华美整形外科医院</div><div class="foot"><span class="price">¥4581</span><span class="origprice">¥24420</span><span class="booking">3人预订</span></div></div></li>
     
-    <li>
-      <div class="pic">
-        <a href="#"><img src="temporary/product-list_1.jpg" alt="" /></a>       
-      </div>
-      <div class="info">
-        <a href="#"><h3>“成都综合隆鼻”全面改善鼻部问题,告别平庸，塑造立体自信美！！</h3></a>
-        <div class="yy">成都韩美整形外科医院</div>
-        <div class="foot">          
-          <span class="price">¥8880</span>
-          <span class="origprice">¥24420</span>          
-          <span class="booking">18人预订</span>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div class="pic">
-        <a href="#"><img src="temporary/product-list_2.jpg" alt="" /></a>       
-      </div>
-      <div class="info">
-        <a href="#"><h3>“成都综合隆鼻套餐”综合隆鼻直接叫板明星美鼻，告别塌鼻子！</h3></a>
-        <div class="yy">成都华美整形外科医院</div>
-        <div class="foot">          
-          <span class="price">¥4581</span>
-          <span class="origprice">¥24420</span>          
-          <span class="booking">3人预订</span>
-        </div>
-      </div>
-    </li>
   </ul>
   
 </section>
@@ -171,20 +135,19 @@
 <script>
 //顶部tab点击切换
 $("#nav li").click(function(){
-  console.log( $(this).index() );
+  $("#nav li").removeClass("active");
+  $(this).addClass("active");
   $("#nav-box").show();
   $("#nav-box .filter_detail").hide();
   $("#nav-box .filter_detail").eq($(this).index()).show();
+  $("body").css("overflow","hidden");
+  
+  vm.filterItem = [];
   if( $(this).index()==0 ){
     filterProject();
   }else if( $(this).index()==1 ){
     filterCity();
   }
-});
-//filter_detail
-$("#nav-box li").click(function(){
-  console.log( $(this).index() );
-  
 });
 
 Vue.component('filter-ul',{
@@ -194,10 +157,10 @@ Vue.component('filter-ul',{
     }
   },
   props:["list","filter"],
-  template: '<ul><li data-id="item.menu1_id" :class="i==current?\'active\':\'\'" v-for="(item,i) in list" @click="tapList(i,item)">{{ item.name }}</li></ul>',
+  template: '<ul><li :class="i==current?\'active\':\'\'" v-for="(item,i) in list" @click="tapList(i,item)">{{ item.name }}</li></ul>',
   methods:{
     tapList: function(i,value){
-      console.log(i,value);
+      //console.log(i,value);
       this.current = i;
       //告知父级，改变current的值，需要出发一个自定义事件
       this.$emit("receive",value);
@@ -206,62 +169,86 @@ Vue.component('filter-ul',{
 });
 
 var vm = new Vue({
-  el:".nav-box",
+  el:"#nav-box",
   data:{
     project: [],
-    subProject: [],
     city: [],
-    subCity: [],
+    order:[
+      {id:1 , name:"价格从低到高"},
+      {id:2 , name:"价格从高到低"}
+    ],
+    filterItem: [],
     filter:{
-      current: 0,
-      subCurrent: 0,
-      project:{ id:0, name:"" },
-      city:{ id:0, name:"" },
-      order:{ id:0, name:"" },
+      project:{ id:0, name:"不限" },
+      city:{ id:0, name:"默认" },
+      order:{ id:0, name:"默认" },
     }
   },
   methods:{
     changeCurrent(value){
-      console.log("父级"+value);
-      //this.filter.current = i;
-      this.filter.subCurrent = 0;
-      this.subProject = value.son;
+      //console.log("父级接收 "+value.name);
+      //更新子类
+      this.filterItem = value.son;
     },
-    changeSubCurrent(value){
-      console.log("父级"+i,value);
-      //this.filter.subCurrent = i;
-      
+    changeProject(value){
+      //console.log("父级接收 子类操作 "+value.name+"，"+value.menu2_id);
+      this.filter.project = {id: value.name, name:value.menu2_id };
+      $("#nav li").eq(0).html(value.name);
+      postData();
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+    },
+    changeCity(value){
+      this.filter.city = {id: value.name, name:value.menu2_id };
+      $("#nav li").eq(1).html(value.name);
+      postData();
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+    },
+    orderBy(value){
+      this.filter.order = value;
+      $("#nav li").eq(2).html(value.name);
+      postData();
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+    },
+    hideNavBox(){
+      $("#nav-box").hide();
+      $("body").css("overflow","");
     }
   }
 });
 
+
 function filterProject(){
   $.get("temporary/product.json", function(result){
-    console.log(result.responseData.menu1_info);
+    //console.log(result.responseData.menu1_info);
     vm.project = result.responseData.menu1_info;
-    vm.subProject = result.responseData.menu1_info[1].son;
+    //vm.filterItem = result.responseData.menu1_info[1].son;
   });
 }
 
 function filterCity(){
   $.get("temporary/product.json", function(result){
-    console.log(result.responseData.city);
     vm.city = result.responseData.city;
-    vm.subCity = result.responseData.city[0].son;
+    //vm.filterItem = result.responseData.city[0].son;
   });
-  
-  
 }
 
-//$("#nav_1").on("click",filterProject);
-//;
-//$("#nav_1").on("click",filterCity);
-//
-
-
+//筛选后post请求数据
+function postData(){
+  $.ajax({
+    type: "POST",
+    //url: "https://m.rongdie.com/tuan/getTuan",
+    url: "http://jmsbang.com/demo/ruli/rd_getTuan.php",
+    data: vm.filter,
+    success: function(re){
+      console.log(re);
+    }
+  });
+}
 
 </script>
-
 
 </body>
 </html>

@@ -7,7 +7,7 @@ html{ margin: 0 auto; background: #eee; font-size: 50px; max-width: 750px;}
 body,h1,h2,h3,h4,p,dl,dt,dd,ul,li,form,button,input,textarea,th,td,a{margin:0;padding:0}
 body {
     font-family: "PingFang SC",Helvetica,Arial,"Microsoft YaHei"; color:#444; background: #fff;
-    padding: 96/@rex 0 100/@rex; position: relative;
+    padding-bottom: 100/@rex; position: relative;
 }
 body * {
    -webkit-text-size-adjust: 100%; /*文本的大小调整*/
@@ -33,7 +33,8 @@ a,input, textarea, select, option,button { outline: 0; /*点击时虚线边框*/
  * */
 header{
     width: 15rem; height: 96/@rex; background: linear-gradient(to right, #eb568e, #fd3953);
-    padding: 33/@rex 32/@rex 0; position: fixed; top: 0; z-index: 99;
+    padding: 33/@rex 32/@rex 0;
+    /*position: fixed;*/ position: -webkit-sticky; position: sticky; top: 0; z-index: 99;
     .m-title{ margin: 0 auto; height: 30/@rex; line-height: 30/@rex; font-size: 30/@rex; text-align: center; color: #fff; font-weight: bold; overflow: hidden; }
     .action-back{
         display: block; width: 16/@rex; height: 30/@rex; background: center center url(../img/icon-left.png) no-repeat;        
@@ -150,34 +151,39 @@ header{
 
 //导航
 #nav{
-    width: 15rem; height: 100/@rex; padding: 35/@rex 50/@rex 0; background: linear-gradient(to right, #eb568e, #fd3953);
-    position: fixed; top: 95/@rex; z-index: 100;
-    &:after{
-        display: block; content: ''; width: 100/@rex; height: 2/@rex; background: #fff;
-        position: absolute; bottom: 0; left: 113/@rex;
-    }
+    width: 15rem; height: 100/@rex; padding: 0 50/@rex; background: linear-gradient(to right, #eb568e, #fd3953);
+    /*position: fixed;*/ position: -webkit-sticky; position: sticky; top: 95/@rex; z-index: 100;    
     ul{
         display: -webkit-flex; -webkit-justify-content: space-around;
         display: flex; justify-content: space-around;
         width: 100%;
     }
     li{
-        width: 33.3%; line-height: 30/@rex; font-size: 30/@rex; color: #fff; text-align: center;
-        cursor: pointer;
+        width: 33.3%; height: 100/@rex; line-height: 100/@rex; font-size: 30/@rex; color: #fff; text-align: center;
+        cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;
+        &.active:after{
+            display: block; content: ''; width: 100/@rex; height: 3/@rex; background: #fff;
+            position: absolute; bottom: 0; left: 50%; margin-left: -50/@rex;
+        }
     }
 }
 .nav-box{
     position: fixed; top:194/@rex; bottom: 0; z-index: 98; width: 100%; max-width: 750/@rex; overflow: hidden; display: none;
+    .nav-box-bg{
+        position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 98;
+        background: rgba(0,0,0,.2);
+    }
 }
 .filter_detail{
-    position: relative; top: 0; bottom: 0; display: none;
+    position: absolute; top: 0; bottom: 0; z-index: 99; display: none;
     .list-wrapper{
         display: -webkit-flex; -webkit-justify-content: space-around;
         display: flex;  justify-content: space-around;
+        position: absolute; top: 0; bottom: 0; 
     }
 
     .left-list{
-        float: left; width: 290/@rex; background: #f7f7f7; overflow: hidden;
+        float: left; width: 290/@rex; background: #f7f7f7; overflow-x: hidden; overflow-y: auto;
         ul{overflow-y: auto;}
         li{
             height: 100/@rex; line-height: 100/@rex; font-size: 28/@rex; color: @nice-black;
@@ -189,7 +195,7 @@ header{
         }
     }
     .right-item{
-        padding:0 15/@rex; width: 460/@rex; background: #fff;
+        padding:0 15/@rex; width: 460/@rex; background: #fff; overflow-x: hidden; overflow-y: auto;
         li{
             width: 50%; height: 150/@rex; line-height: 150/@rex;
             font-size: 28/@rex; color: @nice-black; text-align: center;
@@ -214,7 +220,7 @@ header{
 .product-list{
     margin-bottom: 30/@rex; padding:0 20/@rex;
     ul{}
-    li{        
+    li{
         margin: 20/@rex 0; padding: 15/@rex; height: 240/@rex; border-radius: 20/@rex;
         box-shadow: 3/@rex 4/@rex 10/@rex 1/@rex rgb( 227, 227, 227 ); overflow: hidden;
         .pic{
@@ -223,11 +229,11 @@ header{
         }
         .info{
             width: 450/@rex; float: right;
-            h3{ margin-top: -5/@rex; line-height: 44/@rex; font-size: 28/@rex; color: @nice-black; margin-bottom: 24/@rex; font-family: "PingFang SC Bold"; }
-            .yy{ height: 30/@rex; line-height: 30/@rex; font-size: 26/@rex; color: @light-black; margin-bottom: 30/@rex; overflow: hidden; font-family: "PingFang SC Medium"; }
+            h3{ margin-top: -5/@rex; line-height: 44/@rex; font-size: 28/@rex; color: @nice-black; font-weight: bold; margin-bottom: 24/@rex; }
+            .yy{ height: 30/@rex; line-height: 30/@rex; font-size: 26/@rex; color: @light-black; margin-bottom: 30/@rex; overflow: hidden; font-weight: 500; }
             .foot{
-                height: 44/@rex; line-height: 44/@rex; color: @light-black;
-                span{ display: inline-block; float: left; font-family: "PingFang SC Medium"; }
+                height: 44/@rex; line-height: 44/@rex; color: @light-black; font-weight: 500;
+                span{ display: inline-block; float: left; }
                 .price{ line-height: 44/@rex; font-size: 44/@rex; color: @hig-color; margin-right: 20/@rex; }
                 .origprice{ font-size: 30/@rex; text-decoration: line-through; }
                 .booking{ font-size: 24/@rex; float: right; }
@@ -455,11 +461,11 @@ header{
 .baike-wrapper{
     padding: 0 40/@rex 40/@rex;
     h3{
-        line-height: 30/@rex; font-size: 29/@rex; color: @nice-black; font-family: "PingFang SC Medium";
+        line-height: 30/@rex; font-size: 29/@rex; color: @nice-black; font-weight: 500;
         margin: 30/@rex 0 10/@rex; 
     }
     .text,p{
-        line-height: 48/@rex; font-size: 27/@rex; color: rgb(102,102,102); font-family: "PingFang SC Medium";
+        line-height: 48/@rex; font-size: 27/@rex; color: rgb(102,102,102); font-weight: 500;
     }
     ul{
         overflow: hidden;
@@ -486,7 +492,7 @@ header{
             width: 450/@rex; float: right;
             h3{
                 height: 34/@rex; line-height: 34/@rex; font-size: 34/@rex; color: @nice-black;
-                margin-bottom: 20/@rex; font-family: "PingFang SC Medium";
+                margin-bottom: 20/@rex; font-weight: 500;
             }
             .desc{
                 height: 26/@rex; line-height: 26/@rex; font-size: 26/@rex; color: @light-black; 
@@ -495,13 +501,13 @@ header{
             }
             .author{
                 height: 50/@rex; line-height: 50/@rex;  font-size: 28/@rex; color: @nice-black; overflow: hidden;
-                font-family: "PingFang SC Medium"; margin-bottom: 30/@rex;
+                font-weight: 500; margin-bottom: 30/@rex;
                 img{ width: 50/@rex; height: 50/@rex; border-radius: 100%; margin-right: 20/@rex; float: left; }
             }
             .view-comment{
                 span{
                     display: block; padding-left: 35/@rex; width: 120/@rex; height: 24/@rex; float: left;
-                    line-height: 24/@rex; font-size: 24/@rex; color: @light-black; font-family: "PingFang SC Medium";
+                    line-height: 24/@rex; font-size: 24/@rex; color: @light-black; font-weight: 500;
                 }
             }
             .icon-view{
@@ -535,10 +541,10 @@ header{
         }
     }
     .title{
-        line-height: 45/@rex; font-size: 35/@rex; font-family: "PingFang SC Medium"; color: #000; margin-bottom: 30/@rex;
+        line-height: 45/@rex; font-size: 35/@rex; font-weight: 500; color: #000; margin-bottom: 30/@rex;
     }    
     .content{
-        padding-bottom: 30/@rex; line-height: 48/@rex; font-size: 28/@rex; color: rgb(17,17,17); font-family: "PingFang SC Medium";
+        padding-bottom: 30/@rex; line-height: 48/@rex; font-size: 28/@rex; color: rgb(17,17,17); font-weight: 500;
         img{ max-width: 100%; height: auto; margin:30/@rex 0; }
     }
 }

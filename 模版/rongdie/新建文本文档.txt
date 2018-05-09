@@ -75,4 +75,20 @@ footer
 
 
 
+淘整形（团购）
+{
+    "product_id": 101,
+    "icon": "temporary/product-list_2.jpg",
+    "name":"“成都综合隆鼻套餐”综合隆鼻直接叫板明星美鼻，告别塌鼻子！",
+    "hos_name":"安徽韩美整形外科医院",
+    "tuan_price":"2300",
+    "price":"5980",
+    "book_num":"9"
+}
+
+
+
+
+
+
 
