@@ -30,28 +30,13 @@
   </ul>
 </section>  
 <section class="nav-box" id="nav-box">
-  <!-- 项目 -->
+  <!-- 项目  :subList="project[0].son"-->
   <div id="filter_detail_1" class="filter_detail">
-    <div class="list-wrapper">
-      <div class="left-list">
-        <filter-ul :list="project" v-on:receive="changeCurrent"></filter-ul>
-      </div>
-      <div class="right-item">
-        <filter-ul :list="filterItem" v-on:receive="changeProject"></filter-ul>
-        </ul>
-      </div>
-    </div>
+    <filter-list :list="project"></filter-list>
   </div>
   <!-- 地区 -->
   <div id="filter_detail_2" class="filter_detail">
-    <div class="list-wrapper">
-      <div class="left-list">
-        <filter-ul :list="city" v-on:receive="changeCurrent"></filter-ul>
-      </div>
-      <div class="right-item">
-        <filter-ul :list="filterItem" v-on:receive="changeCity"></filter-ul>
-      </div>
-    </div>      
+    <filter-list :list="city"></filter-list>
   </div>
   <!-- 排序 -->
   <div id="filter_detail_3" class="filter_detail">
@@ -104,7 +89,6 @@
 </section>
 <!-- 商品列表end -->
 
-
 <section class="bottom-bar">
   <ul>
     <li class="active"><a href="#bNav">
@@ -150,29 +134,33 @@ $("#nav li").click(function(){
   }
 });
 
-Vue.component('filter-ul',{
+Vue.component('filter-list',{
   data:function(){
     return{
-      current: 0
+      current: 0,
+      subList: []
     }
   },
   props:["list","filter"],
-  template: '<ul><li :class="i==current?\'active\':\'\'" v-for="(item,i) in list" @click="tapList(i,item)">{{ item.name }}</li></ul>',
+  template: '<div class="list-wrapper"><div class="left-list"><ul><li :class="i==current?\'active\':\'\'" v-for="(item,i) in list" @click="tapList(i,item)">{{current}}{{ item.name }}</li></ul></div><div class="right-item"><ul><li v-for="(item2,i2) in list[current].son">{{ item2.name }}</li></ul></div></div>',
   methods:{
     tapList: function(i,value){
-      //console.log(i,value);
+      console.log(i,value);
       this.current = i;
+      this.subList = value.son;
+      //this.subList = this.list[this.current].son;
       //告知父级，改变current的值，需要出发一个自定义事件
       this.$emit("receive",value);
     }
   }
+  
 });
 
 var vm = new Vue({
   el:"#nav-box",
   data:{
-    project: [],
-    city: [],
+    project: [ {"son":[]} ],
+    city: [ {"son":[]} ],
     order:[
       {id:1 , name:"价格从低到高"},
       {id:2 , name:"价格从高到低"}
@@ -188,7 +176,7 @@ var vm = new Vue({
     changeCurrent(value){
       //console.log("父级接收 "+value.name);
       //更新子类
-      this.filterItem = value.son;
+      //this.filterItem = value.son;
     },
     changeProject(value){
       //console.log("父级接收 子类操作 "+value.name+"，"+value.menu2_id);
@@ -222,7 +210,7 @@ var vm = new Vue({
 
 function filterProject(){
   $.get("temporary/product.json", function(result){
-    //console.log(result.responseData.menu1_info);
+    console.log(result.responseData.menu1_info);
     vm.project = result.responseData.menu1_info;
     //vm.filterItem = result.responseData.menu1_info[1].son;
   });
