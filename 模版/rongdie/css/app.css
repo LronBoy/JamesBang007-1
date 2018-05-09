@@ -1,6 +1,5 @@
 html {
   margin: 0 auto;
-  background: #eee;
   font-size: 50px;
   max-width: 750px;
 }
@@ -625,7 +624,7 @@ header .action-back {
  */
 .doctor-list {
   margin-bottom: 0.6rem;
-  padding: 0 0.4rem;
+  padding: 2rem 0.4rem 0;
 }
 .doctor-list li {
   margin: 0.4rem 0;
@@ -676,7 +675,7 @@ header .action-back {
  */
 .hospital-list {
   margin-bottom: 0.6rem;
-  padding: 0 0.4rem;
+  padding: 2rem 0.4rem 0;
 }
 .hospital-list li {
   margin: 0.4rem 0;

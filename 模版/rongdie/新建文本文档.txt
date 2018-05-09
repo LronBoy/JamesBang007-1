@@ -86,9 +86,33 @@ footer
     "book_num":"9"
 }
 
-
-
-
+找医生
+{
+    "did": "200000066", 
+    "hid": "300000036", 
+    "dname": "罗定安", 
+    "dlevel": "院长", 
+    "occupy": "安徽韩美整形外科医院", 
+    "is_v": "0", 
+    "intro": "&lt;p&gt;&lt;span style=&quot;color: rgb(131, 131, 131); font-family: &amp;#39;Microsoft Yahei&amp;#39;, verdana; font-size: 14px; line-height: 25.2px; background-color: rgb(255, 255, 255);&quot;&gt;临床一线工作三十年如一日，&amp;quot;严谨、细腻、耐心&amp;quot;已经成为越来越多求美者对罗定安院长共同评价。一个合格的整形医生，应该受过正规的整形外科医生培训，至少要2年以上的重建外科和美容外科手术的案例经验。罗定安院长不仅要肩负起日常的医疗工作，还要管理好整形外科医生团队。&lt;/span&gt;&lt;/p&gt;", 
+    "icon": "58eaf5f61393c.jpg", 
+    "good_at": [
+        "隆胸", 
+        "去抬头纹", 
+        "去法令纹", 
+        "去鱼尾纹", 
+        "去眉间纹", 
+        "瘦脸", 
+        "丰唇", 
+        "垫下巴", 
+        "丰太阳穴", 
+        "丰额头", 
+        "减双下巴", 
+        "丰面颊", 
+        "隆眉弓", 
+        "丰苹果肌"
+    ]
+}, 
 
 
 

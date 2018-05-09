@@ -82,7 +82,6 @@
       </div>
     </li>
     
-    <li><div class="pic"><a href="#" style="background-image: url(temporary/product-list_1.jpg);"></a></div><div class="info"><a href="#"><h3>“成都综合隆鼻”全面改善鼻部问题,告别平庸，塑造立体自信美！！</h3></a><div class="yy">成都韩美整形外科医院</div><div class="foot">          <span class="price">¥8880</span><span class="origprice">¥24420</span><span class="booking">18人预订</span></div></div></li><li><div class="pic"><a href="#" style="background-image: url(temporary/product-list_2.jpg);"></a></div><div class="info"><a href="#"><h3>“成都综合隆鼻套餐”综合隆鼻直接叫板明星美鼻，告别塌鼻子！</h3></a><div class="yy">成都华美整形外科医院</div><div class="foot">          <span class="price">¥4581</span><span class="origprice">¥24420</span><span class="booking">3人预订</span></div></div></li><li><div class="pic"><a href="#" style="background-image: url(temporary/product-list_1.jpg);"></a></div><div class="info"><a href="#"><h3>“成都综合隆鼻”全面改善鼻部问题,告别平庸，塑造立体自信美！！</h3></a><div class="yy">成都韩美整形外科医院</div><div class="foot">          <span class="price">¥8880</span><span class="origprice">¥24420</span><span class="booking">18人预订</span></div></div></li><li><div class="pic"><a href="#" style="background-image: url(temporary/product-list_2.jpg);"></a></div><div class="info"><a href="#"><h3>“成都综合隆鼻套餐”综合隆鼻直接叫板明星美鼻，告别塌鼻子！</h3></a><div class="yy">成都华美整形外科医院</div><div class="foot">          <span class="price">¥4581</span><span class="origprice">¥24420</span><span class="booking">3人预订</span></div></div></li>
   </ul>
   
   <div class="loading" v-show="loading">
@@ -95,7 +94,7 @@
            :style="'background-image: url(https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/tuan/'+ item.icon+');'"></a>       
       </div>
       <div class="info">
-        <a href="#"><h3>{{ item.name }}</h3></a>
+        <a :href="'https://m.rongdie.com/tuan/detail/product_id/'+ item.product_id +'.html'"><h3>{{ item.name }}</h3></a>
         <div class="yy">{{ item.hos_name }}</div>
         <div class="foot">          
           <span class="price">¥{{ item.tuan_price }}</span>
@@ -187,7 +186,7 @@ var vm = new Vue({
     ],
     filter:{
       project:{ id:0, name:"不限" },
-      city:{ id:0, name:"默认" },
+      city:{ id:0, name:"不限" },
       order:{ id:0, name:"默认" },
     },
   },
@@ -236,14 +235,12 @@ function filterProject(){
   $.get("temporary/product.json", function(result){
     console.log(result.responseData.menu1_info);
     vm.project = result.responseData.menu1_info;
-    //vm.filterItem = result.responseData.menu1_info[1].son;
   });
 }
 
 function filterCity(){
   $.get("temporary/product.json", function(result){
     vm.city = result.responseData.city;
-    //vm.filterItem = result.responseData.city[0].son;
   });
 }
 
