@@ -36,10 +36,19 @@
     <div id="filter_detail_1" class="filter_detail">
       <div class="list-wrapper">
         <div class="left-list">
-          <filter-ul :list="project" v-on:receive="changeCurrent"></filter-ul>
+          <ul>
+            <li :menu-id="item.menu1_id" :data-id="i" :class="i==current?'active':''"
+                v-for="(item,i) in project" @click="tapList(i)">
+              {{ item.name }}
+            </li>
+          </ul>
         </div>
         <div class="right-item">
-          <filter-ul :list="subProject" v-on:receive="changeSubCurrent"></filter-ul>
+          <ul>
+            <li :menu-id="item.menu1_id" :data-id="i" :class="i==subCurrent?'active':''"
+                v-for="(item,i) in subProject" @click="tapItem(i)">
+              {{ item.name }}
+            </li>
           </ul>
         </div>
       </div>
@@ -141,31 +150,6 @@
 <!-- 商品列表end -->
 
 
-<section class="bottom-bar">
-  <ul>
-    <li class="active"><a href="#bNav">
-      <span class="icon home"></span>
-      <p>首页</p>
-    </a></li>
-    <li><a href="#bNav">
-      <span class="icon doctor"></span>
-      <p>医生</p>
-    </a></li>
-    <li><a href="#bNav">
-      <span class="icon online"></span>
-      <p>在线咨询</p>
-    </a></li>
-    <li><a href="#bNav">
-      <span class="icon hospital"></span>
-      <p>医院</p>
-    </a></li>
-    <li><a href="#bNav">
-      <span class="icon my"></span>
-      <p>我的</p>
-    </a></li>
-  </ul>
-</section>
-
 <script src="js/jquery.min.js"></script>
 <script src="js/vue.js"></script>
 <script>
@@ -187,24 +171,6 @@ $("#nav-box li").click(function(){
   
 });
 
-Vue.component('filter-ul',{
-  data:function(){
-    return{
-      current: 0
-    }
-  },
-  props:["list","filter"],
-  template: '<ul><li data-id="item.menu1_id" :class="i==current?\'active\':\'\'" v-for="(item,i) in list" @click="tapList(i,item)">{{ item.name }}</li></ul>',
-  methods:{
-    tapList: function(i,value){
-      console.log(i,value);
-      this.current = i;
-      //告知父级，改变current的值，需要出发一个自定义事件
-      this.$emit("receive",value);
-    }
-  }
-});
-
 var vm = new Vue({
   el:".nav-box",
   data:{
@@ -221,16 +187,15 @@ var vm = new Vue({
     }
   },
   methods:{
-    changeCurrent(value){
-      console.log("父级"+value);
-      //this.filter.current = i;
-      this.filter.subCurrent = 0;
-      this.subProject = value.son;
+    tapList: function(i){
+      console.log(i)
+      this.current = i;
+      this.subCurrent = 0;
+      this.subProject = this.project[i].son;
     },
-    changeSubCurrent(value){
-      console.log("父级"+i,value);
-      //this.filter.subCurrent = i;
-      
+    tapItem: function(i){
+      console.log(i);
+      this.subCurrent = i;      
     }
   }
 });

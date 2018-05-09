@@ -7,11 +7,11 @@ html{ margin: 0 auto; background: #eee; font-size: 50px; max-width: 750px;}
 body,h1,h2,h3,h4,p,dl,dt,dd,ul,li,form,button,input,textarea,th,td,a{margin:0;padding:0}
 body {
     font-family: "PingFang SC",Helvetica,Arial,"Microsoft YaHei"; color:#444; background: #fff;
-    padding-bottom: 100/@rex;
+    padding: 96/@rex 0 100/@rex; position: relative;
 }
 body * {
-    -webkit-text-size-adjust: 100%; /*文本的大小调整*/
-    -webkit-user-select: none; /*文本不能被选择  在事件章节 去兼容安卓*/
+   -webkit-text-size-adjust: 100%; /*文本的大小调整*/
+   -webkit-user-select: none; /*文本不能被选择  在事件章节 去兼容安卓*/
    box-sizing: border-box;
 }
 a,
@@ -32,8 +32,8 @@ a,input, textarea, select, option,button { outline: 0; /*点击时虚线边框*/
     首页
  * */
 header{
-    height: 96/@rex; background: linear-gradient(to right, #eb568e, #fd3953);
-    padding: 33/@rex 32/@rex 0; position: relative;
+    width: 15rem; height: 96/@rex; background: linear-gradient(to right, #eb568e, #fd3953);
+    padding: 33/@rex 32/@rex 0; position: fixed; top: 0; z-index: 99;
     .m-title{ margin: 0 auto; height: 30/@rex; line-height: 30/@rex; font-size: 30/@rex; text-align: center; color: #fff; font-weight: bold; overflow: hidden; }
     .action-back{
         display: block; width: 16/@rex; height: 30/@rex; background: center center url(../img/icon-left.png) no-repeat;        
@@ -118,7 +118,7 @@ header{
 }
 
 .bottom-bar{
-    position: fixed; bottom: 0; z-index: 99; width: 100%; max-width: 750/@rex; height: 100/@rex; padding: 10/@rex 0; background: #fff; border-top: 1px solid #eee;
+    position: fixed; bottom: 0; z-index: 97; width: 100%; max-width: 750/@rex; height: 100/@rex; padding: 10/@rex 0; background: #fff; border-top: 1px solid #eee;
     ul{
         display: -webkit-flex; -webkit-flex-wrap: wrap; -webkit-justify-content: space-around;
         display: flex; flex-wrap: wrap; justify-content: space-around;
@@ -150,8 +150,8 @@ header{
 
 //导航
 #nav{
-    height: 100/@rex; padding: 35/@rex 50/@rex 0; background: linear-gradient(to right, #eb568e, #fd3953);
-    position: relative;
+    width: 15rem; height: 100/@rex; padding: 35/@rex 50/@rex 0; background: linear-gradient(to right, #eb568e, #fd3953);
+    position: fixed; top: 95/@rex; z-index: 100;
     &:after{
         display: block; content: ''; width: 100/@rex; height: 2/@rex; background: #fff;
         position: absolute; bottom: 0; left: 113/@rex;
@@ -163,10 +163,11 @@ header{
     }
     li{
         width: 33.3%; line-height: 30/@rex; font-size: 30/@rex; color: #fff; text-align: center;
+        cursor: pointer;
     }
 }
 .nav-box{
-    position: fixed; top:196/@rex; bottom: 0; z-index: 99; width: 100%; max-width: 750/@rex; overflow: hidden; display: none;
+    position: fixed; top:194/@rex; bottom: 0; z-index: 98; width: 100%; max-width: 750/@rex; overflow: hidden; display: none;
 }
 .filter_detail{
     position: relative; top: 0; bottom: 0; display: none;
@@ -180,9 +181,10 @@ header{
         ul{overflow-y: auto;}
         li{
             height: 100/@rex; line-height: 100/@rex; font-size: 28/@rex; color: @nice-black;
-            border-bottom: 1px solid #eee; padding-left: 25/@rex;
+            border-bottom: 1px solid #eee; padding-left: 25/@rex; cursor: pointer; overflow: hidden;
             transition: all .5s;
-            &.active,&:hover{ color: @hig-color; background: #fcfcfc; }
+            &.active{ color: @hig-color; background: #fff; }
+            //&:hover{ background: #fcfcfc;}
             //&:nth-child(4){ color: @hig-color; background: #fff; }             
         }
     }
@@ -191,10 +193,10 @@ header{
         li{
             width: 50%; height: 150/@rex; line-height: 150/@rex;
             font-size: 28/@rex; color: @nice-black; text-align: center;
-            float: left; border-bottom: 1px solid #eee;
+            float: left; border-bottom: 1px solid #eee; cursor: pointer; overflow: hidden;
             transition: all .5s;
             &:nth-child(2n+1){ border-right: 1px solid #eee; }
-            &.active,&:hover{ color: @hig-color; background: #fcfcfc; }              
+            &.active,&:hover{ color: @hig-color; }              
         }
     }
     .order-by{
