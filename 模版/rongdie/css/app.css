@@ -127,6 +127,32 @@ header .action-back {
   padding: 0 0.6rem;
   box-sizing: content-box;
 }
+header .current-location {
+  display: block;
+  position: absolute;
+  top: 0.66rem;
+  left: 0;
+  z-index: 2;
+  padding: 0 0.7rem 0 0.6rem;
+  line-height: 0.6rem;
+  font-size: 0.56rem;
+  color: #fff;
+  background: right center url(../img/icon-down.png) no-repeat;
+  background-size: 0.44rem;
+}
+header .show-search {
+  display: block;
+  position: absolute;
+  top: 0.56rem;
+  right: 0.6rem;
+  z-index: 2;
+  padding-left: 0.4rem;
+  box-sizing: content-box;
+  width: 0.72rem;
+  height: 0.8rem;
+  background: right center url(../img/icon-search.png) no-repeat;
+  background-size: 0.72rem;
+}
 .home-banner {
   height: 8rem;
   margin: 0.4rem 0 0.6rem;
@@ -312,6 +338,7 @@ header .action-back {
   text-align: right;
   color: #262626;
   background: right center url(../img/icon-more.png) no-repeat;
+  background-size: 0.4rem;
   margin-right: 0.3rem;
   padding-right: 0.64rem;
 }
@@ -988,7 +1015,7 @@ header .action-back {
   font-size: 0.56rem;
   color: #fd3953;
 }
-.product .right-item li a {
+.product .right-item li .link a {
   display: inline-block;
   width: 3.4rem;
   height: 1rem;
@@ -1001,7 +1028,7 @@ header .action-back {
   margin: 0.8rem 0.8rem 0 0;
   padding: 0 0.1rem;
 }
-.product .right-item li a:nth-child(2n) {
+.product .right-item li .link a:nth-child(2n) {
   margin-right: 0;
 }
 /*
@@ -1420,4 +1447,109 @@ header .action-back {
   font-size: 0.48rem;
   color: #999999;
   text-align: center;
+}
+/*
+ *  城市切换
+ */
+.city-switch .right-item {
+  padding: 0 0.3rem;
+  width: 9.2rem;
+  background: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.city-switch .right-item li {
+  margin-left: 0;
+  width: 50%;
+  height: 3rem;
+  line-height: 3rem;
+  font-size: 0.56rem;
+  color: #262626;
+  text-align: center;
+  float: left;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all .5s;
+}
+.city-switch .right-item li:nth-child(2n+1) {
+  border-right: 1px solid #eee;
+}
+.city-switch .right-item li.active,
+.city-switch .right-item li:hover {
+  color: #fd3953;
+}
+.city-switch .right-item li a {
+  display: block;
+}
+/*
+ * 首页搜索
+ */
+.search-box {
+  padding: 0.4rem;
+}
+.search-box .form-wrap {
+  display: block;
+  height: 1.6rem;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.2rem;
+}
+.search-box .text-input {
+  display: inline-block;
+  height: 1.36rem;
+  line-height: 1.36rem;
+  width: 11.4rem;
+  border: none;
+  font-size: 0.6rem;
+  color: #262626;
+  border: 1px solid #ccc;
+  padding-left: 0.2rem;
+  border-radius: 0.1rem;
+  float: left;
+}
+.search-box .text-input::-webkit-input-placeholder {
+  color: #9a9b9f;
+}
+.search-box .submit {
+  display: inline-block;
+  width: 2.4rem;
+  height: 1.36rem;
+  line-height: 1.36rem;
+  font-size: 0.6rem;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.06rem;
+  background: #999999;
+  border: 0;
+  border-radius: 0.1rem;
+  float: right;
+}
+.search-box .search-hot h3 {
+  line-height: 0.6rem;
+  font-size: 0.6rem;
+  color: #555;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+}
+.search-box .search-hot .link {
+  display: -webkit-flex;
+  -webkit-flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.4rem;
+}
+.search-box .search-hot a {
+  display: block;
+  margin: 0.4rem 0 0 0.4rem;
+  padding: 0 0.1rem;
+  width: 30%;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  font-size: 0.48rem;
+  overflow: hidden;
+  color: #e7296f;
+  text-align: center;
+  background: #f6f6f6;
+  border-radius: 0.4rem;
 }

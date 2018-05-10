@@ -37,9 +37,19 @@ header{
     position: fixed; /*position: -webkit-sticky;*/ top: 0; z-index: 99;
     .m-title{ margin: 0 auto; height: 30/@rex; line-height: 30/@rex; font-size: 30/@rex; text-align: center; color: #fff; font-weight: bold; overflow: hidden; }
     .action-back{
-        display: block; width: 16/@rex; height: 30/@rex; background: center center url(../img/icon-left.png) no-repeat;        
+        display: block; width: 16/@rex; height: 30/@rex; background: center center url(../img/icon-left.png) no-repeat;
         background-size: 16/@rex; position: absolute; top: 33/@rex; left: 0; z-index: 2;
         padding: 0 30/@rex; box-sizing: content-box;
+    }
+    .current-location{
+        display: block; position: absolute; top: 33/@rex; left: 0; z-index: 2;
+        padding: 0 35/@rex 0 30/@rex; line-height: 30/@rex; font-size: 28/@rex; color: #fff;
+        background: right center url(../img/icon-down.png) no-repeat; background-size: 22/@rex;
+    }
+    .show-search{
+        display: block; position: absolute; top: 28/@rex; right: 30/@rex; z-index: 2;
+        padding-left: 20/@rex; box-sizing: content-box;
+        width: 36/@rex; height: 40/@rex; background: right center url(../img/icon-search.png) no-repeat; background-size: 36/@rex;
     }
 }
 
@@ -114,7 +124,7 @@ header{
         }
     }
     .more{
-        line-height: 22/@rex; font-size: 22/@rex; text-align: right; color: @nice-black; background: right center url(../img/icon-more.png) no-repeat; margin-right: 15/@rex; padding-right: 32/@rex;
+        line-height: 22/@rex; font-size: 22/@rex; text-align: right; color: @nice-black; background: right center url(../img/icon-more.png) no-repeat; background-size: 20/@rex;  margin-right: 15/@rex; padding-right: 32/@rex;
     }
 }
 
@@ -432,7 +442,7 @@ header{
             margin-left: 40/@rex;
             &.active,&:hover{ color: @hig-color; }
             h3{ margin-top: 50/@rex; line-height: 30/@rex; font-size: 28/@rex; color: @hig-color;}
-            a{
+            .link a{
                 display: inline-block; width: 170/@rex; height: 50/@rex; line-height: 50/@rex; font-size: 25/@rex; text-align: center; background: #f7f7f7; border-radius: 25/@rex; overflow: hidden; margin: 40/@rex 40/@rex 0 0; padding: 0 5/@rex;
                 &:nth-child(2n){ margin-right: 0; }
             }          
@@ -654,3 +664,54 @@ header{
     }
 }
 .loading-more{ padding: 30/@rex 0; line-height: 30/@rex; font-size: 24/@rex; color: @light-black; text-align: center; }
+
+/*
+ *  城市切换
+ */
+.city-switch{
+    .right-item{
+        padding:0 15/@rex; width: 460/@rex; background: #fff; overflow-x: hidden; overflow-y: auto;
+        li{
+            margin-left: 0; width: 50%; height: 150/@rex; line-height: 150/@rex;
+            font-size: 28/@rex; color: @nice-black; text-align: center;
+            float: left; border-bottom: 1px solid #eee; cursor: pointer; overflow: hidden;
+            transition: all .5s;
+            &:nth-child(2n+1){ border-right: 1px solid #eee; }
+            &.active,&:hover{ color: @hig-color; }
+            a{ display: block; }           
+        }
+    }
+}
+/*
+ * 首页搜索
+ */
+.search-box{
+    padding: 20/@rex;
+    .form-wrap{
+        display: block; height: 80/@rex; border-bottom: 1px solid #ccc; margin-bottom: 40/@rex; padding-bottom: 10/@rex;
+    }
+    .text-input{
+        display: inline-block; height: 68/@rex; line-height: 68/@rex; width: 570/@rex; border: none;
+        font-size: 30/@rex; color: @nice-black; border: 1px solid #ccc; padding-left: 10/@rex;
+        border-radius: 5/@rex; float: left;
+        &::-webkit-input-placeholder{ color: rgb(154,155,159); }
+    }
+    .submit{ 
+        display: inline-block; width: 120/@rex; height: 68/@rex; line-height: 68/@rex;
+        font-size: 30/@rex; color: #fff; text-align: center; letter-spacing: 3/@rex;
+        background: @light-black; border: 0; border-radius: 5/@rex; float: right;
+    }
+    .search-hot{
+        h3{ line-height: 30/@rex; font-size: 30/@rex; color: #555; font-weight: bold; margin-bottom: 20/@rex; }
+        .link{
+            display: -webkit-flex; -webkit-flex-wrap: wrap;
+            display: flex; flex-wrap: wrap;            
+            margin: 0 -20/@rex;
+        }
+        a{
+            display: block; margin: 20/@rex 0 0 20/@rex; padding: 0 5/@rex;
+            width: 30%; height: 40/@rex; line-height: 40/@rex; font-size: 24/@rex; overflow: hidden;
+            color: #e7296f; text-align: center; background: #f6f6f6; border-radius: 20/@rex;
+        }
+    }
+}
