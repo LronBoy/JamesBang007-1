@@ -116,7 +116,6 @@
   </ul>
 </section>
 
-
 <script src="js/jquery.min.js"></script>
 <script src="js/vue.js"></script>
 <script>
@@ -148,7 +147,7 @@ Vue.component('filter-list',{
       this.current = i;
     },
     tapItem: function(i,value){
-      console.log(i,value);
+      //console.log(i,value);
       this.current = i;
       //告知父级，改变current的值，需要出发一个自定义事件
       this.$emit("receive",value);
@@ -178,6 +177,7 @@ var vm = new Vue({
       postData();
       $("#nav-box").hide();
       $("body").css("overflow","");
+      vList.listData = [];
     },
     orderBy(value){
       this.filter.order = value;
@@ -185,6 +185,7 @@ var vm = new Vue({
       postData();
       $("#nav-box").hide();
       $("body").css("overflow","");
+      vList.listData = [];
     },
     hideNavBox(){
       $("#nav-box").hide();
@@ -219,7 +220,7 @@ function postData(){
     url: "http://jmsbang.com/demo/ruli/rd_getcoupon.php",
     data: vm.filter,
     success: function(re){      
-      console.log(JSON.parse(re));
+      //console.log(JSON.parse(re));
       setTimeout(function(){
         vList.listData = vList.listData.concat(JSON.parse(re));      
         vList.loading = false;

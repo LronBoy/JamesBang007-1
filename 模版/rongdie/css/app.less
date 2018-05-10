@@ -169,7 +169,7 @@ header{
         width: 100%;
     }
     li{
-        width: 33.3%; height: 100/@rex; line-height: 100/@rex; font-size: 30/@rex; color: #fff; text-align: center;
+        width: 33.3%; height: 100/@rex; line-height: 100/@rex; font-size: 30/@rex; color: #fff; text-align: center; overflow: hidden;
         cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;
         &.active:after{
             display: block; content: ''; width: 100/@rex; height: 3/@rex; background: #fff;
@@ -322,15 +322,18 @@ header{
  * 专题栏
  * */
 .topics-list{
+    padding: 0 20/@rex;
     ul{}
     li{
-        padding: 20/@rex 40/@rex 30/@rex;
+        margin: 40/@rex 0; padding-bottom: 20/@rex; border-radius: 10/@rex;
+        box-shadow: 3/@rex 4/@rex 10/@rex 1/@rex rgb( 227, 227, 227 );
         .pic{
-            width: 670/@rex; height: 440/@rex; border-radius: 8/@rex; margin-bottom: 25/@rex; overflow: hidden;
+            width: 710/@rex; height: 440/@rex; margin-bottom: 25/@rex; overflow: hidden;
             img{ width: 100%; height: 100%; }
             a{ display: block; width: 100%; height: 100%; background-position: center center; background-size: cover; }
         }
         .info{
+            padding: 0 15/@rex;
             h3{
                 height: 45/@rex; line-height: 45/@rex; font-size: 35/@rex; color: @nice-black; overflow: hidden;
                 margin-bottom: 15/@rex;
@@ -349,13 +352,13 @@ header{
  * 活动集
  */
 .activity-list{
-    padding: 100/@rex 50/@rex 0;
+    padding: 100/@rex 20/@rex 0;
     ul{}
     li{
-        margin: 50/@rex 0; border-radius: 15/@rex;
+        margin: 40/@rex 0; border-radius: 15/@rex;
         box-shadow: 3/@rex 4/@rex 10/@rex 1/@rex rgb( 227, 227, 227 );
         .pic{
-            width: 650/@rex; height: 400/@rex; border-radius: 15/@rex 15/@rex 0 0; margin-bottom: 30/@rex; overflow: hidden;
+            width: 710/@rex; height: 400/@rex; border-radius: 15/@rex 15/@rex 0 0; margin-bottom: 30/@rex; overflow: hidden;
             img{ width: 100%; height: 100%;}
             a{ display: block; width: 100%; height: 100%; background-position: center center; background-size: cover; }
         }
@@ -436,14 +439,14 @@ header{
         }
     }
     .right-item{
-        width: 460/@rex; background: #fff; overflow-x: hidden; overflow-y: auto;
+        width: 480/@rex; background: #fff; overflow-x: hidden; overflow-y: auto;
         ul{}
         li{
-            margin-left: 40/@rex;
+            margin-left: 30/@rex;
             &.active,&:hover{ color: @hig-color; }
             h3{ margin-top: 50/@rex; line-height: 30/@rex; font-size: 28/@rex; color: @hig-color;}
             .link a{
-                display: inline-block; width: 170/@rex; height: 50/@rex; line-height: 50/@rex; font-size: 25/@rex; text-align: center; background: #f7f7f7; border-radius: 25/@rex; overflow: hidden; margin: 40/@rex 40/@rex 0 0; padding: 0 5/@rex;
+                display: inline-block; width: 180/@rex; height: 50/@rex; line-height: 50/@rex; font-size: 25/@rex; text-align: center; background: #f7f7f7; border-radius: 25/@rex; overflow: hidden; margin: 40/@rex 30/@rex 0 0; padding: 0 5/@rex;
                 &:nth-child(2n){ margin-right: 0; }
             }          
         }
@@ -710,8 +713,8 @@ header{
         }
         a{
             display: block; margin: 20/@rex 0 0 20/@rex; padding: 0 5/@rex;
-            width: 30%; height: 40/@rex; line-height: 40/@rex; font-size: 24/@rex; overflow: hidden;
-            color: #e7296f; text-align: center; background: #f6f6f6; border-radius: 20/@rex;
+            width: 30%; height: 44/@rex; line-height: 44/@rex; font-size: 24/@rex; overflow: hidden;
+            color: #e7296f; text-align: center; background: #f6f6f6; border-radius: 22/@rex;
         }
     }
 }

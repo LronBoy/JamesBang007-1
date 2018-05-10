@@ -139,7 +139,6 @@ $("#nav li").click(function(){
   $("#nav-box .filter_detail").eq($(this).index()).show();
   $("body").css("overflow","hidden");
   
-  vm.filterItem = [];
   if( $(this).index()==0 ){
     filterProject();
   }else if( $(this).index()==1 ){
@@ -161,7 +160,7 @@ Vue.component('filter-list',{
       this.current = i;
     },
     tapItem: function(i,value){
-      console.log(i,value);
+      //console.log(i,value);
       this.current = i;
       //告知父级，改变current的值，需要出发一个自定义事件
       this.$emit("receive",value);
@@ -194,12 +193,13 @@ var vm = new Vue({
   },
   methods:{
     changeProject(value){
-      console.log("父级接收 子类操作 "+value.name+"，"+value.menu2_id);
+      //console.log("父级接收 子类操作 "+value.name+"，"+value.menu2_id);
       this.filter.project = {id: value.menu2_id, name: value.name };
       $("#nav li").eq(0).html(value.name);
       postData();
       $("#nav-box").hide();
       $("body").css("overflow","");
+      vList.listData = [];
     },
     changeCity(value){
       this.filter.city = {id: value.id, name: value.name };
@@ -207,6 +207,7 @@ var vm = new Vue({
       postData();
       $("#nav-box").hide();
       $("body").css("overflow","");
+      vList.listData = [];
     },
     changeCategory(value){
       this.filter.category = value;
@@ -214,6 +215,7 @@ var vm = new Vue({
       postData();
       $("#nav-box").hide();
       $("body").css("overflow","");
+      vList.listData = [];
     },
     hideNavBox(){
       $("#nav-box").hide();
@@ -235,7 +237,7 @@ var vList = new Vue({
 
 function filterProject(){
   $.get("temporary/product.json", function(result){
-    console.log(result.responseData.menu1_info);
+    //console.log(result.responseData.menu1_info);
     vm.project = result.responseData.menu1_info;
   });
 }
@@ -255,7 +257,7 @@ function postData(){
     url: "http://jmsbang.com/demo/ruli/rd_getDoc.php",
     data: vm.filter,
     success: function(re){      
-      console.log(JSON.parse(re));
+      //console.log(JSON.parse(re));
       setTimeout(function(){
         vList.listData = vList.listData.concat(JSON.parse(re));      
         vList.loading = false;
