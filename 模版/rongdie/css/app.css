@@ -570,6 +570,7 @@ header .action-back {
   display: block;
   width: 100%;
   height: 100%;
+  background-position: center center;
   background-size: cover;
 }
 .product-list li .info {
@@ -643,6 +644,13 @@ header .action-back {
   width: 4.2rem;
   height: 4.2rem;
 }
+.doctor-list li .pic a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
+}
 .doctor-list li .info {
   width: 9rem;
   float: right;
@@ -694,6 +702,13 @@ header .action-back {
   width: 4.2rem;
   height: 4.2rem;
 }
+.hospital-list li .pic a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
+}
 .hospital-list li .info {
   width: 9rem;
   float: right;
@@ -744,6 +759,13 @@ header .action-back {
   width: 100%;
   height: 100%;
 }
+.topics-list li .pic a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
+}
 .topics-list li .info h3 {
   height: 0.9rem;
   line-height: 0.9rem;
@@ -781,44 +803,44 @@ header .action-back {
 /*
  * 活动集
  */
-.activity-list,
-.list2 {
-  padding: 0 1rem;
+.activity-list {
+  padding: 2rem 1rem 0;
 }
-.activity-list li,
-.list2 li {
+.activity-list li {
   margin: 1rem 0;
   border-radius: 0.3rem;
   box-shadow: 0.06rem 0.08rem 0.2rem 0.02rem #e3e3e3;
 }
-.activity-list li .pic,
-.list2 li .pic {
+.activity-list li .pic {
   width: 13rem;
   height: 8rem;
   border-radius: 0.3rem 0.3rem 0 0;
   margin-bottom: 0.6rem;
   overflow: hidden;
 }
-.activity-list li .pic img,
-.list2 li .pic img {
+.activity-list li .pic img {
   width: 100%;
   height: 100%;
 }
-.activity-list li .info,
-.list2 li .info {
+.activity-list li .pic a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
+}
+.activity-list li .info {
   text-align: center;
   padding-bottom: 0.4rem;
 }
-.activity-list li .info h3,
-.list2 li .info h3 {
+.activity-list li .info h3 {
   line-height: 0.64rem;
   height: 0.64rem;
   font-size: 0.64rem;
   color: #262626;
   margin-bottom: 0.4rem;
 }
-.activity-list li .info p,
-.list2 li .info p {
+.activity-list li .info p {
   height: 0.5rem;
   line-height: 0.5rem;
   font-size: 0.5rem;
@@ -828,12 +850,10 @@ header .action-back {
   white-space: nowrap;
   margin-bottom: 0.4rem;
 }
-.activity-list li .info .btn,
-.list2 li .info .btn {
+.activity-list li .info .btn {
   overflow: hidden;
 }
-.activity-list li .info .btn a,
-.list2 li .info .btn a {
+.activity-list li .info .btn a {
   display: inline-block;
   width: 3rem;
   height: 1.2rem;
@@ -863,6 +883,13 @@ header .action-back {
 .card-list li .pic img {
   width: 100%;
   height: 100%;
+}
+.card-list li .pic a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
 }
 .card-list li .info {
   width: 9.2rem;

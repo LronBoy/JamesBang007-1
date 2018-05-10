@@ -21,78 +21,38 @@
     <a href="javascript:void(0);" class="action-back icon-left"></a>
 </header>
 
-
 <!-- 导航 start -->
-<div id="nav">
-    <ul>
-    	<li>擅长</li>
-      <li>城市</li>
-    	<li>分类</li>
-    </ul>
-</div>
+<section id="nav" class="nav-tab">
+  <ul>
+    <li>擅长</li>
+    <li>城市</li>
+    <li>分类</li>
+  </ul>
+</section>  
+<section class="nav-box" id="nav-box">
+  <!-- 项目 -->
+  <div id="filter_detail_1" class="filter_detail">
+    <filter-list :list="project" @receive="changeProject"></filter-list>
+  </div>
+  <!-- 地区 -->
+  <div id="filter_detail_2" class="filter_detail">
+    <filter-list :list="city" @receive="changeCity"></filter-list>
+  </div>
+  <!-- 排序 -->
+  <div id="filter_detail_3" class="filter_detail">
+    <div class="order-by filter-category">
+      <ul>
+        <li v-for="item in category" @click="changeCategory(item)">{{item.name}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="nav-box-bg" @click="hideNavBox"></div>
+</section>
 <!-- 导航 end -->
-<div class="nav-box" id="nav-box">
-    <!-- 项目 -->
-    <div id="filter_detail_1" class="filter_detail">
-      <div class="list-wrapper">
-        <div class="left-list">
-          <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" :class="i==current?'active':''"
-                v-for="(item,i) in project" @click="tapList(i)">
-              {{ item.name }}
-            </li>
-          </ul>
-        </div>
-        <div class="right-item">
-          <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" :class="i==subCurrent?'active':''"
-                v-for="(item,i) in subProject" @click="tapItem(i)">
-              {{ item.name }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!-- 地区 -->
-    <div id="filter_detail_2" class="filter_detail">
-      <div class="list-wrapper">
-        <div class="left-list">
-          <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in city">
-              {{ item.name }}
-            </li>
-          </ul>
-        </div>
-        <div class="right-item">
-          <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in subCity">
-              {{ item.name }}
-            </li>
-          </ul>
-        </div>
-      </div>      
-    </div>
-    <!-- 排序 -->
-    <div id="filter_detail_3" class="filter_detail">
-      <div class="order-by">
-        <ul>
-          <li data-id="0">不限</li>
-          <li data-id="1">住院医师</li>
-          <li data-id="2">主治医师</li>
-          <li data-id="3">主任医师</li>
-          <li data-id="4">副主任医师</li>
-          <li data-id="5">教授</li>
-          <li data-id="6">副教授</li>
-          <li data-id="7">院长</li>
-          <li data-id="8">副院长</li>
-        </ul>
-      </div>
-    </div>
-</div>
 
 <!-- 医生列表 -->
 <section class="hospital-list">
-  <ul>
+  <ul v-show="!listData.length">
     <li>
       <div class="pic">
         <a href="#"><img src="temporary/hospital-list_1.jpg" alt="" /></a>       
@@ -116,31 +76,25 @@
       </div>
     </li>
     
-    <li>
-      <div class="pic">
-        <a href="#"><img src="temporary/hospital-list_1.jpg" alt="" /></a>       
-      </div>
-      <div class="info">
-        <a href="#"><h3>成都武侯艾美微医疗美容门诊部</h3></a>
-        <p>擅长：眼综合整形、鼻综合整形、瘦脸</p>
-        <p class="address">地址：四川省成都段45号1栋1单元9层市武侯区人民南路四</p>
-        <a href="#zx" class="zxBtn">立即咨询</a>
-      </div>
-    </li>
-    <li>
-      <div class="pic">
-        <a href="#"><img src="temporary/hospital-list_2.jpg" alt="" /></a>       
-      </div>
-      <div class="info">
-        <a href="#"><h3>成都武侯年华奥克拉医疗美容</h3></a>
-        <p>擅长：割双眼皮、开眼角、眼综合整形、割双眼皮、开眼角、眼综合整形</p>
-        <p class="address">地址：四川省成都市武侯区二环路南四段69号(二环路董家湾北街)</p>
-        <a href="#zx" class="zxBtn">立即咨询</a>
-      </div>
-    </li>
-    
-  </ul>
+  </ul>  
   
+  <div class="loading" v-show="loading">
+    <svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg>
+  </div>
+  <ul class="product-list-vue" v-show="listData.length">
+    <li v-for="item in listData">
+      <div class="pic">        
+        <a :href="'/hospital/detail/hosid/'+ item.hid +'.html'"
+           :style="'background-image: url(https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/hos/'+item.hid+'/'+ item.headicon+');'"></a>
+      </div>
+      <div class="info">
+        <a :href="'/hospital/detail/hosid/'+ item.hid +'.html'"><h3>{{ item.hname }}</h3></a>
+        <p>擅长：<span v-for="sz in item.good_at">{{sz}} </span></p>
+        <p class="address">地址：{{ item.hname }}</p>
+        <a href="#zx" class="zxBtn">立即咨询</a>
+      </div>
+    </li>
+  </ul>
 </section>
 <!-- 医生列表end -->
 
@@ -170,50 +124,103 @@
   </ul>
 </section>
 
-
 <script src="js/jquery.min.js"></script>
 <script src="js/vue.js"></script>
 <script>
 //顶部tab点击切换
 $("#nav li").click(function(){
-  console.log( $(this).index() );
+  $("#nav li").removeClass("active");
+  $(this).addClass("active");
   $("#nav-box").show();
   $("#nav-box .filter_detail").hide();
   $("#nav-box .filter_detail").eq($(this).index()).show();
+  $("body").css("overflow","hidden");
+  
+  vm.filterItem = [];
   if( $(this).index()==0 ){
     filterProject();
   }else if( $(this).index()==1 ){
     filterCity();
   }
 });
-//filter_detail
-$("#nav-box li").click(function(){
-  console.log( $(this).index() );
-  
+
+Vue.component('filter-list',{
+  data:function(){
+    return{
+      current: 0
+    }
+  },
+  props:["list","filter"],
+  template: '<div class="list-wrapper"><div class="left-list"><ul><li :class="i==current?\'active\':\'\'" v-for="(item,i) in list" @click="tapList(i,item)">{{ item.name }}</li></ul></div><div class="right-item"><ul><li v-for="(itemSub,iSub) in list[current].son" @click="tapItem(iSub,itemSub)">{{ itemSub.name }}</li></ul></div></div>',
+  methods:{
+    tapList: function(i,value){
+      //console.log(i,value);
+      this.current = i;
+    },
+    tapItem: function(i,value){
+      console.log(i,value);
+      this.current = i;
+      //告知父级，改变current的值，需要出发一个自定义事件
+      this.$emit("receive",value);
+    }
+  }
   
 });
 
 var vm = new Vue({
-  el:".nav-box",
+  el:"#nav-box",
   data:{
-    project: [],
-    subProject: [],
-    city: [],
-    subCity: [],
-    current: 0,
-    subCurrent: 0,
+    project: [ {"son":[]} ],
+    city: [ {"son":[]} ],
+    category:[
+      {id:0 , name:"不限"},
+      {id:1 , name:"民营"},
+      {id:2 , name:"公立"}
+    ],
+    filter:{
+      project:{ id:0, name:"不限" },
+      city:{ id:0, name:"不限" },
+      category:{ id:0, name:"不限" },
+    },
   },
   methods:{
-    tapList: function(i){
-      console.log(i)
-      this.current = i;
-      this.subCurrent = 0;
-      this.subProject = this.project[i].son;
+    changeProject(value){
+      console.log("父级接收 子类操作 "+value.name+"，"+value.menu2_id);
+      this.filter.project = {id: value.menu2_id, name: value.name };
+      $("#nav li").eq(0).html(value.name);
+      postData();
+      $("#nav-box").hide();
+      $("body").css("overflow","");
     },
-    tapItem: function(i){
-      console.log(i);
-      this.subCurrent = i;      
+    changeCity(value){
+      this.filter.city = {id: value.id, name: value.name };
+      $("#nav li").eq(1).html(value.name);
+      postData();
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+    },
+    changeCategory(value){
+      this.filter.category = value;
+      $("#nav li").eq(2).html(value.name);
+      postData();
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+    },
+    hideNavBox(){
+      $("#nav-box").hide();
+      $("body").css("overflow","");
     }
+  }
+});
+
+var vList = new Vue({
+  el: ".hospital-list",
+  data: {
+    loading: false,
+    listData:[]
+  },
+  methods: {
+    
   }
 });
 
@@ -221,29 +228,33 @@ function filterProject(){
   $.get("temporary/product.json", function(result){
     console.log(result.responseData.menu1_info);
     vm.project = result.responseData.menu1_info;
-    vm.subProject = result.responseData.menu1_info[1].son;
   });
 }
 
 function filterCity(){
   $.get("temporary/product.json", function(result){
-    console.log(result.responseData.city);
     vm.city = result.responseData.city;
-    vm.subCity = result.responseData.city[0].son;
   });
-  
-  
 }
 
-//$("#nav_1").on("click",filterProject);
-//;
-//$("#nav_1").on("click",filterCity);
-//
-
-
+//筛选后post请求数据
+function postData(){
+  vList.loading = true;
+  $.ajax({
+    type: "POST",
+    //url: "https://m.rongdie.com/tuan/getHos",
+    url: "http://jmsbang.com/demo/ruli/rd_getHos.php",
+    data: vm.filter,
+    success: function(re){
+      console.log(JSON.parse(re));
+      setTimeout(function(){
+        vList.listData = vList.listData.concat(JSON.parse(re));      
+        vList.loading = false;
+      },100);
+    }
+  });
+}
 
 </script>
-
-
 </body>
 </html>

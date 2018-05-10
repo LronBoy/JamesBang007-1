@@ -193,14 +193,14 @@ var vm = new Vue({
   methods:{
     changeProject(value){
       console.log("父级接收 子类操作 "+value.name+"，"+value.menu2_id);
-      this.filter.project = {id: value.name, name:value.menu2_id };
+      this.filter.project = {id: value.menu2_id, name: value.name };
       $("#nav li").eq(0).html(value.name);
       postData();
       $("#nav-box").hide();
       $("body").css("overflow","");
     },
     changeCity(value){
-      this.filter.city = {id: value.name, name:value.menu2_id };
+      this.filter.city = {id: value.id, name: value.name };
       $("#nav li").eq(1).html(value.name);
       postData();
       $("#nav-box").hide();
