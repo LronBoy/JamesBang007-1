@@ -318,7 +318,7 @@ header .action-back {
 .bottom-bar {
   position: fixed;
   bottom: 0;
-  z-index: 97;
+  z-index: 90;
   width: 100%;
   max-width: 15rem;
   height: 2rem;
@@ -408,7 +408,7 @@ header .action-back {
   position: fixed;
   /*position: -webkit-sticky;*/
   top: 1.9rem;
-  z-index: 100;
+  z-index: 110;
 }
 #nav ul {
   display: -webkit-flex;
@@ -443,7 +443,7 @@ header .action-back {
   position: fixed;
   top: 3.88rem;
   bottom: 0;
-  z-index: 98;
+  z-index: 100;
   width: 100%;
   max-width: 15rem;
   overflow: hidden;
@@ -455,14 +455,14 @@ header .action-back {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 98;
-  background: rgba(0, 0, 0, 0.2);
+  z-index: 102;
+  background: #000;
+  opacity: .6;
 }
 .filter_detail {
   position: absolute;
   top: 0;
   bottom: 0;
-  z-index: 99;
   width: 15rem;
   display: none;
 }
@@ -474,6 +474,7 @@ header .action-back {
   position: absolute;
   top: 0;
   bottom: 0;
+  z-index: 103;
 }
 .filter_detail .left-list {
   float: left;
@@ -530,6 +531,8 @@ header .action-back {
 .filter_detail .order-by {
   background: #f7f7f7;
   box-shadow: 0 0.08rem 0.1rem 0 #e3e3e3;
+  position: relative;
+  z-index: 104;
 }
 .filter_detail .order-by li {
   height: 2rem;
@@ -868,6 +871,9 @@ header .action-back {
 /*
  * 优惠券
  */
+.card-list {
+  padding-top: 2rem;
+}
 .card-list li {
   margin: 0.4rem;
   height: 4.8rem;
@@ -892,14 +898,15 @@ header .action-back {
   background-size: cover;
 }
 .card-list li .info {
-  width: 9.2rem;
-  padding: 0.5rem 0 0 1.2rem;
+  width: 9.4rem;
+  padding: 0.5rem 0 0 1rem;
 }
 .card-list li .info h3 {
   line-height: 0.64rem;
   height: 0.64rem;
   font-size: 0.64rem;
   color: #262626;
+  overflow: hidden;
 }
 .card-list li .info p {
   height: 0.48rem;
@@ -958,10 +965,9 @@ header .action-back {
   padding-left: 0.5rem;
   transition: all .5s;
 }
-.product .left-list li.active,
-.product .left-list li:hover {
+.product .left-list li.active {
   color: #fd3953;
-  background: #fcfcfc;
+  background: #fff;
 }
 .product .right-item {
   width: 9.2rem;
@@ -970,7 +976,7 @@ header .action-back {
   overflow-y: auto;
 }
 .product .right-item li {
-  margin-left: 1rem;
+  margin-left: 0.8rem;
 }
 .product .right-item li.active,
 .product .right-item li:hover {
@@ -984,7 +990,7 @@ header .action-back {
 }
 .product .right-item li a {
   display: inline-block;
-  width: 3.2rem;
+  width: 3.4rem;
   height: 1rem;
   line-height: 1rem;
   font-size: 0.5rem;
@@ -993,6 +999,7 @@ header .action-back {
   border-radius: 0.5rem;
   overflow: hidden;
   margin: 0.8rem 0.8rem 0 0;
+  padding: 0 0.1rem;
 }
 .product .right-item li a:nth-child(2n) {
   margin-right: 0;
@@ -1083,7 +1090,7 @@ header .action-back {
  * 资讯列表
  */
 .news-list {
-  padding: 0 0.4rem;
+  padding: 2rem 0.4rem 0;
 }
 .news-list li {
   margin: 0.4rem 0;
@@ -1102,6 +1109,13 @@ header .action-back {
   width: 4.2rem;
   height: 4.2rem;
 }
+.news-list li .pic a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
+}
 .news-list li .info {
   width: 9rem;
   float: right;
@@ -1113,6 +1127,7 @@ header .action-back {
   color: #262626;
   margin-bottom: 0.4rem;
   font-weight: 500;
+  overflow: hidden;
 }
 .news-list li .info .desc {
   height: 0.52rem;
@@ -1162,6 +1177,9 @@ header .action-back {
 /*
  * 变美日记
  */
+.diary-list {
+  padding-top: 2rem;
+}
 .diaryShow {
   padding: 0.8rem;
 }
@@ -1351,10 +1369,14 @@ header .action-back {
 .loading {
   position: fixed;
   top: 0;
+  right: 0;
   bottom: 0;
+  left: 0;
   z-index: 999;
   width: 100%;
   text-align: center;
+  /*background: #fff; opacity: .4; */
+  background: rgba(255, 255, 255, 0.4);
 }
 .loading .circular {
   position: absolute;
@@ -1370,7 +1392,7 @@ header .action-back {
   stroke-dasharray: 90, 150;
   stroke-dashoffset: 0;
   stroke-width: 2;
-  stroke: #409eff;
+  stroke: #fd3953;
   stroke-linecap: round;
 }
 @keyframes loading-rotate {
@@ -1391,4 +1413,11 @@ header .action-back {
     stroke-dasharray: 90, 150;
     stroke-dashoffset: -120px;
   }
+}
+.loading-more {
+  padding: 0.6rem 0;
+  line-height: 0.6rem;
+  font-size: 0.48rem;
+  color: #999999;
+  text-align: center;
 }

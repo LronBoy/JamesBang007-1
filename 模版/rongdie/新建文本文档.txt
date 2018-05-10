@@ -116,13 +116,27 @@ footer
 
 
 
-
-
-
-
-
-
-
+z-index 层级
+    loading     999
+    header      99
+        action-back 2
+    home-banner 9
+    banner-min  9
+    bottom-bar  90
+    
+    #nav        100
+    .nav-box    98
+        .nav-box-bg     98
+        .filter_detail  99
+        
+    .product    99
+----
+    #nav        110
+    .nav-box    100
+        .nav-box-bg     102
+        .filter_detail  0
+        .list-wrapper   103
+        order-by        104
 
 
 

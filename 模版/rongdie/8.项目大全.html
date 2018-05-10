@@ -36,7 +36,8 @@
       <li v-for="item in subProject">
         <h3>{{ item.name }}</h3>
         <div class="link">
-          <a href="#id=" v-for="item2 in item.son">{{ item2.name }}</a>
+          <!--https://m.rongdie.com/items/info/id/-->
+          <a :href="'#'+item2.item_id+'.html'" v-for="item2 in item.son">{{ item2.name }}</a>
         </div>
       </li>
     </ul>
@@ -44,40 +45,32 @@
 </section>
 <!-- 项目列表end -->
 
-
 <script src="js/jquery.min.js"></script>
 <script src="js/vue.js"></script>
 <script>
-
 var vm = new Vue({
   el:"#product",
   data:{
     project: [],
     subProject: [],
-    city: [],
-    subCity: [],
     current: 0,
     subCurrent: 0,
   },
   methods:{
     tapList: function(i){
-      console.log(i)
+      //console.log(i)
       this.current = i;
       this.subCurrent = 0;
       this.subProject = this.project[i].son;
-    },
-    tapItem: function(i){
-      console.log(i);
-      this.subCurrent = i;      
     }
   }
 });
 
 function project(){
   $.get("temporary/product.json", function(result){
-    console.log(result.responseData.menu1_info);
+    //console.log(result.responseData.menu1_info);
     vm.project = result.responseData.menu1_info;
-    vm.subProject = result.responseData.menu1_info[1].son;
+    vm.subProject = result.responseData.menu1_info[0].son;
   });
 }
 project();

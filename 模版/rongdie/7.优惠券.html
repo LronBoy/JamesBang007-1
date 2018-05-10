@@ -22,16 +22,31 @@
 </header>
 
 <!-- 导航 start -->
-<div id="nav">
-    <ul>
-      <li>排序</li>
-      <li>城市</li>
-    </ul>
-</div>
+<section id="nav" class="nav-tab">
+  <ul>
+    <li>排序</li>
+    <li>城市</li>
+  </ul>
+</section>  
+<section class="nav-box" id="nav-box">
+  <!-- 排序 -->
+  <div id="filter_detail_1" class="filter_detail">
+    <div class="order-by">
+      <ul>
+        <li v-for="item in order" @click="orderBy(item)">{{item.name}}</li>
+      </ul>
+    </div>
+  </div>
+  <!-- 地区 -->
+  <div id="filter_detail_2" class="filter_detail">
+    <filter-list :list="city" @receive="changeCity"></filter-list>
+  </div>
+  <div class="nav-box-bg" @click="hideNavBox"></div>
+</section>
 <!-- 导航 end -->
 
 <section class="card-list">
-  <ul>
+  <ul v-show="!listData.length">
     <li>
       <div class="pic">
         <a href=""><img src="temporary/hospital-list_1.jpg" alt="" /></a>
@@ -40,8 +55,7 @@
         <h3>成都艾美微医疗通用劵</h3>
         <p>医院：成都艾美微医疗美容门诊</p>
         <p>时间：2017-04-26至2017-04-30</p>
-        <a href="#" class="btn">立即领取</a>
- 
+        <a href="#" class="btn">立即领取</a> 
       </div>
     </li>
     <li>
@@ -56,39 +70,30 @@
       </div>
     </li>
     
-    <li>
+  </ul>
+  
+  <div class="loading" v-show="loading">
+    <svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg>
+  </div>
+  <ul class="product-list-vue" v-show="listData.length">
+    <li v-for="item in listData">
       <div class="pic">
-        <a href=""><img src="temporary/hospital-list_1.jpg" alt="" /></a>
-      </div>
+        <a href="javascript:void(0);"
+           :style="'background-image: url(https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/'+ item.icon+');'"></a>       
+      </div>      
       <div class="info">
-        <h3>成都艾美微医疗通用劵</h3>
-        <p>医院：成都艾美微医疗美容门诊成都艾美微医疗美容门诊</p>
-        <p>时间：2017-04-26至2017-04-30</p>
-        <a href="#" class="btn">立即领取</a>
- 
+        <h3>{{ item.coupon_name }}</h3>
+        <p>医院：{{ item.hname }}</p>
+        <p>时间：{{ item.start_time }}至{{ item.end_time }}</p>
+        <a href="javascript:void(0);" class="btn" :cid="item.coupon_id">立即领取</a>
       </div>
     </li>
-    <li>
-      <div class="pic">
-        <a href=""><img src="temporary/hospital-list_2.jpg" alt="" /></a>
-      </div>
-      <div class="info">
-        <h3>成都武侯医院通用劵</h3>
-        <p>医院：成都武侯年华奥克拉医疗美容</p>
-        <p>时间：2017-04-27至2017-04-30</p>
-        <a href="#" class="btn">立即领取</a>
-      </div>
-    </li>
-    
-    
-    
-  </ul>  
+  </ul>
 </section>
-
 
 <section class="bottom-bar">
   <ul>
-    <li class="active"><a href="#bNav">
+    <li><a href="#bNav">
       <span class="icon home"></span>
       <p>首页</p>
     </a></li>
@@ -112,32 +117,118 @@
 </section>
 
 
+<script src="js/jquery.min.js"></script>
+<script src="js/vue.js"></script>
+<script>
+//顶部tab点击切换
+$("#nav li").click(function(){
+  $("#nav li").removeClass("active");
+  $(this).addClass("active");
+  $("#nav-box").show();
+  $("#nav-box .filter_detail").hide();
+  $("#nav-box .filter_detail").eq($(this).index()).show();
+  $("body").css("overflow","hidden");
+  
+  if( $(this).index()==1 ){
+    filterCity();
+  }
+});
 
+Vue.component('filter-list',{
+  data:function(){
+    return{
+      current: 0
+    }
+  },
+  props:["list","filter"],
+  template: '<div class="list-wrapper"><div class="left-list"><ul><li :class="i==current?\'active\':\'\'" v-for="(item,i) in list" @click="tapList(i,item)">{{ item.name }}</li></ul></div><div class="right-item"><ul><li v-for="(itemSub,iSub) in list[current].son" @click="tapItem(iSub,itemSub)">{{ itemSub.name }}</li></ul></div></div>',
+  methods:{
+    tapList: function(i,value){
+      //console.log(i,value);
+      this.current = i;
+    },
+    tapItem: function(i,value){
+      console.log(i,value);
+      this.current = i;
+      //告知父级，改变current的值，需要出发一个自定义事件
+      this.$emit("receive",value);
+    }
+  }
+  
+});
 
-<section class="bottom-bar">
-  <ul>
-    <li class="active"><a href="#bNav">
-      <span class="icon home"></span>
-      <p>首页</p>
-    </a></li>
-    <li><a href="#bNav">
-      <span class="icon doctor"></span>
-      <p>医生</p>
-    </a></li>
-    <li><a href="#bNav">
-      <span class="icon online"></span>
-      <p>在线咨询</p>
-    </a></li>
-    <li><a href="#bNav">
-      <span class="icon hospital"></span>
-      <p>医院</p>
-    </a></li>
-    <li><a href="#bNav">
-      <span class="icon my"></span>
-      <p>我的</p>
-    </a></li>
-  </ul>
-</section>
+var vm = new Vue({
+  el:"#nav-box",
+  data:{
+    city: [ {"son":[]} ],
+    order:[
+      {id:0 , name:"不限"},
+      {id:1 , name:"开始时间"},
+      {id:2 , name:"结束时间"}
+    ],
+    filter:{
+      city:{ id:0, name:"不限" },
+      order:{ id:0, name:"不限" },
+    },
+  },
+  methods:{
+    changeCity(value){
+      this.filter.city = {id: value.id, name: value.name };
+      $("#nav li").eq(1).html(value.name);
+      postData();
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+    },
+    orderBy(value){
+      this.filter.order = value;
+      $("#nav li").eq(0).html(value.name);
+      postData();
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+    },
+    hideNavBox(){
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+    }
+  }
+});
+
+var vList = new Vue({
+  el: ".card-list",
+  data: {
+    loading: false,
+    listData:[]
+  },
+  methods: {
+    
+  }
+});
+
+function filterCity(){
+  $.get("temporary/product.json", function(result){
+    vm.city = result.responseData.city;
+  });
+}
+
+//筛选后post请求数据
+function postData(){
+  vList.loading = true;
+  $.ajax({
+    type: "POST",
+    //url: "https://m.rongdie.com/tuan/getcoupon",
+    url: "http://jmsbang.com/demo/ruli/rd_getcoupon.php",
+    data: vm.filter,
+    success: function(re){      
+      console.log(JSON.parse(re));
+      setTimeout(function(){
+        vList.listData = vList.listData.concat(JSON.parse(re));      
+        vList.loading = false;
+      },100);
+    }
+  });
+}
+
+</script>
 
 </body>
 </html>

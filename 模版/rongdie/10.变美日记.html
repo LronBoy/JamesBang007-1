@@ -21,102 +21,51 @@
     <a href="javascript:void(0);" class="action-back icon-left"></a>
 </header>
 
-
 <!-- 导航 start -->
-<div id="nav">
-    <ul>
-    	<li>项目</li>
-      <li>城市</li>
-    </ul>
-</div>
+<section id="nav" class="nav-tab">
+  <ul>
+    <li>项目</li>
+    <li>城市</li>
+  </ul>
+</section>  
+<section class="nav-box" id="nav-box">
+  <!-- 项目 -->
+  <div id="filter_detail_1" class="filter_detail">
+    <filter-list :list="project" @receive="changeProject"></filter-list>
+  </div>
+  <!-- 地区 -->
+  <div id="filter_detail_2" class="filter_detail">
+    <filter-list :list="city" @receive="changeCity"></filter-list>
+  </div>
+  <div class="nav-box-bg" @click="hideNavBox"></div>
+</section>
 <!-- 导航 end -->
-<div class="nav-box" id="nav-box">
-    <!-- 项目 -->
-    <div id="filter_detail_1" class="filter_detail">
-      <div class="list-wrapper">
-        <div class="left-list">
-          <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" :class="i==current?'active':''"
-                v-for="(item,i) in project" @click="tapList(i)">
-              {{ item.name }}
-            </li>
-          </ul>
-        </div>
-        <div class="right-item">
-          <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" :class="i==subCurrent?'active':''"
-                v-for="(item,i) in subProject" @click="tapItem(i)">
-              {{ item.name }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!-- 地区 -->
-    <div id="filter_detail_2" class="filter_detail">
-      <div class="list-wrapper">
-        <div class="left-list">
-          <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in city">
-              {{ item.name }}
-            </li>
-          </ul>
-        </div>
-        <div class="right-item">
-          <ul>
-            <li :menu-id="item.menu1_id" :data-id="i" v-for="(item,i) in subCity">
-              {{ item.name }}
-            </li>
-          </ul>
-        </div>
-      </div>      
-    </div>
-</div>
 
 <!-- 日记列表 -->
 <section class="home-note diary-list">
-  <ul>    
+  <ul v-show="!listData.length">    
     <li>
       <div class="pic">
+        <a href="#">
         <img src="temporary/home-note-pic-1.jpg" alt="" />
         <img src="temporary/home-note-pic-2.jpg" alt="" />
+        </a>
       </div>
       <div class="info">
-        <h3>割完双眼皮,变成大眼萌妹</h3>
+        <a href="#"><h3>割完双眼皮,变成大眼萌妹</h3></a>
         <div class="desc">单眼皮逆袭之路,我从小就特别羡慕别人有一...</div>
         <div class="yy"><img src="temporary/home-note-pic-yy.jpg" alt="" />成都大华医学美</div>
       </div>
     </li>
     <li>
       <div class="pic">
+        <a href="#">
         <img src="temporary/home-note-pic-3.jpg" alt="" />
         <img src="temporary/home-note-pic-4.jpg" alt="" />
+        </a>
       </div>
       <div class="info">
-        <h3>我只想说高鼻梁,真的很重要！！</h3>
-        <div class="desc">以前我三根那里是没有的,就是塌鼻子后面我下定决...</div>
-        <div class="yy"><img src="temporary/home-note-pic-yy.jpg" alt="" />成都武侯艾美微</div>
-      </div>
-    </li>
-    
-    <li>
-      <div class="pic">
-        <img src="temporary/home-note-pic-1.jpg" alt="" />
-        <img src="temporary/home-note-pic-2.jpg" alt="" />
-      </div>
-      <div class="info">
-        <h3>割完双眼皮,变成大眼萌妹</h3>
-        <div class="desc">单眼皮逆袭之路,我从小就特别羡慕别人有一...</div>
-        <div class="yy"><img src="temporary/home-note-pic-yy.jpg" alt="" />成都大华医学美</div>
-      </div>
-    </li>
-    <li>
-      <div class="pic">
-        <img src="temporary/home-note-pic-3.jpg" alt="" />
-        <img src="temporary/home-note-pic-4.jpg" alt="" />
-      </div>
-      <div class="info">
-        <h3>我只想说高鼻梁,真的很重要！！</h3>
+        <a href="#"><h3>我只想说高鼻梁,真的很重要！！</h3></a>
         <div class="desc">以前我三根那里是没有的,就是塌鼻子后面我下定决...</div>
         <div class="yy"><img src="temporary/home-note-pic-yy.jpg" alt="" />成都武侯艾美微</div>
       </div>
@@ -124,6 +73,24 @@
         
   </ul>
   
+  <div class="loading" v-show="loading">
+    <svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg>
+  </div>
+  <ul class="product-list-vue" v-show="listData.length">
+    <li v-for="item in listData">      
+      <div class="pic">
+        <a :href="'/diary/detail/did/'+item.diary_id+'.html'">
+        <img :src="'https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/diary/'+item.user_id+'/'+item.diary_id+'/'+ item.image" alt="" />
+        <img :src="'https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/diary/'+item.user_id+'/'+item.diary_id+'/'+ item.image" alt="" />
+        </a>
+      </div>
+      <div class="info">
+        <a :href="'/diary/detail/did/'+item.diary_id+'.html'"><h3>{{ item.cat_name }}</h3></a>
+        <div class="desc">描述、术前图，目前的接口没有内容</div>
+        <div class="yy"><img :src="'https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/'+item.usericon" alt="" />{{ item.username }}</div>
+      </div>
+    </li>
+  </ul>  
 </section>
 <!-- 日记列表end -->
 
@@ -159,67 +126,121 @@
 <script>
 //顶部tab点击切换
 $("#nav li").click(function(){
-  console.log( $(this).index() );
+  $("#nav li").removeClass("active");
+  $(this).addClass("active");
   $("#nav-box").show();
   $("#nav-box .filter_detail").hide();
   $("#nav-box .filter_detail").eq($(this).index()).show();
+  $("body").css("overflow","hidden");
+  
   if( $(this).index()==0 ){
     filterProject();
   }else if( $(this).index()==1 ){
     filterCity();
   }
 });
-//filter_detail
-$("#nav-box li").click(function(){
-  console.log( $(this).index() );
-  
+
+Vue.component('filter-list',{
+  data:function(){
+    return{
+      current: 0
+    }
+  },
+  props:["list","filter"],
+  template: '<div class="list-wrapper"><div class="left-list"><ul><li :class="i==current?\'active\':\'\'" v-for="(item,i) in list" @click="tapList(i,item)">{{ item.name }}</li></ul></div><div class="right-item"><ul><li v-for="(itemSub,iSub) in list[current].son" @click="tapItem(iSub,itemSub)">{{ itemSub.name }}</li></ul></div></div>',
+  methods:{
+    tapList: function(i,value){
+      //console.log(i,value);
+      this.current = i;
+    },
+    tapItem: function(i,value){
+      //console.log(i,value);
+      this.current = i;
+      //告知父级，改变current的值，需要出发一个自定义事件
+      this.$emit("receive",value);
+    }
+  }
   
 });
 
 var vm = new Vue({
-  el:".nav-box",
+  el:"#nav-box",
   data:{
-    project: [],
-    subProject: [],
-    city: [],
-    subCity: [],
-    current: 0,
-    subCurrent: 0,
+    project: [ {"son":[]} ],
+    city: [ {"son":[]} ],
+    filter:{
+      project:{ id:0, name:"不限" },
+      city:{ id:0, name:"不限" },
+    },
   },
   methods:{
-    tapList: function(i){
-      console.log(i)
-      this.current = i;
-      this.subCurrent = 0;
-      this.subProject = this.project[i].son;
-    },
-    tapItem: function(i){
-      console.log(i);
-      this.subCurrent = i;
+    changeProject(value){
+      //console.log("父级接收 子类操作 "+value.name+"，"+value.menu2_id);
+      this.filter.project = { id: value.menu2_id, name: value.name };
+      $("#nav li").eq(0).html(value.name);
+      postData();
       $("#nav-box").hide();
+      $("body").css("overflow","");
+      vList.listData = [];
+    },
+    changeCity(value){
+      this.filter.city = { id: value.id, name: value.name };
+      $("#nav li").eq(1).html(value.name);
+      postData();
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+      vList.listData = [];
+    },
+    hideNavBox(){
+      $("#nav-box").hide();
+      $("body").css("overflow","");
     }
+  }
+});
+
+var vList = new Vue({
+  el: ".diary-list",
+  data: {
+    loading: false,
+    listData:[]
+  },
+  methods: {
+    
   }
 });
 
 function filterProject(){
   $.get("temporary/product.json", function(result){
-    console.log(result.responseData.menu1_info);
+    //console.log(result.responseData.menu1_info);
     vm.project = result.responseData.menu1_info;
-    vm.subProject = result.responseData.menu1_info[1].son;
   });
 }
 
 function filterCity(){
   $.get("temporary/product.json", function(result){
-    console.log(result.responseData.city);
     vm.city = result.responseData.city;
-    vm.subCity = result.responseData.city[0].son;
   });
+}
 
+//筛选后post请求数据
+function postData(){
+  vList.loading = true;
+  $.ajax({
+    type: "POST",
+    //url: "https://m.rongdie.com/tuan/getDiary",
+    url: "http://jmsbang.com/demo/ruli/rd_getDiary.php",
+    data: vm.filter,
+    success: function(re){      
+      //console.log(JSON.parse(re));
+      setTimeout(function(){
+        vList.listData = vList.listData.concat(JSON.parse(re));      
+        vList.loading = false;
+      },100);
+    }
+  });
 }
 
 </script>
-
 
 </body>
 </html>

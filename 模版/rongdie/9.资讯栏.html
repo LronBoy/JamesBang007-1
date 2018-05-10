@@ -22,44 +22,38 @@
 </header>
 
 
-<!-- 导航 start -->
-<div id="nav">
-    <ul>
-    	<li>分类</li>
-      <li>排序</li>
-    </ul>
-</div>
 
-<div class="nav-box" id="nav-box">
-    <!-- 分类 -->
-    <div id="filter_detail_1" class="filter_detail">
-      <div class="order-by">
-        <ul>
-          <li data-id="0">不限</li>
-          <li data-id="1">行业动态</li>
-          <li data-id="2">医院</li>
-          <li data-id="3">医生</li>
-          <li data-id="4">深度</li>
-          <li data-id="5">娱乐</li>
-        </ul>
-      </div>
-    </div>    
-    <!-- 排序 -->
-    <div id="filter_detail_2" class="filter_detail">
-      <div class="order-by">
-        <ul>
-          <!--<li data-id="0">不限</li>-->
-          <li data-id="1">时间</li>
-          <li data-id="2">阅读量</li>
-        </ul>
-      </div>
+<!-- 导航 start -->
+<section id="nav" class="nav-tab">
+  <ul>
+    <li>分类</li>
+    <li>排序</li>
+  </ul>
+</section>  
+<section class="nav-box" id="nav-box">
+  <!-- 分类 -->
+  <div id="filter_detail_1" class="filter_detail">
+    <div class="order-by filter-category">
+      <ul>
+        <li v-for="item in category" @click="changeCategory(item)">{{item.name}}</li>
+      </ul>
     </div>
-</div>
+  </div> 
+  <!-- 排序 -->
+  <div id="filter_detail_2" class="filter_detail">
+    <div class="order-by">
+      <ul>
+        <li v-for="item in order" @click="changeOrder(item)">{{item.name}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="nav-box-bg" @click="hideNavBox"></div>
+</section>
 <!-- 导航 end -->
 
 <!-- 资讯列表 -->
 <section class="news-list">
-  <ul>
+  <ul v-show="!listData.length">
     <li>
       <div class="pic">
         <a href="#"><img src="temporary/new-list-1.jpg" alt="" /></a>       
@@ -97,48 +91,44 @@
       </div>
     </li>
     
-    <li>
-      <div class="pic">
-        <a href="#"><img src="temporary/new-list-1.jpg" alt="" /></a>       
-      </div>
-      <div class="info">
-        <a href="#">
-        <h3>做双眼皮，是埋线还是切开？</h3>
-        <p class="desc">整形美容行业发展至今,双眼皮也已经整形美容行业发展至今,双眼皮也已经</p>
-        <div class="author">
-          <img src="temporary/topics-list_1_yy.jpg" alt="" />芜湖伊莱美整形外科医院 
-        </div>
-        <div class="view-comment">
-          <span class="icon-view">4875</span>
-          <span class="icon-comment">127</span>          
-        </div>
-        </a>
-      </div>
-    </li>
-    <li>
-      <div class="pic">
-        <a href="#"><img src="temporary/new-list-2.jpg" alt="" /></a>       
-      </div>
-      <div class="info">
-        <a href="#">
-        <h3>假体垫下巴让你脸型更完美</h3>
-        <p class="desc">瓜子脸,是是如今流行的美人脸型,致使...</p>
-        <div class="author">
-          <img src="temporary/topics-list_1_yy.jpg" alt="" />成都武侯年华奥拉克医疗美容
-        </div>
-        <div class="view-comment">
-          <span class="icon-view">547</span>
-          <span class="icon-comment">68</span>          
-        </div>
-        </a>
-      </div>
-    </li>
-    
+    <li><div class="pic"><a href="#"><img src="temporary/new-list-1.jpg" alt="" /></a>       </div><div class="info"><a href="#"><h3>做双眼皮，是埋线还是切开？</h3><p class="desc">整形美容行业发展至今,双眼皮也已经整形美容行业发展至今,双眼皮也已经</p><div class="author"><img src="temporary/topics-list_1_yy.jpg" alt="" />芜湖伊莱美整形外科医院 </div><div class="view-comment"><span class="icon-view">4875</span><span class="icon-comment">127</span>          </div></a></div></li><li><div class="pic"><a href="#"><img src="temporary/new-list-2.jpg" alt="" /></a>       </div><div class="info"><a href="#"><h3>假体垫下巴让你脸型更完美</h3><p class="desc">瓜子脸,是是如今流行的美人脸型,致使...</p><div class="author"><img src="temporary/topics-list_1_yy.jpg" alt="" />成都武侯年华奥拉克医疗美容</div><div class="view-comment"><span class="icon-view">547</span><span class="icon-comment">68</span>          </div></a></div></li><li><div class="pic"><a href="#"><img src="temporary/new-list-1.jpg" alt="" /></a>       </div><div class="info"><a href="#"><h3>做双眼皮，是埋线还是切开？</h3><p class="desc">整形美容行业发展至今,双眼皮也已经整形美容行业发展至今,双眼皮也已经</p><div class="author"><img src="temporary/topics-list_1_yy.jpg" alt="" />芜湖伊莱美整形外科医院 </div><div class="view-comment"><span class="icon-view">4875</span><span class="icon-comment">127</span>          </div></a></div></li><li><div class="pic"><a href="#"><img src="temporary/new-list-2.jpg" alt="" /></a>       </div><div class="info"><a href="#"><h3>假体垫下巴让你脸型更完美</h3><p class="desc">瓜子脸,是是如今流行的美人脸型,致使...</p><div class="author"><img src="temporary/topics-list_1_yy.jpg" alt="" />成都武侯年华奥拉克医疗美容</div><div class="view-comment"><span class="icon-view">547</span><span class="icon-comment">68</span>          </div></a></div></li><li><div class="pic"><a href="#"><img src="temporary/new-list-1.jpg" alt="" /></a>       </div><div class="info"><a href="#"><h3>做双眼皮，是埋线还是切开？</h3><p class="desc">整形美容行业发展至今,双眼皮也已经整形美容行业发展至今,双眼皮也已经</p><div class="author"><img src="temporary/topics-list_1_yy.jpg" alt="" />芜湖伊莱美整形外科医院 </div><div class="view-comment"><span class="icon-view">4875</span><span class="icon-comment">127</span>          </div></a></div></li><li><div class="pic"><a href="#"><img src="temporary/new-list-2.jpg" alt="" /></a>       </div><div class="info"><a href="#"><h3>假体垫下巴让你脸型更完美</h3><p class="desc">瓜子脸,是是如今流行的美人脸型,致使...</p><div class="author"><img src="temporary/topics-list_1_yy.jpg" alt="" />成都武侯年华奥拉克医疗美容</div><div class="view-comment"><span class="icon-view">547</span><span class="icon-comment">68</span>          </div></a></div></li>
   </ul>
   
+  <div class="loading" v-show="loading">
+    <svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg>
+  </div>
+  <ul class="product-list-vue" v-show="listData.length">
+    <li v-for="item in listData">
+      <div class="pic">
+        <a :href="'/news/detail/id/'+item.news_id+'.html'" :style="'background-image: url(https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/news/'+ item.news_icon+');'"></a>       
+      </div>      
+      <div class="info">
+        <a :href="'/news/detail/id/'+item.news_id+'.html'">
+        <h3>{{ item.name }}</h3>
+        <p class="desc">描述、作者头像，目前的接口没有内容</p>
+        <div class="author">
+          <img src="temporary/topics-list_1_yy.jpg" alt="" />{{ item.author }}
+        </div>
+        <div class="view-comment">
+          <span class="icon-view">{{ item.read }}</span>
+          <span class="icon-comment">{{ item.comments }}</span>          
+        </div>
+        </a>
+      </div>
+      
+      <div class="info">
+        <a :href="'/doctor/detail/docid/'+item.did+'.html'"><h3>{{ item.dname }}</h3></a>
+        <p>职称：{{ item.dlevel }}</p>
+        <p>医院：{{ item.occupy }}</p>
+        <p>擅长：<span v-for="sz in item.good_at">{{sz}} </span> </p>
+        <a href="#zx" class="zxBtn">立即咨询</a>
+      </div>
+    </li>
+  </ul>
+  <div class="loading-more" v-if="more && listData.length">拼命加载中…</div>
+  <div class="loading-more" v-if="!more">没有更多内容了</div>
 </section>
 <!-- 资讯列表end -->
-
 
 <section class="bottom-bar">
   <ul>
@@ -171,22 +161,118 @@
 <script>
 //顶部tab点击切换
 $("#nav li").click(function(){
-  console.log( $(this).index() );
+  $("#nav li").removeClass("active");
+  $(this).addClass("active");
   $("#nav-box").show();
   $("#nav-box .filter_detail").hide();
   $("#nav-box .filter_detail").eq($(this).index()).show();
+  $("body").css("overflow","hidden");
 
 });
-//filter_detail
-$("#nav-box li").click(function(){
-  console.log( $(this).index() );
-  $("#nav-box").hide();
+
+var vm = new Vue({
+  el:"#nav-box",
+  data:{
+    category:[
+      {id:0 , name:"不限"},
+      {id:1 , name:"行业动态"},
+      {id:2 , name:"医院"},
+      {id:3 , name:"医生"},
+      {id:4 , name:"深度"},
+      {id:5 , name:"娱乐"}
+    ],
+    order:[
+      {id:1 , name:"时间"},
+      {id:2 , name:"阅读量"}
+    ],
+    filter:{
+      category: { id:0, name:"不限" },
+      order: { id:0, name:"不限" },
+      page: 1
+    },
+  },
+  methods:{
+    changeCategory(value){
+      this.filter.category = value;
+      $("#nav li").eq(0).html(value.name);
+      postData();
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+      vList.listData = [];
+      vm.filter.page = 1;
+    },
+    changeOrder(value){
+      this.filter.order = value;
+      $("#nav li").eq(1).html(value.name);
+      postData();
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+      vList.listData = [];
+      vm.filter.page = 1;
+    },
+    hideNavBox(){
+      $("#nav-box").hide();
+      $("body").css("overflow","");
+    }
+  }
 });
 
+var vList = new Vue({
+  el: ".news-list",
+  data: {
+    loading: false,
+    listData:[],    
+    more: true,
+  },
+  methods: {
+    
+  }
+});
 
+//筛选后post请求数据
+function postData(){
+  //console.log("post请求数据");
+  //请求前 判断有无更多数据&是否加载中
+  if( vList.more && !vList.loading ){
+    vList.loading = true;
+    $.ajax({
+      type: "POST",
+      //url: "https://m.rongdie.com/tuan/getNews",
+      url: "http://jmsbang.com/demo/ruli/rd_getNews.php",
+      data: vm.filter,
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      success: function(re){
+        var data = JSON.parse(re);
+        //判断有无更多数据
+        if(data.length<20){
+          vList.more = false;
+        }
+        setTimeout(function(){
+          vList.listData = vList.listData.concat(data);      
+          vList.loading = false;
+          vm.filter.page++;
+        },100);
+      }
+    });
+    loadMore();//加载更多
+  }
+}
+
+//上拉触底请求加载
+function loadMore(){
+    var wh = $(window).height();
+    //滚动
+    $(window).scroll(function(){
+        var wt = $(window).scrollTop();
+        var lt = $(".loading-more").offset().top;
+        if( wt+wh+20 > lt && !vList.loading && vList.more ){
+            //console.log( wt+wh );
+            postData(); //请求加载            
+        }
+    });
+}
 
 </script>
-
 
 </body>
 </html>
