@@ -29,46 +29,55 @@ html{max-width:750px;margin:0 auto}body{color:#444; padding: 0 5px;}li{list-styl
 <h3 class="title">iframe唤起</h3>
 
 <div class="app-btn">
-  <a href="javascript:void(0);" id="goAppWX">打开微信</a>
+  <a href="javascript:startApp('weixin://')">打开微信</a>
 </div>
 
 <div class="app-btn">
-  <a href="javascript:void(0);" id="goAppSC">打开四川旅游App</a>
+  <a  href="javascript:startApp('mweibo://')">打开微博</a>
+</div>
+
+<div class="app-btn">
+  <a  href="javascript:startApp('alipayqr://﻿')">打开支付宝</a><!--alipay:// 协议失效-->
+</div>
+
+<div class="app-btn">
+  <a href="javascript:startApp('sichuanguide://')">打开四川旅游App</a>
 </div>
 
 <script type="text/javascript">
-var last = Date.now(),
-    doc = window.document,
-    ifr = doc.createElement('iframe');
+function startApp(nativeUrl){
 
-//创建一个隐藏的iframe
-//ifr.src = nativeUrl;
-ifr.src = "sichuanguide://";
-ifr.style.cssText = 'display:none;border:0;';
-doc.body.appendChild(ifr);
+  var last = Date.now(),
+      doc = window.document,
+      ifr = doc.createElement('iframe');
+  
+  //创建一个隐藏的iframe
+  ifr.src = nativeUrl;
+  ifr.style.cssText = 'display:none;border:0;';
+  doc.body.appendChild(ifr);
+  
+  setTimeout(function() {
+      //console.log("setTimeout");
+      doc.body.removeChild(ifr);
+      //setTimeout回小于2000一般为唤起失败 
+      if (Date.now() - last < 2000) {
+          if (typeof onFail == 'function') {
+              onFail();
+          } else {
+              //弹窗提示或下载处理等
+          }
+      } else {
+          if (typeof onSuccess == 'function') {
+              onSuccess();
+          }
+      }
+  }, 1000);
 
-setTimeout(function() {
-    //console.log("setTimeout");
-    doc.body.removeChild(ifr);
-    //setTimeout回小于2000一般为唤起失败 
-    if (Date.now() - last < 2000) {
-        if (typeof onFail == 'function') {
-            onFail();
-            //alert("唤起失败 ");
-        } else {
-            //弹窗提示或下载处理等
-        }
-    } else {
-        if (typeof onSuccess == 'function') {
-            onSuccess();
-            //alert("唤起成功 ");
-        }
-    }
-}, 1000);
-
+}
 </script>    
 
-测试结果：访问网页"四川旅游App"直接唤起
+测试结果：点击按钮可以成功唤起，微信、支付宝、四川旅游App
+
 
 
 <div class="guide-list box">
