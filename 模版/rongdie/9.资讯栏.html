@@ -191,21 +191,25 @@ var vm = new Vue({
   methods:{
     changeCategory(value){
       this.filter.category = value;
-      $("#nav li").eq(0).html(value.name);
-      postData();
+      $("#nav li").eq(0).html(value.name);      
       $("#nav-box").hide();
       $("body").css("overflow","");
+      
       vList.listData = [];
       vm.filter.page = 1;
+      vList.more = true;
+      postData();
     },
     changeOrder(value){
       this.filter.order = value;
-      $("#nav li").eq(1).html(value.name);
-      postData();
-      $("#nav-box").hide();
+      $("#nav li").eq(1).html(value.name);     
+      $("#nav-box").hide();      
       $("body").css("overflow","");
+      
       vList.listData = [];
       vm.filter.page = 1;
+      vList.more = true;
+      postData();
     },
     hideNavBox(){
       $("#nav-box").hide();
@@ -244,8 +248,8 @@ function postData(){
         if(data.length<20){
           vList.more = false;
         }
-        setTimeout(function(){
-          vList.listData = vList.listData.concat(data);      
+        vList.listData = vList.listData.concat(data);  
+        setTimeout(function(){    
           vList.loading = false;
           vm.filter.page++;
         },100);

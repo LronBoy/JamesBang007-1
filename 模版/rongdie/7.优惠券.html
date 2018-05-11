@@ -221,9 +221,9 @@ function postData(){
     data: vm.filter,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     success: function(re){      
-      //console.log(JSON.parse(re));
-      setTimeout(function(){
-        vList.listData = vList.listData.concat(JSON.parse(re));      
+      //console.log(JSON.parse(re));      
+      vList.listData = vList.listData.concat(JSON.parse(re));  
+      setTimeout(function(){    
         vList.loading = false;
       },100);
     }
