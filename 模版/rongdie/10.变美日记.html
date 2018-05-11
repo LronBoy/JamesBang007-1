@@ -230,6 +230,7 @@ function postData(){
     //url: "https://m.rongdie.com/tuan/getDiary",
     url: "http://jmsbang.com/demo/ruli/rd_getDiary.php",
     data: vm.filter,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     success: function(re){      
       //console.log(JSON.parse(re));
       setTimeout(function(){

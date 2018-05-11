@@ -233,6 +233,7 @@ function postData(){
     //url: "https://m.rongdie.com/tuan/getHuo",
     url: "http://jmsbang.com/demo/ruli/rd_getHuo.php",
     data: vm.filter,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     success: function(re){      
       //console.log(JSON.parse(re));
       setTimeout(function(){

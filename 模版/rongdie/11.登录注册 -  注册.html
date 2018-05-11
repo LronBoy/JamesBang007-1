@@ -92,6 +92,7 @@ function getVerifyCode(codeType){
         tel: $("#logup-usertel").val(),
         type: codeType
       },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       success: function(re){
         console.log(re);
       }
