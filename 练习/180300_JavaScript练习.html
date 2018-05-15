@@ -112,7 +112,15 @@
     sDay('2018-04-08');
 
   </script>
-
+  <script>
+    //返回天数差
+    function getDay_num(before,after){
+      var before = new Date(before); //创建 Date 对象
+      var after = new Date(after);
+      var days = parseInt( (after-before)/(24*60*60*1000) );      
+    }
+    getDay_num("2015-01-13","2015-02-18");
+  </script>
 
   <div class="tit-2">For循环</div>
   <pre>
