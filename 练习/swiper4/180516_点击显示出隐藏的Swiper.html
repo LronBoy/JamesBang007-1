@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>点击显示出隐藏的Swiper</title>
+<script type="text/javascript">
+function rem(){
+  var html = document.documentElement;
+  var hWidth = html.getBoundingClientRect().width;
+  hWidth = hWidth>750 ? 750 : hWidth ;
+  html.style.fontSize = hWidth/15 + "px";
+}
+
+(function(){
+  rem();
+})();
+
+window.onresize = rem;
+</script>
+<link href="static/swiper-4.1.0.min.css" rel="stylesheet" />
+<style>
+html{ margin: 0 auto; background: #eee; font-size: 50px; max-width: 750px;}
+body,h1,h2,h3,h4,p,dl,dt,dd,ul,li,form,button,input,textarea,th,td,a{margin:0;padding:0}
+body {
+    font-family: "PingFang SC",Helvetica,Arial,"Microsoft YaHei"; font-size: 16px; color:#444; background: #fff;
+    padding: .5rem 0;
+}
+*{box-sizing: border-box;}
+
+.swiper-container { width: 15rem; height: 6rem; margin-bottom: 1rem; position: relative; }
+.swiper-slide{ width: 13.5rem; margin: 0 .15rem; padding: 10px; border-radius: .2rem; background-size: cover; }
+.swiper-slide h2{ display: inline-block; line-height: .8rem; font-size: .4rem; color: #fff; background: rgba(0,0,0,.6); padding: .1rem .5rem }
+
+.parallax-bg{ width: 700px; height: 300px; position: absolute; top: 0; left: 0; display: none; }
+
+
+</style>
+<link rel="stylesheet" href="http://www.swiper.com.cn/demo/meituan1/css/style.css"/>
+</head>
+<body>
+
+<ul id="comment-list">
+  <li class="list">
+    <div class="face"><img src="http://www.swiper.com.cn/demo/meituan1/uploads/face.png"></div>
+    <div class="guest">
+      <div class="info">
+        <h4 class="name">不是只有你许诺<span class="level"><img src="http://www.swiper.com.cn/demo/meituan1/img/level4.png"></span></h4>
+        <div class="date">2018-4-15</div>
+      </div>
+      <div class="star"><img src="http://www.swiper.com.cn/demo/meituan1/img/star.png"></div>
+      <p class="detail">以前去过这个店吧，不过不是在这，是另外一个分店，店里装修分格都可以，下单也方便，是立点立上的，不像其他地方是自己去挑选，菜品都可以</p>
+      <div class="thumb" thumblist="list1">
+        <img src="http://www.swiper.com.cn/demo/meituan1/uploads/s1_1.jpg">
+        <img src="http://www.swiper.com.cn/demo/meituan1/uploads/s1_2.jpg">
+        <img src="http://www.swiper.com.cn/demo/meituan1/uploads/s1_3.jpg">
+        <img src="http://www.swiper.com.cn/demo/meituan1/uploads/s1_4.jpg">
+      </div>
+    </div>
+    
+  </li>
+  <li class="list">
+    <div class="face"><img src="http://www.swiper.com.cn/demo/meituan1/uploads/face.png"></div>
+    <div class="guest">
+      <div class="info">
+        <h4 class="name">开心美女小静<span class="level"><img src="http://www.swiper.com.cn/demo/meituan1/img/level4.png"></span></h4>
+        <div class="date">2018-3-15</div>
+      </div>
+      <div class="star"><img src="http://www.swiper.com.cn/demo/meituan1/img/star.png"></div>
+      <p class="detail">非常好的吃烤肉的地方，我一定会去第二次。 就冲着他们新鲜的活碰乱跳的基围虾</p>
+      <div class="thumb" thumblist="list2">
+        <img src="http://www.swiper.com.cn/demo/meituan1/uploads/s2_1.jpg">
+        <img src="http://www.swiper.com.cn/demo/meituan1/uploads/s2_2.jpg">
+      </div>
+    </div>
+    
+  </li>
+  <li class="list">
+    <div class="face"><img src="http://www.swiper.com.cn/demo/meituan1/uploads/face.png"></div>
+    <div class="guest">
+      <div class="info">
+        <h4 class="name">美食大师张女士<span class="level"><img src="http://www.swiper.com.cn/demo/meituan1/img/level4.png"></span></h4>
+        <div class="date">2018-2-15</div>
+      </div>
+      <div class="star"><img src="http://www.swiper.com.cn/demo/meituan1/img/star.png"></div>
+      <p class="detail">首先我来说说优点，第一，就是大家都是手机点菜，这个很好避免过多浪费，第二就是基围虾很新鲜，这个我喜欢。不足之处，一是居然有苍蝇到处飞，可怕，二是，火太小了，三个人只烤了三轮</p>
+      <div class="thumb" thumblist="list3">
+        <img src="http://www.swiper.com.cn/demo/meituan1/uploads/s3_1.jpg">
+      </div>
+    </div>
+    
+  </li>
+</ul>
+
+<!-- Swiper -->
+<div class="swiper-container" id="origin-img">
+  <div class="swiper-wrapper"></div>
+  <div class="swiper-pagination"></div>
+  <!--<div class="upload">xxx上传于2018-06-17</div>-->
+</div>
+
+<script src="static/swiper-4.1.0.min.js"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+imgsdata = {
+  "list1": ["b1_1.jpg","b1_2.jpg","b1_3.jpg","b1_4.jpg","b1_5.jpg","b1_6.jpg","b1_7.jpg","b1_8.jpg","b1_9.jpg"],
+  "list2": ["b2_1.jpg","b2_2.jpg"],
+  "list3": ["b3_1.jpg"],
+}
+  
+var swiper = new Swiper('.swiper-container',{
+  zoom:true,
+  width: window.innerWidth,
+  virtual: true,
+  spaceBetween:20,
+  pagination: {
+    el: '.swiper-pagination',
+    type: 'fraction',
+  },
+  on:{
+    click: function(){
+      $('#origin-img').fadeOut('fast');
+      this.virtual.slides.length=0;
+      this.virtual.cache=[]; 
+      swiperStatus=false;
+     },
+  },
+
+});
+
+$('.thumb img').click(function(){
+  clickIndex = $(this).index();
+  
+  imglist = $(this).parent().attr('thumblist');
+  imgs = imgsdata[imglist];
+  for(i=0;i<imgs.length;i++){
+    swiper.virtual.appendSlide('<div class="swiper-zoom-container"><img src="http://www.swiper.com.cn/demo/meituan1/uploads/'+imgs[i]+'" /></div>');
+  }
+  swiper.slideTo(clickIndex);
+  $('#origin-img').fadeIn('fast');
+  swiperStatus=true;
+
+})
+
+</script>
+
+</body>
+</html>
