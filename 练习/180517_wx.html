@@ -57,19 +57,17 @@ document.querySelector("#code").innerHTML = search.code;
 获取code后，请求以下链接获取access_token：  https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
 
 
-<br><br>code换取网页授权access_token<br><br>
+<br><br>code换取网页授权access_token：<br><br>
 <div id="token"></div>
 
-<br><br>access_token<br><br>
+<br><br>access_token：<br><br>
 <div id="accessToken"></div>
+
+<br><br>userinfo：<br><br>
+<div id="userinfo"></div>
 
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script>
-/*
-setTimeout(function(){
-  
-},500);
-*/
   $.ajax({
     type: 'GET',
     url: 'http://www.beibaolv.com.cn/ruli-app-h5/Token.php',
@@ -84,7 +82,39 @@ setTimeout(function(){
       document.querySelector("#token").innerHTML = re;
       
       var tokenJson = JSON.parse(re);      
-      document.querySelector("#accessToken").innerHTML = tokenJson.access_token;      
+      document.querySelector("#accessToken").innerHTML = tokenJson.access_token;
+      
+      /*
+       * 第四步：拉取用户信息(需scope为 snsapi_userinfo)
+       * 请求方法
+       * http：GET（请使用https协议） https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+       * 
+       * 拉取失败
+       * 
+       */
+        $.ajax({
+          type: 'GET',
+          url: 'https://api.weixin.qq.com/sns/userinfo',
+          data:{
+            access_token: tokenJson.access_token,
+            openid: tokenJson.openid,
+            lang: 'zh_CN'
+          },
+          dataTtpe: 'jsonp',
+          success: function(re){
+            alert('请求成功');
+            alert(re);
+            document.querySelector("#userinfo").innerHTML = re;
+            
+          },
+          error: function(err){
+            alert('请求失败');
+          },
+          complete: function(){
+            alert('请求完成');
+          } 
+        });
+      
     },
     error: function(err){
       alert('请求失败');
