@@ -5,6 +5,10 @@
 <title>微信网页授权</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<style>
+body{ padding: 5px; max-width: 100%;}
+div{ max-width: 100%; }
+</style>
 </head>
 <body>
 <h1>微信网页授权</h1>
@@ -20,12 +24,9 @@
 在确保微信公众账号拥有授权作用域（scope参数）的权限的前提下（服务号获得高级接口后，默认拥有scope参数中的snsapi_base和snsapi_userinfo），引导关注者打开如下页面：
 
 
+<br><br>获取code<br><br>
+<div id="code"></div>
 
-
-
-第二步：通过code换取网页授权access_token
-
-获取code
 <script type="text/javascript">
 //获取url参数
 function formatSearch(se){  
@@ -43,47 +44,57 @@ function formatSearch(se){
         return obj;
     };  
 }
-/*
-setTimeout(function(){
-  var search = formatSearch(window.location.search);
-  console.log(search);
-  alert(search.code);
-},500);
-*/
+
+var search = formatSearch(window.location.search);
+//alert(search.code);
+document.querySelector("#code").innerHTML = search.code;
 </script>
 
-请求方法
+
+
+<h3>第二步：通过code换取网页授权access_token</h3>
 
 获取code后，请求以下链接获取access_token：  https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
 
-<div id="code"></div>
+
+<br><br>code换取网页授权access_token<br><br>
+<div id="token"></div>
+
+<br><br>access_token<br><br>
+<div id="accessToken"></div>
 
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script>
-var search = formatSearch(window.location.search);
-//console.log(search.code);
-//alert(search.code);
-document.querySelector("#code").innerHTML = search.code;
-
 /*
 setTimeout(function(){
-  $.ajax({
-    type: 'get',
-    url: 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx35e87e8c5f75fc94&secret=fdb3e6785cf1f0279aba7bc27e0eb358&code='+search.code+'&grant_type=authorization_code',
-    success: function(re){    
-      console.log(re)
-      alert('请求成功：');
-      alert(JSON.parse(re));
-    },
-    error: function(err){
-      alert('请求失败：');
-    },
-    complete: function(){
-      alert('请求完成：');
-    } 
-  });
+  
 },500);
 */
+  $.ajax({
+    type: 'GET',
+    url: 'http://www.beibaolv.com.cn/ruli-app-h5/Token.php',
+    data:{
+      appname: 'ctsscs',
+      code: search.code
+    },
+    success: function(re){    
+      //console.log(re)
+      //alert(JSON.parse(re));
+      //alert('请求成功');
+      document.querySelector("#token").innerHTML = re;
+      
+      var tokenJson = JSON.parse(re);      
+      document.querySelector("#accessToken").innerHTML = tokenJson.access_token;      
+    },
+    error: function(err){
+      alert('请求失败');
+    },
+    complete: function(){
+      //alert('请求完成');
+    } 
+  });
+
+
 </script>
 
 
