@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+<meta charset="UTF-8">
+<title>微博登录</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+</head>
+<body>
+JS SDK for OAuth2.0
+http://open.weibo.com/wiki/index.php/Weibo-JS_V2
+
+
+<h3>1、网站接入绑定域名</h3>
+为了保证你的应用或网站的安全，在使用Weibo JS SDK时，需要你在应用信息页面为该应用选定绑定域名功能，并绑定你的域名，我们将以此域名来判定Weibo JS SDK API请求来源的合法性，不合法的请求将被拒绝。
+
+
+
+<h3>2、增加命名空间</h3>
+在您页面的HTML标签中增加XML命名空间。
+< html xmlns:wb="http://open.weibo.com/wb" >
+
+
+
+<h3>3、引用JS SDK文件</h3>
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1409564755" type="text/javascript" charset="utf-8"></script>
+
+
+
+<h3>4、开始使用JS SDK</h3>
+<!--
+4.1、调用JSSDK访问API接口。
+<script type="text/javascript">
+WB2.anyWhere(function(W){
+    W.parseCMD("/users/show.json", function(sResult, bStatus){
+        try{
+            //to do something...
+        }catch(e){}
+    },{
+        uid: '123456789'
+    }{
+        method: 'get'
+    });
+});
+
+</script>
+
+4.2、部署微博组件
+
+<wb:share-button type="button" size="middle"> </wb:share-button>
+
+-->
+
+<h2>JS SDK公开方法。</h2>
+
+
+
+WB2.login(callback)
+微博登录认证功能。
+
+<script type="text/javascript">
+
+WB2.login(function() {
+    //callback function    
+    console.log("微博登录");
+    getWbUserData(function(o){
+      console.log(o);
+    });
+    console.log("----------")
+});
+
+</script>
+
+
+WB2.checkLogin()
+检测微博登录状态，已登录返回true，未登录返回false。
+
+<script type="text/javascript">
+var status = WB2.checkLogin();
+console.log('检测微博登录状态：'+ status);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+<h2>JS组件说明及示例</h2>
+JS 组件的使用方法及示例。JS 组件有WBML、和HTML+JS两种部署方法。
+
+
+微博登录按钮
+第三方与微博进行连接登录的按钮，可实现登录与退出功能。
+
+<div id="wb_connect_btn" style="display: none;"></div>
+<script type="text/javascript">
+WB2.anyWhere(function (W) {
+    W.widget.connectButton({
+        id: "wb_connect_btn",
+        type: '3,2',
+        callback: {
+            login: function (re) { //登录后的回调函数
+                console.log('登录成功：'+ re);
+                console.log(re);                
+                alert("login: " + re.screen_name)
+            },
+            logout: function () { //退出后的回调函数
+                alert('logout');
+            }
+        }
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
