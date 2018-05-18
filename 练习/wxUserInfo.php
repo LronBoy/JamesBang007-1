@@ -13,9 +13,7 @@ header('Access-Control-Allow-Headers:x-requested-with,content-type');
 
 
 // 数组保存appid
-$app['scly'] 	= array('appid'=>'wxf27397bc89f88c4e', 'secret'=>'696d9c86f11a967ea0b8f76526580c74');
-$app['cdcyts']  = array('appid'=>'wx67a6dd77d010a4f0', 'secret'=>'64f6257a27b060a401443a9b925cdf91');
-$app['ctsscs']  = array('appid'=>'wx35e87e8c5f75fc94', 'secret'=>'fdb3e6785cf1f0279aba7bc27e0eb358');
+$app['test'] 	= array('appid'=>'wx477a6132a43b3bf0', 'secret'=>'bbb84e1e770104fb19679603d02d7955');
 
 
 if(!empty($_GET['appname'])){
