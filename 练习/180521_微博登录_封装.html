@@ -40,13 +40,19 @@ http://open.weibo.com/wiki/index.php/Weibo-JS_V2
 
 
 <script type="text/javascript">
-WB2.login(function() {
-  //callback function
-  console.log("微博登录");
-  getUserInfo(function(res){
-    console.log( res );
-  });    
-}); 
+
+WB2Login();
+
+//微博登录_封装
+function WB2Login(){
+  WB2.login(function() {
+    console.log("微博登录");
+    getUserInfo(function(res){
+      console.log( res );
+      alert("昵称："+res.name+"，id："+res.idstr);
+    });    
+  });
+}
 
 function getUserInfo(callback){
   
@@ -75,7 +81,7 @@ function getUserInfo(callback){
       //返回数据后的回调函数
       function(oResult, bStatus) {
         if(bStatus&&callback) {
-          console.log(oResult);
+          //console.log(oResult);
           callback.call(this,oResult);
         }
       },

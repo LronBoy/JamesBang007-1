@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+var userList = [
+      { "nick_name": "丽人", "user_avatar": "../../img/user_avatar.png", "openid": "101","type":1 },
+      //{ "nick_name": "", "user_avatar": "", "openid": "","type":0 },
+      { "nick_name": "James邦_", "user_avatar": "http://tva3.sinaimg.cn/crop.0.0.180.180.1024/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg", "openid": "1864968187","type":3 },
+    ];
+
+console.log(userList);
+
+//筛选openid ="1864968187"的对象 
+var is = userList.filter(function(user){
+  return user.openid == "1864968187";  
+});
+console.log(is);
+if(is.length){
+  alert("包含对象")
+}else{  
+  alert("不包含对象")
+}
+
+
+
+</script>
+
+</body>
+</html>
