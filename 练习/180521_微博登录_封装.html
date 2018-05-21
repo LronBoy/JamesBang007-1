@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+<meta charset="UTF-8">
+<title>微博登录</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+</head>
+<body>
+JS SDK for OAuth2.0
+http://open.weibo.com/wiki/index.php/Weibo-JS_V2
+
+
+<h3>1、网站接入绑定域名</h3>
+为了保证你的应用或网站的安全，在使用Weibo JS SDK时，需要你在应用信息页面为该应用选定绑定域名功能，并绑定你的域名，我们将以此域名来判定Weibo JS SDK API请求来源的合法性，不合法的请求将被拒绝。
+
+
+
+<h3>2、增加命名空间</h3>
+在您页面的HTML标签中增加XML命名空间。
+< html xmlns:wb="http://open.weibo.com/wb" >
+
+
+
+<h3>3、引用JS SDK文件</h3>
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1409564755" type="text/javascript" charset="utf-8"></script>
+
+
+
+<h3>4、开始使用JS SDK</h3>
+4.1、调用JSSDK访问API接口。
+4.2、部署微博组件
+
+
+
+
+
+
+<h2>JS SDK公开方法， 微博登录 封装</h2>
+
+
+<script type="text/javascript">
+WB2.login(function() {
+  //callback function
+  console.log("微博登录");
+  getUserInfo(function(res){
+    console.log( res );
+  });    
+}); 
+
+function getUserInfo(callback){
+  
+  WB2.anyWhere(function(W){
+    //获取uid
+    W.parseCMD(
+      '/account/get_uid.json',
+      function(res, b) {
+        if(b) {
+          getUsers(W,res);
+        }else{
+          alert("授权失败或错误");
+        }
+      },
+      {},
+      {
+        method : 'get'
+      }
+    );
+  });
+  
+  function getUsers(W,R){
+    //数据交互
+    W.parseCMD(
+      '/users/show.json',
+      //返回数据后的回调函数
+      function(oResult, bStatus) {
+        if(bStatus&&callback) {
+          console.log(oResult);
+          callback.call(this,oResult);
+        }
+      },
+      //发起数据请求时，传递给API接口的参数对象。
+      {
+        'uid': R.uid
+      },
+      //附加属性
+      {
+        method : 'get'
+      }
+    );
+  }
+
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
