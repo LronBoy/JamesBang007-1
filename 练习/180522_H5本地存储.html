@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>h5本地存储</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<style>
+body{ padding: 5px; max-width: 100%;}
+div{ max-width: 100%; }
+</style>
+</head>
+<body>
+<h2>什么是 HTML5 Web 存储?</h2>
+使用HTML5可以在本地存储用户的浏览数据。
+
+早些时候,本地存储使用的是 cookie。但是Web 存储需要更加的安全与快速. 这些数据不会被保存在服务器上，但是这些数据只用于用户请求网站数据上.它也可以存储大量的数据，而不影响网站的性能.
+
+数据以 键/值 对存在, web网页的数据只允许该网页访问使用。
+
+
+
+<h2>浏览器支持</h2>
+Internet Explorer 8+, Firefox, Opera, Chrome, 和 Safari支持Web 存储。
+注意: Internet Explorer 7 及更早IE版本不支持web 存储.
+
+
+
+<h2>localStorage 和 sessionStorage </h2>
+
+客户端存储数据的两个对象为：
+localStorage   - 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去除。
+sessionStorage - 用于临时保存同一窗口(或标签页)的数据，在关闭窗口或标签页之后将会删除这些数据。
+
+在使用 web 存储前,应检查浏览器是否支持 localStorage 和sessionStorage:
+
+<script>
+if(typeof(Storage)!=="undefined")
+{
+    // 是的! 支持 localStorage  sessionStorage 对象!
+    // 一些代码.....
+} else {
+    // 抱歉! 不支持 web 存储。
+}
+</script>
+
+
+<h2>localStorage 对象</h2>
+localStorage 对象存储的数据没有时间限制。第二天、第二周或下一年之后，数据依然可用。
+
+不管是 localStorage，还是 sessionStorage，可使用的API都相同，常用的有如下几个（以localStorage为例）：
+
+保存数据：       localStorage.setItem(key,value);
+读取数据：       localStorage.getItem(key);
+删除单个数据：localStorage.removeItem(key);
+删除所有数据：localStorage.clear();
+得到某个索引的key：localStorage.key(index);
+提示: 键/值对通常以字符串存储，你可以按自己的需要转换该格式。
+
+
+实例：展示了用户点击按钮的次数。（代码中的字符串值转换为数字类型）
+
+<p><button onclick="clickCounter()" type="button">点我！</button></p>
+<div id="result"></div>
+<script>
+function clickCounter()
+{
+  if(typeof(Storage)!=="undefined")
+  {
+    if (localStorage.clickcount)
+    {
+      localStorage.clickcount=Number(localStorage.clickcount)+1;
+    }
+    else
+    {
+      localStorage.clickcount=1;
+    }
+    document.getElementById("result").innerHTML=" 你已经点击了按钮 " + localStorage.clickcount + " 次 ";
+  }
+  else
+  {
+    document.getElementById("result").innerHTML="对不起，您的浏览器不支持 web 存储。";
+  }
+}
+</script>
+
+
+实例：存储微信登录后的userInfo
+<script>
+var userInfo = '{"openid":"oAjeZjsk9MvnvtS5ni6mhkoZPI9o","nickname":"James邦","sex":1,"language":"zh_CN","city":"成都","province":"四川","country":"中国","headimgurl":"http:\/\/thirdwx.qlogo.cn\/mmopen\/vi_32\/Q0j4TwGTfTJibPuZ87ic19VSLqQZrLicg0dCic3uicBQQnHVSYZzgkb8ZsrH3JWTP77g60B5ic2HprNtC0DI0ToyVpDg\/132","privilege":[]}';
+localStorage.setItem('wxUserInfo',userInfo)
+
+var  wxUserInfo = localStorage.getItem('wxUserInfo');
+if(wxUserInfo){
+  console.log( JSON.parse(wxUserInfo));  
+}else{
+  console.log("wxUserInfo 不存在");
+}
+
+
+
+localStorage.setItem('wxUserInfo2','{}')
+
+var  wxUserInfo2 = localStorage.getItem('wxUserInfo2');
+if(wxUserInfo2){
+  console.log(wxUserInfo2);  
+}else{
+  console.log("wxUserInfo2 不存在");
+}
+
+</script>
+
+
+
+<h2>sessionStorage 对象</h2>
+sessionStorage 方法针对一个 session 进行数据存储。当用户关闭浏览器窗口后，数据会被删除。
+
+<script>
+
+
+var  sessionKey = sessionStorage.getItem('sessionKey');
+if(sessionKey){
+  console.log(sessionKey);  
+}else{
+  console.log("sessionKey 不存在,存数据");
+  sessionStorage.setItem('sessionKey','{66}')
+}
+
+</script>
+
+</body>
+</html>
