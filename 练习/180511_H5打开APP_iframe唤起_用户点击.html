@@ -7,21 +7,21 @@
 <title>H5打开APP iframe唤起</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta content="telephone=no" name="format-detection">
 <style>
 *{ margin: 0; padding: 0; }
+html{max-width:750px;margin:0 auto}
+body{color:#444; padding: 0 5px; line-height: 1.8; }
 a{ text-decoration: none;}
 .box{ margin-bottom: 10px; background: #fff;}
 .box .hd{height: 40px;line-height: 40px;border-bottom: 1px solid #ccc;clear: both;}
 .box .hd .title{height: 20px;line-height: 20px; margin-top: 10px; float: left;padding-left: 8px;font-size: 18px;color: #000;font-weight: normal;border-left: 2px solid #fa7d3c;}
 h3.title{ margin: 10px 0; line-height: 24px; font-size: 18px; color: #222; padding-left: 8px; border-left: 2px solid #fa7d3c; font-weight: normal;}
 .app-btn{
-  margin: 20px auto; padding: 0 10px; width: 250px; line-height: 60px; font-size: 20px;
+  margin: 20px auto; width: 250px; line-height: 60px; font-size: 20px;
   text-align: center; border: 1px solid #ccc;
 }
 .app-btn:active{ background: #f0f0f0; }
 .app-btn a{ display: block; }
-html{max-width:750px;margin:0 auto}body{color:#444; padding: 0 5px;}li{list-style:none;}img{border:0;vertical-align:bottom;background:#f5f5f5}ol{padding:0}.mb10{margin-bottom:10px}*{-webkit-text-size-adjust:none}@font-face{font-family:"iconfont";src:url('https://at.alicdn.com/t/font_cskzbeoq7nndbo6r.ttf?t=1499824531377') format('truetype')}.guide-list{padding-bottom:10px}.guide-list ul{overflow:hidden}.guide-list li{margin:0 10px;padding:10px 0;border-bottom:#ccc dotted 1px;overflow:hidden}.guide-list li img{display:block;width:120px;height:80px;float:right;margin-left:10px}.guide-list li .info{height:80px;position:relative}.guide-list li .info a{display:block}.guide-list li .info h3{height:48px;line-height:24px;font-size:16px;font-weight:500;color:#222;overflow:hidden;margin:0}.guide-list li .info p{height:14px;line-height:14px;font-size:12px;color:#777;position:absolute;bottom:0;left:0}.guide-list li .info p span{display:inline-block;margin-right:15px;height:14px;font-size:12px}.guide-list li .info p span:before{padding-right:5px}.guide-list .more-b{text-align:center}.guide-list .more-b a{height:24px;line-height:24px;font-size:12px;color:#444;display:block;padding-top:10px;box-sizing:content-box}.loading-more{margin-top:10px;height:24px;line-height:24px;font-size:12px;color:#666;text-align:center}
 </style>
 </head>
 <body>
@@ -33,7 +33,7 @@ html{max-width:750px;margin:0 auto}body{color:#444; padding: 0 5px;}li{list-styl
 </div>
 
 <div class="app-btn">
-  <a  href="javascript:startApp('mweibo://')">打开微博</a>
+  <a  href="javascript:startApp('sinaweibo://splash')">打开微博</a>
 </div>
 
 <div class="app-btn">
@@ -76,15 +76,7 @@ function startApp(nativeUrl){
 }
 </script>    
 
-测试结果：点击按钮可以成功唤起，微信、支付宝、四川旅游App
-
-
-
-<div class="guide-list box">
-  <div class="hd"><span class="title">旅游攻略</span></div>
-  <ul><li data-id="13095"><a href="./guide/show.html?id=13095"><img src="https://n4-q.mafengwo.net/s10/M00/69/F7/wKgBZ1kunneAKgVAAAHeHwIjyhg88.jpeg?imageView2%2F2%2Fw%2F240%2Fq%2F90"> <div class="info"><h3>成都48H | 初来乍到，2天轻松逛遍少城特色</h3> <p><span class="iconfont icon-locationfill">成都</span> <span class="iconfont icon-yuedu">70269</span></p></div></a></li><li data-id="1919"><a href="./guide/show.html?id=1919"><img src="http://b4-q.mafengwo.net/s9/M00/2E/91/wKgBs1fKqjmAHdFIABl-Evzr5hU16.jpeg?imageView2%2F2%2Fw%2F240%2Fq%2F90"> <div class="info"><h3>饱览川西美景，3天即可环游！</h3> <p><span class="iconfont icon-locationfill">川西</span> <span class="iconfont icon-yuedu">92363</span></p></div></a></li><li data-id="413"><a href="./guide/show.html?id=413"><img src="http://b4-q.mafengwo.net/s9/M00/C4/98/wKgBs1fFaUOAWYHsAAsHF53jKKQ58.jpeg?imageView2%2F2%2Fw%2F240%2Fq%2F90"> <div class="info"><h3>玩遍四川交通不愁，大四川出行全攻略</h3> <p><span class="iconfont icon-locationfill">四川</span> <span class="iconfont icon-yuedu">200481</span></p></div></a></li><li data-id="6289"><a href="./guide/show.html?id=6289"><img src="http://b4-q.mafengwo.net/s10/M00/14/CA/wKgBZ1jc1n-AFVAjAAHS84RgUu057.jpeg?imageView2%2F2%2Fw%2F240%2Fq%2F90"> <div class="info"><h3>盘点2017稻城亚丁环线深度体验(实用篇)</h3> <p><span class="iconfont icon-locationfill">稻城</span> <span class="iconfont icon-yuedu">52171</span></p></div></a></li><li data-id="9853"><a href="./guide/show.html?id=9853"><img src="http://n4-q.mafengwo.net/s10/M00/A6/27/wKgBZ1kBaAWAFTcDAAKuGoFdesw45.jpeg?imageView2%2F2%2Fw%2F240%2Fq%2F90"> <div class="info"><h3>比熊猫更不能错过的，是成都的美女和美食</h3> <p><span class="iconfont icon-locationfill">成都</span> <span class="iconfont icon-yuedu">47433</span></p></div></a></li><li data-id="339"><a href="./guide/show.html?id=339"><img src="http://n4-q.mafengwo.net/s9/M00/0E/F5/wKgBs1eQpO-AG8NEACEtZ-StAz8424.png?imageView2%2F2%2Fw%2F240%2Fq%2F90"> <div class="info"><h3>来到都江堰，看幽幽青城山与憨憨大熊猫！</h3> <p><span class="iconfont icon-locationfill">都江堰</span> <span class="iconfont icon-yuedu">139339</span></p></div></a></li></ul> 
-  <div class="more-b"><a href="./guide/list.html">查看更多…</a></div>
-</div>
+测试结果：点击按钮可以成功唤起，微信、微博、支付宝、四川旅游App
 
 </body>
 </html>
