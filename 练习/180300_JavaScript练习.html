@@ -121,6 +121,16 @@
     }
     getDay_num("2015-01-13","2015-02-18");
   </script>
+  <script>
+  	//返回 x月x日
+  	function getMonthDay(time){  	  
+      var myTime = new Date(time);
+    	var iMonth = myTime.getMonth()+1;
+      var iDay = myTime.getDate();
+      return iMonth+'月'+iDay+'日';      
+    }
+  	console.log(getMonthDay('2015-02-12'));
+  </script>
 
   <div class="tit-2">For循环</div>
   <pre>
