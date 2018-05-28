@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>5 传递顾客信息</title>
+</head>
+<body>
+
+<script type='text/javascript'>
+(function(m, ei, q, i, a, j, s) {
+    m[i] = m[i] || function() {
+        (m[i].a = m[i].a || []).push(arguments)
+    };
+    j = ei.createElement(q),
+        s = ei.getElementsByTagName(q)[0];
+    j.async = true;
+    j.charset = 'UTF-8';
+    j.src = 'https://static.meiqia.com/dist/meiqia.js?_=t';
+    s.parentNode.insertBefore(j, s);
+})(window, document, 'script', '_MEIQIA');
+_MEIQIA('entId', '109166');
+
+// 在这里开启手动模式（必须紧跟美洽的嵌入代码）
+_MEIQIA('manualInit');
+
+
+
+// 当你使用了「手动初始化」时，就可以在自己的逻辑中选择合适的时机调用 withoutBtn
+// 只要是在美洽初始化之前，就可以被正确执行
+setTimeout(function(){
+  console.log("不使用美洽的聊天按钮");
+  _MEIQIA('withoutBtn');
+  console.log("手动初始化");
+  _MEIQIA('init');
+  console.log("现在可以点击网页元素打开聊天窗口");
+  //_MEIQIA('showPanel');
+},5000);
+
+
+/**
+ * [在顾客访问你的网站期间，当他触发了某些特定事件时，你可以即时的调整顾客信息]
+ * [假设 doSomething 是你用来处理某个特定事件的函数]
+ */
+function doSomething () {
+  console.log("传递顾客信息");
+  // 传递顾客信息
+  
+  _MEIQIA('metadata', {
+      name: '智子', // 美洽默认字段
+      address: '半人马座阿尔法星', // 美洽默认字段
+      aaa: 'bla bla bla', // 自定义字段
+      xyz: 'lalala' // 自定义字段
+  });
+  
+  /*
+  _MEIQIA('metadata', {
+    tel:'13914725812',source:'微信',nick_name:'啦啦啦',open_id:'q1w2e3r4t5'
+  });
+  */
+ 
+}
+// 传递顾客信息
+doSomething();
+</script>
+
+
+<!-- 你可以直接在 HTML 元素中绑定 showPanel -->
+<a href="javascript:void(0)" onclick="_MEIQIA('showPanel')">联系客服</a>
+
+
+    
+    
+</body>
+</html>

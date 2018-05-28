@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>2 手动初始化</title>
+</head>
+<body>
+
+<script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = 'https://static.meiqia.com/dist/meiqia.js?_=t';
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '_MEIQIA');
+    _MEIQIA('entId', '109166');
+
+    // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
+    _MEIQIA('manualInit');
+
+    
+    // 你可以自己的代码中选择合适的时机来调用手动初始化
+    setTimeout(function(){
+      console.log("手动初始化");
+      _MEIQIA('init');
+    },5000);
+</script>
+
+
+</body>
+</html>

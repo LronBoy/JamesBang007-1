@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>美洽</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script src="js/app.js"></script>
+<link rel="stylesheet" type="text/css" href="css/app.css"/>
+</head>
+<body>
+
+JavaScript 网站插件
+https://meiqia.com/docs/meiqia-js-sdk#
+
+<h2>手动初始化</h2>
+
+<script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = 'https://static.meiqia.com/dist/meiqia.js?_=t';
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '_MEIQIA');
+    _MEIQIA('entId', '我是企业ID');
+
+    // 在这里开启手动模式（必须紧跟美洽的嵌入代码）
+    _MEIQIA('manualInit');
+</script>
+
+<!-- 这是你自己的 JavaScript 代码 -->
+<script>
+    // 你可以自己的代码中选择合适的时机来调用手动初始化
+    _MEIQIA('init');
+</script>
+
+<!-- 在实际使用时你可能会面临很复杂的场景，但是沿着这个套路发挥吧。May force
+ be with you -->
+
+
+<h2>不使用美洽的聊天按钮</h2>
+<p>
+ 有时候，也许你不想要显示美洽自带的聊天按钮，那么你可以使用 _MEIQIA('withoutBtn');<br>
+注意:<br>
+本接口不一定要紧跟在美洽的嵌入代码后面，但必须在美洽插件初始化之前使用。
+</p>
+
+<!-- 这是美洽的嵌入代码 -->
+<script type='text/javascript'>
+(function(m, ei, q, i, a, j, s) {
+    m[i] = m[i] || function() {
+        (m[i].a = m[i].a || []).push(arguments)
+    };
+    j = ei.createElement(q),
+        s = ei.getElementsByTagName(q)[0];
+    j.async = true;
+    j.charset = 'UTF-8';
+    j.src = 'https://static.meiqia.com/dist/meiqia.js?_=t';
+    s.parentNode.insertBefore(j, s);
+})(window, document, 'script', '_MEIQIA');
+_MEIQIA('entId', '我是企业ID');
+
+// 在这里开启无按钮模式（常规情况下，需要紧跟在美洽嵌入代码之后）
+_MEIQIA('withoutBtn');
+</script>
+
+<script type='text/javascript'>
+// 当你使用了「手动初始化」时，就可以在自己的逻辑中选择合适的时机调用 withoutBtn
+// 只要是在美洽初始化之前，就可以被正确执行
+_MEIQIA('withoutBtn');
+_MEIQIA('init');
+</script>
+
+
+
+<h2>打开聊天窗</h2>
+<p>
+在某些需求下，你可能希望在自己编写的代码中掌控美洽聊天窗。
+<br>
+在美洽网站插件初始化成功的前提下，调用 _MEIQIA('showPanel') 就可以打开美洽聊天窗。
+</p>
+
+<!-- 你可以直接在 HTML 元素中绑定 showPanel -->
+<a href="javascript:void(0)" onclick="_MEIQIA('showPanel')">联系客服</a>
+
+<!-- 当然也可以在 Javascript 中调用 -->
+<script>
+    _MEIQIA('showPanel');
+</script>
+
+
+
+
+
+
+
+<h2>传递顾客信息</h2>
+<p>在美洽工作台中，你可以手动为对话中的顾客添加个人信息，而通过 _MEIQIA('metadata', {}) 接口，可以将这个工作自动化。</p>
+<p>
+美洽默认的顾客个人信息包括：
+address // 地址
+age // 年龄
+comment // 备注
+email // 邮箱
+gender // 性别
+name // 名字
+qq // QQ
+tel // 电话
+weibo // 微博
+weixin // 微信
+</p>
+
+<!-- 这是你的代码 -->
+<script type='text/javascript'>
+    /**
+     * [在顾客访问你的网站期间，当他触发了某些特定事件时，你可以即时的调整顾客信息]
+     * [假设 doSomething 是你用来处理某个特定事件的函数]
+     */
+    function doSomething () {
+        // 传递顾客信息
+        _MEIQIA('metadata', {
+            action: '触发了 doSomething'
+        });
+    }
+</script>
+<!-- 这是美洽的嵌入代码 -->
+<script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = 'https://static.meiqia.com/dist/meiqia.js?_=t';
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '_MEIQIA');
+    _MEIQIA('entId', '我是企业ID');
+
+    // 传递顾客信息
+    _MEIQIA('metadata', {
+        name: '智子', // 美洽默认字段
+        address: '半人马座阿尔法星', // 美洽默认字段
+        aaa: 'bla bla bla', // 自定义字段
+        xyz: 'lalala' // 自定义字段
+    });
+</script>
+
+
+<h2>「聊天链接」传递顾客信息</h2>
+<p>
+你可以通过给链接添加 metadata 参数来传递顾客的信息到美洽工作台。
+<br>
+如果你传递了默认信息以外的数据，它在美洽工作台中将以「自定义信息」的方式被呈现出来。
+</p>
+
+
+
+
+
+
+</body>
+</html>
