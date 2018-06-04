@@ -1,0 +1,92 @@
+html {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+dl,
+dt,
+dd,
+ul,
+li,
+form,
+button,
+input,
+textarea,
+th,
+td,
+a {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "PingFang SC", Helvetica, Arial, "Microsoft YaHei";
+  font-size: 14px;
+  color: #444;
+  background: #fff;
+  position: relative;
+}
+body * {
+  -webkit-text-size-adjust: 100%;
+  /*文本的大小调整*/
+  -webkit-user-select: none;
+  /*文本不能被选择  在事件章节 去兼容安卓*/
+  box-sizing: border-box;
+}
+a,
+input,
+button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /*取消轻按时高亮*/
+}
+input,
+button {
+  -webkit-appearance: none;
+  border-radius: 0;
+  /*去苹果圆角*/
+}
+img {
+  vertical-align: bottom;
+  border: 0;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-weight: normal;
+}
+ul,
+ol,
+li {
+  list-style: none;
+}
+em,
+i {
+  font-style: normal;
+}
+a {
+  color: #555;
+  text-decoration: none;
+}
+a,
+input,
+textarea,
+select,
+option,
+button {
+  outline: 0;
+  /*点击时虚线边框*/
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.cb {
+  clear: both;
+}
