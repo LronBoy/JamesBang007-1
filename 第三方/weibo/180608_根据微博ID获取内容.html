@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+<meta charset="UTF-8">
+<title>根据微博ID获取单条微博内容  statuses/show</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+</head>
+<body>
+
+statuses/show
+根据微博ID获取单条微博内容
+http://open.weibo.com/wiki/2/statuses/show
+
+查询的微博必须是授权用户发出的，非授权用户发出的将不返回数据；
+
+<!--
+增加命名空间
+在您页面的HTML标签中增加XML命名空间。
+<html xmlns:wb="http://open.weibo.com/wb" >
+-->
+
+
+<!--
+引用JS SDK文件
+-->
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1409564755&debug=true" charset="utf-8"></script>
+
+
+
+
+<script type="text/javascript">
+
+WB2Login();
+
+//微博登录_封装
+function WB2Login(){
+  //微博登录认证
+  WB2.login(function() {
+    console.log("登录后回调函数");
+    getData();
+  });
+}
+
+function getData(){
+  
+  WB2.anyWhere(function(W){
+    console.log("W",W);
+    //数据交互
+    W.parseCMD(
+      '/statuses/show.json',
+      function(oResult, bStatus) {
+        console.log( oResult );
+        
+      },
+      {
+        'id': '4013457077080809'
+      },
+      {
+        method : 'get'
+      }
+    );
+  });
+  
+}
+/*
+
+{"created_at":"Sun Aug 28 14:36:36 +0800 2016","id":4013457077080809,"idstr":"4013457077080809","mid":"4013457077080809","can_edit":false,"text":"闲来无事找个楼顶，吹吹风，沉醉于都市的灯火辉煌。 ​","textLength":48,"source_allowclick":0,"source_type":1,"source":"<a href=\"http://app.weibo.com/t/feed/6vtZb0\" rel=\"nofollow\">微博 weibo.com</a>","favorited":false,"truncated":false,"in_reply_to_status_id":"","in_reply_to_user_id":"","in_reply_to_screen_name":"","pic_urls":[{"thumbnail_pic":"http://ww4.sinaimg.cn/thumbnail/6f2927fbjw1f79flzk386j20rs0hd43y.jpg"},{"thumbnail_pic":"http://ww1.sinaimg.cn/thumbnail/6f2927fbgw1f79foixirmj20rs0hd47h.jpg"},{"thumbnail_pic":"http://ww3.sinaimg.cn/thumbnail/6f2927fbgw1f79fr1l2xcj20yv0ibjvl.jpg"},{"thumbnail_pic":"http://ww1.sinaimg.cn/thumbnail/6f2927fbjw1f79fzezmqsj215o0rpk39.jpg"},{"thumbnail_pic":"http://ww1.sinaimg.cn/thumbnail/6f2927fbgw1f79frtbgq7j20rs0hd44u.jpg"},{"thumbnail_pic":"http://ww1.sinaimg.cn/thumbnail/6f2927fbgw1f79fs55hg5j20rs0hdk00.jpg"}],"thumbnail_pic":"http://ww4.sinaimg.cn/thumbnail/6f2927fbjw1f79flzk386j20rs0hd43y.jpg","bmiddle_pic":"http://ww4.sinaimg.cn/bmiddle/6f2927fbjw1f79flzk386j20rs0hd43y.jpg","original_pic":"http://ww4.sinaimg.cn/large/6f2927fbjw1f79flzk386j20rs0hd43y.jpg","geo":null,"is_paid":false,"mblog_vip_type":0,"user":{"id":1864968187,"idstr":"1864968187","class":1,"screen_name":"James邦_","name":"James邦_","province":"51","city":"1","location":"四川 成都","description":"一个搞互联网90后小伙，前端切图工程师。","url":"http://blog.jmsbang.com","profile_image_url":"http://tva3.sinaimg.cn/crop.0.0.180.180.50/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg","cover_image":"http://ww3.sinaimg.cn/crop.0.0.980.245/6b888227jw1dwesmpe4xuj.jpg","cover_image_phone":"http://ww1.sinaimg.cn/crop.0.0.640.640.640/549d0121tw1egm1kjly3jj20hs0hsq4f.jpg","profile_url":"jmsbang","domain":"jmsbang","weihao":"","gender":"m","followers_count":355,"friends_count":171,"pagefriends_count":3,"statuses_count":1102,"favourites_count":326,"created_at":"Wed Nov 17 10:32:04 +0800 2010","following":false,"allow_all_act_msg":false,"geo_enabled":true,"verified":false,"verified_type":220,"remark":"","insecurity":{"sexual_content":false},"ptype":0,"allow_all_comment":true,"avatar_large":"http://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg","avatar_hd":"http://tva3.sinaimg.cn/crop.0.0.180.180.1024/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg","verified_reason":"","verified_trade":"","verified_reason_url":"","verified_source":"","verified_source_url":"","follow_me":false,"like":false,"like_me":false,"online_status":0,"bi_followers_count":76,"lang":"zh-cn","star":0,"mbtype":0,"mbrank":0,"block_word":0,"block_app":0,"credit_score":80,"user_ability":35651584,"urank":29,"story_read_state":-1,"vclub_member":0},"reposts_count":0,"comments_count":0,"attitudes_count":0,"pending_approval_count":0,"isLongText":false,"mlevel":0,"visible":{"type":0,"list_id":0},"biz_feature":0,"hasActionTypeCard":0,"darwin_tags":[],"hot_weibo_tags":[],"text_tag_tips":[],"userType":0,"more_info_type":0,"positive_recom_flag":0,"content_auth":0,"gif_ids":"","is_show_bulletin":2,"comment_manage_info":{"comment_manage_button":1,"comment_permission_type":0,"approval_comment_type":0}}
+
+ */
+</script>
+
+
+
+</body>
+</html>
