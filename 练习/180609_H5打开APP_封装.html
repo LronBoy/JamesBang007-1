@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>H5打开APP </title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<style>
+*{ margin: 0; padding: 0; }
+html{max-width:750px;margin:0 auto}
+body{color:#444; padding: 0 5px; line-height: 1.8; }
+a{ text-decoration: none;}
+.box{ margin-bottom: 10px; background: #fff;}
+.box .hd{height: 40px;line-height: 40px;border-bottom: 1px solid #ccc;clear: both;}
+.box .hd .title{height: 20px;line-height: 20px; margin-top: 10px; float: left;padding-left: 8px;font-size: 18px;color: #000;font-weight: normal;border-left: 2px solid #fa7d3c;}
+h3.title{ margin: 10px 0; line-height: 24px; font-size: 18px; color: #222; padding-left: 8px; border-left: 2px solid #fa7d3c; font-weight: normal;}
+.app-btn{
+  margin: 20px auto; width: 250px; line-height: 60px; font-size: 20px;
+  text-align: center; border: 1px solid #ccc;
+}
+.app-btn:active{ background: #f0f0f0; }
+.app-btn a{ display: block; }
+</style>
+</head>
+<body>
+
+<h3 class="title">H5打开APP</h3>
+
+<div class="app-btn">
+  <a href="javascript:startApp('weixin2://')">打开微信</a>
+</div>
+
+
+<div class="app-btn">
+  <a href="javascript:void(0);"  onclick="window.location.href='weixin://'">location.href打开微信</a>
+</div>
+
+<script type="text/javascript">
+ 
+//启动app方法
+function startApp(nativeUrl='rulimeirong://common_webview?url='+encodeURIComponent(window.location.href),dUrl='http://sj.qq.com/myapp/detail.htm?apkName=com.example.ai_popularize') {
+  //console.log(nativeUrl);
+  //是否在微信中
+  if( isInWx() ){
+    //console.log("在微信中,跳应用宝");
+    window.location.assign(dUrl);
+  }else{
+    //console.log("非微信中");
+    if( isInIos() ){
+      //console.log("iso");
+      window.location.href = nativeUrl;
+      //延时2秒，跳转到 App Store
+      setTimeout(function() {
+          location.href = dUrl;
+      }, 2200);
+    }else{
+      //console.log("非iso-Android");
+      var time = Date.now(),
+        doc = window.document,
+        ifr = doc.createElement('iframe');        
+      //创建一个隐藏的iframe
+      ifr.src = nativeUrl;
+      ifr.style.cssText = 'display:none;border:0;';
+      doc.body.appendChild(ifr);
+      
+      setTimeout(function() {
+          doc.body.removeChild(ifr);//删除iframe
+          //setTimeout回小于2200 毫秒,一般为唤起失败 
+          if (Date.now() - time < 2200) {
+            location.href = dUrl;
+          }
+      }, 2000);
+    }
+  }  
+}
+
+
+
+//是否在微信内置浏览器中
+function isInWx(){
+    var agent = window.navigator.userAgent.toLowerCase();
+    return agent.match(/MicroMessenger/i) == 'micromessenger';
+}
+
+//客户端判断
+function isInIos(){
+  var userAgentInfo = navigator.userAgent ,
+      Agents = ["iPhone" , "iPad", "iPod"];
+  for(var v = 0; v < Agents.length; v++) {
+      if( userAgentInfo.indexOf(Agents[v]) > 0) {
+        return true;
+      }
+  }
+  return false;
+}
+</script>    
+
+
+
+</body>
+</html>

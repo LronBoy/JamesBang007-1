@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>H5打开APP iframe唤起</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<style>
+*{ margin: 0; padding: 0; }
+html{max-width:750px;margin:0 auto}
+body{color:#444; padding: 0 5px; line-height: 1.8; }
+a{ text-decoration: none;}
+.box{ margin-bottom: 10px; background: #fff;}
+.box .hd{height: 40px;line-height: 40px;border-bottom: 1px solid #ccc;clear: both;}
+.box .hd .title{height: 20px;line-height: 20px; margin-top: 10px; float: left;padding-left: 8px;font-size: 18px;color: #000;font-weight: normal;border-left: 2px solid #fa7d3c;}
+h3.title{ margin: 10px 0; line-height: 24px; font-size: 18px; color: #222; padding-left: 8px; border-left: 2px solid #fa7d3c; font-weight: normal;}
+.app-btn{
+  margin: 20px auto; width: 250px; line-height: 60px; font-size: 20px;
+  text-align: center; border: 1px solid #ccc;
+}
+.app-btn:active{ background: #f0f0f0; }
+.app-btn a{ display: block; }
+</style>
+</head>
+<body>
+
+<h3 class="title">iframe唤起</h3>
+
+<div class="app-btn">
+  <a href="javascript:startApp1('weixin://')">startApp1打开微信</a>
+</div>
+<div class="app-btn">
+  <a href="javascript:startApp2('weixin://')">startApp2打开微信</a>
+</div>
+<div class="app-btn">
+  <a href="javascript:startApp3Location('weixin2://')">startApp3Location打开微信</a>
+</div>
+<div class="app-btn">
+  <a href="javascript:startApp3Iframe('weixin://')">startApp3Iframe打开微信</a>
+</div>
+
+
+
+<div class="app-btn">
+  <a href="javascript:startAppISO1('weixin://')">startAppISO1 打开微信</a>
+</div>
+<div class="app-btn">
+  <a href="javascript:startAppISO2('weixin2://')">startAppISO2 打开微信</a>
+</div>
+
+
+<div class="app-btn">
+  <a href="javascript:void(0);"  onclick="window.location.href='weixin://'">location.href打开微信</a>
+</div>
+
+<script type="text/javascript">
+  
+function startApp2(nativeUrl){
+  var ifr = window.document.createElement('iframe');
+  ifr.src = nativeUrl; //自定义 URL scheme;
+  //ifr.style.display = 'none';
+  ifr.style.cssText = 'display:none;border:0;';
+  document.body.appendChild(ifr);//创建隐藏的iframe
+  
+  setTimeout(function(){
+      window.document.body.removeChild(ifr);//删除iframe
+  }, 3000);
+}
+
+/*
+ * 理想过程是这样：浏览器尝试打开 URL scheme，在2秒计时后，检查当前时间，如果实际时间已过 2200 毫秒，说明唤起APP 成功（唤起 APP 会让浏览器的定时器变慢）；
+ * 如果没超过2200 毫秒，很可能是没有安装应用，就跳到下载地址。
+ */
+function startApp3Location(nativeUrl){
+  location.href = nativeUrl;
+  
+  var t = Date.now();
+  setTimeout(function(){
+    if (Date.now() - t < 2200) {
+      location.href = 'http://sj.qq.com/myapp/detail.htm?apkName=com.tencent.mm';
+    }
+  }, 2000);
+  return false;
+}
+
+//换种方式
+function startApp3Iframe(nativeUrl){
+  var time = Date.now(),
+      doc = window.document,
+      ifr = doc.createElement('iframe');        
+  //创建一个隐藏的iframe
+  ifr.src = nativeUrl;
+  ifr.style.cssText = 'display:none;border:0;';
+  doc.body.appendChild(ifr);
+  
+  setTimeout(function() {
+      doc.body.removeChild(ifr);//iframe
+      //setTimeout回小于2200 毫秒,一般为唤起失败 
+      if (Date.now() - time < 2200) {
+        location.href = 'http://sj.qq.com/myapp/detail.htm?apkName=com.tencent.mm';
+      }
+  }, 2000);
+  
+}
+
+  
+/*
+ * 在 iOS 9 上，iframe 方案变得不可用。
+ * 可以在尝试打开URL scheme 后，再加一个页面跳转。
+ * 这样对话框会被覆盖，再刷新页面，就能无需确认唤起APP
+ */
+function startAppISO1(nativeUrl){
+  location.href = nativeUrl;  
+  //location.href = 'http://sj.qq.com/myapp/detail.htm?apkName=com.tencent.mm';
+  location.reload();  
+}
+
+/*
+ * 这里，下载页延时 2 秒跳转到 App Store。
+ * APP已安装这是没问题的，但如果APP未安装，跳 App Store 的请求会失败。
+ * 这时可以使用两个定时器：
+ */
+function startAppISO2(nativeUrl){
+  location.href = nativeUrl;
+  setTimeout(function() {
+      location.href = 'http://sj.qq.com/myapp/detail.htm?apkName=com.tencent.mm';
+  }, 2200);
+  setTimeout(function() {
+      location.reload();
+  }, 1000);
+}
+
+  
+function startApp1(nativeUrl){
+
+  var last = Date.now(),
+      doc = window.document,
+      ifr = doc.createElement('iframe');
+  
+  //创建一个隐藏的iframe
+  ifr.src = nativeUrl;
+//ifr.style.cssText = 'display:none;border:0;';
+  ifr.style.cssText = ' width: 1px; height: 1px; border:0;';
+  doc.body.appendChild(ifr);
+  
+  setTimeout(function() {
+      //console.log("setTimeout");
+      doc.body.removeChild(ifr); //removeChild()方法，删除子节点
+      //setTimeout回小于2000一般为唤起失败 
+      if (Date.now() - last < 2000) {
+          if (typeof onFail == 'function') {
+              onFail();
+          } else {
+              //弹窗提示或下载处理等
+          }
+      } else {
+          if (typeof onSuccess == 'function') {
+              onSuccess();
+          }
+      }
+  }, 1000);
+}
+</script>    
+
+测试结果：点击按钮可以成功唤起，微信、微博、支付宝、四川旅游App
+
+</body>
+</html>
