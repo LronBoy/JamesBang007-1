@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>js数组与字符串相互转换</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<h3>toString() 数组为字符串</h3>
+
+定义：
+toString() 方法可把数组转换为字符串，并返回结果。
+
+语法：
+arrayObject.toString()
+
+返回值：
+arrayObject 的字符串表示。返回值与没有参数的 join() 方法返回的字符串相同。
+
+说明：
+当数组用于字符串环境时，JavaScript 会调用这一方法将数组自动转换成字符串。但是在某些情况下，需要显式地调用该方法。
+
+注释：
+数组中的元素之间用逗号分隔。
+
+<script>
+var arr1 = [ '百度', '阿里巴巴', '腾讯', '邦邦的小站' ];
+var str1 = arr1.toString();
+console.log(str1); //百度,阿里巴巴,腾讯,邦邦的小站
+</script>
+
+
+
+
+<h3>join() 把数组元素放入一个字符串</h3>
+
+定义：
+join() 方法用于把数组中的所有元素放入一个字符串。元素是通过指定的分隔符进行分隔的。
+
+语法：
+arrayObject.join(separator)
+
+参数：
+separator 可选。指定要使用的分隔符。如果省略该参数，则使用逗号作为分隔符。
+
+返回值：
+返回一个字符串。该字符串是通过把 arrayObject 的每个元素转换为字符串，然后把这些字符串连接起来，在两个元素之间插入 separator 字符串而生成的。
+
+<script>
+var arr2 = [ '百度', '阿里巴巴', '腾讯', '邦邦的小站' ];
+var str2 = arr2.join('||');
+console.log(str2); //百度||阿里巴巴||腾讯||邦邦的小站
+</script>
+
+
+<h3>split() 把字符串分割为字符串数组。</h3>
+
+定义：
+split() 方法用于把一个字符串分割成字符串数组。
+
+语法：
+stringObject.split(separator,howmany)
+
+参数：
+separator 必需。字符串或正则表达式，从该参数指定的地方分割 stringObject。
+howmany 可选。该参数可指定返回的数组的最大长度。如果设置了该参数，返回的子串不会多于这个参数指定的数组。如果没有设置该参数，整个字符串都会被分割，不考虑它的长度。
+
+返回值：
+一个字符串数组。该数组是通过在 separator 指定的边界处将字符串 stringObject 分割成子串创建的。返回的数组中的字串不包括 separator 自身。
+但是，如果 separator 是包含子表达式的正则表达式，那么返回的数组中包括与这些子表达式匹配的字串（但不包括与整个正则表达式匹配的文本）。
+
+注释：
+如果把空字符串 ("") 用作 separator，那么 stringObject 中的每个字符之间都会被分割。
+String.split() 执行的操作与 Array.join 执行的操作是相反的。
+
+<script>
+var str3 = '小米8，小米MIX 2s，小米电源，小米之家';
+var arr3 = str3.split('，');
+console.log(arr3); //["小米8", "小米MIX 2s", "小米电源", "小米之家"]
+
+</script>
+
+</body>
+</html>
