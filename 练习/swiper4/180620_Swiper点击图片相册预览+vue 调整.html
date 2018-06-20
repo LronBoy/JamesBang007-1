@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>Swiper点击图片相册预览</title>
+<link href="static/swiper-4.1.0.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="static/180516_imgPreview.css"/>
+</head>
+<body>
+
+<div id="app">
+  <div class="thumb">
+    <img :src="pic" v-for="(pic,i) in picList" @click="pic2Preview(picList,i)">
+  </div>
+</div>
+
+<!-- Swiper -->
+<div class="swiper-container" id="img-preview">
+  <div class="swiper-wrapper"></div>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-close iconfont icon-close"></div>
+</div>
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="static/swiper-4.1.0.min.js"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+var vm = new Vue({
+  el: "#app",
+  data:{
+    picList: ["https://ruli-app-admin.oss-cn-shanghai.aliyuncs.com/20180620/5b29fbc89b707.jpg", "https://ruli-app-admin.oss-cn-shanghai.aliyuncs.com/20180620/5b29fbc98bb47.jpg", "https://ruli-app-admin.oss-cn-shanghai.aliyuncs.com/20180620/5b29fbca6db85.jpg","https://ruli-app-admin.oss-cn-shanghai.aliyuncs.com/20180619/5b28b45025c9e.gif","https://ruli-app-admin.oss-cn-shanghai.aliyuncs.com/20180614/5b228324ae4d2.jpg"
+],
+  },
+  methods:{
+    //图片预览
+    pic2Preview: function(img_url,index){
+      console.log(img_url,index);
+      imgPreview2(img_url,index);
+    }    
+  }
+});
+
+function imgPreview2(imgList,index){
+  
+  var mySwiper = new Swiper ('#img-preview', {    
+    width: window.innerWidth,
+    virtual: true, //开启虚拟Slide功能
+    zoom : true, //开启焦距功能：双击slide会放大/缩小，并且在手机端可双指触摸缩放  
+    //threshold : 100, //拖动的临界值（单位为px），如果触摸距离小于该值滑块不会被拖动。
+    // 如果需要分页器
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'fraction',
+    },  
+  });
+  
+  //mySwiper.virtual.slides = imgList; //添加的虚拟slide的内容
+  imgList.forEach(function(v,i){
+    //在全部虚拟Slide的后面插入Slide。
+    mySwiper.virtual.appendSlide('<div class="swiper-zoom-container"><img src="'+v+'" /></div>');
+  });
+  mySwiper.slideTo(index); // 初始化时slide的索引
+  mySwiper.virtual.update(); //更新虚拟Slide的状态。
+  $('#img-preview').fadeIn('fast');
+  
+  //注册事件
+  mySwiper.on('slideChange', function () {
+    console.log('i:'+this.activeIndex);
+  });
+
+  $('.swiper-close').click(function(){    
+    console.log('click');
+    $('#img-preview').fadeOut('fast');
+    this.virtual.slides.length = 0;
+    this.virtual.cache = [];
+  });
+}
+
+</script>
+
+</body>
+</html>
