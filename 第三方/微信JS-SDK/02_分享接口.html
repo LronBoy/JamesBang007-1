@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>微信JS-SDK 分享接口</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+引入JS文件
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script>
+
+//注入权限验证配置
+wx.config({
+    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '', // 必填，公众号的唯一标识
+    timestamp: , // 必填，生成签名的时间戳
+    nonceStr: '', // 必填，生成签名的随机串
+    signature: '',// 必填，签名，见附录1
+    jsApiList: [  // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    
+    ] 
+});
+
+
+
+//处理config信息成功验证
+wx.ready(function () {
+  // 在这里调用 API
+  console.log('config信息成功');
+});
+
+//处理config信息失败验证
+wx.error(function () {
+  // 在这里调用 API
+  console.log('config信息失败');
+});  
+
+</script>
+
+
+
+</body>
+</html>

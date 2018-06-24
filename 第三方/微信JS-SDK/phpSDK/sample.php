@@ -28,11 +28,13 @@ $signPackage = $jssdk->GetSignPackage();
   wx.config({
     debug: true,
     appId: '<?php echo $signPackage["appId"];?>',
-    timestamp: <?php echo $signPackage["timestamp"];?>,
+    timestamp: '<?php echo $signPackage["timestamp"];?>',
     nonceStr: '<?php echo $signPackage["nonceStr"];?>',
     signature: '<?php echo $signPackage["signature"];?>',
     jsApiList: [
       // 所有要调用的 API 都要加到这个列表中
+    'onMenuShareTimeline',
+    'onMenuShareAppMessage'
     ]
   });
   wx.ready(function () {

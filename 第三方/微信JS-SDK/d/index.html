@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title></title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+window.onload=function(){//进入页面就执行ajax，目的为了传送当前页面url#前的完整url
+var ajaxurl =  'http://www.beibaolv.com.cn/api/weixin/phpsdk/index.php?ctl=weixin'; 
+var query = new Object();
+var urll = location.href.split('#')[0]; //页面url#前的完整url,可alert弹出查看
+query.urll = $.trim(urll);
+query.post_type = "json";
+$.ajax({ 
+url: ajaxurl,
+data:query,
+type: "POST",
+dataType: "json",
+success: function(ress){//成功则执行JS-SDK
+console.log(ress);//查看返回结果
+
+//执行JS_SDK
+wx.config({
+debug: true, 
+appId: ress.appid,
+timestamp: ress.timestamp,
+nonceStr: ress.nonceStr, 
+signature: ress.signature,
+jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'] 
+}); 
+}
+,error:function(){
+console.log("通信失败");
+}
+}); 
+}
+/* alert(location.href.split('#')[0]); */ //弹出的url必须与访问地址一致
+</script>
+
+</body>
+</html>
