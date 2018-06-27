@@ -23,7 +23,7 @@ query.post_type = "json";
 
 $.ajax({ 
   url: ajaxurl,
-  data: query,
+  data:query,
   type: "POST",
   dataType: "json",
   success: function(ress){//成功则执行JS-SDK

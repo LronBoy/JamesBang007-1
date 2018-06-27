@@ -11,23 +11,23 @@ public function index()
   $expires = 3600;//缓存时间1个小时
   if(file_exists($file)) {
     $time = filemtime($file);
-    if(time() - $time > $expires) {
-      $token = null;
-    }else {
-      $token = file_get_contents($file);
-    }
-  }else{
-    fopen("$file", "w+");
+  if(time() - $time > $expires) {
     $token = null;
+  }else {
+  $token = file_get_contents($file);
+  }
+  }else{
+  fopen("$file", "w+");
+  $token = null;
   }
   
-  if (!$token || strlen($token) < 6) {
-    $res = file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='wx477a6132a43b3bf0'&secret='bbb84e1e770104fb19679603d02d7955'");  //自己的appid,通过微信公众平台查看appid和AppSecret
-    $res = json_decode($res, true);
-    $token = $res['access_token'];
-    // write('access_token', $token, 3600);
-    @file_put_contents($file, $token);
-  }
+if (!$token || strlen($token) < 6) {
+$res = file_get_contents("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='wx477a6132a43b3bf0'&secret='bbb84e1e770104fb19679603d02d7955'");//自己的appid,通过微信公众平台查看appid和AppSecret
+$res = json_decode($res, true);
+$token = $res['access_token'];
+// write('access_token', $token, 3600);
+@file_put_contents($file, $token);
+}
 
 //获取jsapi_ticket，并缓存
 $file1 = 'jsapi_ticket';
