@@ -28,15 +28,15 @@ dataType: "json",
 success: function(ress){//成功则执行JS-SDK
 console.log(ress);//查看返回结果
 
-//执行JS_SDK
-wx.config({
-debug: true, 
-appId: ress.appid,
-timestamp: ress.timestamp,
-nonceStr: ress.nonceStr, 
-signature: ress.signature,
-jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'] 
-}); 
+  //执行JS_SDK
+  wx.config({
+    debug: true, 
+    appId: ress.appid,
+    timestamp: ress.timestamp,
+    nonceStr: ress.nonceStr, 
+    signature: ress.signature,
+    jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'] 
+  });
 }
 ,error:function(){
 console.log("通信失败");

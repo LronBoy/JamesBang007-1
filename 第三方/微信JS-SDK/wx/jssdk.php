@@ -8,12 +8,16 @@ class JSSDK {
     $this->appSecret = $appSecret;
   }
 
-  public function getSignPackage() {
+  public function getSignPackage($url) {
     $jsapiTicket = $this->getJsApiTicket();
-
+    //echo $jsapiTicket;
     // 注意 URL 一定要动态获取，不能 hardcode.
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-    $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    
+    if(!$url) {
+      $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    }
+
 
     $timestamp = time();
     $nonceStr = $this->createNonceStr();
@@ -51,9 +55,10 @@ class JSSDK {
       // 如果是企业号用以下 URL 获取 ticket
       // $url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=$accessToken";
       $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
-      $res = json_decode($this->httpGet($url));
-      //echo $res;
-      print_r($res);
+      //echo $url;die;
+      //$res = json_decode($this->httpGet($url));
+      $res = json_decode($this->curl_get_https($url));
+      //print_r($res);die;
       $ticket = $res->ticket;
       if ($ticket) {
         $data->expire_time = time() + 7000;
@@ -74,8 +79,11 @@ class JSSDK {
       // 如果是企业号用以下URL获取access_token
       // $url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$this->appId&corpsecret=$this->appSecret";
       $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appId&secret=$this->appSecret";
-      $res = json_decode($this->httpGet($url));
-      $access_token = $res->access_token;
+      //echo $url.'<br>';
+      //$res = json_decode($this->httpGet($url));
+      $res = json_decode($this->curl_get_https($url));      
+      //print_r($res);die;    
+      $access_token = $res->access_token;      
       if ($access_token) {
         $data->expire_time = time() + 7000;
         $data->access_token = $access_token;
@@ -88,13 +96,15 @@ class JSSDK {
   }
 
   private function httpGet($url) {
+    echo 'httpGet';
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_TIMEOUT, 500);
     // 为保证第三方服务器与微信服务器之间数据传输的安全性，所有微信接口采用https方式调用，必须使用下面2行代码打开ssl安全校验。
     // 如果在部署过程中代码在此处验证失败，请到 http://curl.haxx.se/ca/cacert.pem 下载新的证书判别文件。
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, true);
+    //curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, true);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
     curl_setopt($curl, CURLOPT_URL, $url);
 
     $res = curl_exec($curl);
@@ -111,5 +121,20 @@ class JSSDK {
     fwrite($fp, "<?php exit();?>" . $content);
     fclose($fp);
   }
+  
+  //curl以GET方式请求https协议接口
+  private function curl_get_https($url){
+      $curl = curl_init(); // 启动一个CURL会话
+      curl_setopt($curl, CURLOPT_URL, $url);
+      curl_setopt($curl, CURLOPT_HEADER, 0);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查
+      curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, true);  // 从证书中检查SSL加密算法是否存在
+      $tmpInfo = curl_exec($curl);     //返回api的json对象
+      //关闭URL请求
+      curl_close($curl);
+      return $tmpInfo;    //返回json对象
+  }
+  
 }
 
