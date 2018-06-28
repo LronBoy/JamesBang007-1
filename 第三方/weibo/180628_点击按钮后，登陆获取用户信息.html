@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+<meta charset="UTF-8">
+<title>JS SDK 点击按钮后，登陆获取用户信息</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+</head>
+<body>
+<!--
+背包驴
+微连接 - 连接网站
+
+当前域名：beibaolv.com.cn
+App Key: 1409564755
+App Secret: 
+-->
+JS SDK for OAuth2.0
+http://open.weibo.com/wiki/index.php/Weibo-JS_V2
+
+
+
+引用JS SDK文件
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1409564755&debug=true" type="text/javascript" charset="utf-8"></script>
+
+
+<div id="btn">登陆微博</div>
+<style>
+#btn{ margin: 20px; width: 80px; line-height: 32px; text-align: center; border: 1px solid #eee; background: #f5f5f5; }
+</style>
+
+
+
+<script type="text/javascript">
+var oBtn = document.getElementById("btn");
+
+oBtn.onclick = function(){
+  console.log("点击按钮");
+  
+  WB2.login(function() {
+    //callback function    
+    console.log("登录后的回调函数");
+      
+    //入口函数
+    WB2.anyWhere(function(W){
+      //数据交互，获取uid
+      W.parseCMD('/account/get_uid.json',function(res, b){        
+        if(b){
+          console.log(res);
+          getUsers(W,res);
+        }else{
+          alert("授权失败或错误");
+        }
+      },{ },{
+        method : 'get'
+      });
+    });
+      
+  });
+  
+}
+function getUsers(W,R){
+  //数据交互，获取用户信息
+  W.parseCMD('/users/show.json',function(res, b){
+    if(b){
+      console.log(res);
+      return res;
+    }else{
+      alert("授权失败或错误");
+    }
+  },{
+    'uid': R.uid
+  },{
+    method : 'get'
+  });
+}
+
+
+</script>
+
+
+</body>
+</html>
