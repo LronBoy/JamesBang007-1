@@ -1,7 +1,7 @@
 <?php
 class wechat{
   public function getSignPackage($appId, $appSecret, $url) {
-    echo $url;die;
+
     $jsapiTicket = $this->getJsApiTicket($appId, $appSecret);
 
     // 注意 URL 一定要动态获取，不能 hardcode.
@@ -26,7 +26,8 @@ class wechat{
       "signature" => $signature,
       "rawString" => $string
     );
-    return $signPackage;
+    //return $signPackage;
+    echo json_encode($signPackage); 
   }
 
   private function createNonceStr($length = 16) {
