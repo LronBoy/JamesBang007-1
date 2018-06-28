@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+<meta charset="UTF-8">
+<title>JS SDK公开方法</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+</head>
+<body>
+<!--
+背包驴
+微连接 - 连接网站
+
+当前域名：beibaolv.com.cn
+App Key: 1409564755
+App Secret: 
+
+
+-->
+JS SDK for OAuth2.0
+http://open.weibo.com/wiki/index.php/Weibo-JS_V2
+
+
+
+引用JS SDK文件
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1409564755&debug=true" type="text/javascript" charset="utf-8"></script>
+
+
+
+<h2>JS SDK公开方法。</h2>
+
+<br><br>
+WB2.login(callback)
+微博登录认证功能。
+
+<script type="text/javascript">
+
+WB2.login(function() {
+    //callback function    
+    console.log("登录后的回调函数");
+});
+
+</script>
+
+
+<br><br>
+WB2.anyWhere(callback)
+第三方与微博API进行“数据交互”及“采用Js方式调用内置微博组件”的入口函数。
+<script type="text/javascript">
+WB2.anyWhere(function(W){
+    console.log(W);
+    //数据交互
+    //W.parseCMD(...);
+      
+    //调用微博组件
+    //W.widget.hoverCard(...);
+    //W.widget.followButton(...);
+    //...
+});
+</script>
+回调函数，必需指定一个形参W，可以通过形参调用parseCMD读取开放平台API接口或者使用微博组件。
+具体见parseCMD及JS调用微博组件的说明。
+
+
+
+<br><br>
+W.parseCMD(uri, callback, args, opts)
+第三方与开放平台API接口进行数据请求的函数，必须在WB2.anyWhere中通过W对象调用。
+<script type="text/javascript">
+WB2.anyWhere(function(W){
+    //数据交互
+    W.parseCMD('/users/show.json', function(oResult, bStatus) {
+        if(bStatus) {
+            //to do something...
+            console.log('获取用户信息',oResult);
+        }
+    }, {
+        screen_name : '姚晨'
+    }, {
+        method : 'get',
+        cache_time : 30
+    });
+});
+</script>
+
+
+</body>
+</html>
