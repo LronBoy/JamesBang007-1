@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>高德地图 JS API 入门</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style type="text/css">
+body{ line-height: 1.6; }
+</style>
+</head>
+<body>
+
+本章介绍使用高德地图 JS API 开发地图应用之前的一些准备工作。
+
+
+
+<h2>注册账号并申请Key</h2>
+
+1. 首先，注册开发者账号，成为高德开放平台开发者
+<br>
+2. 登陆之后，在进入「应用管理」 页面「创建新应用」
+<br>
+3. 为应用添加 Key，「服务平台」一项请选择「 Web 端 ( JSAPI ) 」
+<br>
+
+
+
+
+<h2>准备页面</h2>
+<br>
+1.  在页面添加 JS API 的入口脚本标签，并将其中「您申请的key值」替换为您刚刚申请的 key；
+
+<script src="https://webapi.amap.com/maps?v=1.4.8&key=8d74f396c8258478397d6fc4b40a829c"></script>
+<br>
+2.  添加div标签作为地图容器，同时为该div指定id属性；
+
+<div id="container"></div>
+<br>
+3.  为地图容器指定高度、宽度；
+
+<style>
+#container {width:900px; height: 600px; }
+</style>
+<br>
+4.  进行移动端开发时，请在head内添加viewport设置，以达到最佳的绘制性能；
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no"> 
+<br>
+5.  在完成如上准备工作之后便可以开始进行开发工作了，查看快速入门。
+
+
+
+<h2>异步加载 JS API</h2>
+
+如果您需要异步加载，比如通过appendChild，或者通过require等异步方式来加载，这时需要您需要先准备一个全局的回调函数作为 JS API 异步加载的回调函数，并将其函数名作为callback参数添加在 JS API 的引用地址后面，此时要注意，回调函数应该在脚本请求发出之前进行声明。
+异步加载方式只有在回调之后，才能开始调用JSAPI的相关接口。比如
+
+<script>
+//window.onLoad  = function(){
+//  var map = new AMap.Map('container');
+//}
+//var url = 'https://webapi.amap.com/maps?v=1.4.8&key=您申请的key值&callback=onLoad';
+//var jsapi = doc.createElement('script');
+//jsapi.charset = 'utf-8';
+//jsapi.src = url;
+//document.head.appendChild(jsapi);
+</script>
+
+
+
+<h2>快速上手</h2>
+
+简单创建一个地图只需要一行代码，构造参数中的container为准备阶段添加的地图容器的id：
+<script>
+  var map = new AMap.Map('container');
+</script>
+
+创建的同时可以给地图设置中心点、级别、显示模式、自定义样式等属性：
+<script>
+  var map = new AMap.Map('container', {
+    zoom: 12, //级别
+    //center: [116.397428, 39.90923], //中心点坐标
+    center: [104.065767,30.657426],
+    viewMode: '3D' //使用3D视图
+  });
+</script>
+
+
+</body>
+</html>

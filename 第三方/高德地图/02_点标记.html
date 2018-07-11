@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>高德地图 JS API 点标记</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style type="text/css">
+body{ line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div id="container"></div>
+
+<style>
+#container {width:900px; height: 600px; }
+</style>
+
+<script>
+//异步加载
+var url = 'https://webapi.amap.com/maps?v=1.4.8&key=8d74f396c8258478397d6fc4b40a829c&callback=onLoad';
+var jsapi = document.createElement('script');
+jsapi.charset = 'utf-8';
+jsapi.src = url;
+document.head.appendChild(jsapi);
+
+function gdMap(){
+  var map = new AMap.Map('container', {
+    zoom: 16, //级别
+    center: [104.065767,30.657426], //中心点坐标
+    viewMode: '3D' //使用3D视图    
+  });
+  //点标记 Marker
+  var marker = new AMap.Marker({
+      position: [104.065767,30.657426] //位置
+  })
+  map.add(marker);//添加到地图
+}
+
+
+window.onLoad = function(){
+  setTimeout(function(){
+    gdMap();
+  },1000);
+  
+}
+
+</script>
+
+
+
+</body>
+</html>
