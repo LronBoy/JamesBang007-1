@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>高德地图 JS API 数学计算库_两点间距离</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style type="text/css">
+html{ background: #f5f5f5; }
+body{ margin: 0 auto; padding: 10px; width: 100%; max-width: 1000px; line-height: 1.6; background: #fff; box-sizing: border-box; }
+.container { margin: 15px 0; width:100%; height: 500px; position: relative; display: none; }
+.tips{ position: absolute; top: 10px; right: 10px; z-index: 10; padding: 10px; font-size: 14px; background: #fff; }
+</style>
+<script src="https://webapi.amap.com/maps?v=1.4.8&key=8d74f396c8258478397d6fc4b40a829c"></script>
+</head>
+<body>
+
+https://lbs.amap.com/api/javascript-api/guide/geometry/geometry/
+<h1>距离、长度、面积</h1>
+
+JS API 为开发者提供了空间数据计算的函数库 AMap.GeometryUtil，可以帮助开发者计算点线面空间关系、长度、面积等函数。
+<br>
+本章我们将介绍一些常用的数学计算方法，包括：
+<br>
+计算两点间的实际距离 AMap.GeometryUtil.distance
+<br>
+计算点到线段的最短距离 AMap.GeometryUtil.distanceToSegment
+<br>
+计算点到路径的最短距离 AMap.GeometryUtil.distanceToLine
+<br>
+计算路径的实际长度 AMap.GeometryUtil.distanceOfLine
+<br>
+计算封闭区域的面积 AMap.GeometryUtil.ringArea
+
+
+
+
+<h2>计算两点间的实际距离</h2>
+当需要计算两个地理位置间的实际地面距离时，可以使用静态方法 AMap.GeometryUtil.distance，返回数据以米为单位。
+<script>
+var p1 = [116.434027, 39.941037];
+var p2 = [116.461665, 39.941564];
+// 返回 p1 到 p2 间的地面距离，单位：米
+var dis = AMap.GeometryUtil.distance(p1, p2);
+console.log('距离：'+ parseInt(dis) +'米');
+</script>
+
+
+
+<h2>浏览器定位后，计算距离</h2>
+
+
+<div class="container" id="container2">
+  <div class="tips"></div>
+</div>
+
+<div class="tips2"></div>
+
+<script type="text/javascript">
+var map2 = new AMap.Map('container2', {
+  resizeEnable: true
+})
+
+map2.plugin('AMap.Geolocation', function() {
+  var geolocation = new AMap.Geolocation({
+    // 是否使用高精度定位，默认：true
+    enableHighAccuracy: true,
+    // 超过10秒后停止定位，默认：无穷大
+    timeout: 10000,
+    //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+    zoomToAccuracy: true,     
+  })
+
+  geolocation.getCurrentPosition()
+  AMap.event.addListener(geolocation, 'complete', onComplete)
+  AMap.event.addListener(geolocation, 'error', onError)
+
+  function onComplete (data) {
+    // data是具体的定位信息
+    console.log('定位信息',data);
+    var location = [];
+    location.push(data.position.getLng());
+    location.push(data.position.getLat());
+    
+    var p1 = [116.461665, 39.941564];
+    var p2 = [104.087107,30.660407];
+    var p3 = [104.060338,30.642252];
+    var p4 = [104.08958,30.650928];
+    
+    console.log(calculateDistance(location, p1));
+    console.log(calculateDistance(location, p2));
+    console.log(calculateDistance(location, p3));
+    
+    var str = "";
+    str += calculateDistance(location, p1);
+    str += ", "+ calculateDistance(location, p2);
+    str += ", "+ calculateDistance(location, p3);
+    
+    document.querySelector('.tips2').innerHTML = str;
+    
+  }
+
+  function onError (data) {
+    // 定位出错
+    console.log('定位出错',data);
+  }
+})
+
+// 返回两点间距离
+function calculateDistance(start, end){
+  var dis = AMap.GeometryUtil.distance(start, end);
+  var str;
+  if(dis>1000){
+    str = (dis/1000).toFixed(2)+ 'km';
+  }else{
+    str = parseInt(dis) +'m';
+  }
+  return str;
+}
+
+</script>
+
+
+</body>
+</html>
