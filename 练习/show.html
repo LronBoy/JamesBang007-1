@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+
+<div class="project-add">                                    
+  <div class="project-add-btn">
+    <i title="添加成交项目">++++111</i>
+  </div>
+  <div style="display: none;" class="project-add-select">
+      <div class="drop_value">请选择项目</div>
+      <ul>
+          <li value="v6">6-1111111</li>
+      </ul>
+  </div>
+</div>
+
+<div class="project-add">                                    
+  <div class="project-add-btn">
+    <i title="添加成交项目">++++222</i>
+  </div>
+  <div style="display: none;" class="project-add-select">
+      <div class="drop_value">请选择项目</div>
+      <ul>
+          <li value="v6">6-22222222</li>
+      </ul>
+  </div>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+//开启or关闭项目选择
+$(".project-add-btn").on("click",function(){
+  console.log("add-btn");
+  //console.log($(".project-add-select"));
+  //$(".project-add-select").show();
+  
+  var select = $(this).parent().find(".project-add-select");
+  console.log(select);
+  select.show();
+});
+
+$("body").append("<div class='d1'>1111</div><div class='d1'>222</div>");
+
+//
+//$(".d1").click(function(){  
+//console.log($(this).html());
+//$("body").append("<div class='d1'>1666666662</div>");
+//});
+
+
+$(".d1").on("click",function(){  
+  console.log($(this).html());
+  $("body").append("<div class='d1'>1666666662</div>");
+});
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1391 @@
+define("common/wx/dialog.js",["biz_common/jquery.ui/jquery.ui.draggable.js","tpl/dialog.html.js"],function(t,e){
+"use strict";
+function i(t){
+var e=this;
+"string"==typeof t&&(t={
+msg:t
+}),t=$.extend(!0,{},o,t),e.id=t.id=[s.uiName,"_",++s.uid].join(""),t.icon=s.iconClass[t.type||"warn"];
+var i=[];
+i=t.msg.split("|"),t.msg=i[0]?i[1]?{
+title:i[0],
+text:i[1],
+msgClass:""
+}:{
+title:t.msg,
+msgClass:"single_line"
+}:{
+text:i[1],
+msgClass:"single_line"
+},$.each(t.buttons,function(t,e){
+e.type=s.btTypes[e.type||"primary"];
+}),e.opt=t,$(template.compile(s.html)(t)).appendTo("body"),e.dom=$("#"+this.id).parent(),
+e.dom.css("margin-left",-1*e.dom.outerWidth()/2).css("margin-top",-1*e.dom.outerHeight()/2),
+e.dom.fadeIn(),t.draggable&&e.dom.draggable({
+handle:".dialog_hd"
+}),function(){
+$.each($("#"+e.id+" .js_btn"),function(i,o){
+t.buttons[i].click&&$(o).click(function(o){
+return t.buttons[i].click.apply(e,[o]),!1;
+});
+}),$("#"+e.id+" .pop_closed").click(function(){
+return t.close&&"function"==typeof t.close?void(t.close()&&e.remove()):void e.remove();
+});
+}();
+}
+t("biz_common/jquery.ui/jquery.ui.draggable.js");
+var o={
+title:"温馨提示",
+type:"warn",
+msg:"错误信息|对不起，系统繁忙请稍后尝试。",
+buttons:[{
+text:"确定",
+click:function(t){
+this.remove(t);
+}
+}],
+width:600,
+height:0,
+draggable:!0,
+mask:!0,
+className:""
+},s={
+uid:0,
+uiName:"wxDialog",
+iconClass:{
+succ:"success",
+err:"error",
+warn:"warn",
+info:"info"
+},
+btTypes:{
+primary:"btn_primary",
+normal:"btn_default",
+disabled:"btn_disabled"
+}
+};
+s.html=t("tpl/dialog.html.js"),i.prototype={
+hide:function(){
+this.opt.mask&&this.dom.next().remove(),this.dom.fadeOut();
+},
+remove:function(){
+this.opt.mask&&this.dom.next().remove(),this.dom.remove();
+},
+resetPos:function(){
+var t=this;
+t.dom.css("margin-left",-1*t.dom.outerWidth()/2).css("margin-top",-1*t.dom.outerHeight()/2);
+}
+},e.show=function(t){
+return new i(t);
+};
+});define("common/qq/mask.js",["biz_web/lib/spin.js"],function(s,i){
+"use strict";
+function n(s){
+if(this.mask)this.mask.show();else{
+var i="body";
+s&&s.parent&&(i=$(s.parent)),this.mask=$(t).appendTo(i),this.mask.id="wxMask_"+ ++e,
+this.mask.spin("flower");
+}
+if(s){
+if(s.spin===!1)return this;
+this.mask.spin(s.spin||"flower");
+}
+return this;
+}
+s("biz_web/lib/spin.js");
+var e=0,t='<div class="mask"></div>';
+n.prototype={
+show:function(){
+this.mask.show();
+},
+hide:function(){
+this.mask.hide();
+},
+remove:function(){
+this.mask.remove();
+}
+},i.show=function(s){
+return new n(s);
+},i.hide=function(){
+$(".mask").hide();
+},i.remove=function(){
+$(".mask").remove();
+};
+});define("register/mod/form_team.js",["common/wx/Cgi.js","common/wx/Tips.js","common/wx/popup.js","register/mod/mod_form_step3.js","register/mod/mod_file_upload.js","register/mod/mod_qrcheck.js","register/mod/mod_operator.js"],function(o,e,r){
+"use strict";
+function t(){
+p=$(f("tpl_step3_team",a.getData())),c=p.find('input[name="name"]');
+}
+function m(){
+$("#js_div_step3_form").html(p);
+}
+function i(){
+c.on("keyup, blur",function(){
+l.qrcheck.setContractorName(c.val(),c.valid());
+});
+}
+function s(){
+c.rules("add",{
+required:!0,
+rangelength:[2,30],
+messages:{
+required:"请填写团队名称",
+rangelength:$.validator.format("团队名称为{0}到{1}个字符")
+}
+});
+}
+function n(){
+for(var o in l)l[o].init({
+model:a,
+mods:l,
+form:p
+});
+l.fileUpload.initUpload();
+}
+function d(o){
+a=o.model,_=$.extend(!1,_,o),u=!0,t(),m(),n(),i(),s();
+}
+var a,p,c,f=template.render,l=(o("common/wx/Cgi.js"),o("common/wx/Tips.js"),o("common/wx/popup.js"),
+{
+formStep3:o("register/mod/mod_form_step3.js"),
+fileUpload:o("register/mod/mod_file_upload.js"),
+qrcheck:o("register/mod/mod_qrcheck.js"),
+operator:o("register/mod/mod_operator.js")
+}),u=!1,_={};
+r.exports={
+init:d
+};
+});define("register/mod/form_other.js",["common/wx/Cgi.js","common/wx/Tips.js","common/wx/popup.js","register/mod/mod_form_step3.js","register/mod/mod_file_upload.js","register/mod/mod_qrcheck.js","register/mod/mod_operator.js","register/mod/mod_bank.js"],function(e,o,r){
+"use strict";
+function i(){
+c=$(u("tpl_step3_other",a.getData())),p=c.find('input[name="name"]'),l=c.find('input[name="credential"]');
+}
+function t(){
+$("#js_div_step3_form").html(c);
+}
+function m(){
+p.on("keyup, blur",function(){
+_.qrcheck.setContractorName(p.val(),p.valid());
+}),""!=p.val()&&p.blur();
+}
+function s(){
+p.rules("add",{
+required:!0,
+messages:{
+required:"请填写组织名称",
+rangelength:$.validator.format("组织名称为{0}到{1}个字符")
+}
+}),l.rules("add",{
+required:!0,
+is_organization_code:!0,
+messages:{
+required:"请输入正确的组织机构代码",
+is_organization_code:"必须为9位或18位代码"
+}
+});
+}
+function d(){
+for(var e in _)_[e].init({
+model:a,
+mods:_,
+form:c
+});
+_.fileUpload.initUpload();
+}
+function n(e){
+a=e.model,g=$.extend(!1,g,e),f=!0,i(),t(),d(),m(),s();
+}
+var a,c,p,l,u=template.render,_=(e("common/wx/Cgi.js"),e("common/wx/Tips.js"),e("common/wx/popup.js"),
+{
+formStep3:e("register/mod/mod_form_step3.js"),
+fileUpload:e("register/mod/mod_file_upload.js"),
+qrcheck:e("register/mod/mod_qrcheck.js"),
+operator:e("register/mod/mod_operator.js"),
+bank:e("register/mod/mod_bank.js")
+}),f=!1,g={};
+r.exports={
+init:n
+};
+});define("register/mod/form_gov.js",["common/wx/Cgi.js","common/wx/Tips.js","common/wx/popup.js","register/mod/mod_form_step3.js","register/mod/mod_file_upload.js","register/mod/mod_qrcheck.js","register/mod/mod_operator.js","register/mod/mod_bank.js"],function(o,e,r){
+"use strict";
+function m(){
+p=$(l("tpl_step3_gov",a.getData())),c=p.find('input[name="name"]');
+}
+function t(){
+$("#js_div_step3_form").html(p);
+}
+function s(){
+c.on("keyup, blur",function(){
+f.qrcheck.setContractorName(c.val(),c.valid());
+}),""!=c.val()&&c.blur();
+}
+function i(){
+c.rules("add",{
+required:!0,
+rangelength:[2,30],
+messages:{
+required:"请填写政府名称",
+rangelength:$.validator.format("政府名称为{0}到{1}个字符")
+}
+});
+}
+function n(){
+for(var o in f)f[o].init({
+model:a,
+mods:f,
+form:p
+});
+f.fileUpload.initUpload();
+}
+function d(o){
+a=o.model,u=$.extend(!1,u,o),g=!0,m(),t(),n(),s(),i();
+}
+var a,p,c,l=template.render,f=(o("common/wx/Cgi.js"),o("common/wx/Tips.js"),o("common/wx/popup.js"),
+{
+formStep3:o("register/mod/mod_form_step3.js"),
+fileUpload:o("register/mod/mod_file_upload.js"),
+qrcheck:o("register/mod/mod_qrcheck.js"),
+operator:o("register/mod/mod_operator.js"),
+bank:o("register/mod/mod_bank.js")
+}),g=!1,u={};
+r.exports={
+init:d
+};
+});define("register/mod/form_media.js",["common/wx/Cgi.js","common/wx/Tips.js","common/wx/popup.js","register/mod/mod_form_step3.js","register/mod/mod_file_upload.js","register/mod/mod_qrcheck.js","register/mod/mod_operator.js","register/mod/mod_bank.js"],function(e,o,r){
+"use strict";
+function i(){
+c=$(u("tpl_step3_media",a.getData())),p=c.find('input[name="name"]'),l=c.find('input[name="credential"]');
+}
+function m(){
+$("#js_div_step3_form").html(c);
+}
+function t(){
+p.on("keyup, blur",function(){
+_.qrcheck.setContractorName(p.val(),p.valid());
+}),""!=p.val()&&p.blur();
+}
+function d(){
+p.rules("add",{
+required:!0,
+messages:{
+required:"请填写组织名称",
+rangelength:$.validator.format("组织名称为{0}到{1}个字符")
+}
+}),l.rules("add",{
+required:!0,
+is_organization_code:!0,
+messages:{
+required:"请输入组织机构代码",
+is_organization_code:"必须为9位或18位代码"
+}
+});
+}
+function s(){
+for(var e in _)_[e].init({
+model:a,
+mods:_,
+form:c
+});
+_.fileUpload.initUpload();
+}
+function n(e){
+a=e.model,g=$.extend(!1,g,e),f=!0,i(),m(),s(),t(),d();
+}
+var a,c,p,l,u=template.render,_=(e("common/wx/Cgi.js"),e("common/wx/Tips.js"),e("common/wx/popup.js"),
+{
+formStep3:e("register/mod/mod_form_step3.js"),
+fileUpload:e("register/mod/mod_file_upload.js"),
+qrcheck:e("register/mod/mod_qrcheck.js"),
+operator:e("register/mod/mod_operator.js"),
+bank:e("register/mod/mod_bank.js")
+}),f=!1,g={};
+r.exports={
+init:n
+};
+});define("register/mod/form_ent.js",["common/wx/Cgi.js","common/wx/Tips.js","biz_web/ui/checkbox.js","common/wx/popup.js","register/mod/mod_form_step3.js","register/mod/mod_file_upload.js","register/mod/mod_qrcheck.js","register/mod/mod_operator.js","register/mod/mod_bank.js"],function(e,i,o){
+"use strict";
+function r(){
+u=$(f("tpl_step3_ent",m.getData())),c=u.find('input[name="name"]'),l=u.find('input[name="credential"]'),
+_=u.find('input[name="registername"]'),p=u.find('input[name="is_individual"]');
+}
+function t(){
+$("#js_div_step3_form").html(u);
+}
+function n(){
+c.on("keyup, blur",function(){
+g.qrcheck.setContractorName(c.val(),c.valid());
+}),""!=c.val()&&c.blur(),p.checkbox({
+type:"radio",
+onChanged:function(e){
+var i=1*e.val(),o=$("#js_txt_ent_type");
+m.setData(function(e){
+e.is_individual=i;
+}),p.valid(),c.val()&&c.blur(),o.html(1==i?"个体工商户最多只能注册5个帐号":"企业包括：企业、分支机构、企业相关品牌等");
+}
+}),void 0!==m.getData().is_individual&&p.filter('[value="'+m.getData().is_individual+'"]').click();
+}
+function d(){
+c.rules("add",{
+required:!0,
+messages:{
+required:"请填写企业名称",
+rangelength:$.validator.format("企业名称为{0}到{1}个字符")
+}
+}),l.rules("add",{
+required:!0,
+is_ent_code:{
+depends:function(){
+return 0==m.getData().is_overseas?!0:!1;
+}
+},
+messages:{
+required:"请输入正确的营业执照注册号",
+is_ent_code:$.validator.format("请输入正确的营业执照注册号或统一社会信用代码")
+}
+}),p.length&&p.rules("add",{
+required:{
+depends:function(){
+return 0==m.getData().is_overseas?!0:!1;
+}
+},
+messages:{
+required:"请选择企业类型"
+}
+});
+}
+function s(){
+for(var e in g)g[e]&&g[e].init({
+model:m,
+mods:g,
+form:u
+});
+g.fileUpload.initUpload();
+}
+function a(e){
+m=e.model,v=$.extend(!1,v,e),j=!0,r(),t(),s(),n(),d();
+}
+var m,u,c,l,_,p,f=template.render,g=(e("common/wx/Cgi.js"),e("common/wx/Tips.js"),
+e("biz_web/ui/checkbox.js"),e("common/wx/popup.js"),{
+formStep3:e("register/mod/mod_form_step3.js"),
+fileUpload:e("register/mod/mod_file_upload.js"),
+qrcheck:e("register/mod/mod_qrcheck.js"),
+operator:e("register/mod/mod_operator.js"),
+bank:e("register/mod/mod_bank.js")
+}),j=!1,v={};
+o.exports={
+init:a
+};
+});define("register/mod/form_person.js",["common/wx/Cgi.js","common/wx/Tips.js","common/wx/popup.js","register/mod/mod_form_step3.js","register/mod/mod_file_upload.js","register/mod/mod_qrcheck.js","register/mod/mod_operator.js"],function(o,e,r){
+"use strict";
+function t(){
+p=$(l("tpl_step3_person",a.getData())),c=p.find('input[name="operator_name"]'),f=p.find('input[name="operator_idcard"]');
+}
+function m(){
+$("#js_div_step3_form").html(p);
+}
+function i(){
+c.on("keyup, blur",function(){
+u.qrcheck.setContractorName(c.val(),c.valid());
+}),""!=c.val()&&c.blur();
+}
+function n(){
+c.rules("add",{
+required:!0,
+rangelength:[1,15],
+messages:{
+required:"请填写姓名",
+rangelength:$.validator.format("姓名为{0}到{1}个中英文")
+}
+});
+}
+function s(){
+for(var o in u)u[o].init({
+model:a,
+mods:u,
+form:p
+});
+u.fileUpload.initUpload();
+}
+function d(o){
+a=o.model,g=$.extend(!1,g,o),_=!0,t(),m(),s(),i(),n();
+}
+var a,p,c,f,l=template.render,u=(o("common/wx/Cgi.js"),o("common/wx/Tips.js"),o("common/wx/popup.js"),
+{
+formStep3:o("register/mod/mod_form_step3.js"),
+fileUpload:o("register/mod/mod_file_upload.js"),
+qrcheck:o("register/mod/mod_qrcheck.js"),
+operator:o("register/mod/mod_operator.js")
+}),_=!1,g={};
+r.exports={
+init:d
+};
+});define("common/wx/overseasList.js",[],function(){
+"use strict";
+var e={
+1e3:{
+country:"阿拉伯联合酋长国",
+mobilePrefix:"+971"
+},
+1001:{
+country:"安提瓜岛和巴布达",
+mobilePrefix:"+1268"
+},
+1002:{
+country:"安哥拉",
+mobilePrefix:"+244"
+},
+1003:{
+country:"阿根廷",
+mobilePrefix:"+54"
+},
+1004:{
+country:"奥地利",
+mobilePrefix:"+43"
+},
+1005:{
+country:"澳大利亚",
+mobilePrefix:"+61"
+},
+1006:{
+country:"阿鲁巴",
+mobilePrefix:"+297"
+},
+1007:{
+country:"巴巴多斯岛",
+mobilePrefix:"+1246"
+},
+1008:{
+country:"百慕大",
+mobilePrefix:"+1441"
+},
+1009:{
+country:"文莱",
+mobilePrefix:"+673"
+},
+1010:{
+country:"巴西",
+mobilePrefix:"+55"
+},
+1011:{
+country:"巴哈马",
+mobilePrefix:"+1242"
+},
+1012:{
+country:"不丹",
+mobilePrefix:"+975"
+},
+1013:{
+country:"博茨瓦纳",
+mobilePrefix:"+267"
+},
+1014:{
+country:"加拿大",
+mobilePrefix:"+1"
+},
+1015:{
+country:"刚果民主共和国",
+mobilePrefix:"+242"
+},
+1016:{
+country:"瑞士",
+mobilePrefix:"+41"
+},
+1017:{
+country:"中国大陆",
+mobilePrefix:"+86"
+},
+1018:{
+country:"德国",
+mobilePrefix:"+49"
+},
+1019:{
+country:"多米尼加共和国",
+mobilePrefix:"+1809"
+},
+1020:{
+country:"西班牙",
+mobilePrefix:"+34"
+},
+1021:{
+country:"斐济",
+mobilePrefix:"+679"
+},
+1022:{
+country:"法国",
+mobilePrefix:"+33"
+},
+1023:{
+country:"英国",
+mobilePrefix:"+44"
+},
+1024:{
+country:"格林纳达",
+mobilePrefix:"+1473"
+},
+1025:{
+country:"乔治亚",
+mobilePrefix:"+995"
+},
+1026:{
+country:"格恩西岛",
+mobilePrefix:"+44"
+},
+1027:{
+country:"直布罗陀",
+mobilePrefix:"+350"
+},
+1028:{
+country:"格陵兰",
+mobilePrefix:"+299"
+},
+1029:{
+country:"冈比亚",
+mobilePrefix:"+220"
+},
+1030:{
+country:"关岛",
+mobilePrefix:"+1671"
+},
+1031:{
+country:"中国香港",
+mobilePrefix:"+852"
+},
+1032:{
+country:"海地",
+mobilePrefix:"+509"
+},
+1033:{
+country:"匈牙利",
+mobilePrefix:"+36"
+},
+1034:{
+country:"印度尼西亚",
+mobilePrefix:"+62"
+},
+1035:{
+country:"爱尔兰",
+mobilePrefix:"+353"
+},
+1036:{
+country:"印度",
+mobilePrefix:"+91"
+},
+1037:{
+country:"伊拉克",
+mobilePrefix:"+964"
+},
+1038:{
+country:"伊朗",
+mobilePrefix:"+98"
+},
+1039:{
+country:"冰岛",
+mobilePrefix:"+354"
+},
+1040:{
+country:"意大利",
+mobilePrefix:"+39"
+},
+1041:{
+country:"泽西岛",
+mobilePrefix:"+44"
+},
+1042:{
+country:"日本",
+mobilePrefix:"+81"
+},
+1043:{
+country:"柬埔寨",
+mobilePrefix:"+855"
+},
+1044:{
+country:"圣基茨和尼维斯",
+mobilePrefix:"+1869"
+},
+1045:{
+country:"韩国",
+mobilePrefix:"+82"
+},
+1046:{
+country:"科威特",
+mobilePrefix:"+965"
+},
+1047:{
+country:"开曼群岛",
+mobilePrefix:"+1345"
+},
+1048:{
+country:"列支敦士登",
+mobilePrefix:"+423"
+},
+1049:{
+country:"利比亚",
+mobilePrefix:"+218"
+},
+1050:{
+country:"摩纳哥",
+mobilePrefix:"+377"
+},
+1051:{
+country:"摩尔多瓦",
+mobilePrefix:"+373"
+},
+1052:{
+country:"马绍尔群岛",
+mobilePrefix:"+692"
+},
+1053:{
+country:"马其顿",
+mobilePrefix:"+389"
+},
+1054:{
+country:"中国澳门",
+mobilePrefix:"+853"
+},
+1055:{
+country:"北马里亚纳群岛",
+mobilePrefix:"+1670"
+},
+1056:{
+country:"毛里求斯",
+mobilePrefix:"+230"
+},
+1057:{
+country:"马尔代夫",
+mobilePrefix:"+960"
+},
+1058:{
+country:"墨西哥",
+mobilePrefix:"+52"
+},
+1059:{
+country:"马来西亚",
+mobilePrefix:"+60"
+},
+1060:{
+country:"莫桑比克",
+mobilePrefix:"+258"
+},
+1061:{
+country:"新喀里多尼亚",
+mobilePrefix:"+687"
+},
+1062:{
+country:"荷兰",
+mobilePrefix:"+31"
+},
+1063:{
+country:"新西兰",
+mobilePrefix:"+64"
+},
+1064:{
+country:"巴拿马",
+mobilePrefix:"+507"
+},
+1065:{
+country:"菲律宾",
+mobilePrefix:"+63"
+},
+1066:{
+country:"波多黎各",
+mobilePrefix:"+1"
+},
+1067:{
+country:"葡萄牙",
+mobilePrefix:"+351"
+},
+1068:{
+country:"帕劳群岛",
+mobilePrefix:"+680"
+},
+1070:{
+country:"俄罗斯",
+mobilePrefix:"+7"
+},
+1071:{
+country:"沙特阿拉伯",
+mobilePrefix:"+966"
+},
+1072:{
+country:"塞舌尔",
+mobilePrefix:"+248"
+},
+1073:{
+country:"瑞典",
+mobilePrefix:"+46"
+},
+1074:{
+country:"新加坡",
+mobilePrefix:"+65"
+},
+1075:{
+country:"圣马力诺",
+mobilePrefix:"+378"
+},
+1076:{
+country:"斯威士兰",
+mobilePrefix:"+268"
+},
+1077:{
+country:"泰国",
+mobilePrefix:"+66"
+},
+1078:{
+country:"土耳其",
+mobilePrefix:"+90"
+},
+1079:{
+country:"特立尼达和多巴哥",
+mobilePrefix:"+1868"
+},
+1080:{
+country:"中国台湾",
+mobilePrefix:"+886"
+},
+1081:{
+country:"乌克兰",
+mobilePrefix:"+380"
+},
+1082:{
+country:"美国",
+mobilePrefix:"+1"
+},
+1083:{
+country:"委内瑞拉",
+mobilePrefix:"+58"
+},
+1084:{
+country:"越南",
+mobilePrefix:"+84"
+},
+1085:{
+country:"萨摩亚",
+mobilePrefix:"+685"
+},
+1086:{
+country:"南非",
+mobilePrefix:"+27"
+},
+1087:{
+country:"安道尔",
+mobilePrefix:"+376"
+},
+1088:{
+country:"阿尔巴尼亚",
+mobilePrefix:"+355"
+},
+1089:{
+country:"亚美尼亚",
+mobilePrefix:"+374"
+},
+1090:{
+country:"阿塞拜疆",
+mobilePrefix:"+994"
+},
+1091:{
+country:"孟加拉",
+mobilePrefix:"+880"
+},
+1092:{
+country:"比利时",
+mobilePrefix:"+32"
+},
+1093:{
+country:"保加利亚",
+mobilePrefix:"+359"
+},
+1094:{
+country:"巴林",
+mobilePrefix:"+973"
+},
+1095:{
+country:"布隆迪",
+mobilePrefix:"+257"
+},
+1096:{
+country:"贝宁",
+mobilePrefix:"+229"
+},
+1097:{
+country:"玻利维亚",
+mobilePrefix:"+591"
+},
+1098:{
+country:"中非共和国",
+mobilePrefix:"+236"
+},
+1099:{
+country:"智利",
+mobilePrefix:"+56"
+},
+1100:{
+country:"喀麦隆",
+mobilePrefix:"+237"
+},
+1101:{
+country:"哥伦比亚",
+mobilePrefix:"+57"
+},
+1102:{
+country:"哥斯达黎加",
+mobilePrefix:"+506"
+},
+1104:{
+country:"古巴",
+mobilePrefix:"+53"
+},
+1105:{
+country:"捷克共和国",
+mobilePrefix:"+420"
+},
+1106:{
+country:"吉布提",
+mobilePrefix:"+253"
+},
+1107:{
+country:"丹麦",
+mobilePrefix:"+45"
+},
+1108:{
+country:"阿尔及利亚",
+mobilePrefix:"+213"
+},
+1109:{
+country:"厄瓜多尔",
+mobilePrefix:"+593"
+},
+1110:{
+country:"埃及",
+mobilePrefix:"+20"
+},
+1111:{
+country:"厄立特里亚",
+mobilePrefix:"+291"
+},
+1112:{
+country:"埃塞俄比亚",
+mobilePrefix:"+251"
+},
+1113:{
+country:"芬兰",
+mobilePrefix:"+358"
+},
+1114:{
+country:"加纳",
+mobilePrefix:"+233"
+},
+1115:{
+country:"希腊",
+mobilePrefix:"+30"
+},
+1116:{
+country:"危地马拉",
+mobilePrefix:"+502"
+},
+1117:{
+country:"洪都拉斯",
+mobilePrefix:"+504"
+},
+1118:{
+country:"克罗地亚",
+mobilePrefix:"+385"
+},
+1119:{
+country:"以色列",
+mobilePrefix:"+972"
+},
+1120:{
+country:"牙买加",
+mobilePrefix:"+1876"
+},
+1121:{
+country:"约旦",
+mobilePrefix:"+962"
+},
+1122:{
+country:"肯尼亚",
+mobilePrefix:"+254"
+},
+1123:{
+country:"吉尔吉斯斯坦",
+mobilePrefix:"+996"
+},
+1124:{
+country:"基里巴斯",
+mobilePrefix:"+686"
+},
+1125:{
+country:"朝鲜",
+mobilePrefix:"+850"
+},
+1126:{
+country:"哈萨克斯坦",
+mobilePrefix:"+7"
+},
+1127:{
+country:"老挝",
+mobilePrefix:"+856"
+},
+1128:{
+country:"黎巴嫩",
+mobilePrefix:"+961"
+},
+1129:{
+country:"斯里兰卡",
+mobilePrefix:"+94"
+},
+1130:{
+country:"利比里亚",
+mobilePrefix:"+231"
+},
+1131:{
+country:"莱索托",
+mobilePrefix:"+266"
+},
+1132:{
+country:"卢森堡",
+mobilePrefix:"+352"
+},
+1133:{
+country:"拉脱维亚",
+mobilePrefix:"+371"
+},
+1134:{
+country:"摩洛哥",
+mobilePrefix:"+212"
+},
+1135:{
+country:"马达加斯加",
+mobilePrefix:"+261"
+},
+1136:{
+country:"缅甸",
+mobilePrefix:"+95"
+},
+1137:{
+country:"蒙古",
+mobilePrefix:"+976"
+},
+1138:{
+country:"毛里塔尼亚",
+mobilePrefix:"+222"
+},
+1139:{
+country:"马拉维",
+mobilePrefix:"+265"
+},
+1140:{
+country:"纳米比亚",
+mobilePrefix:"+264"
+},
+1141:{
+country:"尼日利亚",
+mobilePrefix:"+234"
+},
+1142:{
+country:"尼加拉瓜",
+mobilePrefix:"+505"
+},
+1143:{
+country:"挪威",
+mobilePrefix:"+47"
+},
+1144:{
+country:"尼泊尔",
+mobilePrefix:"+977"
+},
+1145:{
+country:"阿曼",
+mobilePrefix:"+968"
+},
+1146:{
+country:"秘鲁",
+mobilePrefix:"+51"
+},
+1147:{
+country:"巴布亚新几内亚",
+mobilePrefix:"+675"
+},
+1148:{
+country:"巴基斯坦",
+mobilePrefix:"+92"
+},
+1149:{
+country:"波兰",
+mobilePrefix:"+48"
+},
+1150:{
+country:"卡塔尔",
+mobilePrefix:"+974"
+},
+1151:{
+country:"罗马尼亚",
+mobilePrefix:"+40"
+},
+1152:{
+country:"卢旺达",
+mobilePrefix:"+250"
+},
+1153:{
+country:"所罗门群岛",
+mobilePrefix:"+677"
+},
+1154:{
+country:"苏丹",
+mobilePrefix:"+249"
+},
+1155:{
+country:"斯洛文尼亚",
+mobilePrefix:"+386"
+},
+1156:{
+country:"斯洛伐克",
+mobilePrefix:"+421"
+},
+1157:{
+country:"塞拉利昂",
+mobilePrefix:"+232"
+},
+1158:{
+country:"塞内加尔",
+mobilePrefix:"+221"
+},
+1159:{
+country:"苏里南",
+mobilePrefix:"+597"
+},
+1160:{
+country:"塔吉克斯坦",
+mobilePrefix:"+992"
+},
+1161:{
+country:"汤加",
+mobilePrefix:"+676"
+},
+1162:{
+country:"坦桑尼亚",
+mobilePrefix:"+255"
+},
+1163:{
+country:"乌干达",
+mobilePrefix:"+256"
+},
+1164:{
+country:"乌拉圭",
+mobilePrefix:"+598"
+},
+1165:{
+country:"乌兹别克斯坦",
+mobilePrefix:"+998"
+},
+1166:{
+country:"瓦努阿图",
+mobilePrefix:"+678"
+},
+1167:{
+country:"也门",
+mobilePrefix:"+967"
+},
+1168:{
+country:"赞比亚",
+mobilePrefix:"+260"
+}
+},r={},o=[],i=[];
+for(var n in e)i.push(parseInt(n)),o.push({
+value:parseInt(n),
+name:e[n].country
+}),r[n]=e[n].mobilePrefix;
+return{
+mobilePrefix:r,
+countryCode:i,
+countryDropdownOptions:o
+};
+});define("biz_web/ui/dropdown.js",["biz_web/widget/dropdown.css","tpl/biz_web/ui/dropdown.html.js"],function(e){
+"use strict";
+function t(e){
+e.render&&(e.renderHtml="",$.each(e.data,function(t,a){
+e.renderHtml+=e.render(a);
+})),e=$.extend(!0,{},d,e);
+var t=this;
+t.container=$(e.container),t.container.addClass(e.search?i+" search":i),this.isDisabled=e.disabled,
+e.disabled?t.container.addClass("disabled"):t.container.removeClass("disabled"),
+t.opt=e,t.container.html(template.compile(n)(e)).find(".jsDropdownList").hide(),
+t.bt=t.container.find(".jsDropdownBt"),t.dropdown=t.container.find(".jsDropdownList"),
+$.each(e.data,function(e,a){
+$.data(t.dropdown.find(".jsDropdownItem")[e],"value",a.value),$.data(t.dropdown.find(".jsDropdownItem")[e],"name",a.name),
+$.data(t.dropdown.find(".jsDropdownItem")[e],"item",a);
+}),"undefined"!=typeof e.index&&0!==e.data.length&&(t.bt.find(".jsBtLabel").html(e.data[e.index].name||e.label),
+t.value=e.data[e.index].value),t.bt.on("click",function(){
+return a(),e.disabled||(t.dropdown.show(),t.container.addClass("open")),!1;
+}),e.search&&t.bt.find(".jsBtLabel").on("keyup",function(e){
+if(!t.disabled){
+var a=$(this);
+if(13==e.keyCode)t.value?(a.html(a.data("name")).removeClass("error"),t.dropdown.hide()):a.find("div").remove();else{
+var n=a.html().trim(),d=[];
+t.value=null,t.dropdown.show().find(".jsDropdownItem").each(function(){
+var e=$(this);
+e.hasClass("js_empty")||(e.data("name").indexOf(n)>-1?(e.parent().show(),d.push({
+name:e.data("name"),
+value:e.data("value")
+})):e.parent().hide());
+}),0==d.length?0==t.dropdown.find(".js_empty").length&&t.dropdown.append('<li class="jsDropdownItem js_empty empty">未找到"'+n+'"</li>'):(t.dropdown.find(".js_empty").remove(),
+1==d.length&&(d[0].name==n?a.removeClass("error"):a.data("name",d[0].name),t.value=d[0].value));
+}
+}
+}).on("blur",function(){
+if(!t.disabled){
+var a=$(this);
+t.value?$(this).html()!=$(this).data("name")&&(a.addClass("error"),t.value=null):""!=a.html()?a.addClass("error"):(a.html(e.label).removeClass("error"),
+t.value=null);
+}
+}).on("focus",function(){
+if(!t.disabled){
+var a=$(this),n=$(this).html().trim();
+n==e.label&&a.html("").removeClass("error"),""==n&&a.removeClass("error"),t.dropdown.show(),
+t.container.addClass("open");
+}
+}),$(document).on("click",a),t.dropdown.on("click",".jsDropdownItem",function(){
+if("disabled"==$(this).attr("disabled"))return!1;
+var a=$(this).data("value"),n=$(this).data("name"),d=$(this).data("index"),i=$(this).parents(".jsDropdownList").siblings(".jsDropdownBt").find(".jsBtLabel").attr("data-value");
+if((!t.value||t.value&&t.value!=a)&&(t.value=a,t.name=n,e.callback&&"function"==typeof e.callback)){
+var o=e.callback(a,n,d,$(this).data("item"),i)||n,s=$(this).data("value");
+e.search?t.bt.find(".jsBtLabel").html(o).data("name",o).removeClass("error"):t.bt.find(".jsBtLabel").attr("data-value",s).html(o);
+}
+t.dropdown.hide();
+});
+}
+function a(){
+$(".jsDropdownList").hide(),$(".dropdown_menu").each(function(){
+!$(this).hasClass("dropdown_checkbox")&&$(this).removeClass("open");
+});
+}
+e("biz_web/widget/dropdown.css");
+var n=e("tpl/biz_web/ui/dropdown.html.js"),d={
+label:"请选择",
+data:[],
+callback:$.noop,
+render:$.noop,
+delay:500,
+disabled:!1,
+search:!1
+},i="dropdown_menu";
+return t.prototype={
+selected:function(e,t){
+var a=this;
+if("number"==typeof e){
+if(this.opt.data&&this.opt.data[e]){
+var n=this.opt.data[e].name,d=this.opt.data[e].value;
+0==t||this.dropdown.find(".jsDropdownItem:eq("+e+")").trigger("click",d),this.bt.find(".jsBtLabel").html(n);
+}
+}else $.each(this.opt.data,function(n,i){
+return e==i.value||e==i.name?(0==t||a.dropdown.find(".jsDropdownItem:eq("+n+")").trigger("click",d),
+a.bt.find(".jsBtLabel").html(i.name),!1):void 0;
+});
+return this;
+},
+reset:function(){
+return this.bt.find(".jsBtLabel").html(this.opt.label),this.value=null,this;
+},
+hidegreater:function(e){
+var t=this;
+return"number"==typeof e&&t.opt.data&&t.opt.data[e]&&(t.dropdown.find(".jsDropdownItem").show(),
+t.dropdown.find(".jsDropdownItem:gt("+e+")").hide()),this;
+},
+destroy:function(){
+return this.isDisabled&&this.container.removeClass("disabled"),this.container.children().remove(),
+this.container.off(),this;
+},
+enable:function(){
+return this.opt.disabled=!1,this.container.removeClass("disabled"),this.opt.search&&this.bt.find(".jsBtLabel").attr("contenteditable",!0),
+this;
+},
+disable:function(){
+return this.opt.disabled=!0,this.container.addClass("disabled"),this.opt.search&&this.bt.find(".jsBtLabel").attr("contenteditable",!1),
+this;
+}
+},t;
+});define("common/wx/popup.js",["common/wx/widgetBridge.js","biz_common/jquery.ui/jquery.ui.draggable.js","tpl/popup.html.js"],function(t){
+"use strict";
+t("common/wx/widgetBridge.js"),t("biz_common/jquery.ui/jquery.ui.draggable.js");
+var i=t("tpl/popup.html.js"),o=template.compile(i),n={
+disabled:"btn_disabled",
+primary:"btn_primary",
+"default":"btn_default"
+};
+$.widgetBridge("popup",{
+$dialogWrp:null,
+options:{
+title:"温馨提示",
+width:726,
+height:null,
+template:template.compile,
+data:{},
+buttons:[],
+onHide:null,
+onShow:null,
+onOK:null,
+onCancel:null,
+mask:!0,
+autoShow:!0
+},
+_create:function(){
+var t=this,i=$.extend(!0,{},this.options),e=function(){
+t.hide();
+};
+i.buttons&&!$.isArray(i.buttons)&&(i.buttons=[i.buttons]),!i.buttons.length&&i.onOK&&(i.buttons=[{
+text:"确定",
+type:"primary",
+click:function(){
+var t=i.onOK&&i.onOK.call(this);
+!t&&e();
+}
+},{
+text:"取消",
+click:function(){
+var t=i.onCancel&&i.onCancel.call(this);
+!t&&e();
+}
+}]),$.each(i.buttons,function(t,i){
+i.type=n[i.type||"default"];
+});
+var l;
+if(this.element.is("script[type=text/html]"))l=this.element.html(),this.options.data&&this.options.template&&(l=this.options.template(l)(this.options.data));else{
+var s=$("<div></div>").append(this.element.clone()),l=s.html();
+this.options.data&&this.options.template&&(l=this.options.template(l)(this.options.data));
+}
+if(i.content=l,this.$dialogWrp=$(o(i)).appendTo("body"),this.$dialogWrp.find(".dialog_bd").children(":first").show(),
+i.autoShow||this.$dialogWrp.hide(),this.$dialogWrp.find(".pop_closed").click(i.onClose||e),
+this.$dialogWrp.find(".js_btn").each(function(o){
+var n=i.buttons[o].click,e=n?function(i){
+n.call(t,i);
+}:function(){};
+$(this).click(e);
+}),this.resetPosition(),i.autoShow){
+var a=t.options.onShow;
+"function"==typeof a&&a.call(t);
+}
+return this.$dialogWrp.draggable({
+handle:".dialog_hd"
+}),this.get();
+},
+show:function(){
+var t=this,i=t.options.onShow,o=!0;
+this.$dialogWrp.fadeIn(function(){
+o&&("function"==typeof i&&i.call(t),o=!1);
+});
+},
+resetPosition:function(){
+$(this.$dialogWrp.get(0)).css({
+"margin-left":-1*this.$dialogWrp.outerWidth()/2,
+"margin-top":-1*this.$dialogWrp.outerHeight()/2
+});
+},
+get:function(){
+return this.$dialogWrp.filter(".dialog_wrp");
+},
+hide:function(){
+var t=this,i=t.options.onHide||t.options.close,o=!0;
+this.$dialogWrp.fadeOut(function(){
+o&&("function"==typeof i&&i.call(t),o=!1);
+});
+},
+remove:function(){
+this.destroy(),this.$dialogWrp.remove();
+}
+});
+});define("tpl/step.html.js",[],function(){
+return'<ul class="processor_bar">\n    {each stepArr as item index}\n    <li class="step {item.cls}">\n        <h4>{item.name}</h4>\n    </li>\n    {/each}\n</ul>\n';
+});define("register/step3.js",["common/wx/Cgi.js","common/wx/Tips.js","common/wx/popup.js","biz_web/ui/dropdown.js","common/wx/overseasList.js","biz_common/jquery.validate.js","register/mod/form_person.js","register/mod/form_ent.js","register/mod/form_media.js","register/mod/form_gov.js","register/mod/form_other.js","register/mod/form_team.js"],function(t,e,o){
+"use strict";
+function s(){
+d=$("#js_div_step3_head"),m=$("#js_form_step3"),p=$("#js_div_fakebtn"),j=$("#js_div_step3_form"),
+c=$("#js_err_contractor_type"),a.setData(function(t){
+t.fileUrls=y;
+});
+}
+function r(){
+1==a.getData().refill&&"1"!=a.getData().no_reason&&d.append(h("tpl_step3_head_refill",a.getData())),
+d.append(h("tpl_step3_head_normal",a.getData())),new f({
+container:".js_region_dropdown",
+data:l.countryDropdownOptions,
+callback:function(t){
+a.setData(function(e){
+e.contractor_type=null,e.is_overseas=1017==t?0:1,e.registered_country=t;
+}),j.empty(),p.show(),$(".js_form_tips").hide(),$(".js_btn_contractor_type.selected").removeClass("selected"),
+1017==t?($(".js_btn_contractor_type").show(),$("#js_head_tips").show()):($(".js_btn_contractor_type").hide(),
+$('.js_btn_contractor_type[data-type="1"]').show().trigger("click"),$("#js_head_tips").hide());
+}
+}).selected("中国大陆",!0);
+}
+function i(){
+$(".js_btn_contractor_type").on("click",function(t){
+if(t.preventDefault(),$(this).hasClass("selected"))return!1;
+if($(this).hasClass("btn_disabled"))return!1;
+if($(".js_btn_contractor_type").filter(".selected").length>0){
+var e=confirm("查看其他类别页面将会清空本类别已经填写的内容和上传的资料，是否继续？");
+if(!e)return!1;
+}
+$(".js_btn_contractor_type").removeClass("selected"),$(this).addClass("selected");
+var o=1*$(this).data("type");
+$(".js_form_tips").hide(),1==o&&$(".js_form_tips_"+o).text(1!=a.getData().is_overseas?"企业包括：企业、分支机构、个体工商户、企业相关品牌。":"企业包括：企业、分支机构、企业相关品牌。"),
+$(".js_form_tips_"+o).show(),c.hide(),a.setData(function(t){
+t.contractor_type=o;
+}),g[o].init({
+model:a
+}),p.hide();
+}),1==a.getData().refill&&$(".js_btn_contractor_type").each(function(){
+var t=$(this).data("type");
+t==a.getData().contractor_type&&$(this).click(),$(this).disable();
+});
+}
+function n(){}
+function _(t){
+u||(a=t.model,u=!0,s(),r(),i(),n());
+}
+var a,d,c,m,p,j,h=template.render,f=(t("common/wx/Cgi.js"),t("common/wx/Tips.js"),
+t("common/wx/popup.js"),t("biz_web/ui/dropdown.js")),l=t("common/wx/overseasList.js"),u=(t("biz_common/jquery.validate.js"),
+!1),g={
+0:t("register/mod/form_person.js"),
+1:t("register/mod/form_ent.js"),
+2:t("register/mod/form_media.js"),
+3:t("register/mod/form_gov.js"),
+4:t("register/mod/form_other.js"),
+5:t("register/mod/form_team.js")
+},y={
+govInfoRegister:"/mpres/zh_CN/htmledition/doc/xxdjb_zheng_fu-.doc",
+govAuthority:"/mpres/zh_CN/htmledition/doc/xxdjb_shou_quan_yun_ying-.doc",
+mediaInfoRegister:"/mpres/zh_CN/htmledition/doc/xxdjb_mei_ti-.doc",
+mediaAuthority:"/mpres/zh_CN/htmledition/doc/xxdjb_shou_quan_yun_ying-.doc",
+entAuthority:"/mpres/zh_CN/htmledition/doc/xxdjb_shou_quan_yun_ying-.doc",
+otherAuthority:"/mpres/zh_CN/htmledition/doc/xxdjb_shou_quan_yun_ying-.doc"
+};
+o.exports={
+init:_
+};
+});define("register/model.js",[],function(t,n,e){
+"use strict";
+function a(t){
+t&&t.call(this,c),f.onDataChange&&f.onDataChange.call(this,c);
+}
+function i(){
+return c;
+}
+function o(t){
+c.step=t,f.onStepChange&&f.onStepChange.call(this,t,c);
+}
+function s(t){
+f=$.extend(!0,f,t),f.data&&(c=$.extend(!0,c,t.data),f.data=void 0);
+}
+var c={
+step:3,
+refill:"false"
+},f={
+onDataChange:function(){},
+onStepChange:function(){}
+};
+e.exports={
+init:s,
+setStep:o,
+setData:a,
+getData:i
+};
+});
