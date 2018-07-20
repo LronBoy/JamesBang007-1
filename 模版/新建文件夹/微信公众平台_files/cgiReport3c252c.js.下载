@@ -1,0 +1,1907 @@
+define("register/mod/mod_bank.js",["common/wx/Cgi.js","biz_web/ui/checkbox.js","biz_web/ui/dropdown.js","common/wx/Tips.js","register/data_bank_city.js"],function(e,a,n){
+"use strict";
+function t(e){
+m.checkbox("disabled",!1),m.filter('[value="'+e+'"]').click();
+}
+function i(e){
+var a=$("#js_div_register_type .register_type_form_controls");
+switch(e){
+case 1:
+t(1),a.removeClass("type_onecent_only").addClass("type_wx_verify_only"),a.find(".js_div_register_type_select_1").show(),
+a.find(".js_div_register_type_select_2").hide(),m.checkbox("disabled",!0);
+break;
+
+case 2:
+t(2),a.removeClass("type_wx_verify_only").addClass("type_onecent_only"),a.find(".js_div_register_type_select_2").hide(),
+a.find(".js_div_register_type_select_2").show(),m.checkbox("disabled",!0);
+break;
+
+default:
+a.removeClass("type_wx_verify_only").removeClass("type_onecent_only"),a.find(".js_div_register_type_select").show(),
+m.checkbox("disabled",!1);
+}
+}
+function r(){
+$(".js_div_register_type_none").show(),$(".js_div_register_type_select").hide();
+}
+function d(){
+$(".js_div_register_type_none").hide(),$(".js_div_register_type_select").show();
+}
+function s(){
+var e=w.val();
+return"2"==e?!0:!1;
+}
+function _(){
+m=p.find('input[name="register_type_select"]'),v=$("#js_div_register_type_2"),f=$("#js_div_register_type_1"),
+y=$("#js_div_bank_province"),g=$("#js_div_bank_city"),k=$("#js_div_bank_name"),h=$("#js_btn_bank_guide"),
+j=p.find('input[name="name"]'),w=p.find('input[name="register_type"]'),x=p.find('input[name="bank_acct_name"]'),
+q=p.find('input[name="bank_acct_num"]'),C=p.find('input[name="bank_acct_num_confirm"]'),
+D=p.find('input[name="bank_province"]'),T=p.find('input[name="bank_city"]'),z=p.find('input[name="bank_name"]'),
+B=!1;
+}
+function o(){
+var e,a,n=b.getData().bank_acct_info,t=!1;
+n.verify_status&&0!=n.verify_status&&(t=!0),m.checkbox({
+type:"radio",
+onChanged:function(e){
+var a=1*e.val();
+j.rules("remove","bank_acct_name rangelength ent_name"),b.setData(function(e){
+e.register_type=a;
+}),1==a?(v.hide(),f.show(),w.val("1"),j.rules("add",{
+rangelength:[j.data("minlen"),j.data("maxlen")]
+})):(v.show(),f.hide(),w.val("2"),j.rules("add",{
+bank_acct_name:!0,
+ent_name:!0
+})),""!=j.val()&&j.valid();
+}
+}),C.bind("copy paste",function(e){
+e.preventDefault();
+}),q.on("blur",function(){
+C.valid();
+}),setTimeout(function(){
+e=new A({
+container:y,
+label:n.bank_province?n.bank_province:"省份",
+data:Z.province,
+disabled:t,
+callback:function(e){
+T.val(""),D.val(e),D.valid(),a&&a.destroy(),a=new A({
+container:g,
+label:"城市",
+data:Z.city[e],
+callback:function(e){
+T.val(e),T.valid();
+},
+search:!1
+});
+},
+search:!1
+}),n.bank_province&&(a=new A({
+container:g,
+label:n.bank_city?n.bank_city:"城市",
+data:Z.city[n.bank_province],
+callback:function(e){
+T.val(e),T.valid();
+},
+search:!1
+}));
+},100),1==t&&(q.attr("disabled","disabled").parent(".frm_input_box").addClass("disabled"),
+C.attr("disabled","disabled").parent(".frm_input_box").addClass("disabled"),D.attr("disabled","disabled"),
+T.attr("disabled","disabled")),h.click(function(){
+$("#tpl_bank_guide").popup({
+title:"对公账号信息填写指引",
+buttons:[{
+text:"我知道了",
+type:"primary",
+click:function(){
+this.remove();
+}
+}],
+width:900
+});
+}),new A({
+container:k,
+label:"请选择开户银行",
+data:[{
+name:"中国工商银行",
+value:"中国工商银行"
+},{
+name:"其他银行",
+value:""
+}],
+callback:function(e){
+B=!0,z.val(e),z.valid();
+}
+}),1==b.getData().is_overseas&&(d(),i(1));
+}
+function c(){
+x.on("paste",function(e){
+e.preventDefault();
+});
+}
+function l(){
+$.validator.addMethod("bank_acct_name",function(e){
+return 1==/^[\u3400-\u4db5\u4e00-\u9fffa-zA-Z0-9\(\)\-\:\,\._《》（）]+$/.test(e)?!0:!1;
+},"名称只能为中文、英文、数字、括号、书名号、半角冒号、点号、横线"),$.validator.addMethod("ent_name",function(e){
+for(var a=0,n=0;n<e.length;n++)a+=e.charCodeAt(n)>=0&&e.charCodeAt(n)<=255?1:3;
+return a>=12&&90>=a?!0:!1;
+},"企业名称为4到30个中文字"),$.validator.addMethod("bank_name",function(e){
+return s()?B?!0:e.length>0?!0:!1:!0;
+}),w.rules("add",{
+required:!0,
+messages:{
+required:"请选择注册方式"
+}
+}),x.rules("add",{
+required:s,
+equalTo:{
+param:j,
+depends:function(){
+return s();
+}
+},
+messages:{
+required:"请输入户名",
+equalTo:"对公账户户名与申请主体不一致，请核实"
+}
+}),q.rules("add",{
+required:s,
+number:s,
+rangelength:{
+param:[2,35],
+depends:function(){
+return s();
+}
+},
+messages:{
+required:"请输入对公账户",
+number:"对公账户应为数字",
+rangelength:$.validator.format("对公账户为{0}到{1}个数字")
+}
+}),C.rules("add",{
+required:s,
+equalTo:{
+param:q,
+depends:function(){
+return s();
+}
+},
+messages:{
+required:"请再次输入对公账户",
+equalTo:"两次对公账户号码不一致"
+}
+}),D.rules("add",{
+required:s,
+messages:{
+required:"请选择开户地点"
+}
+}),T.rules("add",{
+required:s,
+messages:{
+required:"请选择开户地点"
+}
+}),z.rules("add",{
+bank_name:!0,
+messages:{
+bank_name:"请选择开户银行"
+}
+}),2==b.getData().contractor_type||3==b.getData().contractor_type||4==b.getData().contractor_type||1==b.getData().is_overseas?(t(1),
+m.checkbox("disabled",!0)):1==b.getData().contractor_type,m.checkbox("disabled",!0);
+}
+function u(e){
+b=e.model,p=$(e.form),S=$.extend(!1,S,e),M=!0,0!=b.getData().contractor_type&&(_(),
+o(),c(),l());
+}
+var b,p,m,v,f,y,g,k,h,j,w,x,q,C,D,T,z,A=(template.render,e("common/wx/Cgi.js"),e("biz_web/ui/checkbox.js"),
+e("biz_web/ui/dropdown.js")),M=(e("common/wx/Tips.js"),!1),S={},Z=e("register/data_bank_city.js"),B=!1;
+n.exports={
+init:u,
+selectType:t,
+onlyType:i,
+showSelectType:d,
+hideSelectType:r
+};
+});define("biz_web/ui/checkbox.js",["tpl/biz_web/ui/checkbox.html.js"],function(t){
+"use strict";
+function e(t){
+var e=$(t);
+e.each(function(){
+var t=$(this),e=t.prop("checked"),n=t.parent();
+e?n.addClass("selected"):n.removeClass("selected");
+});
+}
+function n(t){
+var e=$(t);
+e.each(function(){
+var t=$(this).prop("disabled"),e=$(this).parent();
+t?e.addClass("disabled"):e.removeClass("disabled");
+});
+}
+function i(){
+return"checkbox"+s++;
+}
+var a={
+container:null,
+label:"",
+name:"",
+type:"checkbox"
+},c=t("tpl/biz_web/ui/checkbox.html.js"),r=wx.T,s=1,o=1,p=function(t){
+this.options=$.extend(!0,{},a,t),this.options.index=o++,this.$container=$(this.options.container),
+this.$dom=$(r(c,this.options)).appendTo(this.$container),this.$input=this.$dom.find("input"),
+this.$input.checkbox();
+};
+return p.prototype={
+checked:function(t){
+return"undefined"!=typeof t&&(this.$input.prop("checked",t),e(this.$input)),this.$input.prop("checked");
+},
+disabled:function(t){
+return"undefined"!=typeof t&&(this.$input.prop("disabled",t),n(this.$input)),this.$input.prop("disabled");
+}
+},$.fn.checkbox=function(t){
+var a,c,r,s,o=!1;
+"boolean"==typeof t?a=t:$.isPlainObject(t)?(a=t.multi,c=t.onChanged):"string"==typeof t?(o=!0,
+r=t,s=[].slice.call(arguments,1)):"undefined"==typeof t&&(t={}),"undefined"==typeof a&&(a=this.is("input[type=checkbox]"));
+var p=this,d=a?"checkbox":"radio",h={
+checked:function(t){
+return p.attr("checked",t),p.prop("checked",t),e(p),p;
+},
+disabled:function(t){
+return p.attr("disabled",t),p.prop("disabled",t),n(p),p;
+},
+value:function(){
+var t=p.eq(0);
+return t.prop("checked")?t.val():"";
+},
+values:function(){
+var t=[];
+return p.each(function(){
+$(this).prop("checked")&&t.push($(this).val());
+}),t;
+},
+adjust:function(t){
+var n;
+return n="string"==typeof t?t.split(","):t,n&&n.length>0&&p.each(function(){
+var t=$(this);
+n.indexOf(t.val())>=0&&(t.attr("checked",!0),e(t));
+}),this;
+},
+disable:function(t){
+var e;
+return e="string"==typeof t?t.split(","):t,e&&e.length>0&&p.each(function(){
+var t=$(this);
+e.indexOf(t.val())>=0&&(t.attr("disabled",!0),n(t));
+}),this;
+},
+setall:function(t){
+p.each(function(){
+var e=$(this);
+e.attr("disabled",t?!1:!0),n(e);
+});
+},
+enable:function(t){
+var e;
+return e="string"==typeof t?t.split(","):t,e&&e.length>0&&p.each(function(){
+var t=$(this);
+e.indexOf(t.val())>=0&&(t.attr("disabled",!1),n(t));
+}),this;
+},
+label:function(t){
+return t&&(p.parent().find(".lbl_content").text(t),p.attr("data-label",t)),p;
+}
+};
+return o&&"function"==typeof h[r]?h[r].apply(h,s):(this.addClass("frm_"+d).each(function(){
+var t=$(this),e=t.parent();
+if(!e.is("label")){
+var n=t.attr("data-label")||"";
+e=$('<label class="frm_{type}_label"><i class="icon_{type}"></i></label>'.format({
+type:d
+})).append("<span class='lbl_content'>{content}</span>".format({
+content:n.html(!0)
+})),e.insertBefore(t).prepend(t);
+}
+if(!this.id){
+var a=i();
+this.id=a;
+}
+e.attr("for",this.id);
+}),e(this),n(this),t&&t.initOnChanged&&"function"==typeof c&&p.parent().find("input[type=checkbox],input[type=radio]").each(function(){
+c.call(h,$(this));
+}),this.parent().delegate("input[type=checkbox],input[type=radio]","click",function(){
+var t=$(this),n=t.prop("checked");
+a?(t.attr("checked",n),e(t)):(p.attr("checked",!1),t.attr("checked",!0).prop("checked",!0),
+e(p)),"function"==typeof c&&c.call(h,t);
+}).addClass("frm_"+d+"_label"),h);
+},p;
+});define("register/mod/mod_operator.js",["common/wx/Cgi.js","common/wx/region.js","common/wx/overseasList.js","biz_web/ui/dropdown.js","common/wx/Tips.js"],function(e,a,r){
+"use strict";
+function t(){
+var e=(new Date).getTime(),a=Math.floor((e-q)/1e3);
+v&&clearTimeout(v),a>=60?(_.prop("readonly",!1),O=!0,h.html("发送验证码").enable()):(_.prop("readonly",!0),
+O=!1,h.disable().html("%s秒后可重发".sprintf(60-a)),v=setTimeout(t,1e3));
+}
+function n(){
+return p.val();
+}
+function i(){
+return g.val();
+}
+function o(e){
+for(var a in e){
+var r=f.find('input[name="'+a+'"]').parents(".js_field");
+"remove"==e[a]?r.remove():"hide"==e[a]&&r.hide();
+}
+}
+function s(){
+p=f.find('input[name="operator_name"]'),g=f.find('input[name="operator_idcard"]'),
+_=f.find('input[name="operator_mobile"]'),b=f.find('input[name="verify_code"]'),
+h=f.find("#js_btn_send_mobile");
+}
+function d(){
+1==m.getData().is_overseas&&(new k({
+container:"#js_div_location",
+label:"国家",
+data:C,
+callback:function(e){
+return $("#js_input_country").val(e),T[e];
+},
+render:function(e){
+return'<li class="dropdown_data_item"><a onclick="return false;" href="javascript:;" class="jsDropdownItem" data-value="'+e.value+'" data-mobilePrefix="'+T[e.value]+'" data-name="'+e.name+'">'+e.name+"</a></li>";
+}
+}),$('#js_div_location .jsDropdownList a[data-value="1017"]').trigger("click"));
+}
+function l(){
+p.on("keyup, blur",function(){
+x.mods.qrcheck.setOperatorName(p.val(),p.valid());
+}),""!=p.val()&&p.blur(),g.on("keyup, blur",function(){
+m.getData().is_overseas?x.mods.qrcheck.setOperatorIdcard(g.val(),!0):x.mods.qrcheck.setOperatorIdcard(g.val(),g.valid());
+}),""!=g.val()&&g.blur(),_.on("keyup, blur",function(){
+_.valid()?h.enable():h.disable();
+}),""!=_.val()&&h.enable(),h.on("click",function(){
+if(h.hasClass("btn_disabled"))return!1;
+if(!_.valid())return h.disable(),!1;
+if(1==m.getData().is_overseas&&!$("#js_input_country").val())return y.err("请选择国家/地区"),
+!1;
+var e="";
+1==m.getData().is_overseas?e=T[$("#js_input_country").val()]?T[$("#js_input_country").val()]+$.trim(_.val()):"+86"+$.trim(_.val()):m.getData().is_overseas||(e="+86"+$.trim(_.val())),
+q=(new Date).getTime(),t(),j.post({
+url:"/wxopen/waformbyticket",
+data:{
+mobile:e
+},
+mask:!1
+},function(e){
+if(!e||!e.base_resp)return q=0,void j.handleRet(e,{
+id:"64430",
+key:"4",
+msg:"验证码发送失败"
+});
+var a=+e.base_resp.ret;
+if(0==a)y.suc("验证码已经发送");else{
+switch(a){
+case-101:
+y.err("请输入和所选国家/地区一致的手机号码");
+break;
+
+case 200013:
+y.err("登录超时，请重新登录");
+break;
+
+case 210035:
+y.err("该手机已经登记过5次，请使用别的手机号进行用户信息登记");
+break;
+
+default:
+j.handleRet(e,{
+id:"64430",
+key:"4",
+msg:"验证码发送失败"
+});
+}
+q=0;
+}
+});
+});
+}
+function u(){
+p.length>0&&p.rules("add",{
+required:!0,
+rangelength:[1,20],
+messages:{
+required:"请填写姓名",
+rangelength:$.validator.format("姓名为{0}到{1}个中英文")
+}
+}),m.getData().is_overseas?1==m.getData().is_overseas&&($.validator.addMethod("overeas_mobile",function(e){
+return e=$.trim(e),/^\d+$/.test(e);
+},"请输入正确的手机号码"),g.length>0&&g.rules("add",{
+required:!0,
+messages:{
+required:"请输入正确的证件号码"
+}
+}),_.length>0&&_.rules("add",{
+required:!0,
+overeas_mobile:!0,
+messages:{
+required:"请输入正确的手机号码",
+overeas_mobile:"请输入正确的手机号码"
+}
+})):(g.length>0&&g.rules("add",{
+idcard:!0,
+messages:{
+idcard:"身份证格式不正确，或者年龄未满18周岁，请重新填写。"
+}
+}),_.length>0&&_.rules("add",{
+mobile:{
+depends:function(){
+return 1==m.getData().is_overseas?!1:!0;
+}
+},
+messages:{
+mobile:"请输入正确的手机号码"
+}
+}),_.length>0&&_.rules("add",{
+mobile:{
+depends:function(){
+return 1==m.getData().is_overseas?!1:!0;
+}
+},
+messages:{
+idcard:"请输入正确的手机号码"
+}
+})),b.length>0&&b.rules("add",{
+verifycode:!0,
+messages:{
+verifycode:"验证码应为6位数字"
+}
+});
+}
+function c(e){
+m=e.model,f=$(e.form),x=$.extend(!1,x,e),D=!0,s(),d(),l(),u();
+}
+var m,v,f,p,g,_,b,h,j=(template.render,e("common/wx/Cgi.js")),w=(e("common/wx/region.js"),
+e("common/wx/overseasList.js")),k=e("biz_web/ui/dropdown.js"),y=e("common/wx/Tips.js"),D=!1,x={},q=0,O=!0,T=w.mobilePrefix,C=(w.countryCode,
+w.countryDropdownOptions);
+r.exports={
+init:c,
+setFields:o,
+getOperatorName:n,
+getOperatorIdcard:i
+};
+});define("register/mod/mod_qrcheck.js",["common/wx/Cgi.js","common/wx/Tips.js","common/wx/qrcheck.js"],function(e,n,t){
+"use strict";
+function c(e,n){
+O=e,M=n,i();
+}
+function o(e,n){
+C=e,S=n,i();
+}
+function r(e,n){
+D=e,b=n,i();
+}
+function a(){
+return q.val();
+}
+function i(){
+s(),M&&S&&b&&(clearTimeout(I),I=setTimeout(function(){
+v.hide(),k.show();
+var e={
+container:k,
+container_class:"qr_pop_check",
+cgiURI:"/wxopen/waqrcode",
+size:120,
+data:{
+auth_type:p.getData().is_overseas?59:40,
+uid:C,
+name:O,
+subject:D,
+info:JSON.stringify({
+name:O,
+subject:D,
+idcard:C,
+contractorType:p.getData().contractorType
+})
+},
+msgData:{
+name:"管理员"
+},
+showImgInfo:!1,
+askSpeed:5,
+askMaxNum:60,
+onSuccess:function(e){
+g.val("1"),q.val(e);
+},
+onFail:function(e,n){
+g.val(n),q.val("");
+},
+onTimeout:function(){
+g.val("0"),q.val("");
+},
+onMsgUpdate:function(e,n){
+var t=void 0;
+return $("#tpl_qrcheck_ret_"+n).length>0&&(t=w("tpl_qrcheck_ret_"+n,{
+operatorName:O,
+contractorName:D
+})),t;
+}
+},n=$.extend(!0,e,y);
+N=new j.init(n),N.load();
+},500));
+}
+function s(){
+clearTimeout(I),N&&N.destroy(),v.show(),k.html("").hide(),q.val(""),g.val("");
+}
+function u(e){
+y=e||{};
+}
+function d(){
+k=_.find("#js_div_qrcheck"),v=_.find("#js_div_qrcheck_none"),q=_.find('input[name="qrcheck_ticket"]'),
+g=_.find('input[name="qrcheck_status"]');
+}
+function m(){
+v.show(),k.hide();
+}
+function f(){}
+function l(){
+$.validator.addMethod("qrcheck",function(){
+return"1"==g.val()?!0:!1;
+}),g.rules("add",{
+qrcheck:!0,
+messages:{
+qrcheck:"请扫描二维码验证管理员身份"
+}
+}),q.rules("add",{
+required:!0,
+messages:{
+required:"请完善管理员身份信息"
+}
+});
+}
+function h(e){
+p=e.model,_=$(e.form),T=$.extend(!1,T,e),x=!0,d(),m(),f(),l();
+}
+var p,_,k,v,q,g,w=template.render,j=(e("common/wx/Cgi.js"),e("common/wx/Tips.js"),
+e("common/wx/qrcheck.js")),x=!1,T={},N=null,y={},I=null,O="",C="",D="",M=!1,S=!1,b=!1;
+t.exports={
+init:h,
+setQrcheckOpt:u,
+getTicket:a,
+setOperatorIdcard:o,
+setOperatorName:c,
+setContractorName:r
+};
+});define("register/mod/mod_file_upload.js",["common/wx/Cgi.js","common/wx/Tips.js","common/wx/upload.js"],function(e,i,n){
+"use strict";
+function t(){
+m.find(".js_select_file").each(function(){
+var e=$(this).attr("id"),i=l[e];
+i||(i={
+width:0,
+min_width:0,
+height:0,
+min_height:0,
+size:0,
+min_size:0
+});
+var n=_.uploadTmpFileWithCheck(i);
+!function(e){
+n({
+container:"#"+e,
+multi:!1,
+type:2,
+accept:{
+extensions:"bmp,jpeg,jpg,png",
+mimeTypes:"image/*"
+},
+width:106,
+onComplete:function(i,n,t,o){
+var r=o.content||"";
+0==o.base_resp.ret?($("#"+e+"_preview").html('<img style="width:200px;" src="%s">'.sprintf(_.tmpFileUrl(r))),
+$("#"+e+"_hidden").val("temp_"+r),$("#"+e+"_hidden").parent().parent().find(".fail").remove(),
+s.suc("上传成功")):s.err(200010==o.base_resp.ret?"图片太大":200011==o.base_resp.ret?"请上传合法的图片格式":200034==o.base_resp.ret?"图片尺寸错误":"上传失败");
+}
+});
+}(e);
+});
+}
+function o(){
+l={
+operator_idcard_copy:{
+width:0,
+min_width:256,
+height:0,
+min_height:256,
+size:0,
+min_size:0
+},
+operator_idcard_copy_back:{
+width:0,
+min_width:256,
+height:0,
+min_height:256,
+size:0,
+min_size:0
+}
+};
+}
+function r(){}
+function d(){}
+function a(){
+var e={
+required:!0,
+messages:{
+required:"未选择文件"
+}
+};
+m.find('input[name="credential_copy"]').length>0&&m.find('input[name="credential_copy"]').rules("add",e),
+m.find('input[name="operator_idcard_copy"]').length>0&&m.find('input[name="operator_idcard_copy"]').rules("add",e),
+m.find('input[name="operator_idcard_copy_back"]').length>0&&m.find('input[name="operator_idcard_copy_back"]').rules("add",e);
+}
+function p(e){
+c=e.model,m=$(e.form),u=$.extend(!1,u,e),h=!0,o(),r(),d(),a();
+}
+var c,m,s=(template.render,e("common/wx/Cgi.js"),e("common/wx/Tips.js")),_=e("common/wx/upload.js"),h=!1,u={},l={};
+n.exports={
+init:p,
+initUpload:t
+};
+});define("register/mod/mod_form_step3.js",["common/wx/Cgi.js","common/wx/Tips.js","common/wx/overseasList.js","common/wx/subjectAppealDialog.js","common/wx/dialog.js","common/wx/popup.js","biz_common/moment.js"],function(e,t,a){
+"use strict";
+function n(){
+var e=b.serializeObject(),t={};
+for(var a in e)t[a]=$.trim(e[a]);
+return t.operator_mobile&&(/^\+/.test(t.operator_mobile)||0!=f.getData().is_overseas?t.mobile_country&&1==f.getData().is_overseas&&(t.operator_mobile=Y[t.mobile_country]+t.operator_mobile):t.operator_mobile="+86"+t.operator_mobile),
+t.name&&(t.name=o(t.name)),0==f.getData().contractor_type&&(t.name=t.operator_name,
+t.credential=t.operator_idcard),t.is_overseas=f.getData().is_overseas,t.registered_country=f.getData().registered_country,
+t;
+}
+function o(e){
+return e&&(e=e.replace("（","(").replace("）",")")),e;
+}
+function r(e,t){
+var a=b.validate(),n={},o=b.find('input[name="'+e+'"]');
+o.length&&(n[e]=t,""!=t?(n[e]=t,setTimeout(function(){
+a.showErrors(n);
+},1)):o.valid());
+}
+function i(e){
+$("#js_err_contractor_type").show().find(".frm_msg_content").html(e);
+}
+function s(e){
+var t="";
+switch(e.contractor_name_type){
+case 1:
+t="你的主体已认证为企业类型，请选择正确的主体类型",1==f.getData().contractor_type?void 0!==f.getData().is_individual&&1==f.getData().is_individual?r("is_individual",t):r("is_individual",""):i(t);
+break;
+
+case 2:
+t="你的主体已认证为个体工商户类型，请选择正确的企业类型",1==f.getData().contractor_type?void 0!==f.getData().is_individual&&1!=f.getData().is_individual?r("is_individual",t):r("is_individual",""):i(t);
+break;
+
+case 3:
+default:
+i(""),r("is_individual","");
+}
+if(1==e.is_limited?(t=1==f.getData().contractor_type&&1==f.getData().is_individual?"个体工商户最多只能开通5个帐号，该主体已达到注册上限":"该主体注册数量已超过上限，不能使用该主体注册新的公众号",
+r("name",t)):r("name",""),1==f.getData().contractor_type)switch(T.mods.bank.showSelectType(),
+e.allowed_register_type){
+case 0:
+T.mods.bank.onlyType(-1);
+break;
+
+case 1:
+T.mods.bank.onlyType(1);
+break;
+
+case 2:
+T.mods.bank.onlyType(2);
+}
+}
+function c(e){
+var t=e.base_resp.ret;
+switch(t){
+case-22:
+w.err("由于提交多次虚假或违规信息，该身份证号已被禁止注册");
+break;
+
+case-34:
+w.err("该身份证已登记过5次，请使用另一个身份证完成用户信息登记");
+break;
+
+case-35:
+w.err("该手机已经登记过5次，请使用另一个手机号进行用户信息登记");
+break;
+
+case-36:
+r("name","该主体注册数量已超过上限，不能使用该主体注册新的公众号");
+break;
+
+case-37:
+w.err("该微信号已绑定5个管理员，请使用另一个微信号完成用户信息登记");
+break;
+
+case-101:
+w.err("请输入和所选国家/地区一致的手机号码");
+break;
+
+case 25:
+w.err("未满18周岁，不能申请");
+break;
+
+case 200700:
+new D({
+reason:e.reason,
+canAppeal:!e.ban_appeal,
+jumpUrl:wx.url("/wxopen/contractorappeal?action=index"),
+appealTicket:e.appeal_ticket
+});
+break;
+
+case 200002:
+w.err("参数错误，提交失败");
+break;
+
+case 200003:
+w.err("登录超时，请重新登录。");
+break;
+
+case 200024:
+w.err("手机验证码错误");
+break;
+
+case 201e3:
+w.err("二维码身份验证失败，请重新扫描二维码");
+break;
+
+case 8:
+case 9:
+case 10:
+case 11:
+case 12:
+case 510001:
+case 510002:
+$("#tpl_step3_result_blacklist").popup({
+width:600,
+data:{
+ret:t
+},
+buttons:[{
+text:"确定",
+type:"primary",
+click:function(){
+this.remove();
+}
+}],
+mask:!0,
+onHide:function(){
+this.remove();
+}
+});
+break;
+
+case 504002:
+s(e);
+break;
+
+default:
+y.handleRet(e,{
+id:"64430",
+key:"5"
+});
+}
+}
+function p(){
+g.btn(0);
+var e=n();
+y.post({
+url:"/wxopen/wacontractorpage",
+data:e,
+mask:!1
+},function(t){
+g.btn(1);
+var a=t.base_resp.ret,n=wx.url("/wxopen/home");
+if(2==f.getData().register_type&&(n=wx.url("/wxopen/wacontractorpage?action=remit_verify")),
+0==a)if(1==f.getData().refill){
+var o="#tpl_refill_result_ok";
+0==f.getData().contractor_type&&(o="#tpl_refill_result_pending"),$(o).popup({
+title:"信息提交成功",
+width:600,
+data:f.getData(),
+buttons:[{
+text:"前往微信公众平台",
+type:"primary",
+click:function(){
+location.href=n;
+}
+}],
+onHide:function(){
+location.href=n;
+},
+onShow:function(){}
+});
+}else{
+f.setData(function(a){
+a.url=n,a.token=t.token,a.account=e.account,a.checkStartDate=x().format("YYYY年MM月DD日"),
+a.checkOverDate=x().add("d",9).format("YYYY年MM月DD日"),a.invade_type=t.invade_type;
+});
+var o="#tpl_step3_result_normal",r=1==f.getData().register_type?"前往小程序":"前往获取打款信息";
+0==f.getData().contractor_type&&(o="#tpl_step3_result_person",r="前往小程序"),$(o).popup({
+title:"提示",
+width:600,
+data:f.getData(),
+buttons:[{
+text:r,
+type:"primary",
+click:function(){
+location.href=n;
+}
+}],
+onHide:function(){
+location.href=n;
+},
+onShow:function(){}
+});
+}else c(t);
+});
+}
+function l(){
+v=b.find('input[name="name"]'),k=b.find('input[name="register_type_select"]'),g=b.find(".js_btn_submit");
+}
+function d(){}
+function m(){
+b.on("submit",function(){
+if(0==b.valid())return!1;
+var e=n();
+f.setData(function(t){
+t=$.extend(!1,t,e);
+});
+var t="#tpl_step3_submit_normal";
+4==f.getData().service_type&&(t="#tpl_step3_submit_enterprise");
+$(t).popup({
+title:"提示",
+width:600,
+data:e,
+close:function(){
+this.remove();
+},
+buttons:[{
+text:"确定",
+type:"primary",
+click:function(){
+this.remove(),p();
+}
+},{
+text:"取消",
+click:function(){
+this.remove();
+}
+}]
+});
+return!1;
+});
+v.on("blur",function(){
+var e=$.trim(v.val());
+return""==e?void(T.mods.bank&&T.mods.bank.hideSelectType()):(0==f.getData().is_overseas&&T.mods.bank&&T.mods.bank.showSelectType(),
+void y.post({
+url:"/wxopen/wacontractorpage",
+data:{
+action:"check_principal_name",
+is_individual:f.getData().is_individual||0,
+principal_name:o(e)
+},
+mask:!1
+},function(e){
+var t=e.base_resp.ret;
+switch(t){
+case 504002:
+s(e);
+break;
+
+case-36:
+r("name","该主体注册数量已超过上限，不能使用该主体注册新的公众号");
+break;
+
+case 0:
+default:
+0==f.getData().is_overseas?(T.mods.bank&&T.mods.bank.onlyType(-1),T.mods.bank&&T.mods.bank.showSelectType()):T.mods.bank&&T.mods.bank.onlyType(1),
+i(""),r("name",""),r("is_individual","");
+}
+}));
+});
+}
+function u(){
+$.validator.addMethod("rangelen",function(e,t,a){
+e=$.trim(e)+"";
+var n=a[0],o=a[1];
+return e.len()>=n&&e.len()<=o;
+},"字数必须在{0}到{1}之间"),$.validator.addMethod("is_organization_code",function(e){
+return 1==/^[\d|A-Z]{8}\-[\d|A-Z]$/.test(e)?!0:1==/^[\d|A-Z]{18}$/.test(e)?!0:!1;
+}),$.validator.addMethod("is_ent_code",function(e){
+var t=e.length;
+return 13!=t&&15!=t&&18!=t?!1:0==/^[0-9a-zA-Z]+$/.test(e)?!1:!0;
+}),b.validate({
+ignore:"",
+rules:{},
+messages:{},
+errorPlacement:function(e,t){
+if(t.hasClass("js_input_tips_on_top"))return void w.err(e[0].innerText);
+var a=t.parent().parent(),n=a.find(".frm_tips");
+a.find(".fail").remove(),n.length?e.insertBefore(n):a.append(e);
+}
+});
+}
+function _(e){
+f=e.model,b=$(e.form),T=$.extend(!1,T,e),j=!0,l(),d(),m(),u();
+}
+var f,b,v,k,g,y=(template.render,e("common/wx/Cgi.js")),w=e("common/wx/Tips.js"),h=e("common/wx/overseasList.js"),D=e("common/wx/subjectAppealDialog.js"),x=(e("common/wx/dialog.js"),
+e("common/wx/popup.js"),e("biz_common/moment.js")),j=!1,T={},Y=h.mobilePrefix;
+a.exports={
+init:_
+};
+});define("tpl/biz_web/ui/dropdown.html.js",[],function(){
+return'<a href="javascript:;" class="btn dropdown_switch jsDropdownBt"><label class="jsBtLabel" {if search}contenteditable="true"{/if}>{label}</label><i class="arrow"></i></a>\n<div class="dropdown_data_container jsDropdownList">\n    <ul class="dropdown_data_list">\n        {if renderHtml}\n        {=renderHtml}\n        {else}\n            {each data as o index}\n            <li class="dropdown_data_item {if o.className}{o.className}{/if}">  \n                <a onclick="return false;" href="javascript:;" class="jsDropdownItem" data-value="{o.value}" data-index="{index}" data-name="{o.name}">{o.name}</a>\n            </li>\n            {/each}        \n        {/if}\n    </ul>\n</div>\n';
+});define("tpl/popup.html.js",[],function(){
+return'<div class="dialog_wrp {className}" style="{if width}width:{width}px;{/if}{if height}height:{height}px;{/if}">\n	<div class="dialog">\n		<div class="dialog_hd">\n			<h3>{title}</h3>\n			<!--#0001#-->\n			<a href="javascript:;" onclick="return false" class="icon16_opr closed pop_closed">关闭</a>\n			<!--%0001%-->\n		</div>\n		<div class="dialog_bd">{=content}</div>\n		{if buttons && buttons.length}\n		<div class="dialog_ft">\n			{each buttons as bt index}\n            <span class="btn {bt.type} btn_input js_btn_p"><button type="button" class="js_btn" data-index="{index}">{bt.text}</button></span>\n	        {/each}\n		</div>\n		{/if}\n	</div>\n</div>{if mask}<div class="mask"><iframe frameborder="0" style="filter:progid:DXImageTransform.Microsoft.Alpha(opacity:0);position:absolute;top:0px;left:0px;width:100%;height:100%;" src="about:blank"></iframe></div>{/if}\n';
+});define("biz_common/jquery.ui/jquery.ui.draggable.js",[],function(){
+!function(t,e){
+function i(e,i){
+var o,n,r,a=e.nodeName.toLowerCase();
+return"area"===a?(o=e.parentNode,n=o.name,e.href&&n&&"map"===o.nodeName.toLowerCase()?(r=t("img[usemap=#"+n+"]")[0],
+!!r&&s(r)):!1):(/input|select|textarea|button|object/.test(a)?!e.disabled:"a"===a?e.href||i:i)&&s(e);
+}
+function s(e){
+return t.expr.filters.visible(e)&&!t(e).parents().addBack().filter(function(){
+return"hidden"===t.css(this,"visibility");
+}).length;
+}
+var o=0,n=/^ui-id-\d+$/;
+t.ui=t.ui||{},t.extend(t.ui,{
+version:"1.10.3"
+}),t.fn.extend({
+focus:function(e){
+return function(i,s){
+return"number"==typeof i?this.each(function(){
+var e=this;
+setTimeout(function(){
+t(e).focus(),s&&s.call(e);
+},i);
+}):e.apply(this,arguments);
+};
+}(t.fn.focus),
+scrollParent:function(){
+var e;
+return e=t.ui.ie&&/(static|relative)/.test(this.css("position"))||/absolute/.test(this.css("position"))?this.parents().filter(function(){
+return/(relative|absolute|fixed)/.test(t.css(this,"position"))&&/(auto|scroll)/.test(t.css(this,"overflow")+t.css(this,"overflow-y")+t.css(this,"overflow-x"));
+}).eq(0):this.parents().filter(function(){
+return/(auto|scroll)/.test(t.css(this,"overflow")+t.css(this,"overflow-y")+t.css(this,"overflow-x"));
+}).eq(0),/fixed/.test(this.css("position"))||!e.length?t(document):e;
+},
+zIndex:function(i){
+if(i!==e)return this.css("zIndex",i);
+if(this.length)for(var s,o,n=t(this[0]);n.length&&n[0]!==document;){
+if(s=n.css("position"),("absolute"===s||"relative"===s||"fixed"===s)&&(o=parseInt(n.css("zIndex"),10),
+!isNaN(o)&&0!==o))return o;
+n=n.parent();
+}
+return 0;
+},
+uniqueId:function(){
+return this.each(function(){
+this.id||(this.id="ui-id-"+ ++o);
+});
+},
+removeUniqueId:function(){
+return this.each(function(){
+n.test(this.id)&&t(this).removeAttr("id");
+});
+}
+}),t.extend(t.expr[":"],{
+data:t.expr.createPseudo?t.expr.createPseudo(function(e){
+return function(i){
+return!!t.data(i,e);
+};
+}):function(e,i,s){
+return!!t.data(e,s[3]);
+},
+focusable:function(e){
+return i(e,!isNaN(t.attr(e,"tabindex")));
+},
+tabbable:function(e){
+var s=t.attr(e,"tabindex"),o=isNaN(s);
+return(o||s>=0)&&i(e,!o);
+}
+}),t.extend(t.ui,{
+plugin:{
+add:function(e,i,s){
+var o,n=t.ui[e].prototype;
+for(o in s)n.plugins[o]=n.plugins[o]||[],n.plugins[o].push([i,s[o]]);
+},
+call:function(t,e,i){
+var s,o=t.plugins[e];
+if(o&&t.element[0].parentNode&&11!==t.element[0].parentNode.nodeType)for(s=0;s<o.length;s++)t.options[o[s][0]]&&o[s][1].apply(t.element,i);
+}
+},
+hasScroll:function(e,i){
+if("hidden"===t(e).css("overflow"))return!1;
+var s=i&&"left"===i?"scrollLeft":"scrollTop",o=!1;
+return e[s]>0?!0:(e[s]=1,o=e[s]>0,e[s]=0,o);
+}
+});
+}(jQuery),function(t,e){
+var i=0,s=Array.prototype.slice,o=t.cleanData;
+t.cleanData=function(e){
+for(var i,s=0;null!=(i=e[s]);s++)try{
+t(i).triggerHandler("remove");
+}catch(n){}
+o(e);
+},t.widget=function(e,i,s){
+var o,n,r,a,l={},h=e.split(".")[0];
+e=e.split(".")[1],o=h+"-"+e,s||(s=i,i=t.Widget),t.expr[":"][o.toLowerCase()]=function(e){
+return!!t.data(e,o);
+},t[h]=t[h]||{},n=t[h][e],r=t[h][e]=function(t,e){
+return this._createWidget?void(arguments.length&&this._createWidget(t,e)):new r(t,e);
+},t.extend(r,n,{
+version:s.version,
+_proto:t.extend({},s),
+_childConstructors:[]
+}),a=new i,a.options=t.widget.extend({},a.options),t.each(s,function(e,s){
+return t.isFunction(s)?void(l[e]=function(){
+var t=function(){
+return i.prototype[e].apply(this,arguments);
+},o=function(t){
+return i.prototype[e].apply(this,t);
+};
+return function(){
+var e,i=this._super,n=this._superApply;
+return this._super=t,this._superApply=o,e=s.apply(this,arguments),this._super=i,
+this._superApply=n,e;
+};
+}()):void(l[e]=s);
+}),r.prototype=t.widget.extend(a,{
+widgetEventPrefix:n?a.widgetEventPrefix:e
+},l,{
+constructor:r,
+namespace:h,
+widgetName:e,
+widgetFullName:o
+}),n?(t.each(n._childConstructors,function(e,i){
+var s=i.prototype;
+t.widget(s.namespace+"."+s.widgetName,r,i._proto);
+}),delete n._childConstructors):i._childConstructors.push(r),t.widget.bridge(e,r);
+},t.widget.extend=function(i){
+for(var o,n,r=s.call(arguments,1),a=0,l=r.length;l>a;a++)for(o in r[a])n=r[a][o],
+r[a].hasOwnProperty(o)&&n!==e&&(i[o]=t.isPlainObject(n)?t.isPlainObject(i[o])?t.widget.extend({},i[o],n):t.widget.extend({},n):n);
+return i;
+},t.widget.bridge=function(i,o){
+var n=o.prototype.widgetFullName||i;
+t.fn[i]=function(r){
+var a="string"==typeof r,l=s.call(arguments,1),h=this;
+return r=!a&&l.length?t.widget.extend.apply(null,[r].concat(l)):r,this.each(a?function(){
+var s,o=t.data(this,n);
+return o?t.isFunction(o[r])&&"_"!==r.charAt(0)?(s=o[r].apply(o,l),s!==o&&s!==e?(h=s&&s.jquery?h.pushStack(s.get()):s,
+!1):void 0):t.error("no such method '"+r+"' for "+i+" widget instance"):t.error("cannot call methods on "+i+" prior to initialization; attempted to call method '"+r+"'");
+}:function(){
+var e=t.data(this,n);
+e?e.option(r||{})._init():t.data(this,n,new o(r,this));
+}),h;
+};
+},t.Widget=function(){},t.Widget._childConstructors=[],t.Widget.prototype={
+widgetName:"widget",
+widgetEventPrefix:"",
+defaultElement:"<div>",
+options:{
+disabled:!1,
+create:null
+},
+_createWidget:function(e,s){
+s=t(s||this.defaultElement||this)[0],this.element=t(s),this.uuid=i++,this.eventNamespace="."+this.widgetName+this.uuid,
+this.options=t.widget.extend({},this.options,this._getCreateOptions(),e),this.bindings=t(),
+this.hoverable=t(),this.focusable=t(),s!==this&&(t.data(s,this.widgetFullName,this),
+this._on(!0,this.element,{
+remove:function(t){
+t.target===s&&this.destroy();
+}
+}),this.document=t(s.style?s.ownerDocument:s.document||s),this.window=t(this.document[0].defaultView||this.document[0].parentWindow)),
+this._create(),this._trigger("create",null,this._getCreateEventData()),this._init();
+},
+_getCreateOptions:t.noop,
+_getCreateEventData:t.noop,
+_create:t.noop,
+_init:t.noop,
+destroy:function(){
+this._destroy(),this.element.unbind(this.eventNamespace).removeData(this.widgetName).removeData(this.widgetFullName).removeData(t.camelCase(this.widgetFullName)),
+this.widget().unbind(this.eventNamespace).removeAttr("aria-disabled").removeClass(this.widgetFullName+"-disabled ui-state-disabled"),
+this.bindings.unbind(this.eventNamespace),this.hoverable.removeClass("ui-state-hover"),
+this.focusable.removeClass("ui-state-focus");
+},
+_destroy:t.noop,
+widget:function(){
+return this.element;
+},
+option:function(i,s){
+var o,n,r,a=i;
+if(0===arguments.length)return t.widget.extend({},this.options);
+if("string"==typeof i)if(a={},o=i.split("."),i=o.shift(),o.length){
+for(n=a[i]=t.widget.extend({},this.options[i]),r=0;r<o.length-1;r++)n[o[r]]=n[o[r]]||{},
+n=n[o[r]];
+if(i=o.pop(),s===e)return n[i]===e?null:n[i];
+n[i]=s;
+}else{
+if(s===e)return this.options[i]===e?null:this.options[i];
+a[i]=s;
+}
+return this._setOptions(a),this;
+},
+_setOptions:function(t){
+var e;
+for(e in t)this._setOption(e,t[e]);
+return this;
+},
+_setOption:function(t,e){
+return this.options[t]=e,"disabled"===t&&(this.widget().toggleClass(this.widgetFullName+"-disabled ui-state-disabled",!!e).attr("aria-disabled",e),
+this.hoverable.removeClass("ui-state-hover"),this.focusable.removeClass("ui-state-focus")),
+this;
+},
+enable:function(){
+return this._setOption("disabled",!1);
+},
+disable:function(){
+return this._setOption("disabled",!0);
+},
+_on:function(e,i,s){
+var o,n=this;
+"boolean"!=typeof e&&(s=i,i=e,e=!1),s?(i=o=t(i),this.bindings=this.bindings.add(i)):(s=i,
+i=this.element,o=this.widget()),t.each(s,function(s,r){
+function a(){
+return e||n.options.disabled!==!0&&!t(this).hasClass("ui-state-disabled")?("string"==typeof r?n[r]:r).apply(n,arguments):void 0;
+}
+"string"!=typeof r&&(a.guid=r.guid=r.guid||a.guid||t.guid++);
+var l=s.match(/^(\w+)\s*(.*)$/),h=l[1]+n.eventNamespace,c=l[2];
+c?o.delegate(c,h,a):i.bind(h,a);
+});
+},
+_off:function(t,e){
+e=(e||"").split(" ").join(this.eventNamespace+" ")+this.eventNamespace,t.unbind(e).undelegate(e);
+},
+_delay:function(t,e){
+function i(){
+return("string"==typeof t?s[t]:t).apply(s,arguments);
+}
+var s=this;
+return setTimeout(i,e||0);
+},
+_hoverable:function(e){
+this.hoverable=this.hoverable.add(e),this._on(e,{
+mouseenter:function(e){
+t(e.currentTarget).addClass("ui-state-hover");
+},
+mouseleave:function(e){
+t(e.currentTarget).removeClass("ui-state-hover");
+}
+});
+},
+_focusable:function(e){
+this.focusable=this.focusable.add(e),this._on(e,{
+focusin:function(e){
+t(e.currentTarget).addClass("ui-state-focus");
+},
+focusout:function(e){
+t(e.currentTarget).removeClass("ui-state-focus");
+}
+});
+},
+_trigger:function(e,i,s){
+var o,n,r=this.options[e];
+if(s=s||{},i=t.Event(i),i.type=(e===this.widgetEventPrefix?e:this.widgetEventPrefix+e).toLowerCase(),
+i.target=this.element[0],n=i.originalEvent)for(o in n)o in i||(i[o]=n[o]);
+return this.element.trigger(i,s),!(t.isFunction(r)&&r.apply(this.element[0],[i].concat(s))===!1||i.isDefaultPrevented());
+}
+},t.each({
+show:"fadeIn",
+hide:"fadeOut"
+},function(e,i){
+t.Widget.prototype["_"+e]=function(s,o,n){
+"string"==typeof o&&(o={
+effect:o
+});
+var r,a=o?o===!0||"number"==typeof o?i:o.effect||i:e;
+o=o||{},"number"==typeof o&&(o={
+duration:o
+}),r=!t.isEmptyObject(o),o.complete=n,o.delay&&s.delay(o.delay),r&&t.effects&&t.effects.effect[a]?s[e](o):a!==e&&s[a]?s[a](o.duration,o.easing,n):s.queue(function(i){
+t(this)[e](),n&&n.call(s[0]),i();
+});
+};
+});
+}(jQuery),function(t){
+var e=!1;
+t(document).mouseup(function(){
+e=!1;
+}),t.widget("ui.mouse",{
+version:"1.10.3",
+options:{
+cancel:"input,textarea,button,select,option",
+distance:1,
+delay:0
+},
+_mouseInit:function(){
+var e=this;
+this.element.bind("mousedown."+this.widgetName,function(t){
+return e._mouseDown(t);
+}).bind("click."+this.widgetName,function(i){
+return!0===t.data(i.target,e.widgetName+".preventClickEvent")?(t.removeData(i.target,e.widgetName+".preventClickEvent"),
+i.stopImmediatePropagation(),!1):void 0;
+}),this.started=!1;
+},
+_mouseDestroy:function(){
+this.element.unbind("."+this.widgetName),this._mouseMoveDelegate&&t(document).unbind("mousemove."+this.widgetName,this._mouseMoveDelegate).unbind("mouseup."+this.widgetName,this._mouseUpDelegate);
+},
+_mouseDown:function(i){
+if(!e){
+this._mouseStarted&&this._mouseUp(i),this._mouseDownEvent=i;
+var s=this,o=1===i.which,n="string"==typeof this.options.cancel&&i.target.nodeName?t(i.target).closest(this.options.cancel).length:!1;
+return o&&!n&&this._mouseCapture(i)?(this.mouseDelayMet=!this.options.delay,this.mouseDelayMet||(this._mouseDelayTimer=setTimeout(function(){
+s.mouseDelayMet=!0;
+},this.options.delay)),this._mouseDistanceMet(i)&&this._mouseDelayMet(i)&&(this._mouseStarted=this._mouseStart(i)!==!1,
+!this._mouseStarted)?(i.preventDefault(),!0):(!0===t.data(i.target,this.widgetName+".preventClickEvent")&&t.removeData(i.target,this.widgetName+".preventClickEvent"),
+this._mouseMoveDelegate=function(t){
+return s._mouseMove(t);
+},this._mouseUpDelegate=function(t){
+return s._mouseUp(t);
+},t(document).bind("mousemove."+this.widgetName,this._mouseMoveDelegate).bind("mouseup."+this.widgetName,this._mouseUpDelegate),
+i.preventDefault(),e=!0,!0)):!0;
+}
+},
+_mouseMove:function(e){
+return t.ui.ie&&(!document.documentMode||document.documentMode<9)&&!e.button?this._mouseUp(e):this._mouseStarted?(this._mouseDrag(e),
+e.preventDefault()):(this._mouseDistanceMet(e)&&this._mouseDelayMet(e)&&(this._mouseStarted=this._mouseStart(this._mouseDownEvent,e)!==!1,
+this._mouseStarted?this._mouseDrag(e):this._mouseUp(e)),!this._mouseStarted);
+},
+_mouseUp:function(e){
+return t(document).unbind("mousemove."+this.widgetName,this._mouseMoveDelegate).unbind("mouseup."+this.widgetName,this._mouseUpDelegate),
+this._mouseStarted&&(this._mouseStarted=!1,e.target===this._mouseDownEvent.target&&t.data(e.target,this.widgetName+".preventClickEvent",!0),
+this._mouseStop(e)),!1;
+},
+_mouseDistanceMet:function(t){
+return Math.max(Math.abs(this._mouseDownEvent.pageX-t.pageX),Math.abs(this._mouseDownEvent.pageY-t.pageY))>=this.options.distance;
+},
+_mouseDelayMet:function(){
+return this.mouseDelayMet;
+},
+_mouseStart:function(){},
+_mouseDrag:function(){},
+_mouseStop:function(){},
+_mouseCapture:function(){
+return!0;
+}
+});
+}(jQuery),function(t){
+t.widget("ui.draggable",t.ui.mouse,{
+version:"1.10.3",
+widgetEventPrefix:"drag",
+options:{
+addClasses:!0,
+appendTo:"parent",
+axis:!1,
+connectToSortable:!1,
+containment:!1,
+cursor:"auto",
+cursorAt:!1,
+grid:!1,
+handle:!1,
+helper:"original",
+iframeFix:!1,
+opacity:!1,
+refreshPositions:!1,
+revert:!1,
+revertDuration:500,
+scope:"default",
+scroll:!0,
+scrollSensitivity:20,
+scrollSpeed:20,
+snap:!1,
+snapMode:"both",
+snapTolerance:20,
+stack:!1,
+zIndex:!1,
+drag:null,
+start:null,
+stop:null
+},
+_create:function(){
+"original"!==this.options.helper||/^(?:r|a|f)/.test(this.element.css("position"))||(this.element[0].style.position="relative"),
+this.options.addClasses&&this.element.addClass("ui-draggable"),this.options.disabled&&this.element.addClass("ui-draggable-disabled"),
+this._mouseInit();
+},
+_destroy:function(){
+this.element.removeClass("ui-draggable ui-draggable-dragging ui-draggable-disabled"),
+this._mouseDestroy();
+},
+_mouseCapture:function(e){
+var i=this.options;
+return this.helper||i.disabled||t(e.target).closest(".ui-resizable-handle").length>0?!1:(this.handle=this._getHandle(e),
+this.handle?(t(i.iframeFix===!0?"iframe":i.iframeFix).each(function(){
+t("<div class='ui-draggable-iframeFix' style='background: #fff;'></div>").css({
+width:this.offsetWidth+"px",
+height:this.offsetHeight+"px",
+position:"absolute",
+opacity:"0.001",
+zIndex:1e3
+}).css(t(this).offset()).appendTo("body");
+}),!0):!1);
+},
+_mouseStart:function(e){
+var i=this.options;
+return this.helper=this._createHelper(e),this.helper.addClass("ui-draggable-dragging"),
+this._cacheHelperProportions(),t.ui.ddmanager&&(t.ui.ddmanager.current=this),this._cacheMargins(),
+this.cssPosition=this.helper.css("position"),this.scrollParent=this.helper.scrollParent(),
+this.offsetParent=this.helper.offsetParent(),this.offsetParentCssPosition=this.offsetParent.css("position"),
+this.offset=this.positionAbs=this.element.offset(),this.offset={
+top:this.offset.top-this.margins.top,
+left:this.offset.left-this.margins.left
+},this.offset.scroll=!1,t.extend(this.offset,{
+click:{
+left:e.pageX-this.offset.left,
+top:e.pageY-this.offset.top
+},
+parent:this._getParentOffset(),
+relative:this._getRelativeOffset()
+}),this.originalPosition=this.position=this._generatePosition(e),this.originalPageX=e.pageX,
+this.originalPageY=e.pageY,i.cursorAt&&this._adjustOffsetFromHelper(i.cursorAt),
+this._setContainment(),this._trigger("start",e)===!1?(this._clear(),!1):(this._cacheHelperProportions(),
+t.ui.ddmanager&&!i.dropBehaviour&&t.ui.ddmanager.prepareOffsets(this,e),this._mouseDrag(e,!0),
+t.ui.ddmanager&&t.ui.ddmanager.dragStart(this,e),!0);
+},
+_mouseDrag:function(e,i){
+if("fixed"===this.offsetParentCssPosition&&(this.offset.parent=this._getParentOffset()),
+this.position=this._generatePosition(e),this.positionAbs=this._convertPositionTo("absolute"),
+!i){
+var s=this._uiHash();
+if(this._trigger("drag",e,s)===!1)return this._mouseUp({}),!1;
+this.position=s.position;
+}
+return this.options.axis&&"y"===this.options.axis||(this.helper[0].style.left=this.position.left+"px"),
+this.options.axis&&"x"===this.options.axis||(this.helper[0].style.top=this.position.top+"px"),
+t.ui.ddmanager&&t.ui.ddmanager.drag(this,e),!1;
+},
+_mouseStop:function(e){
+var i=this,s=!1;
+return t.ui.ddmanager&&!this.options.dropBehaviour&&(s=t.ui.ddmanager.drop(this,e)),
+this.dropped&&(s=this.dropped,this.dropped=!1),"original"!==this.options.helper||t.contains(this.element[0].ownerDocument,this.element[0])?("invalid"===this.options.revert&&!s||"valid"===this.options.revert&&s||this.options.revert===!0||t.isFunction(this.options.revert)&&this.options.revert.call(this.element,s)?t(this.helper).animate(this.originalPosition,parseInt(this.options.revertDuration,10),function(){
+i._trigger("stop",e)!==!1&&i._clear();
+}):this._trigger("stop",e)!==!1&&this._clear(),!1):!1;
+},
+_mouseUp:function(e){
+return t("div.ui-draggable-iframeFix").each(function(){
+this.parentNode.removeChild(this);
+}),t.ui.ddmanager&&t.ui.ddmanager.dragStop(this,e),t.ui.mouse.prototype._mouseUp.call(this,e);
+},
+cancel:function(){
+return this.helper.is(".ui-draggable-dragging")?this._mouseUp({}):this._clear(),
+this;
+},
+_getHandle:function(e){
+return this.options.handle?!!t(e.target).closest(this.element.find(this.options.handle)).length:!0;
+},
+_createHelper:function(e){
+var i=this.options,s=t.isFunction(i.helper)?t(i.helper.apply(this.element[0],[e])):"clone"===i.helper?this.element.clone().removeAttr("id"):this.element;
+return s.parents("body").length||s.appendTo("parent"===i.appendTo?this.element[0].parentNode:i.appendTo),
+s[0]===this.element[0]||/(fixed|absolute)/.test(s.css("position"))||s.css("position","absolute"),
+s;
+},
+_adjustOffsetFromHelper:function(e){
+"string"==typeof e&&(e=e.split(" ")),t.isArray(e)&&(e={
+left:+e[0],
+top:+e[1]||0
+}),"left"in e&&(this.offset.click.left=e.left+this.margins.left),"right"in e&&(this.offset.click.left=this.helperProportions.width-e.right+this.margins.left),
+"top"in e&&(this.offset.click.top=e.top+this.margins.top),"bottom"in e&&(this.offset.click.top=this.helperProportions.height-e.bottom+this.margins.top);
+},
+_getParentOffset:function(){
+var e=this.offsetParent.offset();
+return"absolute"===this.cssPosition&&this.scrollParent[0]!==document&&t.contains(this.scrollParent[0],this.offsetParent[0])&&(e.left+=this.scrollParent.scrollLeft(),
+e.top+=this.scrollParent.scrollTop()),(this.offsetParent[0]===document.body||this.offsetParent[0].tagName&&"html"===this.offsetParent[0].tagName.toLowerCase()&&t.ui.ie)&&(e={
+top:0,
+left:0
+}),{
+top:e.top+(parseInt(this.offsetParent.css("borderTopWidth"),10)||0),
+left:e.left+(parseInt(this.offsetParent.css("borderLeftWidth"),10)||0)
+};
+},
+_getRelativeOffset:function(){
+if("relative"===this.cssPosition){
+var t=this.element.position();
+return{
+top:t.top-(parseInt(this.helper.css("top"),10)||0)+this.scrollParent.scrollTop(),
+left:t.left-(parseInt(this.helper.css("left"),10)||0)+this.scrollParent.scrollLeft()
+};
+}
+return{
+top:0,
+left:0
+};
+},
+_cacheMargins:function(){
+this.margins={
+left:parseInt(this.element.css("marginLeft"),10)||0,
+top:parseInt(this.element.css("marginTop"),10)||0,
+right:parseInt(this.element.css("marginRight"),10)||0,
+bottom:parseInt(this.element.css("marginBottom"),10)||0
+};
+},
+_cacheHelperProportions:function(){
+this.helperProportions={
+width:this.helper.outerWidth(),
+height:this.helper.outerHeight()
+};
+},
+_setContainment:function(){
+var e,i,s,o=this.options;
+return o.containment?"window"===o.containment?void(this.containment=[t(window).scrollLeft()-this.offset.relative.left-this.offset.parent.left,t(window).scrollTop()-this.offset.relative.top-this.offset.parent.top,t(window).scrollLeft()+t(window).width()-this.helperProportions.width-this.margins.left,t(window).scrollTop()+(t(window).height()||document.body.parentNode.scrollHeight)-this.helperProportions.height-this.margins.top]):"document"===o.containment?void(this.containment=[0,0,t(document).width()-this.helperProportions.width-this.margins.left,(t(document).height()||document.body.parentNode.scrollHeight)-this.helperProportions.height-this.margins.top]):o.containment.constructor===Array?void(this.containment=o.containment):("parent"===o.containment&&(o.containment=this.helper[0].parentNode),
+i=t(o.containment),s=i[0],void(s&&(e="hidden"!==i.css("overflow"),this.containment=[(parseInt(i.css("borderLeftWidth"),10)||0)+(parseInt(i.css("paddingLeft"),10)||0),(parseInt(i.css("borderTopWidth"),10)||0)+(parseInt(i.css("paddingTop"),10)||0),(e?Math.max(s.scrollWidth,s.offsetWidth):s.offsetWidth)-(parseInt(i.css("borderRightWidth"),10)||0)-(parseInt(i.css("paddingRight"),10)||0)-this.helperProportions.width-this.margins.left-this.margins.right,(e?Math.max(s.scrollHeight,s.offsetHeight):s.offsetHeight)-(parseInt(i.css("borderBottomWidth"),10)||0)-(parseInt(i.css("paddingBottom"),10)||0)-this.helperProportions.height-this.margins.top-this.margins.bottom],
+this.relative_container=i))):void(this.containment=null);
+},
+_convertPositionTo:function(e,i){
+i||(i=this.position);
+var s="absolute"===e?1:-1,o="absolute"!==this.cssPosition||this.scrollParent[0]!==document&&t.contains(this.scrollParent[0],this.offsetParent[0])?this.scrollParent:this.offsetParent;
+return this.offset.scroll||(this.offset.scroll={
+top:o.scrollTop(),
+left:o.scrollLeft()
+}),{
+top:i.top+this.offset.relative.top*s+this.offset.parent.top*s-("fixed"===this.cssPosition?-this.scrollParent.scrollTop():this.offset.scroll.top)*s,
+left:i.left+this.offset.relative.left*s+this.offset.parent.left*s-("fixed"===this.cssPosition?-this.scrollParent.scrollLeft():this.offset.scroll.left)*s
+};
+},
+_generatePosition:function(e){
+var i,s,o,n,r=this.options,a="absolute"!==this.cssPosition||this.scrollParent[0]!==document&&t.contains(this.scrollParent[0],this.offsetParent[0])?this.scrollParent:this.offsetParent,l=e.pageX,h=e.pageY;
+return this.offset.scroll||(this.offset.scroll={
+top:a.scrollTop(),
+left:a.scrollLeft()
+}),this.originalPosition&&(this.containment&&(this.relative_container?(s=this.relative_container.offset(),
+i=[this.containment[0]+s.left,this.containment[1]+s.top,this.containment[2]+s.left,this.containment[3]+s.top]):i=this.containment,
+e.pageX-this.offset.click.left<i[0]&&(l=i[0]+this.offset.click.left),e.pageY-this.offset.click.top<i[1]&&(h=i[1]+this.offset.click.top),
+e.pageX-this.offset.click.left>i[2]&&(l=i[2]+this.offset.click.left),e.pageY-this.offset.click.top>i[3]&&(h=i[3]+this.offset.click.top)),
+r.grid&&(o=r.grid[1]?this.originalPageY+Math.round((h-this.originalPageY)/r.grid[1])*r.grid[1]:this.originalPageY,
+h=i?o-this.offset.click.top>=i[1]||o-this.offset.click.top>i[3]?o:o-this.offset.click.top>=i[1]?o-r.grid[1]:o+r.grid[1]:o,
+n=r.grid[0]?this.originalPageX+Math.round((l-this.originalPageX)/r.grid[0])*r.grid[0]:this.originalPageX,
+l=i?n-this.offset.click.left>=i[0]||n-this.offset.click.left>i[2]?n:n-this.offset.click.left>=i[0]?n-r.grid[0]:n+r.grid[0]:n)),
+{
+top:h-this.offset.click.top-this.offset.relative.top-this.offset.parent.top+("fixed"===this.cssPosition?-this.scrollParent.scrollTop():this.offset.scroll.top),
+left:l-this.offset.click.left-this.offset.relative.left-this.offset.parent.left+("fixed"===this.cssPosition?-this.scrollParent.scrollLeft():this.offset.scroll.left)
+};
+},
+_clear:function(){
+this.helper.removeClass("ui-draggable-dragging"),this.helper[0]===this.element[0]||this.cancelHelperRemoval||this.helper.remove(),
+this.helper=null,this.cancelHelperRemoval=!1;
+},
+_trigger:function(e,i,s){
+return s=s||this._uiHash(),t.ui.plugin.call(this,e,[i,s]),"drag"===e&&(this.positionAbs=this._convertPositionTo("absolute")),
+t.Widget.prototype._trigger.call(this,e,i,s);
+},
+plugins:{},
+_uiHash:function(){
+return{
+helper:this.helper,
+position:this.position,
+originalPosition:this.originalPosition,
+offset:this.positionAbs
+};
+}
+}),t.ui.plugin.add("draggable","connectToSortable",{
+start:function(e,i){
+var s=t(this).data("ui-draggable"),o=s.options,n=t.extend({},i,{
+item:s.element
+});
+s.sortables=[],t(o.connectToSortable).each(function(){
+var i=t.data(this,"ui-sortable");
+i&&!i.options.disabled&&(s.sortables.push({
+instance:i,
+shouldRevert:i.options.revert
+}),i.refreshPositions(),i._trigger("activate",e,n));
+});
+},
+stop:function(e,i){
+var s=t(this).data("ui-draggable"),o=t.extend({},i,{
+item:s.element
+});
+t.each(s.sortables,function(){
+this.instance.isOver?(this.instance.isOver=0,s.cancelHelperRemoval=!0,this.instance.cancelHelperRemoval=!1,
+this.shouldRevert&&(this.instance.options.revert=this.shouldRevert),this.instance._mouseStop(e),
+this.instance.options.helper=this.instance.options._helper,"original"===s.options.helper&&this.instance.currentItem.css({
+top:"auto",
+left:"auto"
+})):(this.instance.cancelHelperRemoval=!1,this.instance._trigger("deactivate",e,o));
+});
+},
+drag:function(e,i){
+var s=t(this).data("ui-draggable"),o=this;
+t.each(s.sortables,function(){
+var n=!1,r=this;
+this.instance.positionAbs=s.positionAbs,this.instance.helperProportions=s.helperProportions,
+this.instance.offset.click=s.offset.click,this.instance._intersectsWith(this.instance.containerCache)&&(n=!0,
+t.each(s.sortables,function(){
+return this.instance.positionAbs=s.positionAbs,this.instance.helperProportions=s.helperProportions,
+this.instance.offset.click=s.offset.click,this!==r&&this.instance._intersectsWith(this.instance.containerCache)&&t.contains(r.instance.element[0],this.instance.element[0])&&(n=!1),
+n;
+})),n?(this.instance.isOver||(this.instance.isOver=1,this.instance.currentItem=t(o).clone().removeAttr("id").appendTo(this.instance.element).data("ui-sortable-item",!0),
+this.instance.options._helper=this.instance.options.helper,this.instance.options.helper=function(){
+return i.helper[0];
+},e.target=this.instance.currentItem[0],this.instance._mouseCapture(e,!0),this.instance._mouseStart(e,!0,!0),
+this.instance.offset.click.top=s.offset.click.top,this.instance.offset.click.left=s.offset.click.left,
+this.instance.offset.parent.left-=s.offset.parent.left-this.instance.offset.parent.left,
+this.instance.offset.parent.top-=s.offset.parent.top-this.instance.offset.parent.top,
+s._trigger("toSortable",e),s.dropped=this.instance.element,s.currentItem=s.element,
+this.instance.fromOutside=s),this.instance.currentItem&&this.instance._mouseDrag(e)):this.instance.isOver&&(this.instance.isOver=0,
+this.instance.cancelHelperRemoval=!0,this.instance.options.revert=!1,this.instance._trigger("out",e,this.instance._uiHash(this.instance)),
+this.instance._mouseStop(e,!0),this.instance.options.helper=this.instance.options._helper,
+this.instance.currentItem.remove(),this.instance.placeholder&&this.instance.placeholder.remove(),
+s._trigger("fromSortable",e),s.dropped=!1);
+});
+}
+}),t.ui.plugin.add("draggable","cursor",{
+start:function(){
+var e=t("body"),i=t(this).data("ui-draggable").options;
+e.css("cursor")&&(i._cursor=e.css("cursor")),e.css("cursor",i.cursor);
+},
+stop:function(){
+var e=t(this).data("ui-draggable").options;
+e._cursor&&t("body").css("cursor",e._cursor);
+}
+}),t.ui.plugin.add("draggable","opacity",{
+start:function(e,i){
+var s=t(i.helper),o=t(this).data("ui-draggable").options;
+s.css("opacity")&&(o._opacity=s.css("opacity")),s.css("opacity",o.opacity);
+},
+stop:function(e,i){
+var s=t(this).data("ui-draggable").options;
+s._opacity&&t(i.helper).css("opacity",s._opacity);
+}
+}),t.ui.plugin.add("draggable","scroll",{
+start:function(){
+var e=t(this).data("ui-draggable");
+e.scrollParent[0]!==document&&"HTML"!==e.scrollParent[0].tagName&&(e.overflowOffset=e.scrollParent.offset());
+},
+drag:function(e){
+var i=t(this).data("ui-draggable"),s=i.options,o=!1;
+i.scrollParent[0]!==document&&"HTML"!==i.scrollParent[0].tagName?(s.axis&&"x"===s.axis||(i.overflowOffset.top+i.scrollParent[0].offsetHeight-e.pageY<s.scrollSensitivity?i.scrollParent[0].scrollTop=o=i.scrollParent[0].scrollTop+s.scrollSpeed:e.pageY-i.overflowOffset.top<s.scrollSensitivity&&(i.scrollParent[0].scrollTop=o=i.scrollParent[0].scrollTop-s.scrollSpeed)),
+s.axis&&"y"===s.axis||(i.overflowOffset.left+i.scrollParent[0].offsetWidth-e.pageX<s.scrollSensitivity?i.scrollParent[0].scrollLeft=o=i.scrollParent[0].scrollLeft+s.scrollSpeed:e.pageX-i.overflowOffset.left<s.scrollSensitivity&&(i.scrollParent[0].scrollLeft=o=i.scrollParent[0].scrollLeft-s.scrollSpeed))):(s.axis&&"x"===s.axis||(e.pageY-t(document).scrollTop()<s.scrollSensitivity?o=t(document).scrollTop(t(document).scrollTop()-s.scrollSpeed):t(window).height()-(e.pageY-t(document).scrollTop())<s.scrollSensitivity&&(o=t(document).scrollTop(t(document).scrollTop()+s.scrollSpeed))),
+s.axis&&"y"===s.axis||(e.pageX-t(document).scrollLeft()<s.scrollSensitivity?o=t(document).scrollLeft(t(document).scrollLeft()-s.scrollSpeed):t(window).width()-(e.pageX-t(document).scrollLeft())<s.scrollSensitivity&&(o=t(document).scrollLeft(t(document).scrollLeft()+s.scrollSpeed)))),
+o!==!1&&t.ui.ddmanager&&!s.dropBehaviour&&t.ui.ddmanager.prepareOffsets(i,e);
+}
+}),t.ui.plugin.add("draggable","snap",{
+start:function(){
+var e=t(this).data("ui-draggable"),i=e.options;
+e.snapElements=[],t(i.snap.constructor!==String?i.snap.items||":data(ui-draggable)":i.snap).each(function(){
+var i=t(this),s=i.offset();
+this!==e.element[0]&&e.snapElements.push({
+item:this,
+width:i.outerWidth(),
+height:i.outerHeight(),
+top:s.top,
+left:s.left
+});
+});
+},
+drag:function(e,i){
+var s,o,n,r,a,l,h,c,p,u,f=t(this).data("ui-draggable"),d=f.options,g=d.snapTolerance,m=i.offset.left,v=m+f.helperProportions.width,_=i.offset.top,b=_+f.helperProportions.height;
+for(p=f.snapElements.length-1;p>=0;p--)a=f.snapElements[p].left,l=a+f.snapElements[p].width,
+h=f.snapElements[p].top,c=h+f.snapElements[p].height,a-g>v||m>l+g||h-g>b||_>c+g||!t.contains(f.snapElements[p].item.ownerDocument,f.snapElements[p].item)?(f.snapElements[p].snapping&&f.options.snap.release&&f.options.snap.release.call(f.element,e,t.extend(f._uiHash(),{
+snapItem:f.snapElements[p].item
+})),f.snapElements[p].snapping=!1):("inner"!==d.snapMode&&(s=Math.abs(h-b)<=g,o=Math.abs(c-_)<=g,
+n=Math.abs(a-v)<=g,r=Math.abs(l-m)<=g,s&&(i.position.top=f._convertPositionTo("relative",{
+top:h-f.helperProportions.height,
+left:0
+}).top-f.margins.top),o&&(i.position.top=f._convertPositionTo("relative",{
+top:c,
+left:0
+}).top-f.margins.top),n&&(i.position.left=f._convertPositionTo("relative",{
+top:0,
+left:a-f.helperProportions.width
+}).left-f.margins.left),r&&(i.position.left=f._convertPositionTo("relative",{
+top:0,
+left:l
+}).left-f.margins.left)),u=s||o||n||r,"outer"!==d.snapMode&&(s=Math.abs(h-_)<=g,
+o=Math.abs(c-b)<=g,n=Math.abs(a-m)<=g,r=Math.abs(l-v)<=g,s&&(i.position.top=f._convertPositionTo("relative",{
+top:h,
+left:0
+}).top-f.margins.top),o&&(i.position.top=f._convertPositionTo("relative",{
+top:c-f.helperProportions.height,
+left:0
+}).top-f.margins.top),n&&(i.position.left=f._convertPositionTo("relative",{
+top:0,
+left:a
+}).left-f.margins.left),r&&(i.position.left=f._convertPositionTo("relative",{
+top:0,
+left:l-f.helperProportions.width
+}).left-f.margins.left)),!f.snapElements[p].snapping&&(s||o||n||r||u)&&f.options.snap.snap&&f.options.snap.snap.call(f.element,e,t.extend(f._uiHash(),{
+snapItem:f.snapElements[p].item
+})),f.snapElements[p].snapping=s||o||n||r||u);
+}
+}),t.ui.plugin.add("draggable","stack",{
+start:function(){
+var e,i=this.data("ui-draggable").options,s=t.makeArray(t(i.stack)).sort(function(e,i){
+return(parseInt(t(e).css("zIndex"),10)||0)-(parseInt(t(i).css("zIndex"),10)||0);
+});
+s.length&&(e=parseInt(t(s[0]).css("zIndex"),10)||0,t(s).each(function(i){
+t(this).css("zIndex",e+i);
+}),this.css("zIndex",e+s.length));
+}
+}),t.ui.plugin.add("draggable","zIndex",{
+start:function(e,i){
+var s=t(i.helper),o=t(this).data("ui-draggable").options;
+s.css("zIndex")&&(o._zIndex=s.css("zIndex")),s.css("zIndex",o.zIndex);
+},
+stop:function(e,i){
+var s=t(this).data("ui-draggable").options;
+s._zIndex&&t(i.helper).css("zIndex",s._zIndex);
+}
+});
+}(jQuery);
+});define("common/wx/widgetBridge.js",[],function(){
+"use strict";
+$.widgetBridge||($.widgetBridge=function(t,e){
+var n=t,i=n.split("."),t=i.length>1?i[1]:i[0];
+$.fn[t]=function(i){
+var o="string"==typeof i,a=[].slice.call(arguments,1),r=this;
+if(i=i||{},o){
+var s;
+return 0!==i.indexOf("_")&&this.each(function(){
+var e=$.data(this,n);
+return e?"instance"===i?(s=e,!1):"option"===i?(s=e.options,!1):(s||(s=(e[i]||jQuery.noop).apply(e,a)),
+void("destroy"===i&&(e.elements=null))):console.warn("cannot call methods on "+t+" prior to initialization; attempted to call method '"+i+"'");
+}),s;
+}
+var c=this;
+return this.each(function(){
+var t=this,o=$.data(this,n);
+if(!o){
+o=$.extend(!0,{},e),o.destroy||(o.destroy=function(){
+$.removeData(t,n);
+}),o.options=$.extend(!0,o.options||{},i),o.element=$(this),o.elements=c,o._create&&(r=o._create.call(o,i));
+var a=r&&r.length&&r.get(0)||this;
+$.data(a,n,o);
+}
+}),r;
+};
+});
+});define("common/qq/events.js",[],function(t,n,a){
+"use strict";
+function i(t){
+this.data=t===!0?window.wx.events||{}:{};
+}
+i.prototype={
+on:function(t,n){
+return this.data[t]=this.data[t]||[],this.data[t].push(n),this;
+},
+off:function(t,n){
+return this.data[t]&&this.data[t].length>0&&(n&&"function"==typeof n?$.each(this.data[t],function(a,i){
+i===n&&this.data[t].splice(a,1);
+}):this.data[t]=[]),this;
+},
+trigger:function(t){
+var n=arguments;
+return this.data[t]&&this.data[t].length>0&&$.each(this.data[t],function(t,a){
+var i=a.apply(this,Array.prototype.slice.call(n,1));
+return i===!1?!1:void 0;
+}),this;
+}
+},a.exports=function(t){
+return new i(t);
+};
+});define("common/lib/MockJax.js",[],function(){
+!function(e){
+function t(t){
+void 0==window.DOMParser&&window.ActiveXObject&&(DOMParser=function(){},DOMParser.prototype.parseFromString=function(e){
+var t=new ActiveXObject("Microsoft.XMLDOM");
+return t.async="false",t.loadXML(e),t;
+});
+try{
+var n=(new DOMParser).parseFromString(t,"text/xml");
+if(!e.isXMLDoc(n))throw"Unable to parse XML";
+var s=e("parsererror",n);
+if(1==s.length)throw"Error: "+e(n).text();
+return n;
+}catch(o){
+var r=void 0==o.name?o:o.name+": "+o.message;
+return void e(document).trigger("xmlParseError",[r]);
+}
+}
+function n(t,n,s){
+(t.context?e(t.context):e.event).trigger(n,s);
+}
+function s(t,n){
+var o=!0;
+return"string"==typeof n?e.isFunction(t.test)?t.test(n):t==n:(e.each(t,function(r){
+return void 0===n[r]?o=!1:void(o="object"==typeof n[r]?o&&s(t[r],n[r]):e.isFunction(t[r].test)?o&&t[r].test(n[r]):o&&t[r]==n[r]);
+}),o);
+}
+function o(t,n){
+if(e.isFunction(t))return t(n);
+if(e.isFunction(t.url.test)){
+if(!t.url.test(n.url))return null;
+}else{
+var o=t.url.indexOf("*");
+if(t.url!==n.url&&-1===o||!new RegExp(t.url.replace(/[-[\]{}()+?.,\\^$|#\s]/g,"\\$&").replace(/\*/g,".+")).test(n.url))return null;
+}
+return t.data&&n.data&&!s(t.data,n.data)?null:t&&t.type&&t.type.toLowerCase()!=n.type.toLowerCase()?null:t;
+}
+function r(n,s,o){
+var r=function(r){
+return function(){
+return function(){
+var r;
+this.status=n.status,this.statusText=n.statusText,this.readyState=4,e.isFunction(n.response)&&n.response(o),
+"json"==s.dataType&&"object"==typeof n.responseText?this.responseText=JSON.stringify(n.responseText):"xml"==s.dataType?"string"==typeof n.responseXML?(this.responseXML=t(n.responseXML),
+this.responseText=n.responseXML):this.responseXML=n.responseXML:this.responseText=n.responseText,
+("number"==typeof n.status||"string"==typeof n.status)&&(this.status=n.status),"string"==typeof n.statusText&&(this.statusText=n.statusText),
+r=this.onreadystatechange||this.onload,e.isFunction(r)?(n.isTimeout&&(this.status=-1),
+r.call(this,n.isTimeout?"timeout":void 0)):n.isTimeout&&(this.status=-1);
+}.apply(r);
+};
+}(this);
+n.proxy?g({
+global:!1,
+url:n.proxy,
+type:n.proxyType,
+data:n.data,
+dataType:"script"===s.dataType?"text/plain":s.dataType,
+complete:function(e){
+n.responseXML=e.responseXML,n.responseText=e.responseText,n.status=e.status,n.statusText=e.statusText,
+this.responseTimer=setTimeout(r,n.responseTime||0);
+}
+}):s.async===!1?r():this.responseTimer=setTimeout(r,n.responseTime||50);
+}
+function a(t,n,s,o){
+return t=e.extend(!0,{},e.mockjaxSettings,t),"undefined"==typeof t.headers&&(t.headers={}),
+t.contentType&&(t.headers["content-type"]=t.contentType),{
+status:t.status,
+statusText:t.statusText,
+readyState:1,
+open:function(){},
+send:function(){
+o.fired=!0,r.call(this,t,n,s);
+},
+abort:function(){
+clearTimeout(this.responseTimer);
+},
+setRequestHeader:function(e,n){
+t.headers[e]=n;
+},
+getResponseHeader:function(e){
+return t.headers&&t.headers[e]?t.headers[e]:"last-modified"==e.toLowerCase()?t.lastModified||(new Date).toString():"etag"==e.toLowerCase()?t.etag||"":"content-type"==e.toLowerCase()?t.contentType||"text/plain":void 0;
+},
+getAllResponseHeaders:function(){
+var n="";
+return e.each(t.headers,function(e,t){
+n+=e+": "+t+"\n";
+}),n;
+}
+};
+}
+function i(e,t,n){
+if(u(e),e.dataType="json",e.data&&T.test(e.data)||T.test(e.url)){
+c(e,t,n);
+var s=/^(\w+:)?\/\/([^\/?#]+)/,o=s.exec(e.url),r=o&&(o[1]&&o[1]!==location.protocol||o[2]!==location.host);
+if(e.dataType="script","GET"===e.type.toUpperCase()&&r){
+var a=l(e,t,n);
+return a?a:!0;
+}
+}
+return null;
+}
+function u(e){
+"GET"===e.type.toUpperCase()?T.test(e.url)||(e.url+=(/\?/.test(e.url)?"&":"?")+(e.jsonp||"callback")+"=?"):e.data&&T.test(e.data)||(e.data=(e.data?e.data+"&":"")+(e.jsonp||"callback")+"=?");
+}
+function l(t,n,s){
+var o=s&&s.context||t,r=null;
+return n.response&&e.isFunction(n.response)?n.response(s):e.globalEval("object"==typeof n.responseText?"("+JSON.stringify(n.responseText)+")":"("+n.responseText+")"),
+p(t,o,n),d(t,o,n),e.Deferred&&(r=new e.Deferred,"object"==typeof n.responseText?r.resolveWith(o,[n.responseText]):r.resolveWith(o,[e.parseJSON(n.responseText)])),
+r;
+}
+function c(e,t,n){
+var s=n&&n.context||e,o=e.jsonpCallback||"jsonp"+m++;
+e.data&&(e.data=(e.data+"").replace(T,"="+o+"$1")),e.url=e.url.replace(T,"="+o+"$1"),
+window[o]=window[o]||function(n){
+data=n,p(e,s,t),d(e,s,t),window[o]=void 0;
+try{
+delete window[o];
+}catch(r){}
+head&&head.removeChild(script);
+};
+}
+function p(e,t,s){
+e.success&&e.success.call(t,s.responseText||"",status,{}),e.global&&n(e,"ajaxSuccess",[{},e]);
+}
+function d(t,s){
+t.complete&&t.complete.call(s,{},status),t.global&&n("ajaxComplete",[{},t]),t.global&&!--e.active&&e.event.trigger("ajaxStop");
+}
+function f(t,n){
+var s,r,u;
+"object"==typeof t?(n=t,t=void 0):n.url=t,r=e.extend(!0,{},e.ajaxSettings,n);
+for(var l=0;l<h.length;l++)if(h[l]&&(u=o(h[l],r)))return y.push(r),e.mockjaxSettings.log(u,r),
+"jsonp"===r.dataType&&(s=i(r,u,n))?s:(u.cache=r.cache,u.timeout=r.timeout,u.global=r.global,
+x(u,n),function(t,n,o,r){
+s=g.call(e,e.extend(!0,{},o,{
+xhr:function(){
+return a(t,n,o,r);
+}
+}));
+}(u,r,n,h[l]),s);
+return g.apply(e,[n]);
+}
+function x(e,t){
+if(e.url instanceof RegExp&&e.hasOwnProperty("urlParams")){
+var n=e.url.exec(t.url);
+if(1!==n.length){
+n.shift();
+var s=0,o=n.length,r=e.urlParams.length,a=Math.min(o,r),i={};
+for(s;a>s;s++){
+var u=e.urlParams[s];
+i[u]=n[s];
+}
+t.urlParams=i;
+}
+}
+}
+var g=e.ajax,h=[],y=[],T=/=\?(&|$)/,m=(new Date).getTime();
+e.extend({
+ajax:f
+}),e.mockjaxSettings={
+log:function(t,n){
+if(t.logging!==!1&&("undefined"!=typeof t.logging||e.mockjaxSettings.logging!==!1)&&window.console&&console.log){
+var s="MOCK "+n.type.toUpperCase()+": "+n.url,o=e.extend({},n);
+if("function"==typeof console.log)console.log(s,o);else try{
+console.log(s+" "+JSON.stringify(o));
+}catch(r){
+console.log(s);
+}
+}
+},
+logging:!0,
+status:200,
+statusText:"OK",
+responseTime:500,
+isTimeout:!1,
+contentType:"text/plain",
+response:"",
+responseText:"",
+responseXML:"",
+proxy:"",
+proxyType:"GET",
+lastModified:null,
+etag:"",
+headers:{
+etag:"IJF@H#@923uf8023hFO@I#H#",
+"content-type":"text/plain"
+}
+},e.mockjax=function(e){
+var t=h.length;
+return h[t]=e,t;
+},e.mockjaxClear=function(e){
+1==arguments.length?h[e]=null:h=[],y=[];
+},e.mockjax.handler=function(e){
+return 1==arguments.length?h[e]:void 0;
+},e.mockjax.mockedAjaxCalls=function(){
+return y;
+};
+}(jQuery);
+});define("common/wx/cgiReport.js",["common/wx/Tips.js"],function(o,r){
+"use strict";
+o("common/wx/Tips.js");
+r.error=function(o){
+var r=54;
+switch(o){
+case"timeout":
+r=55;
+break;
+
+case"error":
+r=56;
+break;
+
+case"notmodified":
+r=57;
+break;
+
+case"parsererror":
+r=58;
+}
+(new Image).src=location.protocol+"//mp.weixin.qq.com/mp/jsmonitor?idkey=65723_53_1&r="+Math.random();
+};
+});

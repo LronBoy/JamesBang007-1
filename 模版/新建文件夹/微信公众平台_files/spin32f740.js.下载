@@ -1,0 +1,1935 @@
+define("common/wx/qrcheck_msg.js",[],function(a,r,s){
+"use strict";
+function e(a,r,s,e){
+r=r+""||"0",s=s+""||"0",e=e+""||"0";
+var _="";
+if("0"==r){
+if("2"==s){
+var n=s+"_"+e;
+_=c[n];
+}else _=c[s];
+_||(_=c["2_unknown"]);
+}else _=c.sys_error;
+return _='<div class="qrcheck_msg">'+_+"</div>",wx.T(_,a);
+}
+var c={
+sys_error:'系统错误 <a href="javascript:;" class="js_qr_reload">刷新二维码</a>',
+0:"请使用{name}微信扫描二维码进行验证",
+1:'<a href="javascript:;" class="js_qr_reload">返回二维码</a>',
+3:'二维码已过期 <a href="javascript:;" class="js_qr_reload">刷新</a>',
+4:'<a href="javascript:;" class="js_qr_reload">返回二维码</a>',
+"2_unknown":'验证失败 <a href="javascript:;" class="js_qr_reload">刷新二维码</a>'
+};
+s.exports={
+get:e
+};
+});define("tpl/qrcheck/popup.html.js",[],function(){
+return'<div class="qrcheck_box">\n	<div class="qrcheck_title">{tips}</div>\n	<div class="js_div_qrcheck"></div>\n	<div class="qrcheck_msg_area js_div_qrcheck_msg"></div>\n</div>\n';
+});define("tpl/qrcheck/qrcode.html.js",[],function(){
+return'<div class="qrcheck_qrcode_area">\n    {if (status == \'loading\')}\n        <!-- 等待二维码，转菊花 -->\n        <div class="js_qr_loading qrcheck_loading_area qrcheck_mask">\n            <i class="qrcheck_loading_icon icon_loading_small white"></i>\n            <span class="vm_box"></span>\n        </div>\n    {else if (status == \'waiting\')}\n        <!-- 等待扫描 -->\n        <div class="js_qr_img qrcheck_img_area">\n            <img class="qrcheck_img" src="{img}" alt="">\n        </div>\n    {else if (status == \'info\')}\n        <!-- 已扫描 -->\n            {if (infoType == \'pending\')}\n            <div class="qrcheck_msg_area_primary qrcheck_mask mask_all">\n                <div class="qrcheck_msg">\n                    <i class="icon_msg phone"></i>\n                     {if (showImgInfo)}<p>扫描成功<br/>在手机上进行确认</p>{/if}\n                     <a href="javascript:;" class="js_qr_reload qrcheck_minor_btn">重新扫描</a>\n                </div>\n                <span class="vm_box"></span>\n            </div>\n            {else if (infoType == \'success\')}\n            <!-- 确认成功 -->\n            <div class="qrcheck_msg_area_primary qrcheck_mask">\n                <div class="qrcheck_msg">\n                    <i class="icon_msg_small success"></i>\n                </div>\n                <span class="vm_box"></span>\n            </div>\n            {else if (infoType == \'fail\')}\n            <div class="qrcheck_msg_area_primary qrcheck_mask">\n                <div class="qrcheck_msg">\n                    <i class="icon_msg_small warn"></i>\n                     {if (showImgInfo)}<p>扫描失败<br/><a href="javascript:;" class="js_qr_reload">刷新重试</a></p>{/if}\n                </div>\n                <span class="vm_box"></span>\n            </div>\n            {else if (infoType == \'error\')}\n            <div class="qrcheck_msg_area_primary qrcheck_mask">\n                <div class="qrcheck_msg">\n                    <i class="icon_msg_small warn"></i>\n                     {if (showImgInfo)}<p>系统错误<br/><a href="javascript:;" class="js_qr_reload">刷新重试</a></p>{/if}\n                </div>\n                <span class="vm_box"></span>\n            </div>\n            {else}\n            <div class="qrcheck_msg_area_primary qrcheck_mask">\n                <div class="qrcheck_msg">\n                    <i class="icon_msg_small warn"></i>\n                </div>\n                <span class="vm_box"></span>\n            </div>\n            {/if}\n\n    {/if}\n</div>\n<div class="qrcheck_msg_area js_qr_msg"></div>\n<!-- \ncomplete html\n<div class="qrcheck_box">\n    <div class="qrcheck_qrcode_area">....</div>\n    <div class="qrcheck_msg_area">\n        <div class="qrcheck_msg">\n            <div class="qrcheck_msg_inner">\n                <p>请使用xxx扫码</p>\n            </div>\n        </div>\n        <div class="qrcheck_msg with_icon">\n            <div class="qrcheck_msg_inner">\n                <i class="icon_msg_mini info"></i>\n                <p class="qrcheck_msg_title">请使用xxx扫码</p>\n                <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>\n            </div>\n        </div>\n    </div>\n</div>\n-->\n\n';
+});define("common/wx/monitor.js",[],function(){
+"use strict";
+return function(o){
+"number"==typeof o&&(o+="");
+var n=o.split("_"),t=n.length>1?n[0]:"65723",e=n[1]||n[0];
+(new Image).src=location.protocol+"//mp.weixin.qq.com/mp/jsmonitor?idkey="+t+"_"+e+"_1&r="+Math.random();
+};
+});define("tpl/uploader.html.js",[],function(){
+return'<li id="uploadItem{id}" data-status="{className}" class="upload_file">\n    <strong class="upload_file_name">{fileName}</strong>\n    <span class="upload_file_size">({size})</span>\n    <div class="progress_bar"><div class="progress_bar_thumb" style="width:0%"></div></div>\n    <a href="javascript:;" data-id="{id}" class="upload_file_cancel js_cancel">取消</a>\n</li>\n';
+});define("register/data_bank_city.js",[],function(){
+"use strict";
+var e={
+"北京市":["北京市"],
+"安徽省":["黄山市","马鞍山市","宣城市","铜陵市","淮南市","巢湖地区","芜湖市","六安地区","阜阳市","池州地区","安庆市","合肥市","滁州市","亳州市","淮北市","蚌埠市","宿州市"],
+"重庆市 ":["重庆市","巫溪县","大足县","奉节县","石柱土家族","綦江县","丰都县","云阳县","彭水苗族","荣昌县","酉阳土家族","双桥市","垫江县","江津市","开县","万州市","璧山县","巫山县","忠县","万盛市","永川市","潼南县","铜梁县","武隆县","黔江市","长寿市","合川市","南川市","梁平县","秀山土家族","城口县","涪陵市"],
+"福建省":["南平市","莆田市","龙岩市","福州市","漳州市","三明市","宁德市","泉州市","厦门市"],
+"广东省":["中山市","潮州市","肇庆市","湛江市","佛山市","珠海市","广州市","揭阳市","梅州市","深圳市","汕尾市","汕头市","江门市","茂名市","惠州市","河源市","东莞市","清远市","阳江市","韶关市","云浮市"],
+"甘肃省":["定西地区","兰州市","玉门市","酒泉市","临夏州","张掖市","平凉地区","甘南州","武威市","庆阳地区","天水市","白银市","陇南地区","金昌市","嘉峪关市"],
+"广西壮族自治区":["百色地区","南宁市","柳州市","来宾市","玉林市","防城港市","崇左市","梧州市","钦州市","北海市","桂林市","河池地区","贺州市","贵港市"],
+"贵州省":["黔西南州","六盘水市","铜仁地区","贵阳市","黔南州","安顺地区","遵义市","毕节地区","黔东南州"],
+"湖南省":["张家界市","益阳市","衡阳市","长沙市","永州市","岳阳市","邵阳市","娄底市","湘西土家族","湘潭市","常德市","株洲市","郴州市","怀化市"],
+"海南省":["临高县","三亚市","乐东县","东方市","琼中县","保亭县","五指山市","白沙县","儋州市","定安县","琼山市","海口市","万宁市","琼海市","陵水县","澄迈县","屯昌县","文昌市","昌江县"],
+"湖北省":["武汉市","秭归县","五峰县","潜江市","枝江市","仙桃市","兴山县","大冶市","当阳市","神农架林区","黄冈市","荆门市","咸宁市","鄂州市","宜都市","宜昌市","远安县","长阳县","随州市","十堰市","孝感市","襄樊市","黄石市","荆州市","恩施州","天门市"],
+"河北省":["石家庄市","邯郸市","鹿泉市","保定市","唐山市","衡水市","张家口市","廊坊市","秦皇岛市","邢台市","承德市","沧州市"],
+"黑龙江省":["齐齐哈尔市","鸡西市","大兴安岭","尚志市","双鸭山市","绥化市","大庆市","延寿县","佳木斯市","巴彦县","木兰县","依兰县","绥化","哈尔滨市","通河县","牡丹江市","七台河市","伊春市","方正县","黑河市","鹤岗市","五常市"],
+"河南省":["郑州市","三门峡市","开封市","洛阳市","南阳市","鹤壁市","平顶山市","濮阳市","驻马店市","焦作市","周口市","漯河市","许昌市","信阳市","安阳市","新乡市","商丘市"],
+"天津市":["天津市"],
+"西藏自治区":["那曲地区","阿里地区","山南地区","昌都地区","日喀则地区","拉萨市","樟木口岸","林芝地区"],
+"青海省":["黄南州","果洛州","海东地区","西宁市","海北州","海南州","海西州","格尔木市","玉树州"],
+"浙江省":["嘉兴市","诸暨市","温州市","台州市","衢州市","丽水市","宁波市","杭州市","舟山市","金华市","义乌市","湖州市","绍兴市"],
+"辽宁省":["盘锦市","大连市","抚顺市","本溪市","沈阳市","锦州市","丹东市","铁岭市","葫芦岛市","辽阳市","营口市","鞍山市","朝阳市","阜新市"],
+"江西省":["上饶市","景德镇市","萍乡市","鹰潭市","赣州市","吉安地区","新余市","抚州地区","南昌市","九江市","宜春地区"],
+"新疆维吾尔自治区":["乌鲁木齐市","吐鲁番地区","博尔塔拉","五家渠市","塔城地区","昌吉回族","阿拉尔市","阿勒泰地区","阿克苏地区","巴音郭楞","克孜勒","伊犁哈萨克","和田地区","库尔勒市","石河子市","喀什地区","哈密地区","克拉玛依市","图木舒克市"],
+"陕西省":["西安市","榆林市","宝鸡市","商洛市","铜川市","汉中市","安康市","延安市","渭南市","咸阳市"],
+"江苏省":["江阴市","镇江市","徐州市","张家港市","宿迁市","南京市","连云港市","常州市","泰州市","无锡市","扬州市","盐城市","淮安市","苏州市","南通市"],
+"吉林省":["吉林市","白城市","延边自治州","松原市","白山市","四平市","通化市","辽源市","长春市"],
+"云南省":["丽江市","保山地区","昆明市","曲靖市","怒江州","临沧地区","西双版纳州","思茅地区","红河州","迪庆州","楚雄州","昭通地区","大理州","文山州","玉溪市","德宏州"],
+"宁夏回族自治区":["吴忠市","固原地区","石嘴山市","银川市"],
+"上海市":["上海市"],
+"山东省":["泰安市","菏泽地区","济宁市","滨州市","烟台市","德州市","东营市","日照市","威海市","聊城市","潍坊市","临沂市","枣庄市","莱芜市","淄博市","青岛市","济南市"],
+"四川省":["遂宁市","阿坝州","达川市","资阳地区","广安市","宜宾市","雅安地区","泸州市","内江市","乐山市","自贡市","南充市","德阳市","甘孜州","广元市","绵阳市","攀枝花市","成都市","眉山市","凉山州","巴中地区"],
+"山西省":["大同市","长治市","太原市","运城市","朔州市","吕梁市","榆次市","晋中市","晋城市","忻州市","阳泉市","临汾市"],
+"内蒙古自治区":["呼伦贝尔市","赤峰市","呼和浩特市","伊克昭盟","锡林郭勒盟","阿拉善盟市","巴彦淖尔盟","哲里木盟","包头市","乌兰察布盟","鄂尔多斯市","通辽市","兴安盟","乌海市"]
+},r=[],a={};
+for(var n in e){
+r.push({
+name:n,
+value:n
+}),a[n]=[];
+for(var t=0;t<e[n].length;t++)a[n].push({
+name:e[n][t],
+value:e[n][t]
+});
+}
+return{
+province:r,
+city:a
+};
+});define("tpl/biz_web/ui/checkbox.html.js",[],function(){
+return'<label for="_checkbox_{index}" class="frm_{type}_label">\n	<i class="icon_{type}"></i>\n	<input type="{type}" class="frm_{type}" name="{name}" id="_checkbox_{index}">\n	<span class="lbl_content">{label}</span>\n</label>';
+});define("common/wx/region.js",["common/wx/Cgi.js","biz_web/ui/dropdown.js"],function(t,e,n){
+"use strict";
+var i=t("common/wx/Cgi.js"),o=t("biz_web/ui/dropdown.js"),a={
+disabled:!1
+},c=function(t){
+this.opt=$.extend(!0,{},a,t),this.container=$(t.container),this._action=null,u.call(this);
+},r="/wxopen/getregion?action=getregion&t=setting/ajax-getregions&id={id}",s={
+country:"国家",
+province:"省份",
+city:"城市"
+},p=function(t){
+return void 0===t&&(t=""),t+="",t&&t.replace(/(\u00a0|&nbsp;)/g," ").replace(/&quot;/gi,'"').replace(/&#39;/gi,"'");
+},l=function(t,e){
+var n=wx.url(r.format({
+id:t||-1
+}));
+i.post({
+url:n,
+data:{
+action:"getregion",
+id:t
+},
+mask:!1
+},e);
+},u=function(){
+var t=this;
+t.opt.cgi&&(r=t.opt.cgi+(t.opt.cgi&&t.opt.cgi.indexOf("?")>=0?"&":"?")+"id={id}"),
+t.opt.list?$.each(["country","province","city"],function(e,n){
+t.opt.list[n]=t.opt.list[n]||[];
+}):t.opt.list={
+country:[],
+province:[],
+city:[]
+},t.opt.display=t.opt.display||{
+country:!0,
+province:!0,
+city:!0
+},t.selectors={},$.each(["country","province","city"],function(e,n){
+var i="js_"+n+(1e4*Math.random()|0);
+$('<div id="'+i+'" style="display:none"></div>').appendTo(t.container),t.selectors[n]="#"+i;
+}),d.call(this,"0","country");
+},d=function(t,e){
+var n=this;
+n._action=t,n.status="loading",l(t,function(i){
+if(i&&i.base_resp&&0==i.base_resp.ret&&n._action==t){
+n.status="loaded";
+var o=[],a=n.opt.list[e];
+$.each(i.region_infos,function(t,i){
+var a=p($.trim(i.name)).replace(/"/g,"&quot;"),c=!0;
+n.opt.retain&&n.opt.retain[e]&&n.opt.retain[e].length>0?n.opt.retain[e].indexOf(parseInt(i.id,10))>-1?"中国"==a?o.unshift({
+name:a,
+value:i.id
+}):o.push({
+name:a,
+value:i.id
+}):c=!1:"中国"==a?o.unshift({
+name:a,
+value:i.id
+}):o.push({
+name:a,
+value:i.id
+}),c&&n.opt.remove&&n.opt.remove[e]&&n.opt.remove[e].length>0&&-1!=n.opt.remove[e].indexOf(parseInt(i.id,10))&&("中国"==a?o.shift():o.pop());
+}),o=a.concat(o),n.opt.is_overseas&&$.each(o,function(t,e){
+"中国"==e.name?o[t].name="中国大陆":"中国香港"==e.name?o[t].name="香港":"中国澳门"==e.name?o[t].name="澳门":"中国台湾"==e.name&&(o[t].name="台湾");
+}),h.call(n,e,o);
+var c=n.opt.data;
+c&&c[e]&&n[e].selected(c[e]),(v.call(n,e)||0==n.opt.display[e])&&n[e].container.hide(),
+(v.call(n,e)||"city"==e)&&n.opt.onComplete&&n.opt.onComplete.call(n),n.opt.onLoadComplete&&n.opt.onLoadComplete.call(n,e,t);
+}
+});
+},h=function(t,e){
+var n=this;
+n[t]=new o({
+container:n.selectors[t],
+label:s[t],
+data:e,
+disabled:n.opt.disabled,
+callback:function(e,i){
+switch(t){
+case"country":
+d.call(n,e,"province");
+break;
+
+case"province":
+d.call(n,e,"city");
+}
+switch(t){
+case"country":
+n.province&&n.province.container.hide(),n.province=null;
+
+case"province":
+n.city&&n.city.container.hide(),n.city=null;
+}
+n.opt.onChange&&n.opt.onChange(t,e,i);
+}
+}),n[t].container.show();
+},v=function(t){
+return"loading"!=this.status&&(null==this[t]||0==this[t].opt.data.length);
+},g={
+get:function(t){
+return v.call(this,t)?"":this[t]&&this[t].name||-1;
+},
+getAll:function(){
+return{
+country:this.get("country"),
+province:this.get("province"),
+city:this.get("city")
+};
+}
+};
+$.extend(c.prototype,g),n.exports=c;
+});define("common/wx/qrcheck.js",["common/wx/Cgi.js","common/wx/Tips.js","common/wx/monitor.js","common/wx/popup.js","widget/qrcheck.css","tpl/qrcheck/qrcode.html.js","tpl/qrcheck/popup.html.js","common/wx/qrcheck_msg.js"],function(t,i,s){
+"use strict";
+function o(t){
+this._init(t);
+}
+function e(t){
+return r(45),new o(t);
+}
+function n(t){
+var i,s=$(wx.T(h,{
+tips:t.popupTips||""
+})),e=s.popup({
+title:t.popupTitle||"扫码验证",
+width:t.popupWidth||600,
+className:t.popupClassName||"",
+autoShow:!1,
+onShow:function(){
+e.popup("resetPosition"),t.onPopupShow&&t.onPopupShow.call(i);
+},
+onHide:function(){
+console.log("onHide"),e.popup("remove"),t.onPopupHide&&t.onPopupHide.call(i),i.popup=null,
+i.destroy();
+}
+});
+return t.container=$(e.get()).find(".js_div_qrcheck"),i=new o(t),i.popup=e,r(46),
+i;
+}
+var p=(template.render,t("common/wx/Cgi.js")),a=t("common/wx/Tips.js"),r=t("common/wx/monitor.js"),c=(t("common/wx/popup.js"),
+t("widget/qrcheck.css"),t("tpl/qrcheck/qrcode.html.js")),h=t("tpl/qrcheck/popup.html.js"),u=t("common/wx/qrcheck_msg.js"),d={
+container:"",
+container_class:"",
+scene:0,
+typeid:0,
+size:165,
+data:{},
+extra:{},
+msgData:{
+name:"管理员"
+},
+showImgInfo:!0,
+askSpeed:5,
+askMaxNum:60,
+cgiURI:"/wxopen/waqrcode",
+onSuccess:function(){},
+onFail:function(){},
+onTimeout:function(){},
+onMsgUpdate:function(){}
+};
+o.prototype._init=function(t){
+this.opt=$.extend(!0,{},d,t),this.renderData={
+status:"loading",
+infoType:"pending",
+img:"",
+size:t.size,
+showImgInfo:this.opt.showImgInfo
+},this.popup=null,this.$dom=$(t.container),t.container_class&&this.$dom.addClass(t.container_class),
+this._isStopped=!0,this._askID=null,this._askNum=0,this._askLatestAjaxID=0,this._askPreview=null,
+this._ticket="",this._cgiResp=null,this._appid=""||t.appid;
+},o.prototype.load=function(){
+var t=this;
+return this._render(),this.$dom.on("click",".js_qr_reload",function(){
+return t.reload(),!1;
+}),this.$dom.on("click",".js_qr_refresh",function(){
+return t.refresh(),!1;
+}),this.popup&&(this.popup.popup("show"),this.popup.popup("resetPosition")),this._requestTicket(),
+r(47),this;
+},o.prototype.destroy=function(){
+this._stopAsk(),this.$dom.empty(),this.popup&&this.popup.popup&&this.popup.popup("remove"),
+r(48);
+},o.prototype.reload=function(){
+this._requestTicket();
+},o.prototype.refresh=function(){
+this._showQRCode(),this._startAsk();
+},o.prototype.getTicket=function(){
+return this._ticket||"";
+},o.prototype._render=function(){
+this.$dom.html(wx.T(c,this.renderData)),this.$msg=this.$dom.find(".js_qr_msg");
+},o.prototype._showLoading=function(){
+this.renderData.status="loading",this._render();
+},o.prototype._showInfo=function(t){
+this.renderData.status="info",this.renderData.infoType=t,this._render();
+},o.prototype._requestTicket=function(){
+var t=this;
+t._showLoading(),t._stopAsk(),t._isStopped=!1;
+var i={
+action:"getticket",
+size:t.opt.size,
+scene:t.opt.scene,
+appid:t._appid
+};
+t.opt.typeid&&(i.typeid=t.opt.typeid),t.opt.extra&&(i.extra=JSON.stringify(t.opt.extra)),
+i=$.extend(!0,i,t.opt.data),p.post({
+url:t.opt.cgiURI+"?action=getticket",
+mask:!1,
+data:i
+},{
+done:function(i){
+1!=t._isStopped&&(0==i.base_resp.ret?(t._ticket=i.qrcheck_ticket,t._showQRCode(),
+t._startAsk(),r(49)):(t._triggerStatus(i.base_resp.ret),r(50)));
+},
+fail:function(){
+t._triggerStatus(-1);
+}
+});
+},o.prototype._showQRCode=function(){
+var t=this.opt.cgiURI+"?action=getqrcode&qrcheck_ticket="+this._ticket+"&appid="+this._appid+"&random="+(new Date).getTime();
+this.opt.data&&this.opt.data.__biz&&(t+="&__biz="+this.opt.data.__biz),window.wx&&window.wx.data&&window.wx.data.param&&(t+=window.wx.data.param),
+this.renderData.status="waiting",this.renderData.img=t,this._render();
+},o.prototype._doAsk=function(){
+var t=this;
+if(t._askNum++,t._askNum>t.opt.askMaxNum)return void t._triggerStatus(0,3);
+t._askLatestAjaxID++;
+var i=t._askLatestAjaxID,s=t.opt.cgiURI+"?action=ask&appid="+this._appid;
+t.opt.data&&t.opt.data.__biz&&(s+="&__biz="+this.opt.data.__biz),p.get({
+url:s,
+data:{
+qrcheck_ticket:t._ticket
+},
+mask:!1
+},{
+done:function(s){
+1!=t._isStopped&&(i<t._askLatestAjaxID||(t._cgiResp=s,s&&0==s.base_resp.ret?(t._triggerStatus(0,s.status,s.result),
+r(43)):(t._stopAsk(),t._triggerStatus(s.base_resp.ret),r(44))));
+},
+fail:function(){}
+});
+},o.prototype._startAsk=function(){
+var t=this;
+t._stopAsk(),t._isStopped=!1,t._triggerStatus(0,0),t._askID=setInterval(function(){
+t._doAsk();
+},1e3*t.opt.askSpeed);
+},o.prototype._stopAsk=function(){
+var t=this;
+clearInterval(t._askID),t._isStopped=!0,t._askNum=0,t._askPreview=null,t._askLatestAjaxID=0;
+},o.prototype._triggerStatus=function(t,i,s){
+if(0==t){
+if(i===this._askPreview)return;
+this._askPreview=i,0!=i&&4!=i&&(this._stopAsk(),r(42)),0==i?(this.renderData.status="waiting",
+r(41)):1==i?(this.renderData.status="info",this.renderData.infoType="success",r(40)):3==i?(this.renderData.status="info",
+this.renderData.infoType="fail",r(39)):4==i?(this.renderData.status="info",this.renderData.infoType="pending",
+r(38)):2==i?(this.renderData.status="info",this.renderData.infoType="fail",r(37)):(this.renderData.status="info",
+this.renderData.infoType=""),this._render();
+}else a.err(-3==t?"登录超时，请重新登录":"二维码获取失败，请重试"),this.renderData.status="info",this.renderData.infoType="error",
+this._render();
+var o=void 0;
+"function"==typeof this.opt.onMsgUpdate&&(o=this.opt.onMsgUpdate.call(this,t,i,s)),
+void 0===o&&(o=u.get(this.opt.msgData,t,i,s)),this.$msg.html(o),0==t&&0==i||0==t&&4==i||(0==t&&1==i?"function"==typeof this.opt.onSuccess&&this.opt.onSuccess.call(this,this._ticket,this._cgiResp):0==t&&3==i?"function"==typeof this.opt.onTimeout&&this.opt.onTimeout.call(this):"function"==typeof this.opt.onFail&&this.opt.onFail.call(this,t,i,s));
+},s.exports={
+init:e,
+initPopup:n
+};
+});define("common/wx/upload.js",["widget/upload.css","biz_web/lib/webuploader.js","common/wx/dialog.js","common/wx/Tips.js","tpl/uploader.html.js"],function(e){
+"use strict";
+function i(e){
+f.src="http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=7839&flag2=4&flag3=5&1="+e;
+}
+e("widget/upload.css");
+var n=e("biz_web/lib/webuploader.js"),t=e("common/wx/dialog.js"),a=e("common/wx/Tips.js"),o=e("tpl/uploader.html.js"),r=wx.T,l=wx.path.webuploader,s=~location.hostname.search(/^mp/)?"https://mp.weixin.qq.com":"",c={
+2:{
+accept:{
+extensions:"bmp,png,jpeg,jpg,gif",
+mimeTypes:"image/*"
+},
+fileSingleSizeLimit:5242880
+},
+3:{
+accept:{
+extensions:"mp3,wma,wav,amr",
+mimeTypes:"audio/*"
+},
+fileSingleSizeLimit:5242880
+},
+4:{
+accept:{
+extensions:"rm,rmvb,wmv,avi,mpg,mpeg,mp4",
+mimeTypes:"video/*"
+},
+fileSingleSizeLimit:20971520
+},
+5:{
+accept:{
+extensions:"pdf",
+mimeTypes:"application/pdf"
+},
+fileSingleSizeLimit:10485760
+},
+6:{
+accept:{
+extensions:"bmp,png,jpeg,jpg,gif,pdf",
+mimeTypes:"image/*,application/pdf"
+},
+fileSingleSizeLimit:5242880
+},
+7:{
+accept:{
+extensions:"bmp,jpeg,jpg,gif",
+mimeTypes:"image/*"
+},
+fileSingleSizeLimit:5242880
+},
+8:{
+accept:{
+extensions:"bmp,png,jpeg,jpg",
+mimeTypes:"image/*"
+},
+fileSingleSizeLimit:5242880
+},
+9:{
+accept:{
+extensions:"xls",
+mimeTypes:"application/vnd.ms-excel"
+},
+fileSingleSizeLimit:204800
+},
+10:{
+accept:{
+extensions:"xls",
+mimeTypes:"application/vnd.ms-excel"
+},
+fileSingleSizeLimit:5242880
+},
+11:{
+accept:{
+extensions:"bmp,png,jpeg,jpg",
+mimeTypes:"image/*"
+},
+fileSingleSizeLimit:5242880
+},
+12:{
+accept:{
+extensions:"mp3,wma,wav,amr",
+mimeTypes:"audio/*"
+},
+fileSingleSizeLimit:31457280
+}
+};
+c[15]=c[4];
+var p=function(e){
+t.show({
+type:"warn",
+msg:"警告|"+e,
+mask:!0,
+buttons:[{
+text:"确定",
+click:function(){
+this.remove();
+}
+}]
+});
+},m=function(e){
+var i=n.Uploader;
+0==i.support("flash")?p("<p>未安装或未正确配置flash插件，请检查后重试。<br><a href='http://get.adobe.com/cn/flashplayer/' target='_blank'>到adobe去下载flash插件</a></p>"):0==i.support()?p("<p>您的浏览器不支持上传</p>"):e.refresh();
+},u=function(e){
+e&&wx.jslog({
+src:"common/wx/upload.js"
+},null,e);
+},d={
+swf:l,
+auto:!0,
+pick:{
+multiple:!0
+},
+fileNumLimit:20,
+threads:3,
+sendAsBinary:!1,
+runtimeOrder:"html5,flash",
+compress:{
+width:1280,
+height:1e8,
+quality:90,
+afterCompressSizeLimit:2097152,
+compressSize:0,
+resizeSize:2097152,
+maxResolution:6e6,
+noCompressIfLarger:!0
+},
+imageSize:!0,
+chunked:!1,
+duplicate:!0
+},f=new Image,g={},h=function(e){
+if(!e.url)throw"missing url";
+var t,l,s,p=$('<ul class="upload_file_box" style="display:none"></ul>'),f=$(e.container);
+f.on("click",function(){
+Math.random()<.1&&u(12),m(t);
+}).parent().append(p),function(){
+0==n.Uploader.support("html5")&&0==n.Uploader.support("flash")&&((new Image).src="/misc/jslog?level=error&id=36&content=[pageurl:"+encodeURIComponent(location.href)+",ua:"+encodeURIComponent(window.navigator.userAgent)+"]");
+}(),l={
+server:wx.url(e.url+"&ticket_id="+wx.data.user_name+"&ticket="+wx.data.ticket+"&svr_time="+wx.data.time),
+pick:{
+id:f,
+multiple:e.multi
+},
+fileNumLimit:e.queueSizeLimit
+},s=c[e.type]||c[2],e=$.extend(!0,{},d,l,s,e);
+e.server;
+0==n.Uploader.support("html5")&&e.compress&&(e.compress.quality=70);
+try{
+t=n.create(e);
+}catch(h){
+if(!t)return;
+}
+return p.on("click",".js_cancel",function(){
+var e=$(this).data("id");
+t.cancelFile(e),$(this).hide();
+}),t.on("beforeFileQueued",function(i){
+return Math.random()<.1&&u(13),e.canContinueUpload&&!e.canContinueUpload()?!1:!(e.onSelect&&e.onSelect(null,i.id,i)===!1);
+}),t.on("fileQueued",function(e){
+var i={
+id:e.id,
+fileName:e.name,
+size:n.formatSize(e.size)
+};
+p.append(r(o,i)).show();
+}),t.on("fileDequeued",function(){
+Math.random()<.1&&u(14),e.onCancel&&e.onCancel();
+}),t.on("uploadProgress",function(i,n){
+var t="#uploadItem%s".sprintf(i.id),a=p.find(t).find(".progress_bar_thumb");
+a.width("%s%".sprintf(100*n)),1==n&&p.find(t).find(".js_cancel").remove(),e.onProgress&&e.onProgress(null,i.id,i,{
+percentage:n
+});
+}),t.on("uploadStart",function(e){
+g[e.id]=+new Date;
+}),t.on("uploadSuccess",function(n,t,o){
+if(Math.random()<.1&&u(16),t&&t.base_resp){
+var r=+t.base_resp.ret;
+if(0==r)Math.random()<.1&&(u(17),g[n.id]&&i(+new Date-g[n.id]));else switch(n.setStatus("invalid"),
+r){
+case-18:
+case 200018:
+a.err("页面停留时间过久，请刷新页面后重试！");
+break;
+
+case-20:
+case 200020:
+a.err("无法解释该图片，请使用另一图片或截图另存");
+break;
+
+case-13:
+case 200013:
+a.err("上传文件过于频繁，请稍后再试");
+break;
+
+case-10:
+case 200010:
+a.err("上传文件过大");
+break;
+
+case-22:
+case 200022:
+a.err("上传音频文件不能超过60秒");
+break;
+
+case-39:
+case 200039:
+a.err("上传图片高度（像素）与宽度（像素）的乘积不能超过600万");
+break;
+
+default:
+a.err("上传文件发送出错，请刷新页面后重试！");
+}
+}
+e.onComplete&&e.onComplete(null,n.id,n,t,{
+fileCount:o.numOfProgress+o.numOfQueue
+});
+}),t.on("uploadFinished",function(i){
+this.reset(),p.fadeOut().html(""),g={},0==i.numOfInvalid&&i.numOfSuccess>0&&e.onAllComplete&&e.onAllComplete(null,{
+errors:i.numOfCancel+i.numOfInvalid+i.numOfUploadFailed+i.numofDeleted+i.numofInterrupt,
+filesUploaded:i.numOfSuccess
+});
+}),t.on("uploadError",function(){
+Math.random()<.1&&u(15),e.onError&&e.onError();
+}),t.on("error",function(i,t,o){
+switch("object"==typeof t&&(o=t),i){
+case"Q_EXCEED_NUM_LIMIT":
+a.err("一次上传最多只能上传%s个文件".sprintf(t));
+break;
+
+case"F_EXCEED_SIZE":
+a.err("文件大小不能超过%s".sprintf(n.formatSize(t,"0")));
+break;
+
+case"F_EXCEED_COMPRESS_SIZE":
+a.err("图片压缩后过大，请缩小图片尺寸再试"),u(42);
+break;
+
+case"Q_TYPE_DENIED":
+a.err(e.errTypeMsg||"文件必须为以下格式：%s".sprintf(e.accept.extensions).replace(/,/g,", "));
+}
+}),t;
+},w=function(e){
+return function(i){
+return i.url=e,h(i);
+};
+},b=function(e){
+return function(i){
+return wx.url(e+"&ticket_id="+wx.data.user_name+"&ticket="+wx.data.ticket+"&id="+i);
+};
+};
+return{
+uploadFile:h,
+uploadBizFile:w(s+"/cgi-bin/filetransfer?action=upload_material&f=json"),
+uploadTmpFile:w(s+"/cgi-bin/filetransfer?action=preview&f=json"),
+uploadCdnFile:w(s+"/cgi-bin/filetransfer?action=upload_cdn&f=json"),
+uploadShopFile:w(s+"/merchant/goodsimage?action=uploadimage"),
+uploadShopUnsaveFile:w(s+"/merchant/goodsimage?action=uploadimage&save=0"),
+uploadVideoCdnFile:w(s+"/cgi-bin/filetransfer?action=upload_video_cdn&f=json"),
+uploadRegisterFile:w(s+"/acct/realnamesubmit?type=2&action=file_set"),
+uploadUpgradeFile:w(s+"/acct/servicetypeupgrade?type=2&action=file_set"),
+uploadPoiFile:w(s+"/misc/setlocation?action=upload"),
+mediaFile:w(s+"/cgi-bin/filetransfer?action=bizmedia"),
+uploadCdnFileFromAd:function(e){
+return w(s+"/cgi-bin/filetransfer?action=upload_cdn_check_size&f=json&width="+e.w+"&height="+e.h+"&limit_size="+e.size);
+},
+uploadImageLibFile:function(e){
+return e.url=s+"/cgi-bin/filetransfer?action=upload_material&f=json","undefined"!=typeof e.scene&&(e.url+="&scene="+e.scene),
+1==e.doublewrite&&(e.url+="&writetype=doublewrite&groupid="+(e.groupid||1)),h(e);
+},
+uploadCdnFileWithCheck:function(e){
+var i={
+height:0,
+width:0,
+size:0,
+min_height:0,
+min_width:0,
+min_size:0
+};
+e=$.extend(!0,i,e);
+var n=[];
+for(var t in e)n.push(encodeURIComponent(t)+"="+encodeURIComponent(e[t]));
+return w(s+"/cgi-bin/filetransfer?action=upload_cdn_check_range&f=json&"+n.join("&"),"tmpfile");
+},
+uploadTmpFileWithCheck:function(e){
+var i={
+height:0,
+width:0,
+size:0,
+min_height:0,
+min_width:0,
+min_size:0
+};
+e=$.extend(!0,i,e);
+var n=[];
+for(var t in e)n.push(encodeURIComponent(t)+"="+encodeURIComponent(e[t]));
+return w(s+"/cgi-bin/filetransfer?action=preview_check_range&f=json&"+n.join("&"));
+},
+tmpFileUrl:b(s+"/cgi-bin/filetransfer?action=preview"),
+mediaFileUrl:b(s+"/cgi-bin/filetransfer?action=bizmedia"),
+multimediaFileUrl:b(s+"/cgi-bin/filetransfer?action=multimedia")
+};
+});define("biz_common/moment.js",[],function(t,e,n){
+function i(){
+return Li.apply(null,arguments);
+}
+function r(t){
+Li=t;
+}
+function s(t){
+return"[object Array]"===Object.prototype.toString.call(t);
+}
+function a(t){
+return t instanceof Date||"[object Date]"===Object.prototype.toString.call(t);
+}
+function o(t,e){
+var n,i=[];
+for(n=0;n<t.length;++n)i.push(e(t[n],n));
+return i;
+}
+function u(t,e){
+return Object.prototype.hasOwnProperty.call(t,e);
+}
+function d(t,e){
+for(var n in e)u(e,n)&&(t[n]=e[n]);
+return u(e,"toString")&&(t.toString=e.toString),u(e,"valueOf")&&(t.valueOf=e.valueOf),
+t;
+}
+function l(t,e,n,i){
+return Ce(t,e,n,i,!0).utc();
+}
+function c(){
+return{
+empty:!1,
+unusedTokens:[],
+unusedInput:[],
+overflow:-2,
+charsLeftOver:0,
+nullInput:!1,
+invalidMonth:null,
+invalidFormat:!1,
+userInvalidated:!1,
+iso:!1
+};
+}
+function h(t){
+return null==t._pf&&(t._pf=c()),t._pf;
+}
+function f(t){
+if(null==t._isValid){
+var e=h(t);
+t._isValid=!(isNaN(t._d.getTime())||!(e.overflow<0)||e.empty||e.invalidMonth||e.invalidWeekday||e.nullInput||e.invalidFormat||e.userInvalidated),
+t._strict&&(t._isValid=t._isValid&&0===e.charsLeftOver&&0===e.unusedTokens.length&&void 0===e.bigHour);
+}
+return t._isValid;
+}
+function m(t){
+var e=l(0/0);
+return null!=t?d(h(e),t):h(e).userInvalidated=!0,e;
+}
+function _(t,e){
+var n,i,r;
+if("undefined"!=typeof e._isAMomentObject&&(t._isAMomentObject=e._isAMomentObject),
+"undefined"!=typeof e._i&&(t._i=e._i),"undefined"!=typeof e._f&&(t._f=e._f),"undefined"!=typeof e._l&&(t._l=e._l),
+"undefined"!=typeof e._strict&&(t._strict=e._strict),"undefined"!=typeof e._tzm&&(t._tzm=e._tzm),
+"undefined"!=typeof e._isUTC&&(t._isUTC=e._isUTC),"undefined"!=typeof e._offset&&(t._offset=e._offset),
+"undefined"!=typeof e._pf&&(t._pf=h(e)),"undefined"!=typeof e._locale&&(t._locale=e._locale),
+Ai.length>0)for(n in Ai)i=Ai[n],r=e[i],"undefined"!=typeof r&&(t[i]=r);
+return t;
+}
+function y(t){
+_(this,t),this._d=new Date(null!=t._d?t._d.getTime():0/0),zi===!1&&(zi=!0,i.updateOffset(this),
+zi=!1);
+}
+function p(t){
+return t instanceof y||null!=t&&null!=t._isAMomentObject;
+}
+function g(t){
+return 0>t?Math.ceil(t):Math.floor(t);
+}
+function D(t){
+var e=+t,n=0;
+return 0!==e&&isFinite(e)&&(n=g(e)),n;
+}
+function v(t,e,n){
+var i,r=Math.min(t.length,e.length),s=Math.abs(t.length-e.length),a=0;
+for(i=0;r>i;i++)(n&&t[i]!==e[i]||!n&&D(t[i])!==D(e[i]))&&a++;
+return a+s;
+}
+function M(){}
+function Y(t){
+return t?t.toLowerCase().replace("_","-"):t;
+}
+function w(t){
+for(var e,n,i,r,s=0;s<t.length;){
+for(r=Y(t[s]).split("-"),e=r.length,n=Y(t[s+1]),n=n?n.split("-"):null;e>0;){
+if(i=S(r.slice(0,e).join("-")))return i;
+if(n&&n.length>=e&&v(r,n,!0)>=e-1)break;
+e--;
+}
+s++;
+}
+return null;
+}
+function S(e){
+var i=null;
+if(!Zi[e]&&"undefined"!=typeof n&&n&&n.exports)try{
+i=Ii._abbr,t("./locale/"+e),k(i);
+}catch(r){}
+return Zi[e];
+}
+function k(t,e){
+var n;
+return t&&(n="undefined"==typeof e?b(t):T(t,e),n&&(Ii=n)),Ii._abbr;
+}
+function T(t,e){
+return null!==e?(e.abbr=t,Zi[t]=Zi[t]||new M,Zi[t].set(e),k(t),Zi[t]):(delete Zi[t],
+null);
+}
+function b(t){
+var e;
+if(t&&t._locale&&t._locale._abbr&&(t=t._locale._abbr),!t)return Ii;
+if(!s(t)){
+if(e=S(t))return e;
+t=[t];
+}
+return w(t);
+}
+function O(t,e){
+var n=t.toLowerCase();
+ji[n]=ji[n+"s"]=ji[e]=t;
+}
+function U(t){
+return"string"==typeof t?ji[t]||ji[t.toLowerCase()]:void 0;
+}
+function W(t){
+var e,n,i={};
+for(n in t)u(t,n)&&(e=U(n),e&&(i[e]=t[n]));
+return i;
+}
+function C(t,e){
+return function(n){
+return null!=n?(F(this,t,n),i.updateOffset(this,e),this):G(this,t);
+};
+}
+function G(t,e){
+return t._d["get"+(t._isUTC?"UTC":"")+e]();
+}
+function F(t,e,n){
+return t._d["set"+(t._isUTC?"UTC":"")+e](n);
+}
+function P(t,e){
+var n;
+if("object"==typeof t)for(n in t)this.set(n,t[n]);else if(t=U(t),"function"==typeof this[t])return this[t](e);
+return this;
+}
+function x(t,e,n){
+var i=""+Math.abs(t),r=e-i.length,s=t>=0;
+return(s?n?"+":"":"-")+Math.pow(10,Math.max(0,r)).toString().substr(1)+i;
+}
+function H(t,e,n,i){
+var r=i;
+"string"==typeof i&&(r=function(){
+return this[i]();
+}),t&&(qi[t]=r),e&&(qi[e[0]]=function(){
+return x(r.apply(this,arguments),e[1],e[2]);
+}),n&&(qi[n]=function(){
+return this.localeData().ordinal(r.apply(this,arguments),t);
+});
+}
+function L(t){
+return t.match(/\[[\s\S]/)?t.replace(/^\[|\]$/g,""):t.replace(/\\/g,"");
+}
+function I(t){
+var e,n,i=t.match(Ei);
+for(e=0,n=i.length;n>e;e++)i[e]=qi[i[e]]?qi[i[e]]:L(i[e]);
+return function(r){
+var s="";
+for(e=0;n>e;e++)s+=i[e]instanceof Function?i[e].call(r,t):i[e];
+return s;
+};
+}
+function A(t,e){
+return t.isValid()?(e=z(e,t.localeData()),Vi[e]=Vi[e]||I(e),Vi[e](t)):t.localeData().invalidDate();
+}
+function z(t,e){
+function n(t){
+return e.longDateFormat(t)||t;
+}
+var i=5;
+for(Ni.lastIndex=0;i>=0&&Ni.test(t);)t=t.replace(Ni,n),Ni.lastIndex=0,i-=1;
+return t;
+}
+function Z(t){
+return"function"==typeof t&&"[object Function]"===Object.prototype.toString.call(t);
+}
+function j(t,e,n){
+or[t]=Z(e)?e:function(t){
+return t&&n?n:e;
+};
+}
+function E(t,e){
+return u(or,t)?or[t](e._strict,e._locale):new RegExp(N(t));
+}
+function N(t){
+return t.replace("\\","").replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g,function(t,e,n,i,r){
+return e||n||i||r;
+}).replace(/[-\/\\^$*+?.()|[\]{}]/g,"\\$&");
+}
+function V(t,e){
+var n,i=e;
+for("string"==typeof t&&(t=[t]),"number"==typeof e&&(i=function(t,n){
+n[e]=D(t);
+}),n=0;n<t.length;n++)ur[t[n]]=i;
+}
+function q(t,e){
+V(t,function(t,n,i,r){
+i._w=i._w||{},e(t,i._w,i,r);
+});
+}
+function J(t,e,n){
+null!=e&&u(ur,t)&&ur[t](e,n._a,n,t);
+}
+function $(t,e){
+return new Date(Date.UTC(t,e+1,0)).getUTCDate();
+}
+function R(t){
+return this._months[t.month()];
+}
+function B(t){
+return this._monthsShort[t.month()];
+}
+function Q(t,e,n){
+var i,r,s;
+for(this._monthsParse||(this._monthsParse=[],this._longMonthsParse=[],this._shortMonthsParse=[]),
+i=0;12>i;i++){
+if(r=l([2e3,i]),n&&!this._longMonthsParse[i]&&(this._longMonthsParse[i]=new RegExp("^"+this.months(r,"").replace(".","")+"$","i"),
+this._shortMonthsParse[i]=new RegExp("^"+this.monthsShort(r,"").replace(".","")+"$","i")),
+n||this._monthsParse[i]||(s="^"+this.months(r,"")+"|^"+this.monthsShort(r,""),this._monthsParse[i]=new RegExp(s.replace(".",""),"i")),
+n&&"MMMM"===e&&this._longMonthsParse[i].test(t))return i;
+if(n&&"MMM"===e&&this._shortMonthsParse[i].test(t))return i;
+if(!n&&this._monthsParse[i].test(t))return i;
+}
+}
+function X(t,e){
+var n;
+return"string"==typeof e&&(e=t.localeData().monthsParse(e),"number"!=typeof e)?t:(n=Math.min(t.date(),$(t.year(),e)),
+t._d["set"+(t._isUTC?"UTC":"")+"Month"](e,n),t);
+}
+function K(t){
+return null!=t?(X(this,t),i.updateOffset(this,!0),this):G(this,"Month");
+}
+function te(){
+return $(this.year(),this.month());
+}
+function ee(t){
+var e,n=t._a;
+return n&&-2===h(t).overflow&&(e=n[lr]<0||n[lr]>11?lr:n[cr]<1||n[cr]>$(n[dr],n[lr])?cr:n[hr]<0||n[hr]>24||24===n[hr]&&(0!==n[fr]||0!==n[mr]||0!==n[_r])?hr:n[fr]<0||n[fr]>59?fr:n[mr]<0||n[mr]>59?mr:n[_r]<0||n[_r]>999?_r:-1,
+h(t)._overflowDayOfYear&&(dr>e||e>cr)&&(e=cr),h(t).overflow=e),t;
+}
+function ne(t){
+i.suppressDeprecationWarnings===!1&&"undefined"!=typeof console&&console.warn&&console.warn("Deprecation warning: "+t);
+}
+function ie(t,e){
+var n=!0;
+return d(function(){
+return n&&(ne(t+"\n"+(new Error).stack),n=!1),e.apply(this,arguments);
+},e);
+}
+function re(t,e){
+gr[t]||(ne(e),gr[t]=!0);
+}
+function se(t){
+var e,n,i=t._i,r=Dr.exec(i);
+if(r){
+for(h(t).iso=!0,e=0,n=vr.length;n>e;e++)if(vr[e][1].exec(i)){
+t._f=vr[e][0];
+break;
+}
+for(e=0,n=Mr.length;n>e;e++)if(Mr[e][1].exec(i)){
+t._f+=(r[6]||" ")+Mr[e][0];
+break;
+}
+i.match(rr)&&(t._f+="Z"),Se(t);
+}else t._isValid=!1;
+}
+function ae(t){
+var e=Yr.exec(t._i);
+return null!==e?void(t._d=new Date(+e[1])):(se(t),void(t._isValid===!1&&(delete t._isValid,
+i.createFromInputFallback(t))));
+}
+function oe(t,e,n,i,r,s,a){
+var o=new Date(t,e,n,i,r,s,a);
+return 1970>t&&o.setFullYear(t),o;
+}
+function ue(t){
+var e=new Date(Date.UTC.apply(null,arguments));
+return 1970>t&&e.setUTCFullYear(t),e;
+}
+function de(t){
+return le(t)?366:365;
+}
+function le(t){
+return t%4===0&&t%100!==0||t%400===0;
+}
+function ce(){
+return le(this.year());
+}
+function he(t,e,n){
+var i,r=n-e,s=n-t.day();
+return s>r&&(s-=7),r-7>s&&(s+=7),i=Ge(t).add(s,"d"),{
+week:Math.ceil(i.dayOfYear()/7),
+year:i.year()
+};
+}
+function fe(t){
+return he(t,this._week.dow,this._week.doy).week;
+}
+function me(){
+return this._week.dow;
+}
+function _e(){
+return this._week.doy;
+}
+function ye(t){
+var e=this.localeData().week(this);
+return null==t?e:this.add(7*(t-e),"d");
+}
+function pe(t){
+var e=he(this,1,4).week;
+return null==t?e:this.add(7*(t-e),"d");
+}
+function ge(t,e,n,i,r){
+var s,a=6+r-i,o=ue(t,0,1+a),u=o.getUTCDay();
+return r>u&&(u+=7),n=null!=n?1*n:r,s=1+a+7*(e-1)-u+n,{
+year:s>0?t:t-1,
+dayOfYear:s>0?s:de(t-1)+s
+};
+}
+function De(t){
+var e=Math.round((this.clone().startOf("day")-this.clone().startOf("year"))/864e5)+1;
+return null==t?e:this.add(t-e,"d");
+}
+function ve(t,e,n){
+return null!=t?t:null!=e?e:n;
+}
+function Me(t){
+var e=new Date;
+return t._useUTC?[e.getUTCFullYear(),e.getUTCMonth(),e.getUTCDate()]:[e.getFullYear(),e.getMonth(),e.getDate()];
+}
+function Ye(t){
+var e,n,i,r,s=[];
+if(!t._d){
+for(i=Me(t),t._w&&null==t._a[cr]&&null==t._a[lr]&&we(t),t._dayOfYear&&(r=ve(t._a[dr],i[dr]),
+t._dayOfYear>de(r)&&(h(t)._overflowDayOfYear=!0),n=ue(r,0,t._dayOfYear),t._a[lr]=n.getUTCMonth(),
+t._a[cr]=n.getUTCDate()),e=0;3>e&&null==t._a[e];++e)t._a[e]=s[e]=i[e];
+for(;7>e;e++)t._a[e]=s[e]=null==t._a[e]?2===e?1:0:t._a[e];
+24===t._a[hr]&&0===t._a[fr]&&0===t._a[mr]&&0===t._a[_r]&&(t._nextDay=!0,t._a[hr]=0),
+t._d=(t._useUTC?ue:oe).apply(null,s),null!=t._tzm&&t._d.setUTCMinutes(t._d.getUTCMinutes()-t._tzm),
+t._nextDay&&(t._a[hr]=24);
+}
+}
+function we(t){
+var e,n,i,r,s,a,o;
+e=t._w,null!=e.GG||null!=e.W||null!=e.E?(s=1,a=4,n=ve(e.GG,t._a[dr],he(Ge(),1,4).year),
+i=ve(e.W,1),r=ve(e.E,1)):(s=t._locale._week.dow,a=t._locale._week.doy,n=ve(e.gg,t._a[dr],he(Ge(),s,a).year),
+i=ve(e.w,1),null!=e.d?(r=e.d,s>r&&++i):r=null!=e.e?e.e+s:s),o=ge(n,i,r,a,s),t._a[dr]=o.year,
+t._dayOfYear=o.dayOfYear;
+}
+function Se(t){
+if(t._f===i.ISO_8601)return void se(t);
+t._a=[],h(t).empty=!0;
+var e,n,r,s,a,o=""+t._i,u=o.length,d=0;
+for(r=z(t._f,t._locale).match(Ei)||[],e=0;e<r.length;e++)s=r[e],n=(o.match(E(s,t))||[])[0],
+n&&(a=o.substr(0,o.indexOf(n)),a.length>0&&h(t).unusedInput.push(a),o=o.slice(o.indexOf(n)+n.length),
+d+=n.length),qi[s]?(n?h(t).empty=!1:h(t).unusedTokens.push(s),J(s,n,t)):t._strict&&!n&&h(t).unusedTokens.push(s);
+h(t).charsLeftOver=u-d,o.length>0&&h(t).unusedInput.push(o),h(t).bigHour===!0&&t._a[hr]<=12&&t._a[hr]>0&&(h(t).bigHour=void 0),
+t._a[hr]=ke(t._locale,t._a[hr],t._meridiem),Ye(t),ee(t);
+}
+function ke(t,e,n){
+var i;
+return null==n?e:null!=t.meridiemHour?t.meridiemHour(e,n):null!=t.isPM?(i=t.isPM(n),
+i&&12>e&&(e+=12),i||12!==e||(e=0),e):e;
+}
+function Te(t){
+var e,n,i,r,s;
+if(0===t._f.length)return h(t).invalidFormat=!0,void(t._d=new Date(0/0));
+for(r=0;r<t._f.length;r++)s=0,e=_({},t),null!=t._useUTC&&(e._useUTC=t._useUTC),e._f=t._f[r],
+Se(e),f(e)&&(s+=h(e).charsLeftOver,s+=10*h(e).unusedTokens.length,h(e).score=s,(null==i||i>s)&&(i=s,
+n=e));
+d(t,n||e);
+}
+function be(t){
+if(!t._d){
+var e=W(t._i);
+t._a=[e.year,e.month,e.day||e.date,e.hour,e.minute,e.second,e.millisecond],Ye(t);
+}
+}
+function Oe(t){
+var e=new y(ee(Ue(t)));
+return e._nextDay&&(e.add(1,"d"),e._nextDay=void 0),e;
+}
+function Ue(t){
+var e=t._i,n=t._f;
+return t._locale=t._locale||b(t._l),null===e||void 0===n&&""===e?m({
+nullInput:!0
+}):("string"==typeof e&&(t._i=e=t._locale.preparse(e)),p(e)?new y(ee(e)):(s(n)?Te(t):n?Se(t):a(e)?t._d=e:We(t),
+t));
+}
+function We(t){
+var e=t._i;
+void 0===e?t._d=new Date:a(e)?t._d=new Date(+e):"string"==typeof e?ae(t):s(e)?(t._a=o(e.slice(0),function(t){
+return parseInt(t,10);
+}),Ye(t)):"object"==typeof e?be(t):"number"==typeof e?t._d=new Date(e):i.createFromInputFallback(t);
+}
+function Ce(t,e,n,i,r){
+var s={};
+return"boolean"==typeof n&&(i=n,n=void 0),s._isAMomentObject=!0,s._useUTC=s._isUTC=r,
+s._l=n,s._i=t,s._f=e,s._strict=i,Oe(s);
+}
+function Ge(t,e,n,i){
+return Ce(t,e,n,i,!1);
+}
+function Fe(t,e){
+var n,i;
+if(1===e.length&&s(e[0])&&(e=e[0]),!e.length)return Ge();
+for(n=e[0],i=1;i<e.length;++i)(!e[i].isValid()||e[i][t](n))&&(n=e[i]);
+return n;
+}
+function Pe(){
+var t=[].slice.call(arguments,0);
+return Fe("isBefore",t);
+}
+function xe(){
+var t=[].slice.call(arguments,0);
+return Fe("isAfter",t);
+}
+function He(t){
+var e=W(t),n=e.year||0,i=e.quarter||0,r=e.month||0,s=e.week||0,a=e.day||0,o=e.hour||0,u=e.minute||0,d=e.second||0,l=e.millisecond||0;
+this._milliseconds=+l+1e3*d+6e4*u+36e5*o,this._days=+a+7*s,this._months=+r+3*i+12*n,
+this._data={},this._locale=b(),this._bubble();
+}
+function Le(t){
+return t instanceof He;
+}
+function Ie(t,e){
+H(t,0,0,function(){
+var t=this.utcOffset(),n="+";
+return 0>t&&(t=-t,n="-"),n+x(~~(t/60),2)+e+x(~~t%60,2);
+});
+}
+function Ae(t){
+var e=(t||"").match(rr)||[],n=e[e.length-1]||[],i=(n+"").match(br)||["-",0,0],r=+(60*i[1])+D(i[2]);
+return"+"===i[0]?r:-r;
+}
+function ze(t,e){
+var n,r;
+return e._isUTC?(n=e.clone(),r=(p(t)||a(t)?+t:+Ge(t))-+n,n._d.setTime(+n._d+r),i.updateOffset(n,!1),
+n):Ge(t).local();
+}
+function Ze(t){
+return 15*-Math.round(t._d.getTimezoneOffset()/15);
+}
+function je(t,e){
+var n,r=this._offset||0;
+return null!=t?("string"==typeof t&&(t=Ae(t)),Math.abs(t)<16&&(t=60*t),!this._isUTC&&e&&(n=Ze(this)),
+this._offset=t,this._isUTC=!0,null!=n&&this.add(n,"m"),r!==t&&(!e||this._changeInProgress?sn(this,Ke(t-r,"m"),1,!1):this._changeInProgress||(this._changeInProgress=!0,
+i.updateOffset(this,!0),this._changeInProgress=null)),this):this._isUTC?r:Ze(this);
+}
+function Ee(t,e){
+return null!=t?("string"!=typeof t&&(t=-t),this.utcOffset(t,e),this):-this.utcOffset();
+}
+function Ne(t){
+return this.utcOffset(0,t);
+}
+function Ve(t){
+return this._isUTC&&(this.utcOffset(0,t),this._isUTC=!1,t&&this.subtract(Ze(this),"m")),
+this;
+}
+function qe(){
+return this._tzm?this.utcOffset(this._tzm):"string"==typeof this._i&&this.utcOffset(Ae(this._i)),
+this;
+}
+function Je(t){
+return t=t?Ge(t).utcOffset():0,(this.utcOffset()-t)%60===0;
+}
+function $e(){
+return this.utcOffset()>this.clone().month(0).utcOffset()||this.utcOffset()>this.clone().month(5).utcOffset();
+}
+function Re(){
+if("undefined"!=typeof this._isDSTShifted)return this._isDSTShifted;
+var t={};
+if(_(t,this),t=Ue(t),t._a){
+var e=t._isUTC?l(t._a):Ge(t._a);
+this._isDSTShifted=this.isValid()&&v(t._a,e.toArray())>0;
+}else this._isDSTShifted=!1;
+return this._isDSTShifted;
+}
+function Be(){
+return!this._isUTC;
+}
+function Qe(){
+return this._isUTC;
+}
+function Xe(){
+return this._isUTC&&0===this._offset;
+}
+function Ke(t,e){
+var n,i,r,s=t,a=null;
+return Le(t)?s={
+ms:t._milliseconds,
+d:t._days,
+M:t._months
+}:"number"==typeof t?(s={},e?s[e]=t:s.milliseconds=t):(a=Or.exec(t))?(n="-"===a[1]?-1:1,
+s={
+y:0,
+d:D(a[cr])*n,
+h:D(a[hr])*n,
+m:D(a[fr])*n,
+s:D(a[mr])*n,
+ms:D(a[_r])*n
+}):(a=Ur.exec(t))?(n="-"===a[1]?-1:1,s={
+y:tn(a[2],n),
+M:tn(a[3],n),
+d:tn(a[4],n),
+h:tn(a[5],n),
+m:tn(a[6],n),
+s:tn(a[7],n),
+w:tn(a[8],n)
+}):null==s?s={}:"object"==typeof s&&("from"in s||"to"in s)&&(r=nn(Ge(s.from),Ge(s.to)),
+s={},s.ms=r.milliseconds,s.M=r.months),i=new He(s),Le(t)&&u(t,"_locale")&&(i._locale=t._locale),
+i;
+}
+function tn(t,e){
+var n=t&&parseFloat(t.replace(",","."));
+return(isNaN(n)?0:n)*e;
+}
+function en(t,e){
+var n={
+milliseconds:0,
+months:0
+};
+return n.months=e.month()-t.month()+12*(e.year()-t.year()),t.clone().add(n.months,"M").isAfter(e)&&--n.months,
+n.milliseconds=+e-+t.clone().add(n.months,"M"),n;
+}
+function nn(t,e){
+var n;
+return e=ze(e,t),t.isBefore(e)?n=en(t,e):(n=en(e,t),n.milliseconds=-n.milliseconds,
+n.months=-n.months),n;
+}
+function rn(t,e){
+return function(n,i){
+var r,s;
+return null===i||isNaN(+i)||(re(e,"moment()."+e+"(period, number) is deprecated. Please use moment()."+e+"(number, period)."),
+s=n,n=i,i=s),n="string"==typeof n?+n:n,r=Ke(n,i),sn(this,r,t),this;
+};
+}
+function sn(t,e,n,r){
+var s=e._milliseconds,a=e._days,o=e._months;
+r=null==r?!0:r,s&&t._d.setTime(+t._d+s*n),a&&F(t,"Date",G(t,"Date")+a*n),o&&X(t,G(t,"Month")+o*n),
+r&&i.updateOffset(t,a||o);
+}
+function an(t,e){
+var n=t||Ge(),i=ze(n,this).startOf("day"),r=this.diff(i,"days",!0),s=-6>r?"sameElse":-1>r?"lastWeek":0>r?"lastDay":1>r?"sameDay":2>r?"nextDay":7>r?"nextWeek":"sameElse";
+return this.format(e&&e[s]||this.localeData().calendar(s,this,Ge(n)));
+}
+function on(){
+return new y(this);
+}
+function un(t,e){
+var n;
+return e=U("undefined"!=typeof e?e:"millisecond"),"millisecond"===e?(t=p(t)?t:Ge(t),
++this>+t):(n=p(t)?+t:+Ge(t),n<+this.clone().startOf(e));
+}
+function dn(t,e){
+var n;
+return e=U("undefined"!=typeof e?e:"millisecond"),"millisecond"===e?(t=p(t)?t:Ge(t),
++t>+this):(n=p(t)?+t:+Ge(t),+this.clone().endOf(e)<n);
+}
+function ln(t,e,n){
+return this.isAfter(t,n)&&this.isBefore(e,n);
+}
+function cn(t,e){
+var n;
+return e=U(e||"millisecond"),"millisecond"===e?(t=p(t)?t:Ge(t),+this===+t):(n=+Ge(t),
++this.clone().startOf(e)<=n&&n<=+this.clone().endOf(e));
+}
+function hn(t,e,n){
+var i,r,s=ze(t,this),a=6e4*(s.utcOffset()-this.utcOffset());
+return e=U(e),"year"===e||"month"===e||"quarter"===e?(r=fn(this,s),"quarter"===e?r/=3:"year"===e&&(r/=12)):(i=this-s,
+r="second"===e?i/1e3:"minute"===e?i/6e4:"hour"===e?i/36e5:"day"===e?(i-a)/864e5:"week"===e?(i-a)/6048e5:i),
+n?r:g(r);
+}
+function fn(t,e){
+var n,i,r=12*(e.year()-t.year())+(e.month()-t.month()),s=t.clone().add(r,"months");
+return 0>e-s?(n=t.clone().add(r-1,"months"),i=(e-s)/(s-n)):(n=t.clone().add(r+1,"months"),
+i=(e-s)/(n-s)),-(r+i);
+}
+function mn(){
+return this.clone().locale("en").format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
+}
+function _n(){
+var t=this.clone().utc();
+return 0<t.year()&&t.year()<=9999?"function"==typeof Date.prototype.toISOString?this.toDate().toISOString():A(t,"YYYY-MM-DD[T]HH:mm:ss.SSS[Z]"):A(t,"YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]");
+}
+function yn(t){
+var e=A(this,t||i.defaultFormat);
+return this.localeData().postformat(e);
+}
+function pn(t,e){
+return this.isValid()?Ke({
+to:this,
+from:t
+}).locale(this.locale()).humanize(!e):this.localeData().invalidDate();
+}
+function gn(t){
+return this.from(Ge(),t);
+}
+function Dn(t,e){
+return this.isValid()?Ke({
+from:this,
+to:t
+}).locale(this.locale()).humanize(!e):this.localeData().invalidDate();
+}
+function vn(t){
+return this.to(Ge(),t);
+}
+function Mn(t){
+var e;
+return void 0===t?this._locale._abbr:(e=b(t),null!=e&&(this._locale=e),this);
+}
+function Yn(){
+return this._locale;
+}
+function wn(t){
+switch(t=U(t)){
+case"year":
+this.month(0);
+
+case"quarter":
+case"month":
+this.date(1);
+
+case"week":
+case"isoWeek":
+case"day":
+this.hours(0);
+
+case"hour":
+this.minutes(0);
+
+case"minute":
+this.seconds(0);
+
+case"second":
+this.milliseconds(0);
+}
+return"week"===t&&this.weekday(0),"isoWeek"===t&&this.isoWeekday(1),"quarter"===t&&this.month(3*Math.floor(this.month()/3)),
+this;
+}
+function Sn(t){
+return t=U(t),void 0===t||"millisecond"===t?this:this.startOf(t).add(1,"isoWeek"===t?"week":t).subtract(1,"ms");
+}
+function kn(){
+return+this._d-6e4*(this._offset||0);
+}
+function Tn(){
+return Math.floor(+this/1e3);
+}
+function bn(){
+return this._offset?new Date(+this):this._d;
+}
+function On(){
+var t=this;
+return[t.year(),t.month(),t.date(),t.hour(),t.minute(),t.second(),t.millisecond()];
+}
+function Un(){
+var t=this;
+return{
+years:t.year(),
+months:t.month(),
+date:t.date(),
+hours:t.hours(),
+minutes:t.minutes(),
+seconds:t.seconds(),
+milliseconds:t.milliseconds()
+};
+}
+function Wn(){
+return f(this);
+}
+function Cn(){
+return d({},h(this));
+}
+function Gn(){
+return h(this).overflow;
+}
+function Fn(t,e){
+H(0,[t,t.length],0,e);
+}
+function Pn(t,e,n){
+return he(Ge([t,11,31+e-n]),e,n).week;
+}
+function xn(t){
+var e=he(this,this.localeData()._week.dow,this.localeData()._week.doy).year;
+return null==t?e:this.add(t-e,"y");
+}
+function Hn(t){
+var e=he(this,1,4).year;
+return null==t?e:this.add(t-e,"y");
+}
+function Ln(){
+return Pn(this.year(),1,4);
+}
+function In(){
+var t=this.localeData()._week;
+return Pn(this.year(),t.dow,t.doy);
+}
+function An(t){
+return null==t?Math.ceil((this.month()+1)/3):this.month(3*(t-1)+this.month()%3);
+}
+function zn(t,e){
+return"string"!=typeof t?t:isNaN(t)?(t=e.weekdaysParse(t),"number"==typeof t?t:null):parseInt(t,10);
+}
+function Zn(t){
+return this._weekdays[t.day()];
+}
+function jn(t){
+return this._weekdaysShort[t.day()];
+}
+function En(t){
+return this._weekdaysMin[t.day()];
+}
+function Nn(t){
+var e,n,i;
+for(this._weekdaysParse=this._weekdaysParse||[],e=0;7>e;e++)if(this._weekdaysParse[e]||(n=Ge([2e3,1]).day(e),
+i="^"+this.weekdays(n,"")+"|^"+this.weekdaysShort(n,"")+"|^"+this.weekdaysMin(n,""),
+this._weekdaysParse[e]=new RegExp(i.replace(".",""),"i")),this._weekdaysParse[e].test(t))return e;
+}
+function Vn(t){
+var e=this._isUTC?this._d.getUTCDay():this._d.getDay();
+return null!=t?(t=zn(t,this.localeData()),this.add(t-e,"d")):e;
+}
+function qn(t){
+var e=(this.day()+7-this.localeData()._week.dow)%7;
+return null==t?e:this.add(t-e,"d");
+}
+function Jn(t){
+return null==t?this.day()||7:this.day(this.day()%7?t:t-7);
+}
+function $n(t,e){
+H(t,0,0,function(){
+return this.localeData().meridiem(this.hours(),this.minutes(),e);
+});
+}
+function Rn(t,e){
+return e._meridiemParse;
+}
+function Bn(t){
+return"p"===(t+"").toLowerCase().charAt(0);
+}
+function Qn(t,e,n){
+return t>11?n?"pm":"PM":n?"am":"AM";
+}
+function Xn(t,e){
+e[_r]=D(1e3*("0."+t));
+}
+function Kn(){
+return this._isUTC?"UTC":"";
+}
+function ti(){
+return this._isUTC?"Coordinated Universal Time":"";
+}
+function ei(t){
+return Ge(1e3*t);
+}
+function ni(){
+return Ge.apply(null,arguments).parseZone();
+}
+function ii(t,e,n){
+var i=this._calendar[t];
+return"function"==typeof i?i.call(e,n):i;
+}
+function ri(t){
+var e=this._longDateFormat[t],n=this._longDateFormat[t.toUpperCase()];
+return e||!n?e:(this._longDateFormat[t]=n.replace(/MMMM|MM|DD|dddd/g,function(t){
+return t.slice(1);
+}),this._longDateFormat[t]);
+}
+function si(){
+return this._invalidDate;
+}
+function ai(t){
+return this._ordinal.replace("%d",t);
+}
+function oi(t){
+return t;
+}
+function ui(t,e,n,i){
+var r=this._relativeTime[n];
+return"function"==typeof r?r(t,e,n,i):r.replace(/%d/i,t);
+}
+function di(t,e){
+var n=this._relativeTime[t>0?"future":"past"];
+return"function"==typeof n?n(e):n.replace(/%s/i,e);
+}
+function li(t){
+var e,n;
+for(n in t)e=t[n],"function"==typeof e?this[n]=e:this["_"+n]=e;
+this._ordinalParseLenient=new RegExp(this._ordinalParse.source+"|"+/\d{1,2}/.source);
+}
+function ci(t,e,n,i){
+var r=b(),s=l().set(i,e);
+return r[n](s,t);
+}
+function hi(t,e,n,i,r){
+if("number"==typeof t&&(e=t,t=void 0),t=t||"",null!=e)return ci(t,e,n,r);
+var s,a=[];
+for(s=0;i>s;s++)a[s]=ci(t,s,n,r);
+return a;
+}
+function fi(t,e){
+return hi(t,e,"months",12,"month");
+}
+function mi(t,e){
+return hi(t,e,"monthsShort",12,"month");
+}
+function _i(t,e){
+return hi(t,e,"weekdays",7,"day");
+}
+function yi(t,e){
+return hi(t,e,"weekdaysShort",7,"day");
+}
+function pi(t,e){
+return hi(t,e,"weekdaysMin",7,"day");
+}
+function gi(){
+var t=this._data;
+return this._milliseconds=Xr(this._milliseconds),this._days=Xr(this._days),this._months=Xr(this._months),
+t.milliseconds=Xr(t.milliseconds),t.seconds=Xr(t.seconds),t.minutes=Xr(t.minutes),
+t.hours=Xr(t.hours),t.months=Xr(t.months),t.years=Xr(t.years),this;
+}
+function Di(t,e,n,i){
+var r=Ke(e,n);
+return t._milliseconds+=i*r._milliseconds,t._days+=i*r._days,t._months+=i*r._months,
+t._bubble();
+}
+function vi(t,e){
+return Di(this,t,e,1);
+}
+function Mi(t,e){
+return Di(this,t,e,-1);
+}
+function Yi(t){
+return 0>t?Math.floor(t):Math.ceil(t);
+}
+function wi(){
+var t,e,n,i,r,s=this._milliseconds,a=this._days,o=this._months,u=this._data;
+return s>=0&&a>=0&&o>=0||0>=s&&0>=a&&0>=o||(s+=864e5*Yi(ki(o)+a),a=0,o=0),u.milliseconds=s%1e3,
+t=g(s/1e3),u.seconds=t%60,e=g(t/60),u.minutes=e%60,n=g(e/60),u.hours=n%24,a+=g(n/24),
+r=g(Si(a)),o+=r,a-=Yi(ki(r)),i=g(o/12),o%=12,u.days=a,u.months=o,u.years=i,this;
+}
+function Si(t){
+return 4800*t/146097;
+}
+function ki(t){
+return 146097*t/4800;
+}
+function Ti(t){
+var e,n,i=this._milliseconds;
+if(t=U(t),"month"===t||"year"===t)return e=this._days+i/864e5,n=this._months+Si(e),
+"month"===t?n:n/12;
+switch(e=this._days+Math.round(ki(this._months)),t){
+case"week":
+return e/7+i/6048e5;
+
+case"day":
+return e+i/864e5;
+
+case"hour":
+return 24*e+i/36e5;
+
+case"minute":
+return 1440*e+i/6e4;
+
+case"second":
+return 86400*e+i/1e3;
+
+case"millisecond":
+return Math.floor(864e5*e)+i;
+
+default:
+throw new Error("Unknown unit "+t);
+}
+}
+function bi(){
+return this._milliseconds+864e5*this._days+this._months%12*2592e6+31536e6*D(this._months/12);
+}
+function Oi(t){
+return function(){
+return this.as(t);
+};
+}
+function Ui(t){
+return t=U(t),this[t+"s"]();
+}
+function Wi(t){
+return function(){
+return this._data[t];
+};
+}
+function Ci(){
+return g(this.days()/7);
+}
+function Gi(t,e,n,i,r){
+return r.relativeTime(e||1,!!n,t,i);
+}
+function Fi(t,e,n){
+var i=Ke(t).abs(),r=ms(i.as("s")),s=ms(i.as("m")),a=ms(i.as("h")),o=ms(i.as("d")),u=ms(i.as("M")),d=ms(i.as("y")),l=r<_s.s&&["s",r]||1===s&&["m"]||s<_s.m&&["mm",s]||1===a&&["h"]||a<_s.h&&["hh",a]||1===o&&["d"]||o<_s.d&&["dd",o]||1===u&&["M"]||u<_s.M&&["MM",u]||1===d&&["y"]||["yy",d];
+return l[2]=e,l[3]=+t>0,l[4]=n,Gi.apply(null,l);
+}
+function Pi(t,e){
+return void 0===_s[t]?!1:void 0===e?_s[t]:(_s[t]=e,!0);
+}
+function xi(t){
+var e=this.localeData(),n=Fi(this,!t,e);
+return t&&(n=e.pastFuture(+this,n)),e.postformat(n);
+}
+function Hi(){
+var t,e,n,i=ys(this._milliseconds)/1e3,r=ys(this._days),s=ys(this._months);
+t=g(i/60),e=g(t/60),i%=60,t%=60,n=g(s/12),s%=12;
+var a=n,o=s,u=r,d=e,l=t,c=i,h=this.asSeconds();
+return h?(0>h?"-":"")+"P"+(a?a+"Y":"")+(o?o+"M":"")+(u?u+"D":"")+(d||l||c?"T":"")+(d?d+"H":"")+(l?l+"M":"")+(c?c+"S":""):"P0D";
+}
+var Li,Ii,Ai=i.momentProperties=[],zi=!1,Zi={},ji={},Ei=/(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g,Ni=/(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g,Vi={},qi={},Ji=/\d/,$i=/\d\d/,Ri=/\d{3}/,Bi=/\d{4}/,Qi=/[+-]?\d{6}/,Xi=/\d\d?/,Ki=/\d{1,3}/,tr=/\d{1,4}/,er=/[+-]?\d{1,6}/,nr=/\d+/,ir=/[+-]?\d+/,rr=/Z|[+-]\d\d:?\d\d/gi,sr=/[+-]?\d+(\.\d{1,3})?/,ar=/[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i,or={},ur={},dr=0,lr=1,cr=2,hr=3,fr=4,mr=5,_r=6;
+H("M",["MM",2],"Mo",function(){
+return this.month()+1;
+}),H("MMM",0,0,function(t){
+return this.localeData().monthsShort(this,t);
+}),H("MMMM",0,0,function(t){
+return this.localeData().months(this,t);
+}),O("month","M"),j("M",Xi),j("MM",Xi,$i),j("MMM",ar),j("MMMM",ar),V(["M","MM"],function(t,e){
+e[lr]=D(t)-1;
+}),V(["MMM","MMMM"],function(t,e,n,i){
+var r=n._locale.monthsParse(t,i,n._strict);
+null!=r?e[lr]=r:h(n).invalidMonth=t;
+});
+var yr="January_February_March_April_May_June_July_August_September_October_November_December".split("_"),pr="Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),gr={};
+i.suppressDeprecationWarnings=!1;
+var Dr=/^\s*(?:[+-]\d{6}|\d{4})-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d+)?)?)?)?([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/,vr=[["YYYYYY-MM-DD",/[+-]\d{6}-\d{2}-\d{2}/],["YYYY-MM-DD",/\d{4}-\d{2}-\d{2}/],["GGGG-[W]WW-E",/\d{4}-W\d{2}-\d/],["GGGG-[W]WW",/\d{4}-W\d{2}/],["YYYY-DDD",/\d{4}-\d{3}/]],Mr=[["HH:mm:ss.SSSS",/(T| )\d\d:\d\d:\d\d\.\d+/],["HH:mm:ss",/(T| )\d\d:\d\d:\d\d/],["HH:mm",/(T| )\d\d:\d\d/],["HH",/(T| )\d\d/]],Yr=/^\/?Date\((\-?\d+)/i;
+i.createFromInputFallback=ie("moment construction falls back to js Date. This is discouraged and will be removed in upcoming major release. Please refer to https://github.com/moment/moment/issues/1407 for more info.",function(t){
+t._d=new Date(t._i+(t._useUTC?" UTC":""));
+}),H(0,["YY",2],0,function(){
+return this.year()%100;
+}),H(0,["YYYY",4],0,"year"),H(0,["YYYYY",5],0,"year"),H(0,["YYYYYY",6,!0],0,"year"),
+O("year","y"),j("Y",ir),j("YY",Xi,$i),j("YYYY",tr,Bi),j("YYYYY",er,Qi),j("YYYYYY",er,Qi),
+V(["YYYYY","YYYYYY"],dr),V("YYYY",function(t,e){
+e[dr]=2===t.length?i.parseTwoDigitYear(t):D(t);
+}),V("YY",function(t,e){
+e[dr]=i.parseTwoDigitYear(t);
+}),i.parseTwoDigitYear=function(t){
+return D(t)+(D(t)>68?1900:2e3);
+};
+var wr=C("FullYear",!1);
+H("w",["ww",2],"wo","week"),H("W",["WW",2],"Wo","isoWeek"),O("week","w"),O("isoWeek","W"),
+j("w",Xi),j("ww",Xi,$i),j("W",Xi),j("WW",Xi,$i),q(["w","ww","W","WW"],function(t,e,n,i){
+e[i.substr(0,1)]=D(t);
+});
+var Sr={
+dow:0,
+doy:6
+};
+H("DDD",["DDDD",3],"DDDo","dayOfYear"),O("dayOfYear","DDD"),j("DDD",Ki),j("DDDD",Ri),
+V(["DDD","DDDD"],function(t,e,n){
+n._dayOfYear=D(t);
+}),i.ISO_8601=function(){};
+var kr=ie("moment().min is deprecated, use moment.min instead. https://github.com/moment/moment/issues/1548",function(){
+var t=Ge.apply(null,arguments);
+return this>t?this:t;
+}),Tr=ie("moment().max is deprecated, use moment.max instead. https://github.com/moment/moment/issues/1548",function(){
+var t=Ge.apply(null,arguments);
+return t>this?this:t;
+});
+Ie("Z",":"),Ie("ZZ",""),j("Z",rr),j("ZZ",rr),V(["Z","ZZ"],function(t,e,n){
+n._useUTC=!0,n._tzm=Ae(t);
+});
+var br=/([\+\-]|\d\d)/gi;
+i.updateOffset=function(){};
+var Or=/(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/,Ur=/^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/;
+Ke.fn=He.prototype;
+var Wr=rn(1,"add"),Cr=rn(-1,"subtract");
+i.defaultFormat="YYYY-MM-DDTHH:mm:ssZ";
+var Gr=ie("moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.",function(t){
+return void 0===t?this.localeData():this.locale(t);
+});
+H(0,["gg",2],0,function(){
+return this.weekYear()%100;
+}),H(0,["GG",2],0,function(){
+return this.isoWeekYear()%100;
+}),Fn("gggg","weekYear"),Fn("ggggg","weekYear"),Fn("GGGG","isoWeekYear"),Fn("GGGGG","isoWeekYear"),
+O("weekYear","gg"),O("isoWeekYear","GG"),j("G",ir),j("g",ir),j("GG",Xi,$i),j("gg",Xi,$i),
+j("GGGG",tr,Bi),j("gggg",tr,Bi),j("GGGGG",er,Qi),j("ggggg",er,Qi),q(["gggg","ggggg","GGGG","GGGGG"],function(t,e,n,i){
+e[i.substr(0,2)]=D(t);
+}),q(["gg","GG"],function(t,e,n,r){
+e[r]=i.parseTwoDigitYear(t);
+}),H("Q",0,0,"quarter"),O("quarter","Q"),j("Q",Ji),V("Q",function(t,e){
+e[lr]=3*(D(t)-1);
+}),H("D",["DD",2],"Do","date"),O("date","D"),j("D",Xi),j("DD",Xi,$i),j("Do",function(t,e){
+return t?e._ordinalParse:e._ordinalParseLenient;
+}),V(["D","DD"],cr),V("Do",function(t,e){
+e[cr]=D(t.match(Xi)[0],10);
+});
+var Fr=C("Date",!0);
+H("d",0,"do","day"),H("dd",0,0,function(t){
+return this.localeData().weekdaysMin(this,t);
+}),H("ddd",0,0,function(t){
+return this.localeData().weekdaysShort(this,t);
+}),H("dddd",0,0,function(t){
+return this.localeData().weekdays(this,t);
+}),H("e",0,0,"weekday"),H("E",0,0,"isoWeekday"),O("day","d"),O("weekday","e"),O("isoWeekday","E"),
+j("d",Xi),j("e",Xi),j("E",Xi),j("dd",ar),j("ddd",ar),j("dddd",ar),q(["dd","ddd","dddd"],function(t,e,n){
+var i=n._locale.weekdaysParse(t);
+null!=i?e.d=i:h(n).invalidWeekday=t;
+}),q(["d","e","E"],function(t,e,n,i){
+e[i]=D(t);
+});
+var Pr="Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),xr="Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),Hr="Su_Mo_Tu_We_Th_Fr_Sa".split("_");
+H("H",["HH",2],0,"hour"),H("h",["hh",2],0,function(){
+return this.hours()%12||12;
+}),$n("a",!0),$n("A",!1),O("hour","h"),j("a",Rn),j("A",Rn),j("H",Xi),j("h",Xi),j("HH",Xi,$i),
+j("hh",Xi,$i),V(["H","HH"],hr),V(["a","A"],function(t,e,n){
+n._isPm=n._locale.isPM(t),n._meridiem=t;
+}),V(["h","hh"],function(t,e,n){
+e[hr]=D(t),h(n).bigHour=!0;
+});
+var Lr=/[ap]\.?m?\.?/i,Ir=C("Hours",!0);
+H("m",["mm",2],0,"minute"),O("minute","m"),j("m",Xi),j("mm",Xi,$i),V(["m","mm"],fr);
+var Ar=C("Minutes",!1);
+H("s",["ss",2],0,"second"),O("second","s"),j("s",Xi),j("ss",Xi,$i),V(["s","ss"],mr);
+var zr=C("Seconds",!1);
+H("S",0,0,function(){
+return~~(this.millisecond()/100);
+}),H(0,["SS",2],0,function(){
+return~~(this.millisecond()/10);
+}),H(0,["SSS",3],0,"millisecond"),H(0,["SSSS",4],0,function(){
+return 10*this.millisecond();
+}),H(0,["SSSSS",5],0,function(){
+return 100*this.millisecond();
+}),H(0,["SSSSSS",6],0,function(){
+return 1e3*this.millisecond();
+}),H(0,["SSSSSSS",7],0,function(){
+return 1e4*this.millisecond();
+}),H(0,["SSSSSSSS",8],0,function(){
+return 1e5*this.millisecond();
+}),H(0,["SSSSSSSSS",9],0,function(){
+return 1e6*this.millisecond();
+}),O("millisecond","ms"),j("S",Ki,Ji),j("SS",Ki,$i),j("SSS",Ki,Ri);
+var Zr;
+for(Zr="SSSS";Zr.length<=9;Zr+="S")j(Zr,nr);
+for(Zr="S";Zr.length<=9;Zr+="S")V(Zr,Xn);
+var jr=C("Milliseconds",!1);
+H("z",0,0,"zoneAbbr"),H("zz",0,0,"zoneName");
+var Er=y.prototype;
+Er.add=Wr,Er.calendar=an,Er.clone=on,Er.diff=hn,Er.endOf=Sn,Er.format=yn,Er.from=pn,
+Er.fromNow=gn,Er.to=Dn,Er.toNow=vn,Er.get=P,Er.invalidAt=Gn,Er.isAfter=un,Er.isBefore=dn,
+Er.isBetween=ln,Er.isSame=cn,Er.isValid=Wn,Er.lang=Gr,Er.locale=Mn,Er.localeData=Yn,
+Er.max=Tr,Er.min=kr,Er.parsingFlags=Cn,Er.set=P,Er.startOf=wn,Er.subtract=Cr,Er.toArray=On,
+Er.toObject=Un,Er.toDate=bn,Er.toISOString=_n,Er.toJSON=_n,Er.toString=mn,Er.unix=Tn,
+Er.valueOf=kn,Er.year=wr,Er.isLeapYear=ce,Er.weekYear=xn,Er.isoWeekYear=Hn,Er.quarter=Er.quarters=An,
+Er.month=K,Er.daysInMonth=te,Er.week=Er.weeks=ye,Er.isoWeek=Er.isoWeeks=pe,Er.weeksInYear=In,
+Er.isoWeeksInYear=Ln,Er.date=Fr,Er.day=Er.days=Vn,Er.weekday=qn,Er.isoWeekday=Jn,
+Er.dayOfYear=De,Er.hour=Er.hours=Ir,Er.minute=Er.minutes=Ar,Er.second=Er.seconds=zr,
+Er.millisecond=Er.milliseconds=jr,Er.utcOffset=je,Er.utc=Ne,Er.local=Ve,Er.parseZone=qe,
+Er.hasAlignedHourOffset=Je,Er.isDST=$e,Er.isDSTShifted=Re,Er.isLocal=Be,Er.isUtcOffset=Qe,
+Er.isUtc=Xe,Er.isUTC=Xe,Er.zoneAbbr=Kn,Er.zoneName=ti,Er.dates=ie("dates accessor is deprecated. Use date instead.",Fr),
+Er.months=ie("months accessor is deprecated. Use month instead",K),Er.years=ie("years accessor is deprecated. Use year instead",wr),
+Er.zone=ie("moment().zone is deprecated, use moment().utcOffset instead. https://github.com/moment/moment/issues/1779",Ee);
+var Nr=Er,Vr={
+sameDay:"[Today at] LT",
+nextDay:"[Tomorrow at] LT",
+nextWeek:"dddd [at] LT",
+lastDay:"[Yesterday at] LT",
+lastWeek:"[Last] dddd [at] LT",
+sameElse:"L"
+},qr={
+LTS:"h:mm:ss A",
+LT:"h:mm A",
+L:"MM/DD/YYYY",
+LL:"MMMM D, YYYY",
+LLL:"MMMM D, YYYY h:mm A",
+LLLL:"dddd, MMMM D, YYYY h:mm A"
+},Jr="Invalid date",$r="%d",Rr=/\d{1,2}/,Br={
+future:"in %s",
+past:"%s ago",
+s:"a few seconds",
+m:"a minute",
+mm:"%d minutes",
+h:"an hour",
+hh:"%d hours",
+d:"a day",
+dd:"%d days",
+M:"a month",
+MM:"%d months",
+y:"a year",
+yy:"%d years"
+},Qr=M.prototype;
+Qr._calendar=Vr,Qr.calendar=ii,Qr._longDateFormat=qr,Qr.longDateFormat=ri,Qr._invalidDate=Jr,
+Qr.invalidDate=si,Qr._ordinal=$r,Qr.ordinal=ai,Qr._ordinalParse=Rr,Qr.preparse=oi,
+Qr.postformat=oi,Qr._relativeTime=Br,Qr.relativeTime=ui,Qr.pastFuture=di,Qr.set=li,
+Qr.months=R,Qr._months=yr,Qr.monthsShort=B,Qr._monthsShort=pr,Qr.monthsParse=Q,Qr.week=fe,
+Qr._week=Sr,Qr.firstDayOfYear=_e,Qr.firstDayOfWeek=me,Qr.weekdays=Zn,Qr._weekdays=Pr,
+Qr.weekdaysMin=En,Qr._weekdaysMin=Hr,Qr.weekdaysShort=jn,Qr._weekdaysShort=xr,Qr.weekdaysParse=Nn,
+Qr.isPM=Bn,Qr._meridiemParse=Lr,Qr.meridiem=Qn,k("en",{
+ordinalParse:/\d{1,2}(th|st|nd|rd)/,
+ordinal:function(t){
+var e=t%10,n=1===D(t%100/10)?"th":1===e?"st":2===e?"nd":3===e?"rd":"th";
+return t+n;
+}
+}),i.lang=ie("moment.lang is deprecated. Use moment.locale instead.",k),i.langData=ie("moment.langData is deprecated. Use moment.localeData instead.",b);
+var Xr=Math.abs,Kr=Oi("ms"),ts=Oi("s"),es=Oi("m"),ns=Oi("h"),is=Oi("d"),rs=Oi("w"),ss=Oi("M"),as=Oi("y"),os=Wi("milliseconds"),us=Wi("seconds"),ds=Wi("minutes"),ls=Wi("hours"),cs=Wi("days"),hs=Wi("months"),fs=Wi("years"),ms=Math.round,_s={
+s:45,
+m:45,
+h:22,
+d:26,
+M:11
+},ys=Math.abs,ps=He.prototype;
+ps.abs=gi,ps.add=vi,ps.subtract=Mi,ps.as=Ti,ps.asMilliseconds=Kr,ps.asSeconds=ts,
+ps.asMinutes=es,ps.asHours=ns,ps.asDays=is,ps.asWeeks=rs,ps.asMonths=ss,ps.asYears=as,
+ps.valueOf=bi,ps._bubble=wi,ps.get=Ui,ps.milliseconds=os,ps.seconds=us,ps.minutes=ds,
+ps.hours=ls,ps.days=cs,ps.weeks=Ci,ps.months=hs,ps.years=fs,ps.humanize=xi,ps.toISOString=Hi,
+ps.toString=Hi,ps.toJSON=Hi,ps.locale=Mn,ps.localeData=Yn,ps.toIsoString=ie("toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)",Hi),
+ps.lang=Gr,H("X",0,0,"unix"),H("x",0,0,"valueOf"),j("x",ir),j("X",sr),V("X",function(t,e,n){
+n._d=new Date(1e3*parseFloat(t,10));
+}),V("x",function(t,e,n){
+n._d=new Date(D(t));
+}),i.version="2.10.6",r(Ge),i.fn=Nr,i.min=Pe,i.max=xe,i.utc=l,i.unix=ei,i.months=fi,
+i.isDate=a,i.locale=k,i.invalid=m,i.duration=Ke,i.isMoment=p,i.weekdays=_i,i.parseZone=ni,
+i.localeData=b,i.isDuration=Le,i.monthsShort=mi,i.weekdaysMin=pi,i.defineLocale=T,
+i.weekdaysShort=yi,i.normalizeUnits=U,i.relativeTimeThreshold=Pi;
+var gs=i;
+n.exports=gs;
+});define("common/wx/subjectAppealDialog.js",["common/wx/dialog.js"],function(o){
+"use strict";
+var t=o("common/wx/dialog.js"),n=function(o){
+var n=o.reason||"该主体信息曾因涉嫌违规，违反《微信公众平台运营规范》，暂无法使用。如有异议，请发起申诉。",e=[{
+text:"确定",
+click:function(){
+this.remove();
+}
+}];
+o.canAppeal&&e.push({
+text:"发起申诉",
+click:function(){
+window.location.href=o.jumpUrl+"&appeal_ticket="+o.appealTicket;
+}
+}),t.show({
+type:"warn",
+msg:"该主体信息暂无法使用|"+n,
+buttons:e
+});
+};
+return n;
+});define("tpl/dialog.html.js",[],function(){
+return'<div class="dialog_wrp {className}" style="{if width}width:{width}px;{/if}{if height}height:{height}px;{/if};display:none;">\n  <div class="dialog" id="{id}">\n    <div class="dialog_hd">\n      <h3>{title}</h3>\n      {if !hideClose}\n      <!--#0001#-->\n      <a href="javascript:;" class="pop_closed" onclick="return false;">关闭</a>\n      <!--%0001%-->\n      {/if}\n    </div>\n    <div class="dialog_bd">\n      <div class="page_msg large default {msg.msgClass}">\n        <div class="inner">\n          <span class="msg_icon_wrp"><i class="icon_msg {icon} "></i></span>\n          <div class="msg_content ">\n          {if msg.title}<h4>{=msg.title}</h4>{/if}\n          {if msg.text}<p class="msg_desc_context">{=msg.text}</p>{/if}\n          </div>\n        </div>\n      </div>\n    </div> \n    <div class="dialog_ft">\n  	{if !hideClose}\n      {each buttons as bt index}\n      <a href="javascript:;" class="btn {bt.type} js_btn" onclick="return false;">{bt.text}</a>\n      {/each}\n  	{/if}\n    </div>\n  </div>\n</div>\n{if mask}<div class="mask"></div>{/if}\n\n';
+});define("biz_web/lib/spin.js",[],function(){
+var t=function(){
+function t(t,n){
+for(var e=~~((t[f]-1)/2),r=1;e>=r;r++)n(t[2*r-1],t[2*r]);
+}
+function n(n){
+var e=document.createElement(n||"div");
+return t(arguments,function(t,n){
+e[t]=n;
+}),e;
+}
+function e(t,n,r){
+return r&&!r[z]&&e(t,r),t.insertBefore(n,r||null),t;
+}
+function r(t,n){
+var e,r=[h,n,~~(100*t)].join("-"),i="{"+h+":"+t+"}";
+if(!A[r]){
+for(e=0;e<T[f];e++)try{
+D.insertRule("@"+(T[e]&&"-"+T[e].toLowerCase()+"-"||"")+"keyframes "+r+"{0%{"+h+":1}"+n+"%"+i+"to"+i+"}",D.cssRules[f]);
+}catch(o){}
+A[r]=1;
+}
+return r;
+}
+function i(t,n){
+var e,r,i=t[g];
+if(void 0!==i[n])return n;
+for(n=n.charAt(0).toUpperCase()+n.slice(1),r=0;r<T[f];r++)if(e=T[r]+n,void 0!==i[e])return e;
+}
+function o(n){
+return t(arguments,function(t,e){
+n[g][i(n,t)||t]=e;
+}),n;
+}
+function s(n){
+return t(arguments,function(t,e){
+void 0===n[t]&&(n[t]=e);
+}),n;
+}
+var a,u="width",f="length",l="radius",c="lines",d="trail",p="color",h="opacity",v="speed",m="shadow",g="style",w="height",b="left",x="top",y="px",k="childNodes",$="firstChild",z="parentNode",C="position",M="relative",R="absolute",j="animation",B="transform",N="Origin",E="Timeout",L="coord",O="#000",S=g+"Sheets",T="webkit0Moz0ms0O".split(0),A={};
+e(document.getElementsByTagName("head")[0],n(g));
+var D=document[S][document[S][f]-1],H=function(t){
+this.opts=s(t||{},c,12,d,100,f,7,u,5,l,10,p,O,h,.25,v,1);
+},I=H.prototype={
+spin:function(t){
+var n=this,r=n.el=n[c](n.opts);
+if(t&&e(t,o(r,b,~~(t.offsetWidth/2)+y,x,~~(t.offsetHeight/2)+y),t[$]),!a){
+var i=n.opts,s=0,u=20/i[v],f=(1-i[h])/(u*i[d]/100),l=u/i[c];
+!function p(){
+s++;
+for(var t=i[c];t;t--){
+var e=Math.max(1-(s+t*l)%u*f,i[h]);
+n[h](r,i[c]-t,e,i);
+}
+n[E]=n.el&&window["set"+E](p,50);
+}();
+}
+return n;
+},
+stop:function(){
+var t=this,n=t.el;
+return window["clear"+E](t[E]),n&&n[z]&&n[z].removeChild(n),t.el=void 0,t;
+}
+};
+I[c]=function(t){
+function i(e,r){
+return o(n(),C,R,u,t[f]+t[u]+y,w,t[u]+y,"background",e,"boxShadow",r,B+N,b,B,"rotate("+~~(360/t[c]*k)+"deg) translate("+t[l]+y+",0)","borderRadius","100em");
+}
+for(var s,a=o(n(),C,M),g=r(t[h],t[d]),k=0;k<t[c];k++)s=o(n(),C,R,x,1+~(t[u]/2)+y,B,"translate3d(0,0,0)",j,g+" "+1/t[v]+"s linear infinite "+(1/t[c]/t[v]*k-1/t[v])+"s"),
+t[m]&&e(s,o(i(O,"0 0 4px "+O),x,2+y)),e(a,e(s,i(t[p],"0 0 1px rgba(0,0,0,.1)")));
+return a;
+},I[h]=function(t,n,e){
+t[k][n][g][h]=e;
+};
+var U="behavior",V="url(#default#VML)",W="group0roundrect0fill0stroke".split(0);
+return function(){
+var t,r=o(n(W[0]),U,V);
+if(!i(r,B)&&r.adj){
+for(t=0;t<W[f];t++)D.addRule(W[t],U+":"+V);
+I[c]=function(){
+function t(){
+return o(n(W[0],L+"size",d+" "+d,L+N,-a+" "+-a),u,d,w,d);
+}
+function r(r,i,f){
+e(v,e(o(t(),"rotation",360/s[c]*r+"deg",b,~~i),e(o(n(W[1],"arcsize",1),u,a,w,s[u],b,s[l],x,-s[u]/2,"filter",f),n(W[2],p,s[p],h,s[h]),n(W[3],h,0))));
+}
+var i,s=this.opts,a=s[f]+s[u],d=2*a,v=t(),g=~(s[f]+s[l]+s[u])+y;
+if(s[m])for(i=1;i<=s[c];i++)r(i,-2,"progid:DXImage"+B+".Microsoft.Blur(pixel"+l+"=2,make"+m+"=1,"+m+h+"=.3)");
+for(i=1;i<=s[c];i++)r(i);
+return e(o(n(),"margin",g+" 0 0 "+g,C,M),v);
+},I[h]=function(t,n,e,r){
+r=r[m]&&r[c]||0,t[$][k][n+r][$][$][h]=e;
+};
+}else a=i(r,j);
+}(),H;
+}();
+$.fn.spin=function(n,e){
+return this.each(function(){
+var r=$(this),i=r.data();
+i.spinner&&(i.spinner.stop(),delete i.spinner),n!==!1&&(n=$.extend({
+color:e||r.css("color")
+},$.fn.spin.presets[n]||n),i.spinner=new t(n).spin(this));
+});
+},$.fn.spin.presets={
+tiny:{
+lines:8,
+length:2,
+width:2,
+radius:3
+},
+small:{
+lines:8,
+length:4,
+width:3,
+radius:5
+},
+large:{
+lines:10,
+length:8,
+width:4,
+radius:8
+}
+};
+});
