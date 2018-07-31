@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>h5打开app（wb&wx）</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<section id="text">
+</section>
+
+<section class="btn">
+  打开APP
+</section>
+
+<style>
+.btn{ width: 150px; height: 50px; line-height: 50px; font-size: 16px; text-align: center; border: 1px solid #eee; margin: 20px; }
+</style>
+
+<!--
+微信 iPhone
+mozilla/5.0 (iphone; cpu iphone os 11_2_1 like mac os x) applewebkit/604.4.7 (khtml, like gecko) mobile/15c153 micromessenger/6.6.6 nettype/wifi language/zh_cn
+
+微信 安卓
+mozilla/5.0 (linux; android 8.1; mi 8 build/opm1.171019.026; wv) applewebkit/537.36 (khtml, like gecko) version/4.0 chrome/57.0.2987.132 mqqbrowser/6.2 tbs/044203 mobile safari/537.36 micromessenger/6.6.7.1321(0x26060739) nettype/wifi language/zh_cn
+
+
+微博 iPhone
+mozilla/5.0 (iphone; cpu iphone os 11_2_1 like mac os x) applewebkit/604.4.7 (khtml, like gecko) mobile/15c153 weibo (iphone9,2__weibo__8.6.1__iphone__os11.2.1)
+
+微博 安卓
+mozilla/5.0 (linux; android 8.1.0; mi 8 build/opm1.171019.026; wv) applewebkit/537.36 (khtml, like gecko) version/4.0 chrome/62.0.3202.84 mobile safari/537.36 weibo (xiaomi-mi 8__weibo__8.7.3__android__android8.1.0)
+
+
+iPhone 浏览器
+mozilla/5.0 (iphone; cpu iphone os 11_2_1 like mac os x) applewebkit/604.4.7 (khtml, like gecko) version/11.0 mobile/15c153 safari/604.1
+
+
+小米 浏览器
+mozilla/5.0 (linux; u; android 8.1.0; zh-cn; mi 8 build/opm1.171019.026) applewebkit/537.36 (khtml, like gecko) version/4.0 chrome/61.0.3163.128 mobile safari/537.36 xiaomi/miuibrowser/10.0.1
+
+-->
+
+
+<script type="text/javascript">
+var userAgent = window.navigator.userAgent.toLowerCase();
+document.querySelector("#text").innerHTML = userAgent;
+
+
+//是否在微信内置浏览器中
+function isInWx(){
+  var agent = window.navigator.userAgent.toLowerCase();
+  return agent.match(/MicroMessenger/i) == 'micromessenger';
+}
+
+//是否在微博内置浏览器中
+function isInWb(){
+  var agent = window.navigator.userAgent.toLowerCase();
+  return agent.match(/WeiBo/i) == 'weibo';
+}
+
+//客户端判断
+function isInIos(){
+  var userAgentInfo = navigator.userAgent ,
+      Agents = ["iPhone" , "iPad", "iPod"];
+  for(var v = 0; v < Agents.length; v++) {
+    if( userAgentInfo.indexOf(Agents[v]) > 0) {
+      return true;
+    }
+  }
+  return false;
+}
+function isInAndroid(){
+  var userAgentInfo = navigator.userAgent ,
+      Agents = ["Android" , "Linux"];
+  for(var v = 0; v < Agents.length; v++) {
+    if( userAgentInfo.indexOf(Agents[v]) > 0) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+//启动app方法
+function startApp(nativeUrl,dUrl) {
+  nativeUrl = nativeUrl?nativeUrl: 'rulimeirong://common_webview?url='+encodeURIComponent(window.location.href);
+  dUrl = '';
+  ios_url = 'itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1398631109';
+  Android_url = 'http://sj.qq.com/myapp/detail.htm?apkName=com.ruli.rulimeirong';
+  //ios中
+  if( isInIos() ){
+    if( isInWx() ){
+      //console.log("在微信中,跳下载页");
+      window.location.assign(ios_url);
+      return false;
+    }
+    if( isInWb() ){
+      //console.log("在微博中,跳下载页");
+      window.location.assign('https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1398631109');
+      return false;
+    }
+    window.location.href = nativeUrl;
+    var time = Date.now();
+    setTimeout(function() {
+      //setTimeout回小于3500 毫秒,一般为唤起失败 
+      if (Date.now() - time < 3500) {
+        window.location.assign(ios_url);
+      }
+    }, 3000);
+  }  
+  //安卓中
+  if( isInAndroid() ){    
+    if( isInWx() ){
+      //console.log("在微信中,跳下载页");
+      window.location.assign(Android_url);
+      return false;
+    }
+    var time = Date.now(),
+      doc = window.document,
+      ifr = doc.createElement('iframe');        
+    //创建一个隐藏的iframe
+    ifr.src = nativeUrl;
+    ifr.style.cssText = 'display:none;border:0;';
+    doc.body.appendChild(ifr);      
+    setTimeout(function() {
+      doc.body.removeChild(ifr);//删除iframe
+      //setTimeout回小于2500 毫秒,一般为唤起失败 
+      if (Date.now() - time < 2500) {
+        location.href = Android_url;
+      }
+    }, 2000);
+  }
+}
+
+document.querySelector(".btn").onclick = function(){
+  this.innerHTML = 'innerHTML 666';
+  //startApp('http://ruli-app-h5.foour.com/notepad.html?diary_id=325')
+  startApp();
+}
+
+</script>
+
+</body>
+</html>

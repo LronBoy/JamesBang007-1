@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>获取userAgent</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<section id="text">
+</section>
+
+<!--
+微信 iPhone
+mozilla/5.0 (iphone; cpu iphone os 11_2_1 like mac os x) applewebkit/604.4.7 (khtml, like gecko) mobile/15c153 micromessenger/6.6.6 nettype/wifi language/zh_cn
+
+微信 安卓
+mozilla/5.0 (linux; android 8.1; mi 8 build/opm1.171019.026; wv) applewebkit/537.36 (khtml, like gecko) version/4.0 chrome/57.0.2987.132 mqqbrowser/6.2 tbs/044203 mobile safari/537.36 micromessenger/6.6.7.1321(0x26060739) nettype/wifi language/zh_cn
+
+
+微博 iPhone
+mozilla/5.0 (iphone; cpu iphone os 11_2_1 like mac os x) applewebkit/604.4.7 (khtml, like gecko) mobile/15c153 weibo (iphone9,2__weibo__8.6.1__iphone__os11.2.1)
+
+微博 安卓
+mozilla/5.0 (linux; android 8.1.0; mi 8 build/opm1.171019.026; wv) applewebkit/537.36 (khtml, like gecko) version/4.0 chrome/62.0.3202.84 mobile safari/537.36 weibo (xiaomi-mi 8__weibo__8.7.3__android__android8.1.0)
+
+
+iPhone 浏览器
+mozilla/5.0 (iphone; cpu iphone os 11_2_1 like mac os x) applewebkit/604.4.7 (khtml, like gecko) version/11.0 mobile/15c153 safari/604.1
+
+
+小米 浏览器
+mozilla/5.0 (linux; u; android 8.1.0; zh-cn; mi 8 build/opm1.171019.026) applewebkit/537.36 (khtml, like gecko) version/4.0 chrome/61.0.3163.128 mobile safari/537.36 xiaomi/miuibrowser/10.0.1
+
+-->
+
+
+<script type="text/javascript">
+var userAgent = window.navigator.userAgent.toLowerCase();
+document.querySelector("#text").innerHTML = userAgent;
+</script>
+
+</body>
+</html>
