@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>环形图 pie-doughnut</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<!-- 引入 ECharts 文件 -->
+<script src="echarts.min.js"></script>
+</head>
+<body>
+
+<div id="echart1" class="chart" style="width: 600px;height:400px;"></div>
+
+<script type="text/javascript">
+// 基于准备好的dom，初始化echarts实例
+var myChart_1 = echarts.init(document.getElementById('echart1'));
+
+var app = {};
+option = null;
+app.title = '环形图';
+
+// 指定图表的配置项和数据
+option = {
+    tooltip: {
+        trigger: 'item',
+        formatter: "{b}: {c} ({d}%)"
+    },
+    //图例组件
+    legend: {
+        orient: 'horizontal',//图例列表的布局朝向
+        align: 'auto',
+        left: 'center',
+        top: 'bottom',
+        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎',  '直接2访问','邮件2营销','联盟2广告']
+    },
+    //系列列表。每个系列通过 type 决定自己的图表类型
+    series: [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '20',
+                        fontWeight: '500'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {value:335, name:'直接访问'},
+                {value:310, name:'邮件营销'},
+                {value:234, name:'联盟广告'},
+                {value:135, name:'视频广告'},
+                {value:1548, name:'搜索引擎'},
+                
+                {value:405, name:'直接2访问'},
+                {value:110, name:'邮件2营销'},
+                {value:66, name:'联盟2广告'}
+            ]
+        }
+    ]
+};
+
+// 使用刚指定的配置项和数据显示图表。
+myChart_1.setOption(option);
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>ECharts 个性化图表的样式</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<!-- 引入 ECharts 文件 -->
+<script src="echarts.min.js"></script>
+</head>
+<body>
+
+ECharts 提供了丰富的自定义配置选项，并且能够从全局、系列、数据三个层级去设置数据图形的样式。下面我们来看如何使用 ECharts 实现下面这个南丁格尔图：
+
+
+<h2>绘制南丁格尔图</h2>
+
+5分钟上手ECharts 中讲了如何绘制一个简单的柱状图，这次要画的是饼图，饼图主要是通过扇形的弧度表现不同类目的数据在总和中的占比，它的数据格式比柱状图更简单，只有一维的数值，不需要给类目。因为不在直角坐标系上，所以也不需要xAxis，yAxis。
+<br>
+
+<div id="echart1" class="chart" style="width: 600px;height:400px;"></div>
+
+<script type="text/javascript">
+// 基于准备好的dom，初始化echarts实例
+var myChart_1 = echarts.init(document.getElementById('echart1'));
+
+// 指定图表的配置项和数据，显示图表。
+myChart_1.setOption({
+  backgroundColor: '#2c343c', //改背景色（全局）
+  series : [
+      {
+          name: '访问来源',
+          type: 'pie',
+          radius: '55%',
+          roseType: 'angle', //显示成南丁格尔图,半径表示数据的大小
+          data:[
+              {value:235, name:'视频广告'},
+              {value:274, name:'联盟广告'},
+              {value:310, name:'邮件营销'},
+              {value:335, name:'直接访问'},
+              {value:400, name:'搜索引擎'}
+          ]
+      }
+  ]
+});
+</script>
+
+这里data属性值不像入门教程里那样每一项都是单个数值，而是一个包含 name 和 value 属性的对象，ECharts 中的数据项都是既可以只设成数值，也可以设成一个包含有名称、该数据图形的样式配置、标签配置的对象，具体见 data 文档。
+<br>
+
+ECharts 中的饼图也支持通过设置 roseType 显示成南丁格尔图。
+roseType: 'angle'
+南丁格尔图会通过半径表示数据的大小。
+<br>
+
+
+
+
+
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 600px;height:400px;"></div>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        legend: {
+            data:['销量']
+        },
+        xAxis: {
+            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+</script>
+
+
+
+</body>
+</html>
