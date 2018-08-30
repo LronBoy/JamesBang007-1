@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>app版本比较</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<script type="text/javascript">
+var version_code = 0;
+
+var code_1 = 2;
+console.log(code_1>0);
+
+version_code = "4.3.0";
+
+console.log(version_code,version_code>0);
+
+//Number() 函数把对象的值转换为数字。
+console.log(Number(version_code)); //NaN
+console.log(Number("4.3")); //4.3
+
+//版本号字符串转数字
+function str2num(value){
+  var arr = value.split('.'); //把字符串分割为字符串数组
+  //console.log(arr);
+  for(var i=0;i<arr.length;i++){
+    if(arr[i]<10){
+      arr[i] = "0"+arr[i];
+    }
+  }
+  console.log(arr);
+  return Number(arr.join('')); //把数组元素放入一个字符串 ,然后转数字
+}
+
+
+str2num("4.2.12");
+str2num("4.3.0");
+str2num("4.3.1");
+console.log(str2num("4.5.3"));
+
+
+console.log(version_code,str2num(version_code)>0);
+
+console.log( str2num("4.2.12")>str2num("4.3.0") );
+console.log( str2num("2")>str2num("4.3.0") );
+
+</script>
+</body>
+</html>
