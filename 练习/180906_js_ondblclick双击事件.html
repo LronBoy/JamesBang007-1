@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>JavaScript 单击或双击事件</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="css/1803.css"/>
+<style>
+.wrap{ max-width: 1200px; height: auto; margin: 0 auto; clear: both; padding: 10px; box-sizing: border-box; }
+.btn{ clear: both; margin: 10px 0; width: 100px; line-height: 36px; font-size: 16px; color: #fff; text-align: center; background: #20a0ff; border-radius: 5px; }
+</style>
+</head>
+<body>
+
+<section class="wrap">
+  
+  <div class="tit-2">Event 对象</div>
+  <p>Event 对象代表事件的状态，比如事件在其中发生的元素、键盘按键的状态、鼠标的位置、鼠标按钮的状态。</p> 
+  <p>事件通常与函数结合使用，函数不会在事件发生前被执行！</p>
+  
+  <div class="tit-3">事件句柄　(Event Handlers)</div>
+  <ul>
+  	<li>onclick  当用户点击某个对象时调用的事件句柄。</li>
+    <li>ondblclick  当用户双击某个对象时调用的事件句柄。</li>
+  </ul>
+  
+  
+  <div class="tit-3">onclick 单击事件</div>
+定义和用法：
+onclick 事件会在对象被点击时发生。
+
+请注意， onclick 与 onmousedown 不同。单击事件是在同一元素上发生了鼠标按下事件之后又发生了鼠标放开事件时才发生的。
+<!--
+语法：
+  onclick="SomeJavaScriptCode"
+    参数    描述
+  SomeJavaScriptCode  必需。规定该事件发生时执行的 JavaScript。
+-->
+  
+  <div class="tit-3">ondblclick 双击事件</div>
+定义和用法：
+ondblclick 事件会在对象被双击时发生。
+<!--
+语法：
+    ondblclick="SomeJavaScriptCode"
+        参数    描述
+    SomeJavaScriptCode  必需。规定该事件发生时执行的 JavaScript。
+-->
+  
+  <div class="btn1 btn">按钮1</div>
+  <script>
+  	var btn1 = document.querySelector(".btn1");
+  	btn1.onclick = function(){
+  	  console.log("你单击了");
+  	  this.innerHTML = "你单击了";
+  	};
+  	btn1.ondblclick = function(){
+  	  console.log("你双击了");
+      this.innerHTML = "你双击了";
+    };  	
+  </script>
+  
+  
+  
+</section>
+
+<script type="text/javascript">
+	
+</script>
+
+</body>
+</html>
