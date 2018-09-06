@@ -51,6 +51,7 @@ ondblclick 事件会在对象被双击时发生。
     SomeJavaScriptCode  必需。规定该事件发生时执行的 JavaScript。
 -->
   
+  <p>demo1：单击与双击事件的触发</p>
   <div class="btn1 btn">按钮1</div>
   <script>
   	var btn1 = document.querySelector(".btn1");
@@ -65,12 +66,39 @@ ondblclick 事件会在对象被双击时发生。
   </script>
   
   
+  <p>demo2：双击时，不去触发单击事件（双击和单击事件冲突的解决方法）</p>
   
-</section>
+  <p>判断单击or双击</p>
+  <div class="btn2 btn">按钮2</div>
+  
+  <script type="text/javascript">
+    var btn2 = document.querySelector(".btn2");
+  	var timer = null;
+    btn2.onclick = function() {
+        clearTimeout(timer);
+        if (event.detail == 2){
+          return false;
+        }
+        var _this = this;
+        timer = setTimeout(function() { 
+          console.log('单击');
+          _this.innerHTML = "单击";
+        }, 300);
+    } 
+    btn2.ondblclick = function() { 
+        clearTimeout(timer);
+        console.log('双击');
+        this.innerHTML = "双击";
+    }
+  </script>
+  
+分别来解释下：
 
-<script type="text/javascript">
-	
-</script>
+单击：用户单击清除定时器先忽略，if里的意思是如果在同样的地方执行同种方法两次(即双击)，退出这个函数，单击嘛不会触发if。下来给定时器赋值，300ms后执行输出单击的这句话。如果单击的话，就不会在300ms里触发其他事件。 
+
+双击：用户双击会触发两次click和一次dbclick。第一次先执行单击事件，因为这是第一次所以不会return，300ms之内还没有等单击这两个字输出，又再次触发了单击事件，次数记为两次，就return出去了，之后触发双击对应函数，输出双击两个字。
+
+</section>
 
 </body>
 </html>
