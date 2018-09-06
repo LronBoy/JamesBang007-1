@@ -12,6 +12,23 @@
 <style>
 .wrap{ max-width: 1200px; height: auto; margin: 0 auto; clear: both; padding: 10px; box-sizing: border-box; }
 .btn{ clear: both; margin: 10px 0; width: 100px; line-height: 36px; font-size: 16px; color: #fff; text-align: center; background: #20a0ff; border-radius: 5px; }
+
+@font-face {font-family: "iconfont";
+  src: url('//at.alicdn.com/t/font_677690_rq52ym6icm.eot?t=1533884322378'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_677690_rq52ym6icm.eot?t=1533884322378#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_677690_rq52ym6icm.ttf?t=1533884322378') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_677690_rq52ym6icm.svg?t=1533884322378#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-dianzan_fill:before { content: "\e708"; }
+.icon-dianzan:before { content: "\e709"; }
+
 </style>
 </head>
 <body>
@@ -67,8 +84,13 @@ ondblclick 事件会在对象被双击时发生。
   
   
   <p>demo2：双击时，不去触发单击事件（双击和单击事件冲突的解决方法）</p>
+
+<p>
+在JS中代码中同一功能块中通常同时会用到单击、双击事件，但通常会遇到一个问题，就是在双击的时候即执行了一次双击事件，而且还执行了两次单击事件。
+
+想要解决两个事件冲突，需要对单击事件进行延时，如果在此延时中又监测到单击事件，那么认为此两次单击属于一个双击事件，则只执行双击事件，并第一时间将延时定时器清理，以防止第二次单击生效。
+</p>
   
-  <p>判断单击or双击</p>
   <div class="btn2 btn">按钮2</div>
   
   <script type="text/javascript">
@@ -91,14 +113,68 @@ ondblclick 事件会在对象被双击时发生。
         this.innerHTML = "双击";
     }
   </script>
-  
+<p>
 分别来解释下：
 
 单击：用户单击清除定时器先忽略，if里的意思是如果在同样的地方执行同种方法两次(即双击)，退出这个函数，单击嘛不会触发if。下来给定时器赋值，300ms后执行输出单击的这句话。如果单击的话，就不会在300ms里触发其他事件。 
 
 双击：用户双击会触发两次click和一次dbclick。第一次先执行单击事件，因为这是第一次所以不会return，300ms之内还没有等单击这两个字输出，又再次触发了单击事件，次数记为两次，就return出去了，之后触发双击对应函数，输出双击两个字。
+</p>
 
+
+    <p>demo：双击点赞特效</p>
+    <div class="btn3 btn">
+      <i class="iconfont icon-dianzan"></i> 点赞
+    </div>
+    <style type="text/css">
+    	.dianzan-666{
+    	  position: fixed; top: 50%; left: 50%; z-index: 1002;
+    	}
+    	.dianzan-666 i{ display: block; width: 100px; height: 100px; line-height: 100px; font-size: 100px; color: red; transform: scale(1); opacity: 1; transition: all .5s; }
+      .dianzan-666.show i{ display: block; transform: scale(15); opacity: 0; }
+    	
+    	/*.dianzan-666 i{ display: block; width: 100px; height: 100px; line-height: 100px; font-size: 100px; color: red; animation: dianzan666 .8s ease-in; }
+    	@keyframes dianzan666{
+        0%{ transform: scale(1); opacity: 1; }
+        100%{ transform: scale(10); opacity: 0; }
+      }*/
+    </style>
+    
+    <script src="../demo/js/jquery1.11.3.min.js"></script>
+    <script type="text/javascript">
+    var btn3 = document.querySelector(".btn3");
+    var btn3_i = document.querySelector(".btn3 i");
+    var timer = null;
+    btn3.onclick = function() {
+        clearTimeout(timer);
+        if (event.detail == 2){
+          return false;
+        }
+        timer = setTimeout(function() { 
+          btn3_i.className = "iconfont icon-dianzan_fill";
+        }, 300);
+    } 
+    btn3.ondblclick = function() { 
+        clearTimeout(timer);
+        btn3_i.className = "iconfont icon-dianzan_fill";
+        console.log(66);
+        $(".btn3").append('<div class="dianzan-666"><i class="iconfont icon-dianzan_fill"></i></div>');        
+        setTimeout(function(){
+          $(".dianzan-666").addClass("show");
+        },50);
+        setTimeout(function(){
+          $(".dianzan-666").remove();
+        },500);
+    }
+    
+    
+    
+    
+  </script>
+    
 </section>
+
+
 
 </body>
 </html>
