@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>form 表单</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="css/1803.css" />
+<style>
+.wrap {
+    max-width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    clear: both;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.btn {
+    clear: both;
+    margin: 10px 0;
+    width: 100px;
+    line-height: 36px;
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    background: #20a0ff;
+    border-radius: 5px;
+}
+
+.form-item{
+    margin: 15px 0;
+}
+</style>
+</head>
+
+<body>
+<section class="wrap">
+    <div class="tit-2">form 表单</div>
+    <form action="#" method="get">
+        <div class="form-item"> </div>
+        <div class="form-item"> 
+            <label>文本框：</label> 
+            <input type="text" name="text" id="text" value="" /> 
+        </div>
+        <div class="form-item">
+            <label>单选按钮：</label>
+            <input type="radio" name="area" id="" value="北京" />北京
+            <input type="radio" name="area" id="" value="上海" />上海
+            <input type="radio" name="area" id="" value="成都" />成都
+            <input type="radio" name="area" id="" value="" />广州
+        </div>
+        <div class="form-item"> 
+            <label>复选框：</label> 
+            <input type="checkbox" name="city" id="" value="北京" />北京
+            <input type="checkbox" name="city" id="" value="上海" />上海
+            <input type="checkbox" name="city" id="" value="成都" />成都
+            <input type="checkbox" name="city" id="" value="广州" />广州
+            <input type="checkbox" name="city" id="" value="深圳" />深圳
+        </div>
+        <div class="form-item"> 
+            <label>日期：</label> 
+            <input type="date" name="date" id="date" value="" /> </div>
+        <div class="form-item"> 
+            <label>时间：</label> 
+            <input type="datetime" name="datetime" id="datetime" value="" /> 
+        </div>
+        <div class="form-item"> 
+            <label>下拉列表</label>
+            <select name="" id="select1">
+                <option value="0">请选择</option>
+                <option value="元素值1">下拉列表-元素1</option>
+                <option value="元素值2">下拉列表-元素2</option>
+                <!--增加selected属性，设置默认选中-->
+                <option value="元素值3" selected>下拉列表-元素3</option>
+                <option value="元素值4">下拉列表-元素4</option>
+                <option value="元素值5">下拉列表-元素5</option>
+            </select>
+        </div>
+        <div class="form-item"> 
+            <input type="button" id="button" value="按钮" /> 
+        </div>        
+        <div class="form-item"> 
+            <input type="submit" value="提交按钮" />
+        </div>
+    </form>
+</section>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+//下拉列表-值改变
+$("#select1").change(function(){
+    console.log( "下拉列表值改变", $("#select1").val() );
+});
+
+//下拉列表-获取当前选中值
+var select1_op = $("#select1 option:selected").val();
+console.log( "选中值为："+ select1_op );
+
+</script>
+
+</body>
+</html>
