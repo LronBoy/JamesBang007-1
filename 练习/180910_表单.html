@@ -47,19 +47,21 @@
             <label>文本框：</label> 
             <input type="text" name="text" id="text" value="" /> 
         </div>
-        <div class="form-item">
+        <div class="form-item radio-row">
             <label>单选按钮：</label>
             <input type="radio" name="area" id="" value="北京" />北京
             <input type="radio" name="area" id="" value="上海" />上海
-            <input type="radio" name="area" id="" value="成都" />成都
-            <input type="radio" name="area" id="" value="" />广州
+            <!--增加checked属性，设置默认选中-->
+            <input type="radio" name="area" id="" value="成都" checked/>成都
+            <input type="radio" name="area" id="" value="广州" />广州
         </div>
-        <div class="form-item"> 
+        <div class="form-item checkbox-row"> 
             <label>复选框：</label> 
             <input type="checkbox" name="city" id="" value="北京" />北京
-            <input type="checkbox" name="city" id="" value="上海" />上海
+            <!--增加checked属性，设置默认选中-->
+            <input type="checkbox" name="city" id="" value="上海" checked/>上海
             <input type="checkbox" name="city" id="" value="成都" />成都
-            <input type="checkbox" name="city" id="" value="广州" />广州
+            <input type="checkbox" name="city" id="" value="广州" checked/>广州
             <input type="checkbox" name="city" id="" value="深圳" />深圳
         </div>
         <div class="form-item"> 
@@ -93,6 +95,23 @@
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript">
 
+//单选按钮-值改变
+$(".radio-row input").change(function(){
+    console.log( "单选按钮值改变", $("input:checked").val() );
+});
+//单选按钮-获取当前选中值
+var radio1 = $("input[type='radio']:checked").val();
+console.log( "radio选中值为："+ radio1 );
+
+
+//复选框-值改变
+$(".checkbox-row input").change(function(){
+    console.log( "单选按钮值改变", $(".checkbox-row input:checked").val() );
+});
+//复选框-获取当前选中值
+var checkbox1_arr = $("input[type='checkbox']:checked");
+console.log( "checkbox选中了：", checkbox1_arr );
+
 
 //下拉列表-值改变
 $("#select1").change(function(){
@@ -101,7 +120,7 @@ $("#select1").change(function(){
 
 //下拉列表-获取当前选中值
 var select1_op = $("#select1 option:selected").val();
-console.log( "选中值为："+ select1_op );
+console.log( "select选中值为："+ select1_op );
 
 </script>
 
