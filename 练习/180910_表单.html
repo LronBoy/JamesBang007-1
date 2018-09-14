@@ -11,6 +11,14 @@
 <meta name="description" content="">
 <link rel="stylesheet" href="css/1803.css" />
 <style>
+a, input, button{ -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /*取消轻按时高亮*/ }
+button { -webkit-appearance: none; border-radius: 0; /*去苹果圆角*/ }
+a,input, textarea, select, option,button { outline: 0; /*点击时虚线边框*/ }
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
+    -webkit-box-shadow: inset 0 0 0 1000px #fff;
+    box-shadow: inset 0 0 0 1000px #fff; /*自动填充背景色*/
+}
+    
 .wrap {
     max-width: 1200px;
     height: auto;
@@ -32,20 +40,39 @@
     border-radius: 5px;
 }
 
-.form-item{
+.form-item {
     margin: 15px 0;
 }
+
+.form1{}
+.form1 .form-item {
+    margin: 25px 0;
+}
+.form1 label{ display: inline-block; min-width: 80px; text-align: right; margin-right: 10px; }
+.form1 input[type="text"],
+.form1 input[type="date"],
+.form1 input[type="datetime"],
+.form1 select{
+    display: inline-block; padding: 0 10px; width: 180px; height: 28px; line-height: 28px; border: 1px solid #ccc;
+}
+.form1 input[type="button"],
+.form1 input[type="submit"]{
+    display: inline-block; width: 100px; height: 30px; line-height: 30px; text-align: center; border: 0;
+    margin-left: 90px;
+}
+
+
 </style>
 </head>
 
 <body>
 <section class="wrap">
     <div class="tit-2">form 表单</div>
-    <form action="#" method="get">
+    <form action="#" method="get" class="form1">
         <div class="form-item"> </div>
-        <div class="form-item"> 
-            <label>文本框：</label> 
-            <input type="text" name="text" id="text" value="" /> 
+        <div class="form-item">
+            <label>文本框：</label>
+            <input type="text" name="text" id="text" value="" />
         </div>
         <div class="form-item radio-row">
             <label>单选按钮：</label>
@@ -55,8 +82,8 @@
             <input type="radio" name="area" id="" value="成都" checked/>成都
             <input type="radio" name="area" id="" value="广州" />广州
         </div>
-        <div class="form-item checkbox-row"> 
-            <label>复选框：</label> 
+        <div class="form-item checkbox-row">
+            <label>复选框：</label>
             <input type="checkbox" name="city" id="" value="北京" />北京
             <!--增加checked属性，设置默认选中-->
             <input type="checkbox" name="city" id="" value="上海" checked/>上海
@@ -64,15 +91,15 @@
             <input type="checkbox" name="city" id="" value="广州" checked/>广州
             <input type="checkbox" name="city" id="" value="深圳" />深圳
         </div>
-        <div class="form-item"> 
-            <label>日期：</label> 
+        <div class="form-item">
+            <label>日期：</label>
             <input type="date" name="date" id="date" value="" /> </div>
-        <div class="form-item"> 
-            <label>时间：</label> 
-            <input type="datetime" name="datetime" id="datetime" value="" /> 
+        <div class="form-item">
+            <label>时间：</label>
+            <input type="datetime" name="datetime" id="datetime" value="" />
         </div>
-        <div class="form-item"> 
-            <label>下拉列表</label>
+        <div class="form-item">
+            <label>下拉列表：</label>
             <select name="" id="select1">
                 <option value="0">请选择</option>
                 <option value="元素值1">下拉列表-元素1</option>
@@ -83,10 +110,15 @@
                 <option value="元素值5">下拉列表-元素5</option>
             </select>
         </div>
-        <div class="form-item"> 
-            <input type="button" id="button" value="按钮" /> 
-        </div>        
-        <div class="form-item"> 
+        <div class="form-item">
+            <label>普通文本域：</label>        
+            <textarea name="" id="" cols="30" rows="10"></textarea>        
+        </div>
+        
+        <div class="form-item">
+            <input type="button" id="button" value="按钮" />
+        </div>
+        <div class="form-item">
             <input type="submit" value="提交按钮" />
         </div>
     </form>
@@ -94,34 +126,30 @@
 
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript">
-
 //单选按钮-值改变
-$(".radio-row input").change(function(){
-    console.log( "单选按钮值改变", $("input:checked").val() );
-});
+$( ".radio-row input" ).change( function () {
+    console.log( "单选按钮值改变", $( "input:checked" ).val() );
+} );
 //单选按钮-获取当前选中值
-var radio1 = $("input[type='radio']:checked").val();
-console.log( "radio选中值为："+ radio1 );
-
+var radio1 = $( "input[type='radio']:checked" ).val();
+console.log( "radio选中值为：" + radio1 );
 
 //复选框-值改变
-$(".checkbox-row input").change(function(){
-    console.log( "单选按钮值改变", $(".checkbox-row input:checked").val() );
-});
+$( ".checkbox-row input" ).change( function () {
+    console.log( "单选按钮值改变", $( ".checkbox-row input:checked" ).val() );
+} );
 //复选框-获取当前选中值
-var checkbox1_arr = $("input[type='checkbox']:checked");
+var checkbox1_arr = $( "input[type='checkbox']:checked" );
 console.log( "checkbox选中了：", checkbox1_arr );
 
-
 //下拉列表-值改变
-$("#select1").change(function(){
-    console.log( "下拉列表值改变", $("#select1").val() );
-});
+$( "#select1" ).change( function () {
+    console.log( "下拉列表值改变", $( "#select1" ).val() );
+} );
 
 //下拉列表-获取当前选中值
-var select1_op = $("#select1 option:selected").val();
-console.log( "select选中值为："+ select1_op );
-
+var select1_op = $( "#select1 option:selected" ).val();
+console.log( "select选中值为：" + select1_op );
 </script>
 
 </body>
