@@ -28,7 +28,7 @@
     <li>城市</li>
     <li>分类</li>
   </ul>
-</section>  
+</section>
 <section class="nav-box" id="nav-box">
   <!-- 项目 -->
   <div id="filter_detail_1" class="filter_detail">
@@ -55,7 +55,7 @@
   <ul v-show="!listData.length">
     <li>
       <div class="pic">
-        <a href="#"><img src="temporary/doctor-list_1.jpg" alt="" /></a>       
+        <a href="#"><img src="temporary/doctor-list_1.jpg" alt="" /></a>
       </div>
       <div class="info">
         <a href="#"><h3>汪国义</h3></a>
@@ -67,7 +67,7 @@
     </li>
     <li>
       <div class="pic">
-        <a href="#"><img src="temporary/doctor-list_2.jpg" alt="" /></a>       
+        <a href="#"><img src="temporary/doctor-list_2.jpg" alt="" /></a>
       </div>
       <div class="info">
         <a href="#"><h3>罗玫红</h3></a>
@@ -77,16 +77,16 @@
         <a href="#zx" class="zxBtn">立即咨询</a>
       </div>
     </li>
-    
+
   </ul>
-  
+
   <div class="loading" v-show="loading">
     <svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg>
   </div>
   <ul class="product-list-vue" v-show="listData.length">
     <li v-for="item in listData">
       <div class="pic">
-        <a :href="'/doctor/detail/docid/'+item.did+'.html'" :style="'background-image: url(https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/hos/'+item.hid+'/'+ item.icon+');'"></a>       
+        <a :href="'/doctor/detail/docid/'+item.did+'.html'" :style="'background-image: url(https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/hos/'+item.hid+'/'+ item.icon+');'"></a>
       </div>
       <div class="info">
         <a :href="'/doctor/detail/docid/'+item.did+'.html'"><h3>{{ item.dname }}</h3></a>
@@ -138,7 +138,7 @@ $("#nav li").click(function(){
   $("#nav-box .filter_detail").hide();
   $("#nav-box .filter_detail").eq($(this).index()).show();
   $("body").css("overflow","hidden");
-  
+
   if( $(this).index()==0 ){
     filterProject();
   }else if( $(this).index()==1 ){
@@ -166,7 +166,7 @@ Vue.component('filter-list',{
       this.$emit("receive",value);
     }
   }
-  
+
 });
 
 var vm = new Vue({
@@ -231,7 +231,7 @@ var vList = new Vue({
     listData:[]
   },
   methods: {
-    
+
   }
 });
 
@@ -257,10 +257,10 @@ function postData(){
     url: "http://jmsbang.com/demo/ruli/rd_getDoc.php",
     data: vm.filter,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    success: function(re){      
+    success: function(re){
       //console.log(JSON.parse(re));
-      vList.listData = vList.listData.concat(JSON.parse(re)); 
-      setTimeout(function(){     
+      vList.listData = vList.listData.concat(JSON.parse(re));
+      setTimeout(function(){
         vList.loading = false;
       },100);
     }

@@ -38,7 +38,7 @@ h3.title{ margin: 10px 0; line-height: 24px; font-size: 18px; color: #222; paddi
 </div>
 
 <script type="text/javascript">
- 
+
 //启动app方法
 function startApp(nativeUrl='rulimeirong://common_webview?url='+encodeURIComponent(window.location.href),dUrl='http://sj.qq.com/myapp/detail.htm?apkName=com.example.ai_popularize') {
   //console.log(nativeUrl);
@@ -59,21 +59,21 @@ function startApp(nativeUrl='rulimeirong://common_webview?url='+encodeURICompone
       //console.log("非iso-Android");
       var time = Date.now(),
         doc = window.document,
-        ifr = doc.createElement('iframe');        
+        ifr = doc.createElement('iframe');
       //创建一个隐藏的iframe
       ifr.src = nativeUrl;
       ifr.style.cssText = 'display:none;border:0;';
       doc.body.appendChild(ifr);
-      
+
       setTimeout(function() {
           doc.body.removeChild(ifr);//删除iframe
-          //setTimeout回小于2200 毫秒,一般为唤起失败 
+          //setTimeout回小于2200 毫秒,一般为唤起失败
           if (Date.now() - time < 2200) {
             location.href = dUrl;
           }
       }, 2000);
     }
-  }  
+  }
 }
 
 
@@ -95,7 +95,7 @@ function isInIos(){
   }
   return false;
 }
-</script>    
+</script>
 
 
 

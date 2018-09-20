@@ -27,7 +27,7 @@
     <li>项目</li>
     <li>城市</li>
   </ul>
-</section>  
+</section>
 <section class="nav-box" id="nav-box">
   <!-- 项目 -->
   <div id="filter_detail_1" class="filter_detail">
@@ -43,7 +43,7 @@
 
 <!-- 日记列表 -->
 <section class="home-note diary-list">
-  <ul v-show="!listData.length">    
+  <ul v-show="!listData.length">
     <li>
       <div class="pic">
         <a href="#">
@@ -70,14 +70,14 @@
         <div class="yy"><img src="temporary/home-note-pic-yy.jpg" alt="" />成都武侯艾美微</div>
       </div>
     </li>
-        
+
   </ul>
-  
+
   <div class="loading" v-show="loading">
     <svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg>
   </div>
   <ul class="product-list-vue" v-show="listData.length">
-    <li v-for="item in listData">      
+    <li v-for="item in listData">
       <div class="pic">
         <a :href="'/diary/detail/did/'+item.diary_id+'.html'">
         <img :src="'https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/diary/'+item.user_id+'/'+item.diary_id+'/'+ item.image" alt="" />
@@ -90,7 +90,7 @@
         <div class="yy"><img :src="'https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/'+item.usericon" alt="" />{{ item.username }}</div>
       </div>
     </li>
-  </ul>  
+  </ul>
 </section>
 <!-- 日记列表end -->
 
@@ -132,7 +132,7 @@ $("#nav li").click(function(){
   $("#nav-box .filter_detail").hide();
   $("#nav-box .filter_detail").eq($(this).index()).show();
   $("body").css("overflow","hidden");
-  
+
   if( $(this).index()==0 ){
     filterProject();
   }else if( $(this).index()==1 ){
@@ -160,7 +160,7 @@ Vue.component('filter-list',{
       this.$emit("receive",value);
     }
   }
-  
+
 });
 
 var vm = new Vue({
@@ -205,7 +205,7 @@ var vList = new Vue({
     listData:[]
   },
   methods: {
-    
+
   }
 });
 
@@ -231,10 +231,10 @@ function postData(){
     url: "http://jmsbang.com/demo/ruli/rd_getDiary.php",
     data: vm.filter,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    success: function(re){      
+    success: function(re){
       //console.log(JSON.parse(re));
-      vList.listData = vList.listData.concat(JSON.parse(re));  
-      setTimeout(function(){    
+      vList.listData = vList.listData.concat(JSON.parse(re));
+      setTimeout(function(){
         vList.loading = false;
       },100);
     }

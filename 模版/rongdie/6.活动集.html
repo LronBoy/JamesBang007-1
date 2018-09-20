@@ -28,7 +28,7 @@
     <li>项目</li>
     <li>城市</li>
   </ul>
-</section>  
+</section>
 <section class="nav-box" id="nav-box">
   <!-- 项目 -->
   <div id="filter_detail_1" class="filter_detail">
@@ -72,9 +72,9 @@
         </div>
       </div>
     </li>
-    
+
   </ul>
-  
+
   <div class="loading" v-show="loading">
     <svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg>
   </div>
@@ -135,7 +135,7 @@ $("#nav li").click(function(){
   $("#nav-box .filter_detail").hide();
   $("#nav-box .filter_detail").eq($(this).index()).show();
   $("body").css("overflow","hidden");
-  
+
   if( $(this).index()==0 ){
     filterProject();
   }else if( $(this).index()==1 ){
@@ -163,7 +163,7 @@ Vue.component('filter-list',{
       this.$emit("receive",value);
     }
   }
-  
+
 });
 
 var vm = new Vue({
@@ -196,7 +196,7 @@ var vm = new Vue({
     },
     hideNavBox(){
       $("#nav-box").hide();
-      $("body").css("overflow","");      
+      $("body").css("overflow","");
     }
   }
 });
@@ -208,7 +208,7 @@ var vList = new Vue({
     listData:[]
   },
   methods: {
-    
+
   }
 });
 
@@ -234,10 +234,10 @@ function postData(){
     url: "http://jmsbang.com/demo/ruli/rd_getHuo.php",
     data: vm.filter,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    success: function(re){      
+    success: function(re){
       //console.log(JSON.parse(re));
-      vList.listData = vList.listData.concat(JSON.parse(re));  
-      setTimeout(function(){    
+      vList.listData = vList.listData.concat(JSON.parse(re));
+      setTimeout(function(){
         vList.loading = false;
       },100);
     }

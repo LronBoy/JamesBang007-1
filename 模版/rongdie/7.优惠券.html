@@ -27,7 +27,7 @@
     <li>排序</li>
     <li>城市</li>
   </ul>
-</section>  
+</section>
 <section class="nav-box" id="nav-box">
   <!-- 排序 -->
   <div id="filter_detail_1" class="filter_detail">
@@ -55,7 +55,7 @@
         <h3>成都艾美微医疗通用劵</h3>
         <p>医院：成都艾美微医疗美容门诊</p>
         <p>时间：2017-04-26至2017-04-30</p>
-        <a href="#" class="btn">立即领取</a> 
+        <a href="#" class="btn">立即领取</a>
       </div>
     </li>
     <li>
@@ -69,9 +69,9 @@
         <a href="#" class="btn">立即领取</a>
       </div>
     </li>
-    
+
   </ul>
-  
+
   <div class="loading" v-show="loading">
     <svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg>
   </div>
@@ -79,8 +79,8 @@
     <li v-for="item in listData">
       <div class="pic">
         <a href="javascript:void(0);"
-           :style="'background-image: url(https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/'+ item.icon+');'"></a>       
-      </div>      
+           :style="'background-image: url(https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/'+ item.icon+');'"></a>
+      </div>
       <div class="info">
         <h3>{{ item.coupon_name }}</h3>
         <p>医院：{{ item.hname }}</p>
@@ -127,7 +127,7 @@ $("#nav li").click(function(){
   $("#nav-box .filter_detail").hide();
   $("#nav-box .filter_detail").eq($(this).index()).show();
   $("body").css("overflow","hidden");
-  
+
   if( $(this).index()==1 ){
     filterCity();
   }
@@ -153,7 +153,7 @@ Vue.component('filter-list',{
       this.$emit("receive",value);
     }
   }
-  
+
 });
 
 var vm = new Vue({
@@ -201,7 +201,7 @@ var vList = new Vue({
     listData:[]
   },
   methods: {
-    
+
   }
 });
 
@@ -220,10 +220,10 @@ function postData(){
     url: "http://jmsbang.com/demo/ruli/rd_getcoupon.php",
     data: vm.filter,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    success: function(re){      
-      //console.log(JSON.parse(re));      
-      vList.listData = vList.listData.concat(JSON.parse(re));  
-      setTimeout(function(){    
+    success: function(re){
+      //console.log(JSON.parse(re));
+      vList.listData = vList.listData.concat(JSON.parse(re));
+      setTimeout(function(){
         vList.loading = false;
       },100);
     }

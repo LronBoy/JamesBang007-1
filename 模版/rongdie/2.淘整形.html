@@ -28,7 +28,7 @@
     <li>城市</li>
   	<li>排序</li>
   </ul>
-</section>  
+</section>
 <section class="nav-box" id="nav-box">
   <!-- 项目 -->
   <div id="filter_detail_1" class="filter_detail">
@@ -60,9 +60,9 @@
       <div class="info">
         <a href="#"><h3>“成都综合隆鼻”全面改善鼻部问题,告别平庸，塑造立体自信美！！</h3></a>
         <div class="yy">成都韩美整形外科医院</div>
-        <div class="foot">          
+        <div class="foot">
           <span class="price">¥8880</span>
-          <span class="origprice">¥24420</span>          
+          <span class="origprice">¥24420</span>
           <span class="booking">18人预订</span>
         </div>
       </div>
@@ -74,16 +74,16 @@
       <div class="info">
         <a href="#"><h3>“成都综合隆鼻套餐”综合隆鼻直接叫板明星美鼻，告别塌鼻子！</h3></a>
         <div class="yy">成都华美整形外科医院</div>
-        <div class="foot">          
+        <div class="foot">
           <span class="price">¥4581</span>
-          <span class="origprice">¥24420</span>          
+          <span class="origprice">¥24420</span>
           <span class="booking">3人预订</span>
         </div>
       </div>
     </li>
-    
+
   </ul>
-  
+
   <div class="loading" v-show="loading">
     <svg viewBox="25 25 50 50" class="circular"><circle cx="50" cy="50" r="20" fill="none" class="path"></circle></svg>
   </div>
@@ -91,14 +91,14 @@
     <li v-for="item in listData">
       <div class="pic">
         <a :href="'https://m.rongdie.com/tuan/detail/product_id/'+ item.product_id +'.html'"
-           :style="'background-image: url(https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/tuan/'+ item.icon+');'"></a>       
+           :style="'background-image: url(https://rongdie.oss-cn-hangzhou.aliyuncs.com/image/tuan/'+ item.icon+');'"></a>
       </div>
       <div class="info">
         <a :href="'https://m.rongdie.com/tuan/detail/product_id/'+ item.product_id +'.html'"><h3>{{ item.name }}</h3></a>
         <div class="yy">{{ item.hos_name }}</div>
-        <div class="foot">          
+        <div class="foot">
           <span class="price">¥{{ item.tuan_price }}</span>
-          <span class="origprice">¥{{ item.price }}</span>          
+          <span class="origprice">¥{{ item.price }}</span>
           <span class="booking">{{ item.book_num }}人预订</span>
         </div>
       </div>
@@ -143,7 +143,7 @@ $("#nav li").click(function(){
   $("#nav-box .filter_detail").hide();
   $("#nav-box .filter_detail").eq($(this).index()).show();
   $("body").css("overflow","hidden");
-  
+
   vm.filterItem = [];
   if( $(this).index()==0 ){
     filterProject();
@@ -172,7 +172,7 @@ Vue.component('filter-list',{
       this.$emit("receive",value);
     }
   }
-  
+
 });
 
 var vm = new Vue({
@@ -230,7 +230,7 @@ var vList = new Vue({
     listData:[]
   },
   methods: {
-    
+
   }
 });
 
@@ -256,10 +256,10 @@ function postData(){
     url: "http://jmsbang.com/demo/ruli/rd_getTuan.php",
     data: vm.filter,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    success: function(re){      
+    success: function(re){
       //console.log(JSON.parse(re));
-      vList.listData = vList.listData.concat(JSON.parse(re)); 
-      setTimeout(function(){     
+      vList.listData = vList.listData.concat(JSON.parse(re));
+      setTimeout(function(){
         vList.loading = false;
       },100);
     }

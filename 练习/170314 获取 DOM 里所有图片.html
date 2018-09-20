@@ -62,7 +62,7 @@ img{border:0;vertical-align:bottom; display: block;}
 <img src="http://www.520gu.com/uploadfile/2017/0216/750_128_20170216114910910.jpg" />
 <img src="http://www.520gu.com/uploadfile/2017/0216/750_157_20170216114911902.jpg" />
 <img src="http://www.520gu.com/uploadfile/2017/0216/750_157_20170216114911329.jpg" />
-<img src="http://www.520gu.com/uploadfile/2017/0216/750_157_20170216114911682.jpg" /> 
+<img src="http://www.520gu.com/uploadfile/2017/0216/750_157_20170216114911682.jpg" />
 
 
 </div>
@@ -92,11 +92,11 @@ function setImgs (doc) {
       height: img.naturalHeight
     }))
   console.log( aImg );
-  
+
   for(var i = 0; i < iList.length; i++) {
     iList[i].style = "width:"+ bWidth +"px;height:"+ aImg[i]['height']/aImg[i]['width']*bWidth +"px;";
   }
-  
+
 
 }
 setImgs(document)
