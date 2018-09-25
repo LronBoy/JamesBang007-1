@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>PixiJS — 基础DEMO</title>
+</head>
+<body>
+
+<!-- 引入 PixiJS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js"></script>
+
+<script>
+//创建PixiJS实例
+const app = new PIXI.Application( 750, 600, {
+    backgroundColor: 0x1099bb
+} );
+//应用程序将为您创建一个canvas元素，然后可以插入DOM
+document.body.appendChild( app.view );
+
+// load the texture we need
+PIXI.loader.add( 'doll', 'doll.png' ).load( ( loader, resources ) => {
+    // This creates a texture from a 'doll.png' image
+    // 将玩偶图像创建到 texture
+    const doll = new PIXI.Sprite( resources.doll.texture );
+
+    // 设置doll的位置
+    doll.x = app.renderer.width / 2;
+    doll.y = app.renderer.height / 2;
+
+    // 围绕中心旋转
+    doll.anchor.x = 0.5;
+    doll.anchor.y = 0.5;
+
+    // 将玩偶添加到我们正在构建的场景中
+    app.stage.addChild( doll );
+
+    // 每次渲染的监听函数（监听帧更新）
+    app.ticker.add( () => {
+        // 每一帧让玩偶旋转一点
+        doll.rotation += 0.01;
+    } );
+} );
+</script>
+
+</body>
+</html>
