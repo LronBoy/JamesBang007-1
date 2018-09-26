@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>世界杯娃娃机 - 马蜂窝</title>
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui,viewport-fit=cover" />
+<meta name="copyright" content="Copyright (c) 2006-2018 Mafengwo." />
+<meta name="format-detection" content="telephone=no,address=no" />
+<meta name="referrer" content="always" />
+<meta property="og:mfw:pagename" content="世界杯娃娃机" />
+<meta property="mfwshare:share_channels" content="wechatsession,wechattimeline" />
+<meta property="og:title" content="这个娃娃可以免费送我去欧洲，你也来抓吧" />
+<meta property="og:description" content="抓世界杯娃娃根本停不下来，去欧洲去海岛不花钱，还有海量免费签证办理名额和优惠券！" />
+<meta property="og:image" content="https://n3-q.mafengwo.net/s11/M00/DE/F4/wKgBEFseVCWAD1M5AADXbI702Go514.png" />
+<meta property="og:url" content="https://m.mafengwo.cn/sales/activity/2018worldcup/lottery/index" />
+
+<script type="text/javascript">
+window.Env = {"CNZZID":30081550,"IS_MOBILE":true,"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"https:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","UID":0,"CSTK":"dfd9ebafe8390c71bb0a209a92fe8734_413b5e18d0c2b3cc99db3e447605bd82","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","TONGJI_HOST":"tongji.mafengwo.cn"};
+</script>
+
+<link href="https://css.mafengwo.net/css/cv/mobile+css+head:mobile+css+ui^YVw^1526627473.css" rel="stylesheet" type="text/css"/>
+
+<link href="https://css.mafengwo.net/css/cv/mobile+css+sales+worldCup2018:mobile+css+swiper-3.3.1.min^ZlI^1531289648.css" rel="stylesheet" type="text/css"/>
+
+
+<script language="javascript" src="https://js.mafengwo.net/js/cv/mobile+js+jquery-2.1.4:mobile+js+jquery.mobile-events:js+M+Module:js+M+M:js+M+Log:js+m.statistics:mobile+js+mobile.console.debug:js+advert+inspector:js+client+mfwappsdk^YlNb^1536046705.js" type="text/javascript" crossorigin="anonymous"></script>
+<script language="javascript" src="https://js.mafengwo.net/js/cv/mobile+js+activity+resLoader:mobile+js+salesapp:mobile+js+widget+wechat:js+sales+flexable@100x:im+js+lib+vue@2.3.2:js+sales+activity+rAF:js+sales+activity+pixi.min:js+sales+TweenMax.min:mobile+js+swiper.min^YVVV^1532927938.js" type="text/javascript" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<style>
+    [v-cloak] {
+        display: none;
+    }
+</style>
+<div id="app" v-cloak>
+    <transition name="fade">
+        <div class="wrapper" v-show="loaded">
+            <div class="title"></div>
+            <div class="rule" @click="tapRule"></div>
+            <div class="notice">
+                <div class="scrollBox">
+                    <ul id="scroll">
+                        <li v-for="(item,index) in currScrollText"><img :src="item" alt=""></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="user-prize" @click="tapPrize"></div>
+            <div class="btn-brands" @click="toBrandwall"></div>
+            <div class="btn-grab" :class="{ 'btn-grab-enter' : btnEnter }" @click="tapGrab"></div>
+            <div class="btn-hot" @click="toHotGoods"></div>
+            <div class="odds">
+                <p>剩余免费机会<span>{{LotteryNum}}</span>次</p>
+                <div class="get-number" @click="tapOdds"></div>
+            </div>
+            <div class="barrage" v-if="LotteryInfo">
+                <p v-for="(item,index) in LotteryInfo.list">{{item.userName}}抽中了<span>{{item.awardName}}</span>，{{item.time}}前</p>
+            </div>
+            <div class="sponsors">
+                <div class="swiper-container" style="width:5.7rem; position:absolute; left:0.55rem; top:0.1rem;">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" v-for="(val,index) in businessList" @click="businessHref(val)">
+                            <div class="img" v-show="val.logo"><img :src="val.logo" width="70%" alt=""><i></i></div>
+                            <div class="name"><span>{{val.otaName}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 10秒打卡全世界入口 -->
+            <div @click="intoCard" class="intoCard"><img src="https://n2-q.mafengwo.net/s11/M00/DF/BA/wKgBEFswjNiASfdmAADi3FmhgrQ50.jpeg" width="100%"></div>
+
+            <!-- 弹窗 -->
+            <div class="pop" v-show="popShow" >
+                <div class="bag" @click="tapClose"></div>
+                <!-- rule -->
+                <div class="popRule" v-show="popRule">
+                    <div class="tit"><img src="https://b3-q.mafengwo.net/s11/M00/A4/7B/wKgBEFsPXqmAfa3AAAACdJhwI_g179.png" style="width:0.91rem;"></div>
+                    <div class="close" @click="tapClose"></div>
+                    <div class="rule-scroll">
+                        <div class="rule-cont">
+                            <h2>【活动时间】</h2>
+                            <p>2018年6月14日0点-2018年7月17日24点</p>
+                            <h2>【奖品设置】</h2>
+                            <p>1、旅游体验大奖，包括机票、签证、跟团游、自由行、定制游、当地体验、酒店中的一项或多项组合；</p>
+                            <p>2、优惠券，包括不同面额及使用限制的优惠券；</p>
+                            <p>3、天天赢百万活动免错卡。</p>
+                            <h2>【参与方式】</h2>
+                            <p>活动期间每日可通过以下方式获得抓取娃娃机会，如当日获得机会未使用，当日24点清零。</p>
+                            <p>1、每日登录马蜂窝可获得1次抓娃娃机会；</p>
+                            <p>2、每日分享世界杯娃娃机活动页面可获得1次抓娃娃机会；</p>
+                            <p>3、每日收藏世界杯品牌馆3个店铺可获得1次抓娃娃机会；</p>
+                            <p>4、每日可使用蜂蜜兑换5次抓娃娃机会，10蜂蜜兑换1次。</p>
+                            <h2>【兑奖说明】</h2>
+                            <p>1、所有奖品均不可转让、售卖或兑换现金；</p>
+                            <p>2、获得优惠券奖品后，可前往“我的”-“优惠券”查询优惠券使用规则说明；</p>
+                            <p>3、获得天天赢百万活动免错卡后，可前往天天赢百万活动页面查看并使用；</p>
+                            <p>4、获得旅游体验大奖后，请点击领取按钮并正确填写联系人及联系电话；</p>
+                            <p>5、活动结束后7个工作日内，工作人员会电话联系中奖用户确认兑奖信息，如电话3次无法接听则视为用户自动放弃兑奖；</p>
+                            <p>6、兑奖电话中工作人员会明确告知旅游体验大奖包含的详细项目，平台不会增加任何强制性消费；</p>
+                            <p>7、奖品实际出行人需包含兑奖联系人，中奖用户不得将奖品转让、销售；</p>
+                            <p>8、所获旅游体验大奖中包含的酒店项目，马蜂窝提供价值¥2000-¥5000的无门槛优惠券及目的地精选酒店推荐，获奖用户可在有效日期内自行购买并入住，预订后不可退订，优惠券仅可使用一次不可提现，有效期至2018年10月31日；</p>
+                            <p>9、所获旅游体验大奖中包含的机票、签证、自由行、定制游、当地体验等其他项目最迟出行使用日期为2018年10月31日，如遇暑期、十一等高峰时期不可用，实际出行日期双方协商确认；</p>
+                            <p>10、所获旅游体验大奖中包含的跟团游需支付单房差及导服费用，最迟出行使用日期为2018年9月15日，法定节假日不可用，实际出行日期双方协商确认；</p>
+                            <p>11、本活动所有奖品由马蜂窝平台及其合作供应商提供。</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 活动未开始 -->
+                <div class="popTime" v-show="popTime">
+                    <div class="tit" style="top:0.42rem;">
+                        <img v-if="startTime" src="https://n2-q.mafengwo.net/s11/M00/A4/7C/wKgBEFsPXqmADLqvAAAC1ObMty0669.png" style="width:1.15rem;">
+                        <img v-else src="https://n3-q.mafengwo.net/s11/M00/51/41/wKgBEFsc3IWARplGAAAHvl8aGn4776.png" alt="" style="width:1.15rem;">
+                    </div>
+                    <div class="close" @click="tapClose"></div>
+                    <h2>娃娃机营业时间</h2>
+                    <p>2018年6月14日0点至7月17日24点</p>
+                    <div class="football-baby"></div>
+                </div>
+                <!-- 赚机会 -->
+                <div class="popOdds" v-show="popOdds">
+                    <div class="tit"><img src="https://p1-q.mafengwo.net/s11/M00/A4/7C/wKgBEFsPXqmAcsRZAAAB8cPca4g352.png" style="width:0.82rem;"></div>
+                    <div class="football-baby"></div>
+                    <div class="close" @click="tapClose"></div>
+                    <div class="odds-list">
+                        <ul>
+                            <li class="clearfix">
+                                <span>登录</span>
+                                <b>{{todayTasks.taskLogin}}/1</b>
+                                <p v-if="isLogin" class="btn" @click="toLogin">去登录</p>
+                                <p v-else class="complete"></p>
+                            </li>
+                            <li class="clearfix">
+                                <span>收藏3个品牌馆店铺</span>
+                                <p v-if="favorite" class="btn" @click="toBrandwall">去收藏</p>
+                                <p v-else class="complete"></p>
+                                <b>{{todayTasks.taskFavorite}}/1</b>
+                            </li>
+                            <li class="clearfix">
+                                <span>分享页面</span>
+                                <p v-if="taskShare" class="btn" @click="toShare">去分享</p>
+                                <p v-else class="complete"></p>
+                                <b>{{todayTasks.taskShare}}/1</b>
+                            </li>
+                            <li class="clearfix">
+                                <span>蜂蜜兑换</span>
+                                <b>{{todayTasks.taskHoney}}/5</b>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 中奖啦-实物 -->
+                <div class="popWin" v-show="popWin">
+                    <div class="tit"><img src="https://n2-q.mafengwo.net/s11/M00/A4/7C/wKgBEFsPXqmAES8SAAACMEydbHs576.png" alt="" style="width:0.99rem;"></div>
+                    <div class="football-baby"></div>
+                    <div class="close" @click="tapClose"></div>
+                    <div class="win-cont">
+                        <p class="prizeImg"><img :src="winInfo.image" alt=""></p>
+                        <p>娃娃身上带着<br>{{winInfo.name}}</p>
+                        <a href="javascript:;" class="receive" @click="submitAddress"></a>
+                        <b>奖品由{{winInfo.business}}提供</b>
+                    </div>
+                </div>
+                <!-- 中奖啦 优惠券 -->
+                <div class="popWinCoupon" v-show="popWinCoupon">
+                    <div class="tit"><img src="https://n2-q.mafengwo.net/s11/M00/A4/7C/wKgBEFsPXqmAES8SAAACMEydbHs576.png" alt="" style="width:0.99rem;"></div>
+                    <div class="football-baby"></div>
+                    <div class="close" @click="tapClose"></div>
+                    <div class="win-cont">
+                        <p class="prizeImg"><img :src="winInfo.image" alt=""></p>
+                        <p>娃娃身上带着<br>{{winInfo.name}}</p>
+                        <div v-if="isCard">
+                            <div class="btn"><a href="javascript:;" class="cards" @click="toCard"></a><a href="javascript:;" class="again" @click="tapClose"></a></div>
+                        </div>
+                        <div v-else>
+                            <div class="tips">可前往“我的”—“优惠券”查询</div>
+                            <div class="btn"><a href="javascript:;" class="goods" @click="toHotGoods"></a><a href="javascript:;" class="again" @click="tapClose"></a></div>
+                        </div>
+                        <b>奖品由{{winInfo.business}}提供</b>
+                    </div>
+                </div>
+                <!-- 我的奖品 -->
+                <div class="popPrize" v-show="popPrize">
+                    <div class="tit"><img src="https://n2-q.mafengwo.net/s11/M00/A4/7C/wKgBEFsPXqmADlCNAAACi-m5vHE286.png" alt="" style="width:0.91rem;"></div>
+                    <div class="football-baby"></div>
+                    <div class="close" @click="tapClose"></div>
+                    <div class="myPrize">
+                        <ul>
+                            <li v-for="(item,index) in pirzeList" @click="tapView(item)">
+                                <div class="info">
+                                    <h3>{{item.award}}</h3>
+                                    <p>奖品由{{item.business}}提供</p>
+                                </div>
+                                <div class="btn">查看</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 机会用光 -->
+                <div class="popCommon" v-show="popCommon">
+                    <div class="football-baby"></div>
+                    <div class="text" v-if="notWin">
+                        <p>{{popText01}}</p>
+                        <div class="btn" style="margin:1rem 0 0.06rem 0"><a href="javascript:;" class="goods" @click="toHotGoods"></a><a href="javascript:;" class="again" @click="tapClose"></a></div>
+                    </div>
+                    <div v-else>
+                        <div v-if="againShow">
+                            <div class="text">
+                                <p v-show="popText01">{{popText01}}</p>
+                                <p v-show="popText02">{{popText02}}</p>
+                            </div>
+                            <div class="btn"><a href="javascript:;" class="again" @click="honeyLottery"></a></div>
+                        </div>
+                        <div v-else>
+                            <div class="text" style="margin-top:1.4rem;">
+                                <p v-show="popText01">{{popText01}}</p>
+                                <p v-show="popText02">{{popText02}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="close" @click="tapClose"></div>
+                </div>
+                <!-- 分享弹窗 -->
+                <div class="pop-share" v-show="popShare"></div>
+                <!-- 收货地址 -->
+                <div class="pop-address" v-show="popAddress">
+                    <div class="tit"><img src="https://n2-q.mafengwo.net/s11/M00/F0/51/wKgBEFsfd1OAWA9LAAAB9xQ6Jyw236.png" alt="" style="width:0.91rem;"></div>
+                    <div style="margin-top:1.4rem;">
+                        <h3>收货地址为：{{addressInfo.full_address}}</h3>
+                        <div class="btn" @click="submitAddress"><img src="https://b2-q.mafengwo.net/s11/M00/D0/65/wKgBEFsfYAaAAXnRAAAU90P5Qr0730.png" style="width:2.37rem;"></div>
+                        <p>活动结束后7个工作日内，工作人员会电话联系中奖用户确认兑奖信息，联系方式以最后一次提交为准</p>
+                        <div class="close" @click="tapClose"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
+</div>
+
+<script>
+    var vm = new Vue({
+        el : '#app',
+        data : {
+            barrage : {},
+            dollSpace01 :0,
+            loaded : false,
+            btnEnter : false,
+            popShow : false,
+            popRule : false,
+            popTime : false,
+            popOdds : false,
+            popWin : false,
+            popWinCoupon : false,
+            popPrize : false,
+            popShare : false,
+            popCommon : false,
+            popAddress : false,
+            againShow : false,
+            startTime :true,
+            todayTasks : {},
+            businessList : [],
+            LotteryInfo:{},
+            LotteryNum : 0,
+            dollSet : {},
+            paw : {},
+            pawL : {},
+            pawR : {},
+            app : {},
+            pirzeList : [],
+            isDes : false,
+            dollChildX : [],
+            speed : 3,
+            pawSpeed : 0.003,
+            nameArr :['baxi','agenting','deguo','riben','putaoya','yinguo','eluosi','faguo'],
+            nameArrS :['baxiS','agentingS','deguoS','ribenS','putaoyaS','yinguoS','eluosiS','faguoS'],
+            popText01 : '',
+            popText02 : '',
+            notWin : false,
+            lotteryResult : {},
+            winInfo : {},
+            mfwURL : 'https://'+window.location.host,
+            isLogin : false,
+            dollSpace : 0,
+            delayTime :0,
+            safetyDes : 180,
+            explorer : navigator.userAgent,
+            convey :{},
+            convey01 :{},
+            gear :{},
+            doll :{},
+            w : 0,
+            n : 5,
+            addressInfo : {},
+            isCard : false,
+            taskShare : false,
+            favorite : false,
+            scrollText :[
+                {
+                    time : '2018/06/27',
+                    imgArr : [
+                        "https://n2-q.mafengwo.net/s11/M00/3C/76/wKgBEFsfsx-AEsUaAAAKsv2tq1c615.png",
+                        "https://b3-q.mafengwo.net/s11/M00/3C/77/wKgBEFsfsx-AEfDZAAAEbAZ2EkI196.png",
+                        "https://b2-q.mafengwo.net/s11/M00/3C/78/wKgBEFsfsx-AW581AAAHOYKq2Kc558.png",
+                        "https://p4-q.mafengwo.net/s11/M00/3C/7D/wKgBEFsfsx-AbNcnAAAJq5FgI0Q883.png"
+                    ]
+                },
+                {
+                    time : '2018/06/28',
+                    imgArr : [
+                        "https://n1-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2AE9hqAAAQnUdvwSA089.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://n3-q.mafengwo.net/s11/M00/B4/A2/wKgBEFszPJ2AHQIKAAAI-g5L6so602.png",
+                        "https://b2-q.mafengwo.net/s11/M00/B4/A5/wKgBEFszPJ2Ab8WmAAAJep1bGZ0813.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A6/wKgBEFszPJ2APBwoAAALSHp80Wo061.png"
+                    ]
+                },
+                {
+                    time : '2018/06/29',
+                    imgArr : [
+                        "https://p1-q.mafengwo.net/s11/M00/B4/A7/wKgBEFszPJ2ATzf5AAAMxeoDRgc701.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://b1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AOKvoAAAJ9hCEnSg073.png",
+                        "https://n1-q.mafengwo.net/s11/M00/B4/A3/wKgBEFszPJ2AGhALAAANxSNda1w107.png"
+                    ]
+                },
+                {
+                    time : '2018/06/30',
+                    imgArr : [
+                        "https://p4-q.mafengwo.net/s11/M00/B4/9E/wKgBEFszPJ2AVJvyAAAJ-cUphDY377.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://n4-q.mafengwo.net/s11/M00/B4/A6/wKgBEFszPJ2ABenkAAAJU7lQPrg847.png",
+                        "https://n3-q.mafengwo.net/s11/M00/B4/A3/wKgBEFszPJ2APTSFAAALM1nb3U8172.png"
+                    ]
+                },
+                {
+                    time : '2018/07/01',
+                    imgArr : [
+                        "https://p4-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AVfJPAAAOO-pLUMg016.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://n2-q.mafengwo.net/s11/M00/B4/A9/wKgBEFszPJ2AGnnAAAAJ7gNG6Zg184.png",
+                        "https://p4-q.mafengwo.net/s11/M00/B4/9D/wKgBEFszPJ2AS_nCAAAKnqzGQBo456.png"
+                    ]
+                },
+                {
+                    time : '2018/07/02',
+                    imgArr : [
+                        "https://n3-q.mafengwo.net/s11/M00/B4/A5/wKgBEFszPJ2AFCwWAAAMgLAt-9o558.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AM08FAAAJMdqC0ZY082.png",
+                        "https://p4-q.mafengwo.net/s11/M00/B4/A1/wKgBEFszPJ2AIIVvAAAKRC6Mm3U545.png"
+                    ]
+                },
+                {
+                    time : '2018/07/03',
+                    imgArr : [
+                        "https://b4-q.mafengwo.net/s11/M00/B4/A1/wKgBEFszPJ2AWIW3AAAJZ8T5vXQ356.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AM08FAAAJMdqC0ZY082.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/9E/wKgBEFszPJ2AElHCAAAJuuR3DXE166.png"
+                    ]
+                },
+                {
+                    time : '2018/07/04',
+                    imgArr : [
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A8/wKgBEFszPJ2AKUVjAAAOPKV6mmw080.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AM08FAAAJMdqC0ZY082.png",
+                        "https://b2-q.mafengwo.net/s11/M00/B4/A0/wKgBEFszPJ2AJim9AAAKFR2LLko375.png"
+                    ]
+                },
+                {
+                    time : '2018/07/05',
+                    imgArr : [
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A7/wKgBEFszPJ2ALJkPAAAMVD1h7Ow525.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://p2-q.mafengwo.net/s11/M00/B4/A8/wKgBEFszPJ2APRU5AAAI7RKlwBs949.png",
+                        "https://b4-q.mafengwo.net/s11/M00/B4/9E/wKgBEFszPJ2AGahfAAALjkhY0Ww557.png"
+                    ]
+                },
+                {
+                    time : '2018/07/06',
+                    imgArr : [
+                        "https://n4-q.mafengwo.net/s11/M00/B4/A5/wKgBEFszPJ2AbSzrAAAMkMCy1Oo613.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://p2-q.mafengwo.net/s11/M00/B4/A8/wKgBEFszPJ2APRU5AAAI7RKlwBs949.png",
+                        "https://n4-q.mafengwo.net/s11/M00/B4/A2/wKgBEFszPJ2ADcHaAAAOjoC4QLo747.png"
+                    ]
+                },
+                {
+                    time : '2018/07/07',
+                    imgArr : [
+                        "https://b3-q.mafengwo.net/s11/M00/B4/A5/wKgBEFszPJ2ARjS-AAANLEWtcJ8610.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://b3-q.mafengwo.net/s11/M00/B4/A0/wKgBEFszPJ2AQX9xAAAJAPW1o3Y187.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2AfVBuAAAJLIxU5qw158.png"
+                    ]
+                },
+                {
+                    time : '2018/07/08',
+                    imgArr : [
+                        "https://p2-q.mafengwo.net/s11/M00/B4/A3/wKgBEFszPJ2Ac7XlAAAL1uXZ6h8751.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://b1-q.mafengwo.net/s11/M00/B4/A7/wKgBEFszPJ2AWDBiAAAJHoBxIek347.png",
+                        "https://b4-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ATKQaAAALrhSPmwU950.png"
+                    ]
+                },
+                {
+                    time : '2018/07/09',
+                    imgArr : [
+                        "https://p2-q.mafengwo.net/s11/M00/B4/A7/wKgBEFszPJ2ACqRqAAALuILfWOM980.png",
+                        "https://b1-q.mafengwo.net/s11/M00/B4/A1/wKgBEFszPJ2AbeRIAAAJAkfDDpg843.png",
+                        "https://b1-q.mafengwo.net/s11/M00/B4/A7/wKgBEFszPJ2AWDBiAAAJHoBxIek347.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/A8/wKgBEFszPJ2ABUf1AAAK-593cS8881.png"
+                    ]
+                },
+                {
+                    time : '2018/07/10',
+                    imgArr : [
+                        "https://n2-q.mafengwo.net/s11/M00/B4/9E/wKgBEFszPJ2AOlebAAAMOAiMil0251.png",
+                        "https://n2-q.mafengwo.net/s11/M00/B4/A2/wKgBEFszPJ2AOEeZAAARqDIKi1Q014.png",
+                        "https://b4-q.mafengwo.net/s11/M00/B4/A6/wKgBEFszPJ2AMrmOAAAJtrieuHs464.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AM08FAAAJMdqC0ZY082.png"
+                    ]
+                },
+                {
+                    time : '2018/07/11',
+                    imgArr : [
+                        "https://p1-q.mafengwo.net/s11/M00/B4/A8/wKgBEFszPJ2AOgZ1AAAMV65uhdQ649.png",
+                        "https://p2-q.mafengwo.net/s11/M00/B4/A2/wKgBEFszPJ2AT5oNAAAMjHbKMfg317.png",
+                        "https://b4-q.mafengwo.net/s11/M00/B4/A6/wKgBEFszPJ2AMrmOAAAJtrieuHs464.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AM08FAAAJMdqC0ZY082.png"
+                    ]
+                },
+                {
+                    time : '2018/07/12',
+                    imgArr : [
+                        "https://p1-q.mafengwo.net/s11/M00/B4/A8/wKgBEFszPJ2AOgZ1AAAMV65uhdQ649.png",
+                        "https://n2-q.mafengwo.net/s11/M00/B4/A1/wKgBEFszPJ2AC0fkAAAMh1HJrLU006.png",
+                        "https://b4-q.mafengwo.net/s11/M00/B4/A6/wKgBEFszPJ2AMrmOAAAJtrieuHs464.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AM08FAAAJMdqC0ZY082.png"
+                    ]
+                },
+                {
+                    time : '2018/07/13',
+                    imgArr : [
+                        "https://n2-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AQDxzAAAO07sPuvY925.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://b4-q.mafengwo.net/s11/M00/B4/A6/wKgBEFszPJ2AMrmOAAAJtrieuHs464.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AM08FAAAJMdqC0ZY082.png"
+                    ]
+                },
+                {
+                    time : '2018/07/14',
+                    imgArr : [
+                        "https://n2-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AQDxzAAAO07sPuvY925.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://b3-q.mafengwo.net/s11/M00/B4/A0/wKgBEFszPJ2AQX9xAAAJAPW1o3Y187.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AM08FAAAJMdqC0ZY082.png"
+                    ]
+                },
+                {
+                    time : '2018/07/15',
+                    imgArr : [
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A7/wKgBEFszPJ2ALJkPAAAMVD1h7Ow525.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://b3-q.mafengwo.net/s11/M00/B4/A0/wKgBEFszPJ2AQX9xAAAJAPW1o3Y187.png",
+                        "https://b1-q.mafengwo.net/s11/M00/B4/A7/wKgBEFszPJ2AWDBiAAAJHoBxIek347.png"
+                    ]
+                },
+                {
+                    time : '2018/07/16',
+                    imgArr : [
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://b4-q.mafengwo.net/s11/M00/B4/A6/wKgBEFszPJ2AMrmOAAAJtrieuHs464.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AM08FAAAJMdqC0ZY082.png",
+                        "https://b1-q.mafengwo.net/s11/M00/B4/A7/wKgBEFszPJ2AWDBiAAAJHoBxIek347.png"
+                    ]
+                },
+                {
+                    time : '2018/07/17',
+                    imgArr : [
+                        "https://n2-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AQDxzAAAO07sPuvY925.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://b3-q.mafengwo.net/s11/M00/B4/A0/wKgBEFszPJ2AQX9xAAAJAPW1o3Y187.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AM08FAAAJMdqC0ZY082.png"
+                    ]
+                },
+                {
+                    time : '2018/07/18',
+                    imgArr : [
+                        "https://n2-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AQDxzAAAO07sPuvY925.png",
+                        "https://p3-q.mafengwo.net/s11/M00/B4/A4/wKgBEFszPJ2ANiN8AAAIng3xGQQ101.png",
+                        "https://b3-q.mafengwo.net/s11/M00/B4/A0/wKgBEFszPJ2AQX9xAAAJAPW1o3Y187.png",
+                        "https://p1-q.mafengwo.net/s11/M00/B4/9F/wKgBEFszPJ2AM08FAAAJMdqC0ZY082.png"
+                    ]
+                },
+            ],
+            currScrollText :[],
+            uid : Env.UID,
+        },
+        mounted : function(){
+            mfwPageEvent('sales','sales_zuanti',{
+                "zuanti_name": '世界杯娃娃机',
+                'platform': (navigator.userAgent.indexOf("mfw") > -1) ? 'APP' : 'H5',
+                'sales_name': "",
+                'sales_id': ''
+            });
+            var _this = this;
+            this.loaded = true;
+            this.createCanvas();
+            this.scrollBox();
+            setTimeout(function(){
+                new Swiper('.swiper-container', {
+                    loop : true,
+                    autoplay: 3000,
+                    slidesPerView : 'auto',
+                    loopedSlides :30,
+                    autoplayDisableOnInteraction : false,
+                });
+            },1000);
+            $.post('/sales/activity/2018worldcup/lottery/recentlyLotteryUser','',function(res){
+                _this.LotteryInfo = res.data;
+                _this.LotteryNum = res.data.limit;
+                Vue.nextTick(function(){
+                    _this.scrollBarrage();
+                });
+            },'json');
+            $.post('/sales/activity/2018worldcup/lottery/businessList','',function(res){
+                _this.businessList = res.data;
+            },'json');
+        },
+        methods : {
+            intoCard : function(){
+                window.location.href = "https://imfw.cn/l/13424246";
+            },
+            submitAddress : function(){
+                window.location.href = '/setting/receipt/list?app=36&obj=20180614&backurl='+this.mfwURL+'/sales/activity/2018worldcup/lottery/index';
+            },
+            tapView : function(value){
+                var _this = this;
+                if(value.couponId == 0){
+                    if(value.awardId == 959){
+                        window.location.href = 'https://imfw.cn/l/12911778';
+                        mfwPageEvent('sales','sales_zuanti',{
+                            "zuanti_name": '世界杯娃娃机',
+                            'platform': (navigator.userAgent.indexOf("mfw") > -1) ? 'APP' : 'H5',
+                            'sales_name': "点击免错卡查看",
+                            'sales_id': ''
+                        });
+                    }else{
+                        $.post('/sales/activity/2018worldcup/lottery/getUserAddress','',function(res){
+                            if(res.data.address.content){
+                                _this.addressInfo = res.data.address.content;
+                                _this.popShow = true;
+                                _this.popAddress = true;
+                            }else{
+                                window.location.href = '/setting/receipt/list?app=36&obj=20180614&backurl='+_this.mfwURL+'/sales/activity/2018worldcup/lottery/index';
+                                mfwPageEvent('sales','sales_zuanti',{
+                                    "zuanti_name": '世界杯娃娃机',
+                                    'platform': (navigator.userAgent.indexOf("mfw") > -1) ? 'APP' : 'H5',
+                                    'sales_name': "点击实物查看",
+                                    'sales_id': ''
+                                });
+                            }
+                        },'json');
+                    }
+                }else{
+                    window.location.href = '/sales/coupon.php';
+                    mfwPageEvent('sales','sales_zuanti',{
+                        "zuanti_name": '世界杯娃娃机',
+                        'platform': (navigator.userAgent.indexOf("mfw") > -1) ? 'APP' : 'H5',
+                        'sales_name': "点击优惠券查看",
+                        'sales_id': ''
+                    });
+                }
+            },
+            toCard : function(){
+                window.location.href = 'https://imfw.cn/l/12911778';
+                mfwPageEvent('sales','sales_zuanti',{
+                    "zuanti_name": '世界杯娃娃机',
+                    'platform': (navigator.userAgent.indexOf("mfw") > -1) ? 'APP' : 'H5',
+                    'sales_name': "去瓜分现金",
+                    'sales_id': ''
+                });
+            },
+            // canvas
+            createCanvas : function(){
+                var _this = this,
+                    wrap = document.querySelector('.wrapper'),
+                    Application = PIXI.Application,
+                    loader = PIXI.loader,
+                    resources = PIXI.loader.resources,
+                    Sprite = PIXI.Sprite;
+                this.dollSetBack = new PIXI.Container();
+                this.dollSet = new PIXI.Container();
+                this.paw = new PIXI.Container();
+
+                this.app = new Application({
+                        width: 667,
+                        height: 472,
+                        antialiasing: true,
+                        transparent: true,
+                        resolution: 1
+                    }
+                );
+                this.app.renderer.view.style.position = "absolute";
+                this.app.renderer.view.style.width = 6.05 + "rem";
+                this.app.renderer.view.style.height = 4.28 + "rem";
+                this.app.renderer.view.style.left = 0.7 + "rem";
+                this.app.renderer.view.style.top = 2.94 + "rem";
+                this.app.renderer.view.style.zIndex = 3;
+                wrap.appendChild(this.app.view);
+                this.app.stage.addChild(this.dollSetBack);
+                this.app.stage.addChild(this.dollSet);
+                this.app.stage.addChild(this.paw);
+
+                loader.add([
+                    {name : 'paw', url:'https://p2-q.mafengwo.net/s11/M00/C8/A9/wKgBEFsVADKAYy_PAAAPcrDgodA418.png'},
+                    {name : 'pawLeft', url:'https://b1-q.mafengwo.net/s11/M00/C8/C0/wKgBEFsVAFCAWVoQAAAGhvqcQ8g818.png'},
+                    {name : 'pawRight', url:'https://p3-q.mafengwo.net/s11/M00/C8/BF/wKgBEFsVAFCAJc5JAAAGec3QaO0095.png'},
+                    {name : 'convey', url:'https://n3-q.mafengwo.net/s11/M00/FE/DD/wKgBEFsgwVSAXugsAAAC6mcS8t4592.png'},
+                    {name : 'gear', url:'https://n3-q.mafengwo.net/s11/M00/7A/64/wKgBEFsQGWuAYVaLAAAEFH_xkSU131.png'},
+                    {name : 'convey01', url:'https://n2-q.mafengwo.net/s11/M00/DA/B2/wKgBEFsakUqAbhdUAAAGlobEcMc087.png'},
+                    {name : 'baxi', url:'https://n1-q.mafengwo.net/s11/M00/95/97/wKgBEFsU2jOAJ7efAAAZtR2vBGw486.png'},
+                    {name : 'agenting', url:'https://p4-q.mafengwo.net/s11/M00/95/97/wKgBEFsU2jOAMNK_AAAavw1cHRE001.png'},
+                    {name : 'deguo', url:'https://b3-q.mafengwo.net/s11/M00/95/97/wKgBEFsU2jOAQm_hAAAb2QLIozs114.png'},
+                    {name : 'riben', url:'https://p3-q.mafengwo.net/s11/M00/A3/CA/wKgBEFsU5Z2AU0uHAAAcGQEljQI493.png'},
+                    {name : 'putaoya', url:'https://p4-q.mafengwo.net/s11/M00/A3/CA/wKgBEFsU5Z2ANwvdAAAbKeuZLUI872.png'},
+                    {name : 'yinguo', url:'https://p3-q.mafengwo.net/s11/M00/A3/CA/wKgBEFsU5Z2ATONHAAAaZEgmeJA658.png'},
+                    {name : 'eluosi', url:'https://p2-q.mafengwo.net/s11/M00/A3/C9/wKgBEFsU5Z2ABM7KAAAbhDASD9Y515.png'},
+                    {name : 'faguo', url:'https://b4-q.mafengwo.net/s11/M00/A3/C9/wKgBEFsU5Z2AGv0tAAAaczTL0Co299.png'},
+                    {name : 'baxiS', url:'https://n3-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAebmRAAA1dRNXU2w118.png'},
+                    {name : 'agentingS', url:'https://p4-q.mafengwo.net/s11/M00/CC/93/wKgBEFsagwaAALPGAAA6wzeVDSA532.png'},
+                    {name : 'deguoS', url:'https://n3-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAPsivAAA_6zmbtcc216.png'},
+                    {name : 'ribenS', url:'https://n4-q.mafengwo.net/s11/M00/CC/95/wKgBEFsagwaAFhiEAABAPKg43Y8436.png'},
+                    {name : 'putaoyaS', url:'https://b3-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAbJcFAAA6mSMAjAc521.png'},
+                    {name : 'yinguoS', url:'https://p1-q.mafengwo.net/s11/M00/CC/95/wKgBEFsagwaAQkfCAAA6pw-qplI265.png'},
+                    {name : 'eluosiS', url:'https://n1-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAEfIGAAA-O40vYAQ035.png'},
+                    {name : 'faguoS', url:'https://p3-q.mafengwo.net/s11/M00/CC/95/wKgBEFsagwaAL0-YAAA671Fivww944.png'},
+
+
+                ]).load(setup);
+                function setup() {
+                    var self = _this;
+                    // 传送带
+                    _this.convey = new Sprite(resources.convey.texture);
+                    _this.convey.y = _this.app.renderer.height-_this.convey.height;
+                    _this.convey01 = new Sprite(resources.convey01.texture);
+                    _this.convey01.x = -_this.convey01.width+_this.app.renderer.width;
+                    _this.convey01.y = _this.app.renderer.height-_this.convey01.height-120;
+                    // 齿轮
+                    for(var i=1; i< 7; i++){
+                        gear = new Sprite(resources.gear.texture);
+                        gear.x = 74*i+gear.width*i;
+                        gear.y = _this.app.renderer.height-gear.height-6;
+                        _this.app.stage.addChild(gear);
+                    }
+                    _this.app.stage.addChildAt(_this.convey);
+                    for(var i=1; i< 7; i++){
+                        gear01 = new Sprite(resources.gear.texture);
+                        gear01.x = 74*i+gear.width*i;
+                        gear01.y = _this.app.renderer.height-gear.height-128;
+                        _this.app.stage.addChildAt(gear01);
+                    }
+                    _this.app.stage.addChildAt(_this.convey01);
+                    // 娃娃
+                    for(var i=0; i< 5; i++){
+                        var randomNum = _this.GetRandomNum(0,7);
+                        doll = new Sprite(resources[_this.nameArr[randomNum]].texture);
+                        _this.dollSpace = (_this.app.renderer.width-doll.width*4)/4;
+                        doll.x = (doll.width+_this.dollSpace)*i;
+                        _this.dollSet.addChild(doll);
+                    }
+                    _this.dollSet.x = 0;
+                    _this.dollSet.y = _this.app.renderer.height-doll.height-50;
+
+                    for(var i=0; i< 5; i++){
+                        var randomNum = _this.GetRandomNum(0,7);
+                        doll = new Sprite(resources[_this.nameArrS[randomNum]].texture);
+                        _this.dollSpace01 = (_this.app.renderer.width-doll.width*4)/4;
+                        doll.x = (doll.width+_this.dollSpace01)*i;
+                        _this.dollSetBack.addChild(doll);
+                    }
+                    _this.dollSetBack.x = -_this.dollSetBack.children[0].width;
+                    _this.dollSetBack.y = _this.app.renderer.height-doll.height-160;
+
+                    //爪子
+                    var pawC = new Sprite(
+                        resources.paw.texture
+                    );
+                    _this.pawL = new Sprite(
+                        resources.pawLeft.texture
+                    );
+                    _this.pawL.x = 5;
+                    _this.pawL.y = 230;
+                    _this.pawR = new Sprite(
+                        resources.pawRight.texture
+                    );
+                    _this.pawR.x = pawC.width-6;
+                    _this.pawR.y = 230;
+                    _this.pawL.pivot.set(21,0);
+                    _this.pawL.rotation = 0;
+                    _this.pawR.rotation = 0;
+                    _this.paw.addChildAt(pawC);
+                    _this.paw.addChildAt(_this.pawL);
+                    _this.paw.addChildAt(_this.pawR);
+                    _this.paw.x = _this.app.renderer.width/2-15;
+                    _this.paw.y = -180;
+                    var speed = 0.05;
+                    _this.app.ticker.add(function(delta){
+                        self.conveyLoop();
+                        self.conveyLoopBack();
+                        self.pawAnimate();
+                        self.pawCatch();
+                        dollSetLoop();
+                        dollSetLoopSmall();
+                    });
+                    // 娃娃
+                    function dollSetLoop(){
+                        _this.dollSet.x -=_this.speed;
+                        if(_this.dollSet.x <= (-_this.dollSet.children[0].width-_this.dollSpace)*(_this.n-4)){
+                            if(_this.w == 5){
+                                _this.w=0;
+                            }
+                            _this.dollSet.removeChild(_this.dollSet.children[_this.w]);
+                            var random = _this.GetRandomNum(0,7);
+                            var dollLast = new PIXI.Sprite(resources[_this.nameArr[random]].texture);
+                            dollLast.x = (dollLast.width+_this.dollSpace)*_this.n;
+                            _this.dollSet.addChildAt(dollLast,_this.w);
+                            _this.n = _this.n+1;
+                            _this.w = _this.w+1;
+                        }
+                    }
+                    var e=0,m =5;
+                    function dollSetLoopSmall(){
+                        _this.dollSetBack.x +=2;
+                        if(_this.dollSetBack.x >= (92+_this.dollSpace01)*(m-5)){
+                            if(e == 0){
+                                m = 5;
+                            }
+                            _this.dollSetBack.removeChild(_this.dollSetBack.children[m-1]);
+                            var random = _this.GetRandomNum(0,7);
+                            var dollLast01 = new Sprite(PIXI.loader.resources[_this.nameArrS[random]].texture);
+                            dollLast01.x = -(92+_this.dollSpace01)*(e+1);
+                            _this.dollSetBack.addChildAt(dollLast01,(m-1));
+                            e = e+1;
+                            m = m+1;
+                        }
+                    }
+                }
+            },
+            // 传送带
+            conveyLoop: function(){
+                if(this.convey.x <= -this.app.renderer.width+100){
+                    this.convey.x = 0;
+                }else{
+                    this.convey.x -=3;
+                }
+            },
+            conveyLoopBack : function(){
+                if(this.convey01.x >= -1){
+                    this.convey01.x = -this.convey01.width+this.app.renderer.width;
+                }else{
+                    this.convey01.x +=2;
+                }
+            },
+            tapGrab : function(){
+                var _this = this;
+                if(Env.UID && Env){
+                    $.post('/sales/activity/2018worldcup/lottery/lottery',{
+                        deviceId : SMSdk.getDeviceId()
+                    },function(res){
+                        _this.lotteryResult = res;
+                        if(_this.LotteryNum > 0){
+                            _this.LotteryNum = _this.LotteryNum-1;
+                        }
+                        _this.lottery();
+                    },'json');
+                    mfwPageEvent('sales', 'sales_activity_game_page_click',
+                        {
+                            "page_name": '世界杯娃娃机',
+                            "open_udid": '',
+                            "uid": _this.uid,
+                            "param": 'grab 抓取',
+                            "activity_id" : 190,
+                        });
+                }else{
+                    window.location.href = 'https://passport.mafengwo.cn/?return_url='+ this.mfwURL +'/sales/activity/2018worldcup/lottery/index';
+                }
+            },
+            honeyLottery : function(){
+                this.tapClose();
+                var _this = this;
+                $.post('/sales/activity/2018worldcup/lottery/honeyLottery',{
+                    deviceId : SMSdk.getDeviceId(),
+                },function(res){
+                    _this.lotteryResult = res;
+                    _this.lottery();
+                })
+            },
+            toLogin : function(){
+                window.location.href = 'https://passport.mafengwo.cn/?return_url='+ this.mfwURL +'/sales/activity/2018worldcup/lottery/index';
+            },
+            tapRule : function(){
+                this.popShow = true;
+                this.popRule = true;
+            },
+            tapPrize : function(){
+                var _this = this;
+                if(Env && Env.UID){
+                    $.post('/sales/activity/2018worldcup/lottery/myAwards','',function(res){
+                        if(res.errno == 0){
+                            _this.pirzeList = res.data;
+                            _this.popShow = true;
+                            _this.popPrize = true;
+                        }
+                    },'json');
+                    mfwPageEvent('sales', 'sales_activity_game_page_click',
+                        {
+                            "page_name": '世界杯娃娃机',
+                            "open_udid": '',
+                            "uid": _this.uid,
+                            "param": 'my_gift 我的礼品',
+                            "activity_id" : 190,
+                        });
+                }else{
+                    window.location.href = 'https://passport.mafengwo.cn/?return_url='+ this.mfwURL +'/sales/activity/2018worldcup/lottery/index';
+                }
+            },
+            tapOdds : function(){
+                var _this = this;
+                if(Env.UID && Env){
+                    this.isLogin = false;
+                }else{this.isLogin = true;}
+                $.post('/sales/activity/2018worldcup/lottery/todayTasks','',function(res){
+                    _this.todayTasks = res.data;
+                    if(res.data.taskFavorite){
+                        _this.favorite = false;
+                    }else{
+                        _this.favorite = true;
+                    }
+                    if(res.data.taskShare){
+                        _this.taskShare = false;
+                    }else{
+                        _this.taskShare = true;
+                    }
+                    _this.popShow = true;
+                    _this.popOdds = true;
+                },'json');
+                mfwPageEvent('sales', 'sales_activity_game_page_click',
+                    {
+                        "page_name": '世界杯娃娃机',
+                        "open_udid": '',
+                        "uid": _this.uid,
+                        "param": 'more_chance 更多机会',
+                        "activity_id" : 190,
+                    });
+            },
+            tapClose : function(){
+                this.popShow = false;
+                this.popPrize = false;
+                this.popRule = false;
+                this.popTime = false;
+                this.popOdds = false;
+                this.popWin = false;
+                this.popShare = false;
+                this.popWinCoupon = false;
+                this.popCommon = false;
+                this.popAddress = false;
+                this.lotteryResult = {};
+                this.isDes = false;
+                this.pawL.rotation = 0;
+                this.pawR.rotation = 0;
+                this.app.ticker.start();
+            },
+            businessHref : function(v){
+                mfwPageEvent('sales','sales_zuanti',{
+                    "zuanti_name": '世界杯娃娃机',
+                    'platform': (navigator.userAgent.indexOf("mfw") > -1) ? 'APP' : 'H5',
+                    'sales_name': "赞助商家点击",
+                    'sales_id': ''
+                });
+                window.location.href = "/sales/shop/"+v.otaId;
+            },
+            toShare : function(){
+                var _this = this;
+                mfwPageEvent('sales','sales_zuanti',{
+                    "zuanti_name": '世界杯娃娃机',
+                    'platform': (navigator.userAgent.indexOf("mfw") > -1) ? 'APP' : 'H5',
+                    'sales_name': "去分享",
+                    'sales_id': ''
+                });
+                $.post('/sales/activity/2018worldcup/lottery/shareAddOpportunity','',function(res){
+                    if(res.errno == 0){
+                        if (_this.explorer.indexOf('mfw') >= 0) {
+                            MFWAPP.share.showSharePanel();
+                            MFWAPP.share.event_addShareResultListener(function (result) {
+                                window.location.href = '/sales/activity/2018worldcup/lottery/index';
+                                if(result.status == 'success') {}
+                            });
+                        } else {
+                            // 分享弹层
+                            _this.popShow = true;
+                            _this.popOdds = false,
+                                _this.popShare = true;
+                        }
+                    }
+                },'json');
+            },
+            toCatch: function(){
+                for(var i=0; i<this.dollSet.children.length; i++){
+                    var dollCenter = this.dollSet.toGlobal(this.dollSet.children[i].position).x+this.dollSet.children[i].width/2-this.app.renderer.width/2-18;
+                    if(dollCenter >= this.safetyDes){
+                        this.dollChildX = i;
+                        this.delayTime = Math.floor((dollCenter-this.safetyDes)/180 *1000);
+                        break;
+                    }
+                }
+            },
+            // 生成随机数
+            GetRandomNum : function(Min,Max){
+                var Range = Max - Min;
+                var Rand = Math.random();
+                return(Min + Math.round(Rand * Range));
+            },
+            // 碰撞
+            // hitImgAni : function (callback){
+            //     var _this = this;
+            //     if(hitTestRectangle(this.paw, this.dollSet)){
+            //         this.isDes = true;
+            //         var pawX = this.paw.x+this.paw.width/2;
+            //         for(var i=0; i<this.dollSet.children.length; i++){
+            //             var desNear = pawX-(this.dollSet.toGlobal(this.dollSet.children[i].position).x+this.dollSet.children[i].width/2);
+            //             this.dollChildX.push(Math.abs(desNear));
+            //         }
+            //         var copyArr = this.dollChildX.slice();
+            //         copyArr.sort(function(a,b){
+            //             return a-b;
+            //         });
+            //         var currDollIndex = this.dollChildX.indexOf(copyArr[0]);
+            //         this.speed = 0;
+            //         this.pawSpeed = 0;
+            //         this.dollSet.children[currDollIndex].x = Math.abs(this.dollSet.x)+this.paw.x-(this.dollSet.children[currDollIndex].width/2)+this.paw.width/2;
+            //
+            //         this.app.ticker.add(function(delta){
+            //             if(_this.dollSet.children[currDollIndex].y >= -140 ){
+            //                 _this.dollSet.children[currDollIndex].y -= 2;
+            //             }
+            //         });
+            //     }
+            //     if(this.isDes){
+            //         if(this.paw.y !== -170){
+            //             this.paw.y -= 2;
+            //         }else{
+            //             callback();
+            //         }
+            //     }else{
+            //         this.paw.y += 2;
+            //         _this.pawL.rotation += -_this.pawSpeed;
+            //         _this.pawR.rotation += _this.pawSpeed;
+            //     }
+            // },
+            // 不碰撞
+            pawCatch : function(){
+                var _this = this;
+                if(this.lotteryResult && this.lotteryResult.errno == 0){
+                    setTimeout(function(){
+                        if(_this.isDes){
+                            if(_this.paw.y !== -_this.speed*60){
+                                _this.paw.y -= _this.speed;
+                                _this.dollSet.children[_this.dollChildX].x = -_this.dollSet.x + _this.app.renderer.width/2 -35;
+                                _this.dollSet.children[_this.dollChildX].y += -_this.speed;
+                            }else{
+                                _this.app.ticker.stop();
+                                if(_this.lotteryResult.data.need_addr == 0){
+                                    if(_this.lotteryResult.data.award_id == 959){
+                                        _this.popShow = true;
+                                        _this.popWinCoupon = true;
+                                        _this.isCard = true;
+                                    }else{
+                                        _this.popShow = true;
+                                        _this.popWinCoupon = true;
+                                        _this.isCard = false;
+                                    }
+                                }else{
+                                    _this.popShow = true;
+                                    _this.popWin = true;
+                                }
+                                _this.dollSet.children[_this.dollChildX].visible = false;
+                            }
+                        }else{
+                            _this.paw.y += _this.speed;
+                            if(_this.paw.y >= -40 && _this.pawR.rotation <= 0.4){
+                                _this.pawL.rotation += -_this.pawSpeed;
+                                _this.pawR.rotation += _this.pawSpeed;
+                            }
+                            if(_this.paw.y >= 0){
+                                _this.isDes = true;
+                            }
+                        }
+                    },this.delayTime);
+                }
+            },
+            pawAnimate : function(){
+                var speed = 0.05;
+                if(this.lotteryResult && this.lotteryResult.errno == 435){                //clicked lottery btn
+                    if(this.isDes){         // 极限距离
+                        if(this.paw.y !== -this.speed*60){
+                            this.paw.y -= this.speed;
+                            if(this.paw.y <= -90 && this.pawR.rotation >= 0){
+                                this.pawL.rotation += speed-0.02;
+                                this.pawR.rotation += -speed+0.02;
+                            }
+                        }else{
+                            this.app.ticker.stop();
+                            this.popShow = true;
+                            this.popCommon = true;   //alert
+                        }
+                    }else{
+                        this.paw.y += this.speed;
+                        if(this.paw.y >= -40 && this.pawR.rotation <= 0.4){
+                            this.pawL.rotation += -speed;
+                            this.pawR.rotation += speed;
+                        }
+                        if(this.paw.y >= 0){
+                            this.isDes = true;
+                        }
+                    }
+                }
+            },
+            // prizePop
+            lottery : function(){
+                var _this = this;
+                if(this.lotteryResult.errno == 0){
+                    this.winInfo = this.lotteryResult.data;
+                    this.btnEnter = true;
+                    setTimeout(function(){
+                        _this.btnEnter = false;
+                    },300);
+                    this.toCatch(function(){
+                        if(_this.lotteryResult.data.need_addr == 0){
+                            _this.popShow = true;
+                            _this.popWinCoupon = true;
+                        }else{
+                            _this.popShow = true;
+                            _this.popWin = true;
+                        }
+                        _this.app.ticker.stop();
+                    });
+                }else if(this.lotteryResult.errno == 400){
+                    this.popShow = true;
+                    this.popTime = true;
+                    this.startTime = true;
+                }else if(this.lotteryResult.errno == 405){
+                    this.popShow = true;
+                    this.popTime = true;
+                    this.startTime = false;
+                }else if(this.lotteryResult.errno == 415){
+                    this.popShow = true;
+                    this.popCommon = true;
+                    this.notWin = false;
+                    this.popText01 = '抓娃娃机机会已经用光';
+                    this.popText02 = '先赚取机会在来吧';
+                    this.againShow = false;
+                }else if(this.lotteryResult.errno == 420){
+                    this.popShow = true;
+                    this.popCommon = true;
+                    this.notWin = false;
+                    this.popText01 = '抓娃娃机机会已经用光';
+                    this.popText02 = '是否消耗10蜂蜜再抓一次';
+                    this.againShow = true;
+                }else if(this.lotteryResult.errno == 425){
+                    this.popShow = true;
+                    this.popCommon = true;
+                    this.notWin = false;
+                    this.popText01 = '抓娃娃机机会已经用光';
+                    this.popText02 = '明日再来吧';
+                    this.againShow = false;
+                }else if(this.lotteryResult.errno == 435){
+                    this.notWin = true;
+                    this.popText01 = '很遗憾没有抓到娃娃';
+                }else if(this.lotteryResult.errno == 440){
+                    this.popShow = true;
+                    this.popCommon = true;
+                    this.notWin = false;
+                    this.popText01 = '蜂蜜不足';
+                    this.againShow = false;
+                }else if(this.lotteryResult.errno == 445){
+                    this.popShow = true;
+                    this.popCommon = true;
+                    this.notWin = false;
+                    this.popText01 = '蜂蜜不足';
+                    this.popText02 = '先赚取机会在来吧';
+                    this.againShow = false;
+                }else{
+                    alert('崩溃了！稍后再试');
+                }
+            },
+            scrollBox : function(){
+                var getData = new Date().getTime();
+                var ul = document.getElementById('scroll'),
+                    img = ul.getElementsByTagName('img');
+                var num = 0;
+                for(var i=0; i<this.scrollText.length; i++){
+                    var setTime = new Date(this.scrollText[i].time).getTime();
+                    if(getData <= setTime){
+                        this.currScrollText = this.scrollText[i-1].imgArr;
+                        break;
+                    }
+                }
+                var num2 =0;
+                setTimeout(function(){
+                    ul.innerHTML += ul.innerHTML;
+                    for(var i=0;i<$("#scroll li").length;i++){
+                        num2 += ($("#scroll li").eq(i).width()+10);
+                    }
+                    $("#scroll").width(num2);
+                    setInterval(function(){
+                        num -= 0.5;
+                        num <= -$("#scroll").width()/2 ? num = 0 : num;
+                        ul.style.left = num + "px";
+                    },10);
+                },1000);
+            },
+            scrollBarrage : function(){
+                var loop_length = document.querySelectorAll(".barrage p").length,
+                    dur_time = 3,
+                    up_velocity = "-=" + (loop_length - 1) * dur_time;
+                var awardLoop = new TimelineMax({
+                    repeat: -1
+                });
+                awardLoop.staggerTo(".barrage p", 1, {
+                    ease: Power4.easeOut,
+                    x: 0,
+                    y: 0,
+                    opacity: 1
+                }, dur_time)
+                    .staggerTo(".barrage p", 1, {
+                        ease: Sine.easeOut,
+                        x: 0,
+                        y: -50,
+                        opacity: 0
+                    }, dur_time, up_velocity);
+            },
+            toBrandwall : function(){
+                var _this = this;
+                window.location.href = 'https://imfw.cn/l/12912126';
+                mfwPageEvent('sales', 'sales_activity_game_page_click',
+                    {
+                        "page_name": '世界杯娃娃机',
+                        "open_udid": '',
+                        "uid": _this.uid,
+                        "param": 'brands 品牌墙',
+                        "activity_id" : 190,
+                    });
+            },
+            // 热销好货
+            toHotGoods : function(){
+                var _this = this;
+                window.location.href = 'https://imfw.cn/l/14238238';
+                mfwPageEvent('sales', 'sales_activity_game_page_click',
+                    {
+                        "page_name": '世界杯娃娃机',
+                        "open_udid": '',
+                        "uid": _this.uid,
+                        "param": 'sales 热销好货',
+                        "activity_id" : 190,
+                    });
+            },
+        }
+    });
+</script>
+<script>
+    (function() {
+        window._smConf = {
+            organization: 'HORA8yzVNPQbyq6gDvtF',
+            staticHost: 'static.fengkongcloud.com'
+        };
+        var url = (function () {
+            var originHost = "static2.fengkongcloud.com";
+            var isHttps = 'https:' === document.location.protocol;
+            var protocol = isHttps ? 'https://' : 'http://';
+            var fpJsPath = '/fpv2.js';
+            var url =  protocol + _smConf.staticHost + fpJsPath;
+            var ua = navigator.userAgent.toLowerCase();
+            var isWinXP = /windows\s(?:nt\s5.1)|(?:xp)/.test(ua);
+            var isLowIE = /msie\s[678]\.0/.test(ua);
+            if(isHttps && isWinXP && isLowIE) {
+                url = protocol + originHost + fpJsPath;
+            }
+            return url;
+        })();
+        var sm = document.createElement("script");
+        var s = document.getElementsByTagName("script")[0];
+        sm.src = url;
+        s.parentNode.insertBefore(sm, s);
+    })();
+</script>
+
+
+<script language="javascript" type="text/javascript">
+if (typeof M !== "undefined" && typeof M.loadResource === "function") {
+M.loadResource("https://js.mafengwo.net/js/cv/mobile+js+ALogin:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad:mobile+js+wakeApp:mobile+js+omc.global^alE^1537520872.js");
+}
+</script>
+
+</body>
+</html>
