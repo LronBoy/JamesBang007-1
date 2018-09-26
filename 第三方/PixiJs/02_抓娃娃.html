@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>PixiJS — 基础DEMO</title>
+<script>
+function rem() {
+    var html = document.documentElement;
+    var hWidth = html.getBoundingClientRect().width;
+    hWidth = hWidth > 750 ? 750 : hWidth;
+    html.style.fontSize = hWidth / 15 + "px";
+}
+( function () {
+    rem();
+} )();
+window.onresize = rem;
+</script>
+<style type="text/css">
+html{ margin: 0 auto; max-width: 750px; background: #f5f5f5; font-size: 50px; }
+body,h1,h2,h3,h4,h5,h6,p,dl,dt,dd,ul,li,form,button,input,textarea,th,td,a{margin:0;padding:0}
+body {
+  font-family: "PingFang SC",Helvetica,Arial,"Microsoft YaHei"; color:#444; background: #fff;
+}
+#app{
+    position: relative; padding: .6rem; min-height: 20rem;
+}
+.wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 1;
+    /*background: url(https://css.mafengwo.net/mobile/images/worldCup2018/mainBag.png) no-repeat;*/
+    background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+<section id="app">
+    <div class="wrapper">
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- 引入 PixiJS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js"></script>
+
+<script>
+var vm = new Vue( {
+    el: '#app',
+    data: {
+        loaded: false,
+        nameArr: [ 'baxi', 'agenting', 'deguo', 'riben', 'putaoya', 'yinguo', 'eluosi', 'faguo' ],
+        nameArrS: [ 'baxiS', 'agentingS', 'deguoS', 'ribenS', 'putaoyaS', 'yinguoS', 'eluosiS', 'faguoS' ],
+    },
+    //el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子
+    mounted: function () {
+        var _this = this;
+        this.loaded = true;
+        this.createCanvas();
+    },
+    methods: {
+        // canvas
+        createCanvas: function () {
+            var that = this,
+                _this = this,
+                wrap = document.querySelector( '.wrapper' ),
+                Application = PIXI.Application,
+                loader = PIXI.loader,
+                resources = PIXI.loader.resources,
+                Sprite = PIXI.Sprite;
+            that.dollSetBack = new PIXI.Container();
+            that.dollSet = new PIXI.Container();
+            that.paw = new PIXI.Container();
+
+            // 设置舞台大小&位置
+            this.app = new Application( {
+                width: 670,
+                height: 480,
+                backgroundColor: 0x1099bb,
+                antialiasing: true,
+                transparent: false,
+                resolution: 1
+            } );
+            this.app.renderer.view.style.position = "absolute";
+            this.app.renderer.view.style.width = 13.4 + "rem";
+            this.app.renderer.view.style.height = 9.6 + "rem";
+            this.app.renderer.view.style.left = .8 + "rem";
+            this.app.renderer.view.style.top = 3 + "rem";
+            this.app.renderer.view.style.zIndex = 3;
+            //应用程序将为您创建一个canvas元素，然后可以插入DOM
+            wrap.appendChild( this.app.view );
+            // 在舞台中添加元素
+            //this.app.stage.addChild( this.dollSetBack );
+            //this.app.stage.addChild( this.dollSet );
+            //this.app.stage.addChild( this.paw );
+
+            loader.add( [
+                { name: 'paw', url: 'https://p2-q.mafengwo.net/s11/M00/C8/A9/wKgBEFsVADKAYy_PAAAPcrDgodA418.png' },
+                { name: 'pawLeft', url: 'https://b1-q.mafengwo.net/s11/M00/C8/C0/wKgBEFsVAFCAWVoQAAAGhvqcQ8g818.png' },
+                { name: 'pawRight', url: 'https://p3-q.mafengwo.net/s11/M00/C8/BF/wKgBEFsVAFCAJc5JAAAGec3QaO0095.png' },
+
+                { name: 'convey', url: 'https://n3-q.mafengwo.net/s11/M00/FE/DD/wKgBEFsgwVSAXugsAAAC6mcS8t4592.png' },
+                { name: 'gear', url: 'https://n3-q.mafengwo.net/s11/M00/7A/64/wKgBEFsQGWuAYVaLAAAEFH_xkSU131.png' },
+                { name: 'convey01', url: 'https://n2-q.mafengwo.net/s11/M00/DA/B2/wKgBEFsakUqAbhdUAAAGlobEcMc087.png' },
+
+                { name: 'baxi', url: 'https://n1-q.mafengwo.net/s11/M00/95/97/wKgBEFsU2jOAJ7efAAAZtR2vBGw486.png' },
+                { name: 'agenting', url: 'https://p4-q.mafengwo.net/s11/M00/95/97/wKgBEFsU2jOAMNK_AAAavw1cHRE001.png' },
+                { name: 'deguo', url: 'https://b3-q.mafengwo.net/s11/M00/95/97/wKgBEFsU2jOAQm_hAAAb2QLIozs114.png' },
+                { name: 'riben', url: 'https://p3-q.mafengwo.net/s11/M00/A3/CA/wKgBEFsU5Z2AU0uHAAAcGQEljQI493.png' },
+                { name: 'putaoya', url: 'https://p4-q.mafengwo.net/s11/M00/A3/CA/wKgBEFsU5Z2ANwvdAAAbKeuZLUI872.png' },
+                { name: 'yinguo', url: 'https://p3-q.mafengwo.net/s11/M00/A3/CA/wKgBEFsU5Z2ATONHAAAaZEgmeJA658.png' },
+                { name: 'eluosi', url: 'https://p2-q.mafengwo.net/s11/M00/A3/C9/wKgBEFsU5Z2ABM7KAAAbhDASD9Y515.png' },
+                { name: 'faguo', url: 'https://b4-q.mafengwo.net/s11/M00/A3/C9/wKgBEFsU5Z2AGv0tAAAaczTL0Co299.png' },
+
+                { name: 'baxiS', url: 'https://n3-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAebmRAAA1dRNXU2w118.png' },
+                { name: 'agentingS', url: 'https://p4-q.mafengwo.net/s11/M00/CC/93/wKgBEFsagwaAALPGAAA6wzeVDSA532.png' },
+                { name: 'deguoS', url: 'https://n3-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAPsivAAA_6zmbtcc216.png' },
+                { name: 'ribenS', url: 'https://n4-q.mafengwo.net/s11/M00/CC/95/wKgBEFsagwaAFhiEAABAPKg43Y8436.png' },
+                { name: 'putaoyaS', url: 'https://b3-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAbJcFAAA6mSMAjAc521.png' },
+                { name: 'yinguoS', url: 'https://p1-q.mafengwo.net/s11/M00/CC/95/wKgBEFsagwaAQkfCAAA6pw-qplI265.png' },
+                { name: 'eluosiS', url: 'https://n1-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAEfIGAAA-O40vYAQ035.png' },
+                { name: 'faguoS', url: 'https://p3-q.mafengwo.net/s11/M00/CC/95/wKgBEFsagwaAL0-YAAA671Fivww944.png' },
+            ] ).load( setup );
+
+            function setup() {
+                var self = _this;
+                // 传送带(设置初始位置)
+                that.convey = new Sprite( resources.convey.texture );
+                that.convey.x = 0;
+                that.convey.y = that.app.renderer.height - that.convey.height; //传送带Y轴的位置
+                that.convey01 = new Sprite( resources.convey01.texture );
+                that.convey01.x = -that.convey01.width + that.app.renderer.width;
+                that.convey01.y = that.app.renderer.height - that.convey01.height - 120;
+                // 齿轮
+                for ( var i = 1; i < 7; i++ ) {
+                    gear = new Sprite( resources.gear.texture );
+                    gear.x = 75 * i + gear.width * i;
+                    gear.y = _this.app.renderer.height - gear.height - 6;
+                    that.app.stage.addChild( gear );
+                }
+                that.app.stage.addChildAt( that.convey );
+                for ( var i = 1; i < 7; i++ ) {
+                    gear01 = new Sprite( resources.gear.texture );
+                    gear01.x = 75 * i + gear.width * i;
+                    gear01.y = _this.app.renderer.height - gear.height - 128;
+                    _this.app.stage.addChildAt( gear01 );
+                }
+                _this.app.stage.addChildAt( _this.convey01 );
+
+                // 娃娃
+                for ( var i = 0; i < 5; i++ ) {
+                    var randomNum = _this.GetRandomNum( 0, 7 );
+                    doll = new Sprite( resources[ _this.nameArr[ randomNum ] ].texture );
+                    _this.dollSpace = ( _this.app.renderer.width - doll.width * 4 ) / 4;
+                    doll.x = ( doll.width + _this.dollSpace ) * i;
+                    _this.dollSet.addChild( doll );
+                }
+                _this.dollSet.x = 0;
+                _this.dollSet.y = _this.app.renderer.height - doll.height - 50;
+
+                for ( var i = 0; i < 5; i++ ) {
+                    var randomNum = _this.GetRandomNum( 0, 7 );
+                    doll = new Sprite( resources[ _this.nameArrS[ randomNum ] ].texture );
+                    _this.dollSpace01 = ( _this.app.renderer.width - doll.width * 4 ) / 4;
+                    doll.x = ( doll.width + _this.dollSpace01 ) * i;
+                    _this.dollSetBack.addChild( doll );
+                }
+                _this.dollSetBack.x = -_this.dollSetBack.children[ 0 ].width;
+                _this.dollSetBack.y = _this.app.renderer.height - doll.height - 160;
+
+                //爪子
+                var pawC = new Sprite(
+                    resources.paw.texture
+                );
+                _this.pawL = new Sprite(
+                    resources.pawLeft.texture
+                );
+                _this.pawL.x = 5;
+                _this.pawL.y = 230;
+                _this.pawR = new Sprite(
+                    resources.pawRight.texture
+                );
+                _this.pawR.x = pawC.width - 6;
+                _this.pawR.y = 230;
+                _this.pawL.pivot.set( 21, 0 );
+                _this.pawL.rotation = 0;
+                _this.pawR.rotation = 0;
+                _this.paw.addChildAt( pawC );
+                _this.paw.addChildAt( _this.pawL );
+                _this.paw.addChildAt( _this.pawR );
+                _this.paw.x = _this.app.renderer.width / 2 - 15;
+                _this.paw.y = -180;
+                var speed = 0.05;
+                // 每次渲染的监听函数（监听帧更新）
+                _this.app.ticker.add( function ( delta ) {
+                    //self.conveyLoop(); //传送带
+                    //self.conveyLoopBack();
+                    self.pawAnimate();
+                    self.pawCatch(); //不碰撞
+                    dollSetLoop(); //娃娃
+                    dollSetLoopSmall();
+                } );
+                // 娃娃
+                function dollSetLoop() {
+                    _this.dollSet.x -= _this.speed;
+                    if ( _this.dollSet.x <= ( -_this.dollSet.children[ 0 ].width - _this.dollSpace ) * ( _this.n - 4 ) ) {
+                        if ( _this.w == 5 ) {
+                            _this.w = 0;
+                        }
+                        _this.dollSet.removeChild( _this.dollSet.children[ _this.w ] );
+                        var random = _this.GetRandomNum( 0, 7 );
+                        var dollLast = new PIXI.Sprite( resources[ _this.nameArr[ random ] ].texture );
+                        dollLast.x = ( dollLast.width + _this.dollSpace ) * _this.n;
+                        _this.dollSet.addChildAt( dollLast, _this.w );
+                        _this.n = _this.n + 1;
+                        _this.w = _this.w + 1;
+                    }
+                }
+                var e = 0,
+                    m = 5;
+
+                function dollSetLoopSmall() {
+                    _this.dollSetBack.x += 2;
+                    if ( _this.dollSetBack.x >= ( 92 + _this.dollSpace01 ) * ( m - 5 ) ) {
+                        if ( e == 0 ) {
+                            m = 5;
+                        }
+                        _this.dollSetBack.removeChild( _this.dollSetBack.children[ m - 1 ] );
+                        var random = _this.GetRandomNum( 0, 7 );
+                        var dollLast01 = new Sprite( PIXI.loader.resources[ _this.nameArrS[ random ] ].texture );
+                        dollLast01.x = -( 92 + _this.dollSpace01 ) * ( e + 1 );
+                        _this.dollSetBack.addChildAt( dollLast01, ( m - 1 ) );
+                        e = e + 1;
+                        m = m + 1;
+                    }
+                }
+            }
+        },
+        // 传送带
+        conveyLoop: function () {
+            if ( this.convey.x <= -this.app.renderer.width + 100 ) {
+                this.convey.x = 0;
+            } else {
+                this.convey.x -= 3;
+            }
+        },
+        conveyLoopBack: function () {
+            if ( this.convey01.x >= -1 ) {
+                this.convey01.x = -this.convey01.width + this.app.renderer.width;
+            } else {
+                this.convey01.x += 2;
+            }
+        },
+        // 生成随机数
+        GetRandomNum: function ( Min, Max ) {
+            var Range = Max - Min;
+            var Rand = Math.random();
+            return ( Min + Math.round( Rand * Range ) );
+        },
+        // 不碰撞
+        pawCatch: function () {
+            var _this = this;
+            if ( this.lotteryResult && this.lotteryResult.errno == 0 ) {
+                setTimeout( function () {
+                    if ( _this.isDes ) {
+                        if ( _this.paw.y !== -_this.speed * 60 ) {
+                            _this.paw.y -= _this.speed;
+                            _this.dollSet.children[ _this.dollChildX ].x = -_this.dollSet.x + _this.app.renderer.width / 2 - 35;
+                            _this.dollSet.children[ _this.dollChildX ].y += -_this.speed;
+                        } else {
+                            _this.app.ticker.stop();
+                            if ( _this.lotteryResult.data.need_addr == 0 ) {
+                                if ( _this.lotteryResult.data.award_id == 959 ) {
+                                    _this.popShow = true;
+                                    _this.popWinCoupon = true;
+                                    _this.isCard = true;
+                                } else {
+                                    _this.popShow = true;
+                                    _this.popWinCoupon = true;
+                                    _this.isCard = false;
+                                }
+                            } else {
+                                _this.popShow = true;
+                                _this.popWin = true;
+                            }
+                            _this.dollSet.children[ _this.dollChildX ].visible = false;
+                        }
+                    } else {
+                        _this.paw.y += _this.speed;
+                        if ( _this.paw.y >= -40 && _this.pawR.rotation <= 0.4 ) {
+                            _this.pawL.rotation += -_this.pawSpeed;
+                            _this.pawR.rotation += _this.pawSpeed;
+                        }
+                        if ( _this.paw.y >= 0 ) {
+                            _this.isDes = true;
+                        }
+                    }
+                }, this.delayTime );
+            }
+        },
+        pawAnimate: function () {
+            var speed = 0.05;
+            if ( this.lotteryResult && this.lotteryResult.errno == 435 ) { //clicked lottery btn
+                if ( this.isDes ) { // 极限距离
+                    if ( this.paw.y !== -this.speed * 60 ) {
+                        this.paw.y -= this.speed;
+                        if ( this.paw.y <= -90 && this.pawR.rotation >= 0 ) {
+                            this.pawL.rotation += speed - 0.02;
+                            this.pawR.rotation += -speed + 0.02;
+                        }
+                    } else {
+                        this.app.ticker.stop();
+                        this.popShow = true;
+                        this.popCommon = true; //alert
+                    }
+                } else {
+                    this.paw.y += this.speed;
+                    if ( this.paw.y >= -40 && this.pawR.rotation <= 0.4 ) {
+                        this.pawL.rotation += -speed;
+                        this.pawR.rotation += speed;
+                    }
+                    if ( this.paw.y >= 0 ) {
+                        this.isDes = true;
+                    }
+                }
+            }
+        },
+
+        //--------------end
+    }
+} );
+</script>
+
+</body>
+</html>
