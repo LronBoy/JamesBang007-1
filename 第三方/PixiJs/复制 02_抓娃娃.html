@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>PixiJS — 基础DEMO</title>
+<script>
+function rem() {
+    var html = document.documentElement;
+    var hWidth = html.getBoundingClientRect().width;
+    hWidth = hWidth > 750 ? 750 : hWidth;
+    html.style.fontSize = hWidth / 7.5 + "px";
+}
+( function () {
+    rem();
+} )();
+window.onresize = rem;
+</script>
+<style type="text/css">
+.wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 1;
+    background: url(https://css.mafengwo.net/mobile/images/worldCup2018/mainBag.png) no-repeat;
+    background-size: 100%;
+}
+</style>
+</head>
+<body>
+
+<section id="app">
+    <div class="wrapper">
+
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- 引入 PixiJS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js"></script>
+
+<script>
+var vm = new Vue( {
+    el: '#app',
+    data: {
+        loaded: false,
+        nameArr: [ 'baxi', 'agenting', 'deguo', 'riben', 'putaoya', 'yinguo', 'eluosi', 'faguo' ],
+        nameArrS: [ 'baxiS', 'agentingS', 'deguoS', 'ribenS', 'putaoyaS', 'yinguoS', 'eluosiS', 'faguoS' ],
+    },
+    //el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子
+    mounted: function () {
+        var _this = this;
+        this.loaded = true;
+        this.createCanvas();
+    },
+    methods: {
+        // canvas
+        createCanvas: function () {
+            var _this = this,
+                wrap = document.querySelector( '.wrapper' ),
+                Application = PIXI.Application,
+                loader = PIXI.loader,
+                resources = PIXI.loader.resources,
+                Sprite = PIXI.Sprite;
+            this.dollSetBack = new PIXI.Container();
+            this.dollSet = new PIXI.Container();
+            this.paw = new PIXI.Container();
+
+            // 设置舞台大小&位置
+            this.app = new Application( {
+                width: 667,
+                height: 472,
+                antialiasing: true,
+                transparent: true,
+                resolution: 1
+            } );
+            this.app.renderer.view.style.position = "absolute";
+            this.app.renderer.view.style.width = 6.05 + "rem";
+            this.app.renderer.view.style.height = 4.28 + "rem";
+            this.app.renderer.view.style.left = 0.7 + "rem";
+            this.app.renderer.view.style.top = 2.94 + "rem";
+            this.app.renderer.view.style.zIndex = 3;
+            //应用程序将为您创建一个canvas元素，然后可以插入DOM
+            wrap.appendChild( this.app.view );
+            // 在舞台中添加元素
+            this.app.stage.addChild( this.dollSetBack );
+            this.app.stage.addChild( this.dollSet );
+            this.app.stage.addChild( this.paw );
+
+            loader.add( [
+                { name: 'paw', url: 'https://p2-q.mafengwo.net/s11/M00/C8/A9/wKgBEFsVADKAYy_PAAAPcrDgodA418.png' },
+                { name: 'pawLeft', url: 'https://b1-q.mafengwo.net/s11/M00/C8/C0/wKgBEFsVAFCAWVoQAAAGhvqcQ8g818.png' },
+                { name: 'pawRight', url: 'https://p3-q.mafengwo.net/s11/M00/C8/BF/wKgBEFsVAFCAJc5JAAAGec3QaO0095.png' },
+
+                { name: 'convey', url: 'https://n3-q.mafengwo.net/s11/M00/FE/DD/wKgBEFsgwVSAXugsAAAC6mcS8t4592.png' },
+                { name: 'gear', url: 'https://n3-q.mafengwo.net/s11/M00/7A/64/wKgBEFsQGWuAYVaLAAAEFH_xkSU131.png' },
+                { name: 'convey01', url: 'https://n2-q.mafengwo.net/s11/M00/DA/B2/wKgBEFsakUqAbhdUAAAGlobEcMc087.png' },
+
+                { name: 'baxi', url: 'https://n1-q.mafengwo.net/s11/M00/95/97/wKgBEFsU2jOAJ7efAAAZtR2vBGw486.png' },
+                { name: 'agenting', url: 'https://p4-q.mafengwo.net/s11/M00/95/97/wKgBEFsU2jOAMNK_AAAavw1cHRE001.png' },
+                { name: 'deguo', url: 'https://b3-q.mafengwo.net/s11/M00/95/97/wKgBEFsU2jOAQm_hAAAb2QLIozs114.png' },
+                { name: 'riben', url: 'https://p3-q.mafengwo.net/s11/M00/A3/CA/wKgBEFsU5Z2AU0uHAAAcGQEljQI493.png' },
+                { name: 'putaoya', url: 'https://p4-q.mafengwo.net/s11/M00/A3/CA/wKgBEFsU5Z2ANwvdAAAbKeuZLUI872.png' },
+                { name: 'yinguo', url: 'https://p3-q.mafengwo.net/s11/M00/A3/CA/wKgBEFsU5Z2ATONHAAAaZEgmeJA658.png' },
+                { name: 'eluosi', url: 'https://p2-q.mafengwo.net/s11/M00/A3/C9/wKgBEFsU5Z2ABM7KAAAbhDASD9Y515.png' },
+                { name: 'faguo', url: 'https://b4-q.mafengwo.net/s11/M00/A3/C9/wKgBEFsU5Z2AGv0tAAAaczTL0Co299.png' },
+
+                { name: 'baxiS', url: 'https://n3-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAebmRAAA1dRNXU2w118.png' },
+                { name: 'agentingS', url: 'https://p4-q.mafengwo.net/s11/M00/CC/93/wKgBEFsagwaAALPGAAA6wzeVDSA532.png' },
+                { name: 'deguoS', url: 'https://n3-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAPsivAAA_6zmbtcc216.png' },
+                { name: 'ribenS', url: 'https://n4-q.mafengwo.net/s11/M00/CC/95/wKgBEFsagwaAFhiEAABAPKg43Y8436.png' },
+                { name: 'putaoyaS', url: 'https://b3-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAbJcFAAA6mSMAjAc521.png' },
+                { name: 'yinguoS', url: 'https://p1-q.mafengwo.net/s11/M00/CC/95/wKgBEFsagwaAQkfCAAA6pw-qplI265.png' },
+                { name: 'eluosiS', url: 'https://n1-q.mafengwo.net/s11/M00/CC/94/wKgBEFsagwaAEfIGAAA-O40vYAQ035.png' },
+                { name: 'faguoS', url: 'https://p3-q.mafengwo.net/s11/M00/CC/95/wKgBEFsagwaAL0-YAAA671Fivww944.png' },
+            ] ).load( setup );
+
+            function setup() {
+                var self = _this;
+
+                //爪子
+                var pawC = new Sprite(
+                    resources.paw.texture
+                );
+                _this.pawL = new Sprite(
+                    resources.pawLeft.texture
+                );
+                _this.pawL.x = 5;
+                _this.pawL.y = 230;
+                _this.pawR = new Sprite(
+                    resources.pawRight.texture
+                );
+                _this.pawR.x = pawC.width - 6;
+                _this.pawR.y = 230;
+                _this.pawL.pivot.set( 21, 0 );
+                _this.pawL.rotation = 0;
+                _this.pawR.rotation = 0;
+                _this.paw.addChildAt( pawC );
+                _this.paw.addChildAt( _this.pawL );
+                _this.paw.addChildAt( _this.pawR );
+                _this.paw.x = _this.app.renderer.width / 2 - 15;
+                _this.paw.y = -180;
+
+            }
+        },
+        // 生成随机数
+        GetRandomNum: function ( Min, Max ) {
+            var Range = Max - Min;
+            var Rand = Math.random();
+            return ( Min + Math.round( Rand * Range ) );
+        },
+
+        //--------------end
+    }
+} );
+</script>
+
+</body>
+</html>
