@@ -1,0 +1,22 @@
+*{ margin: 0; padding: 0;}
+body{
+    margin: 0 auto; max-width: 1200px; font-size: 14px; line-height: 1.8; background: #f8f8f8;
+}
+.wrap {
+    margin: 0 auto; padding: 15px; box-sizing: border-box;
+    max-width: 1200px; background: #fff;
+}
+
+
+/*
+ * 变量
+ */
+
+//设置变量
+@nice-blue: #2182e8;
+@light-blue: @nice-blue + #333;
+@font-size: 14px;
+
+//使用变量
+.p1 { font-size: @font-size; color: @nice-blue; }
+.p2 { font-size: @font-size + 4; color: @light-blue; }

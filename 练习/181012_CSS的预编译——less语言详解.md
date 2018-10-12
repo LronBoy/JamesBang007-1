@@ -11,15 +11,27 @@
 
 ## Less 语法
 
-### 变量
+### 1、变量
 很容易理解:
 ```
-@nice-blue: #2A98DA;
-@light-blue: @nice-blue + #111;
+//设置变量
+@nice-blue: #2182e8;
+@light-blue: @nice-blue + #333;
+@font-size: 14px;
 
-#header { color: @light-blue; }
+//使用变量
+.p1 { font-size: @font-size; color: @nice-blue; }
+.p2 { font-size: @font-size + 4; color: @light-blue; }
 ```
-输出:
+编译后输出:
 ```
-#header { color: #6c94be; }
+.p1 {
+  font-size: 14px;
+  color: #2182e8;
+}
+.p2 {
+  font-size: 18px;
+  color: #54b5ff;
+}
 ```
+请注意 Less 中的变量为完全的 ‘常量’ ，所以只能定义一次
