@@ -1,11 +1,15 @@
 *{ margin: 0; padding: 0;}
 body{
-    margin: 0 auto; max-width: 1200px; font-size: 14px; line-height: 1.8; background: #f8f8f8;
+    font-size: 14px; line-height: 1.8; background: #f8f8f8;
 }
 .wrap {
-    margin: 0 auto; padding: 15px; box-sizing: border-box;
-    max-width: 1200px; background: #fff;
+    margin: 0 auto; padding: 30px; box-sizing: border-box;
+    max-width: 1000px; background: #fff;
 }
+.demo-box{
+    margin-bottom: 30px;
+}
+
 
 
 /*
@@ -20,3 +24,24 @@ body{
 //使用变量
 .p1 { font-size: @font-size; color: @nice-blue; }
 .p2 { font-size: @font-size + 4; color: @light-blue; }
+
+
+
+/*
+ * 混合使用
+ */
+
+//设置通用的属性集
+.bordered {
+  margin-bottom: 15px; padding-bottom: 5px; border-bottom: solid 1px #ccc;
+}
+
+//调用通用属性集
+.title{
+    font-size: 18px; color: #333; font-weight: bold;
+    .bordered
+}
+.desc{
+    color: #666;
+    .bordered
+}

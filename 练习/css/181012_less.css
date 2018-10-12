@@ -3,18 +3,19 @@
   padding: 0;
 }
 body {
-  margin: 0 auto;
-  max-width: 1200px;
   font-size: 14px;
   line-height: 1.8;
   background: #f8f8f8;
 }
 .wrap {
   margin: 0 auto;
-  padding: 15px;
+  padding: 30px;
   box-sizing: border-box;
-  max-width: 1200px;
+  max-width: 1000px;
   background: #fff;
+}
+.demo-box {
+  margin-bottom: 30px;
 }
 /*
  * 变量
@@ -26,4 +27,26 @@ body {
 .p2 {
   font-size: 18px;
   color: #54b5ff;
+}
+/*
+ * 混合使用
+ */
+.bordered {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #ccc;
+}
+.title {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #ccc;
+}
+.desc {
+  color: #666;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #ccc;
 }

@@ -12,7 +12,9 @@
 ## Less 语法
 
 ### 1、变量
+
 很容易理解:
+
 ```
 //设置变量
 @nice-blue: #2182e8;
@@ -34,4 +36,49 @@
   color: #54b5ff;
 }
 ```
-请注意 Less 中的变量为完全的 ‘常量’ ，所以只能定义一次
+请注意 `Less` 中的变量为完全的 ‘常量’ ，所以只能定义一次。
+
+
+
+### 混合使用
+
+在 Less 中我们可以定义一些通用的属性集为一个class，然后在另一个class中去调用这些属性。 下面有这样一个class:
+
+```
+//设置通用的属性集
+.bordered {
+  margin-bottom: 15px; padding-bottom: 5px; border-bottom: solid 1px #ccc;
+}
+
+//调用通用属性集
+.title{
+    font-size: 18px; color: #333; font-weight: bold;
+    .bordered
+}
+.desc{
+    color: #666;
+    .bordered
+}
+```
+编译后输出:
+```
+.bordered {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #ccc;
+}
+.title {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #ccc;
+}
+.desc {
+  color: #666;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #ccc;
+}
+```
