@@ -6,7 +6,8 @@ body {
   margin: 0 auto;
   max-width: 1000px;
   font-size: 14px;
-  line-height: 2;
+  line-height: 1.5;
+  background: #f8f8f8;
 }
 div,
 p {
@@ -20,13 +21,22 @@ p {
 .h100 {
   width: 100px;
 }
+.wrap {
+  margin: 0 auto;
+  padding: 15px;
+  box-sizing: border-box;
+  max-width: 1200px;
+  height: auto;
+  background: #fff;
+  clear: both;
+}
 .tit-2 {
   margin: 20px 0;
   padding: 5px 0;
   font-size: 20px;
   color: #fff;
   text-indent: 10px;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   background: #333;
 }
 .tit-3 {
@@ -34,7 +44,7 @@ p {
   padding: 0 10px;
   font-size: 18px;
   color: #fff;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   background: #555;
 }
 pre {
