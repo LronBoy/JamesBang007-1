@@ -98,3 +98,35 @@ body{
         }
     }
 }
+
+
+
+/*
+ * 运算
+ */
+
+@base: 5;
+@filler: @base * 2;
+
+.demo4{
+    padding: 5px * @base;
+    width: 100% / 2 + @filler;
+    font-size: 14px + 2;
+    color: #333 - #111;
+    background-color: #e6ebf9;
+}
+
+//.demo4{
+//  border: (@base + 2px)/2 solid #333;
+//}
+
+
+
+
+/*
+ * Importing
+ */
+@import "bui.less";
+
+
+
