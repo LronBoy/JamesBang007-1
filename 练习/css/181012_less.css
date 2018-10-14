@@ -1,3 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
 body {
   font-size: 14px;
   line-height: 1.8;
@@ -66,4 +73,23 @@ body {
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+}
+/*
+ * 嵌套规则
+ */
+#header .logo {
+  width: 200px;
+}
+#header .nav {
+  background: #f8f8f8;
+  overflow: hidden;
+}
+#header .nav li {
+  float: left;
+  padding: 0 20px;
+  line-height: 30px;
+  transition: all 0.5s;
+}
+#header .nav li:hover {
+  background: #ccc;
 }

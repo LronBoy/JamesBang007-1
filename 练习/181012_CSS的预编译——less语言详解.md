@@ -107,12 +107,46 @@
 
 
 
+## 嵌套规则
 
+LESS 可以让我们以嵌套的方式编写CSS，我们先看下下面这段 CSS:
+```
+#header .logo {
+  width: 200px;
+}
+#header .nav {
+  background: #f8f8f8;
+  overflow: hidden;
+}
+#header .nav li {
+  float: left;
+  padding: 0 20px;
+  line-height: 30px;
+  transition: all 0.5s;
+}
+#header .nav li:hover {
+  background: #ccc;
+}
+```
 
+在 LESS 中, 我们就可以这样写:
+```
+#header{
+    .logo{ width: 200px; }
+    .nav{
+        background: #f8f8f8; overflow: hidden;
+        li{
+            float: left; padding: 0 20px; line-height: 30px; transition: all .5s;
+            &:hover{
+                background: #ccc;
+            }
+        }
+    }
+}
+```
+这样代码更简洁了，而且感觉跟DOM结构格式有点像。
 
-
-
-
+注意 `&` 符号的使用—如果你想写串联选择器，而不是写后代选择器，就可以用到`&`了。 这对伪类尤其有用，如 `:hover` 和 `:before`等。
 
 
 
