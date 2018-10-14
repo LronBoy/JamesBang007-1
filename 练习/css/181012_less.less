@@ -1,4 +1,4 @@
-*{ margin: 0; padding: 0;}
+
 body{
     font-size: 14px; line-height: 1.8; background: #f8f8f8;
 }
@@ -9,6 +9,8 @@ body{
 .demo-box{
     margin-bottom: 30px;
 }
+
+
 
 
 
@@ -27,13 +29,15 @@ body{
 
 
 
+
+
 /*
  * 混合使用
  */
 
 //设置通用的属性集
 .bordered {
-  margin-bottom: 15px; padding-bottom: 5px; border-bottom: solid 1px #ccc;
+    margin-bottom: 15px; padding-bottom: 5px; border-bottom: solid 1px #ccc;
 }
 
 //调用通用属性集
@@ -45,3 +49,31 @@ body{
     color: #666;
     .bordered
 }
+
+
+
+
+
+/*
+ * 带参数的混合
+ */
+.border-radius (@radius) {
+    margin: 10px 0; padding: 10px; background: #f8f8f8;
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+}
+
+.button {
+    width: 100px; text-align: center;
+    .border-radius(6px);  
+}
+.con {
+    .border-radius(10px);
+}
+
+
+
+
+
+

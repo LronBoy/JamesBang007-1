@@ -11,7 +11,7 @@
 
 ## Less 语法
 
-### 1、变量
+### 变量
 
 很容易理解:
 
@@ -49,7 +49,9 @@
 .bordered {
   margin-bottom: 15px; padding-bottom: 5px; border-bottom: solid 1px #ccc;
 }
-
+```
+当我们需要在其他class中引入通用的属性集时，我们只需要在任何class中像下面这样调用就可以了：
+```
 //调用通用属性集
 .title{
     font-size: 18px; color: #333; font-weight: bold;
@@ -61,12 +63,8 @@
 }
 ```
 编译后输出:
+`.bordered` class里面的属性样式都会在 `.title` 和 `.desc` 中体现出来:
 ```
-.bordered {
-  margin-bottom: 15px;
-  padding-bottom: 5px;
-  border-bottom: solid 1px #ccc;
-}
 .title {
   font-size: 18px;
   color: #333;
@@ -82,3 +80,40 @@
   border-bottom: solid 1px #ccc;
 }
 ```
+任何 CSS `class`, `id` 或者 元素 属性集都可以以同样的方式引入。
+
+
+
+## 带参数的混合
+
+在 Less 中，还可以像函数一样定义一个带参数的属性集合:
+```
+.border-radius (@radius) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+```
+
+然后在其他class中像这样调用它:
+```
+.button {
+  .border-radius(6px);  
+}
+.con {
+  .border-radius(10px);
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+.
