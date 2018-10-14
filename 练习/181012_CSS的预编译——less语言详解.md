@@ -199,7 +199,6 @@ LESS 同样也支持双斜线的注释, 但是编译成 CSS 的时候自动过�
 
 
 
-
 #### Importing
 
 我们可以在main文件中通过下面的形势引入 .less 文件, .less 后缀可带可不带:
@@ -207,7 +206,7 @@ LESS 同样也支持双斜线的注释, 但是编译成 CSS 的时候自动过�
 @import "lib.less";
 @import "lib";
 ```
-如果想导入一个CSS文件，而且不想LESS对它进行处理，只需要使用.css后缀即可:
+如果想导入一个CSS文件，并且不想LESS对它进行处理，只需要使用.css后缀即可:
 ```
 @import "lib.css";
 ```
@@ -215,6 +214,50 @@ LESS 同样也支持双斜线的注释, 但是编译成 CSS 的时候自动过�
 
 
 
+## Less编译工具
+
+#### 1、Koala
+
+![前端预处理器语言编译工具koala](http://koala-app.com/img/screenshot.png)
+
+一款可视化的前端预处理器语言图形编译工具，优点是操作比较简便，多语言支持，监听文件实时编译，可以批量操作，Windows、Linux、Mac都能完美运行。
+
+http://koala-app.com/index-zh.html
 
 
-.
+#### 2、Node.js 环境中使用 Less
+
+![Node.js](http://nodejs.cn/assets/images/logo.svg)
+
+1、<a href="http://nodejs.cn/">下载Windows 安装包(.msi)</a>，选择安装位置："D:\Program Files\nodejs\"，然后一路"Next "即可。
+
+2、检测PATH环境变量是否配置了Node.js，点击开始 => 运行 => 输入"cmd" => 输入命令"`path`"。
+
+3、检查Node.js版本
+`node --version`
+
+4、安装Less
+
+4.1、在【Node.js command prompt】里输入以下命令
+```
+d:
+cd D:\Program Files\nodejs\node_modules\npm
+//下面命令是安装less，注意一定要有-g，否则还得做些其他工作
+npm install less -g
+//下面命令用于安装css压缩插件
+npm install less-plugin-clean-css
+```
+
+4.2、安装完成后就可以使用lessc的命令了
+```
+//下面命令编译less文件生成css
+lessc d:\styles.less d:\styles.css
+//下面命令启用css压缩插件，生成压缩后的css文件
+lessc d:\styles.less d:\styles.min.css -clean-css
+```
+
+4.3、IDE工具集成——HBuilder预编译less配置
+
+    文件后缀    .less
+    处罚命令    C:\Users\James\AppData\Roaming\npm\lessc.cmd
+    命令参数    %FileName% %FileBaseName%.css
