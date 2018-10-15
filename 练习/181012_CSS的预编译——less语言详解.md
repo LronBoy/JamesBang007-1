@@ -98,7 +98,7 @@
 然后在其他class中像这样调用它:
 ```
 .button {
-  .border-radius(6px);  
+  .border-radius(6px);
 }
 .con {
   .border-radius(10px);
@@ -261,3 +261,9 @@ lessc d:\styles.less d:\styles.min.css -clean-css
     文件后缀    .less
     处罚命令    C:\Users\James\AppData\Roaming\npm\lessc.cmd
     命令参数    %FileName% %FileBaseName%.css
+
+4.4、IDE工具集成——PhpStorm配置less自动编译css
+
+windows打开设置 File -> setting（mac找到首选项Preferences）。
+
+打开之后，在左上角搜索框输入：file Watchers（文件监听）--新建Less类型的文件监听。
