@@ -34,6 +34,7 @@ window.onload = function() {
 
             var disX = ev.clientX - this.offsetLeft;
             var disY = ev.clientY - this.offsetTop;
+            obj.style.zIndex = 10;
 
             if(obj.setCapture) {
                 obj.setCapture();
@@ -47,6 +48,7 @@ window.onload = function() {
             }
 
             document.onmouseup = function() {
+                obj.style.zIndex = 1;
                 document.onmousemove = document.onmouseup = null;
                 //释放全局捕获 releaseCapture();
                 if(obj.releaseCapture) {
