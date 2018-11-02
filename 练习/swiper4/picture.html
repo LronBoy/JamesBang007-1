@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>美图-如丽美容</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script src="../js/config.js?v4.6"></script>
+<link rel="stylesheet" href="css/swiper-4.1.0.min.css" />
+<link rel="stylesheet" href="css/app.css?v1015" />
+<style>
+html,
+body {
+    /*height: 100%;*/
+    min-height: 23.5rem;
+}
+/*.picture-show{
+    .swiper-container{ position: relative; }
+    .swiper-slide{
+        width: 100%; background-size: cover;
+            .filter-bg{
+                position: absolute; top: 0; bottom: 0; z-index: 2;
+                width: 100%; background-position: center center; background-size: contain;
+                -webkit-filter: blur(60/@rex); filter: blur(60/@rex);
+            }
+        img{ max-width: 100%; height: auto; }
+    }
+    .swiper-pagination{
+        font-size: 0; padding: 1px 0;
+        .swiper-pagination-bullet{ display: inline-block; margin: 0 4/@rex; width: 8/@rex; height: 8/@rex; font-size: 0; border-radius:100% ; }
+        .swiper-pagination-bullet-active{ width: 16/@rex; background: rgba(255,255,255,.8); border-radius: 6/@rex; }
+    }
+}*/
+</style>
+</head>
+<body>
+
+<section class="picture-show" id="app">
+    <div class="loading" v-show="loading">
+        <svg viewBox="25 25 50 50" class="circular">
+            <circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+        </svg>
+    </div>
+
+    <section class="picture-con">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="item in showData.pic">
+                    <div class="swiper-zoom-container">
+                        <div class="filter-bg" :style="'background-image: url('+item+');'"></div>
+                        <img :src="item" alt="" />
+                    </div>
+                </div>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </section>
+
+    <!--消息提示-->
+    <section id="message" :class="{show:message.show}">
+        <span>{{message.text}}</span>
+    </section>
+</section>
+
+<script src="js/app.min.js?v0927"></script>
+<script src="../js/vue.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/swiper-4.1.0.min.js"></script>
+<script>
+var vm = new Vue( {
+    el: "#app",
+    data: {
+        loading: false,
+        publish: false, //是否操作接口
+        showData: {
+            user_id: 0,
+            content: "旅行look2<br>黑皮肤的姑娘也可以性感和可爱<br>大连威尼斯水城附近的海边超好看的 ",
+            pic: [
+                "https://wx4.sinaimg.cn/mw1024/5152ff7dly1fisy06gz2vj21jk2bcb2a.jpg",
+                "https://wx3.sinaimg.cn/mw1024/5152ff7dly1fisy0dnw3dj21jk2bckjm.jpg",
+                "https://wx3.sinaimg.cn/mw1024/5152ff7dly1fgm7wnibntj20rs15onpd.jpg",
+                "https://wx2.sinaimg.cn/mw1024/5152ff7dly1fgm7x8cuxlj215o0rse81.jpg",
+                "https://wx4.sinaimg.cn/mw1024/5152ff7dly1fisy058fqtj22bc1jkhdu.jpg",
+                "https://wx3.sinaimg.cn/mw1024/5152ff7dly1fisy0anzbdj21jk2bcu0y.jpg",
+            ]
+        },
+        message: {
+            "text": '消息提示',
+            "show": false
+        }
+    },
+    beforeMount: function () {
+        var that = this;
+        //getData( that, search );
+    },
+    methods: {
+        //关闭开奖弹窗
+        tapClose: function () {
+            var that = this;
+            that.is_turn = false;
+            that.is_popWin = false;
+            that.publish = false;
+            that.lotteryResult = {};
+            $( '.canvasBox .bg' ).css( { 'transform': 'rotate(0deg)' } );
+        },
+    },
+} );
+
+//执行 GET 请求 初始数据
+function getData( that, search ) {
+    that.publish = true;
+    $.ajax( {
+        type: 'get',
+        url: base + '/integral/integral_lottery_info',
+        dataType: 'json',
+        headers: postHeaders,
+        success: function ( res ) {
+            //console.log( res );
+            if ( res.msg != "success" ) {
+                message( that, res.msg );
+                //window.location.replace( './null.html' );
+                return false;
+            }
+            that.showData = res.data;
+            that.loading = false;
+            that.publish = false;
+            var currency = new String( res.data.user_integral );
+            that.user_integral_arr = [];
+            for ( var i = 0; i < currency.length; i++ ) {
+                that.user_integral_arr.push( currency[ i ] )
+            }
+            //实物奖品没领取弹窗
+            if ( res.data.prize_info.goods_id ) {
+                that.is_popWin = true;
+                that.lotteryResult = res.data.prize_info;
+                that.stopPosition = res.data.prize_info.sort;
+            }
+        },
+        error: function ( err ) {
+            message( that, '请求失败' );
+        },
+        complete: function () {
+            that.loading = false;
+            that.publish = false;
+        }
+    } );
+}
+window.onload = function () {
+    var banner = new Swiper( '.swiper-container', {
+        //autoplay: true,
+        /*Basic（Swiper一般选项）*/
+        initialSlide: 0, // 初始化时slide的索引
+        /* Slides grid (网格分布) */
+        centeredSlides: true, //设定为true时，active slide会居中
+        slidesPerView: 'auto', //'auto'则自动根据slides的宽度来设定数量。loop模式下，需要设置另外一个参数loopedSlides。
+        autoHeight: true, //高度自适应
+        // 如果需要分页器
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        observer: true, //修改swiper自己或子元素时，自动初始化swiper
+        observeParents: true, //修改swiper的父元素时，自动初始化swiper
+    } );
+};
+</script>
+
+</body>
+</html>
