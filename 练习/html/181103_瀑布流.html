@@ -23,6 +23,8 @@
     margin: 5px 5px 0 0;
     width: 288px;
     list-style: none;
+    line-height: 1.6;
+    font-size: 14px;
     overflow: hidden;
 }
 
@@ -45,7 +47,6 @@
  *
  */
 
-
 $.ajax({
     type: "GET",
     url: "https://image.baidu.com/search/acjson",
@@ -55,13 +56,12 @@ $.ajax({
         fp: "result",
         word: "巴厘岛",
         pn: 0,
-        rn: 20
+        rn: 10
     },
     dataType: 'jsonp',
     jsonpCallback: "cb",
     success: function(res) {
-        console.log(res.data);
-
+        //console.log(res.data);
     },
     error: function(err) {
         console.log('请求失败：');
@@ -72,13 +72,19 @@ $.ajax({
 function cb(res) {
     var str = "";
     res.data.forEach(function(item) {
-        //console.log(item);
+
         if(!item.thumbURL) return;
-        str += `<li class="imgitem">
-                    <div class="imgbox">
-                        <img class="main_img img-hover" src="` + item.thumbURL + `" style="width: 288px; height: 226px;">
-                    </div>
-                </li>`;
+        var item_el = $('<li class="imgitem"></li>');
+        var imgbox = $('<div class="imgbox"></div>');
+        var imgbox_img = $('<img class="main_img img-hover" src="' + item.thumbURL + '" style="width: 288px;">')
+        var str = $("<p>" + item.fromPageTitle + "</p>");
+
+        imgbox.append(imgbox_img);
+        item_el.append(imgbox);
+        item_el.append(str);
+
+        console.log(item_el);
+        console.log(item_el.width(), imgbox_img.width(), str.width());
     })
     $(".imglist").append(str);
 }
