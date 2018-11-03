@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>jQuery jsonp跨域请求</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="../css/1803.css" />
+<style type="text/css">
+.wrap {
+    overflow: hidden;
+}
+
+.imglist {
+    margin-right: -6px;
+}
+
+.imglist li {
+    float: left;
+    margin: 5px 5px 0 0;
+    width: 288px;
+    list-style: none;
+    overflow: hidden;
+}
+
+.imglist img {
+    width: 100%;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+
+<section class="wrap">
+    <ul class="imglist">
+        <!--<li class="imgitem">
+            <div class="imgbox">
+                <img class="main_img img-hover" data-imgurl="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=592091599,2819374091&amp;fm=200&amp;gp=0.jpg" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=592091599,2819374091&amp;fm=200&amp;gp=0.jpg" style="background-color: rgb(219, 191, 178); width: 339px; height: 226px;">
+            </div>
+        </li>-->
+    </ul>
+</section>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+/*
+ * jquery的ajax（jsop）请求百度图片
+ * https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&fp=result&word=巴厘岛&pn=0&rn=10
+ */
+/*
+JSONP
+
+原理：
+ajax本身是不可以跨域的，
+通过产生一个script标签来实现跨域。因为script标签的src属性是没有跨域的限制的。
+
+其实设置了 dataType: 'jsonp' 后，$.ajax 方法就和ajax XmlHttpRequest没什么关系了，取而代之的则是JSONP协议。JSONP是一个非官方的协议，它允许在服务器端集成Script tags返回至客户端，通过javascript callback的形式实现跨域访问。
+
+*/
+
+$.ajax({
+    type: "GET",
+    url: "https://image.baidu.com/search/acjson",
+    data: {
+        tn: "resultjson_com",
+        ipn: "rj",
+        fp: "result",
+        word: "巴厘岛",
+        pn: 0,
+        rn: 20
+    },
+    dataType: 'jsonp',
+    jsonpCallback: "cb",
+    success: function(res) {
+        console.log(res.data);
+
+    },
+    error: function(err) {
+        console.log('请求失败：');
+    },
+    complete: function() {}
+})
+
+function cb(res) {
+    var str = "";
+    res.data.forEach(function(item) {
+        //console.log(item);
+        if(!item.thumbURL) return;
+        str += `<li class="imgitem">
+                    <div class="imgbox">
+                        <img class="main_img img-hover" src="` + item.thumbURL + `" style="width: 288px; height: 226px;">
+                    </div>
+                </li>`;
+    })
+    $(".imglist").append(str);
+}
+</script>
+</body>
+</html>

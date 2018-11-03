@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>瀑布流</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="../css/1803.css" />
+<style type="text/css">
+.wrap {
+    overflow: hidden;
+}
+
+.imglist {
+    margin-right: -6px;
+}
+
+.imglist li {
+    float: left;
+    margin: 5px 5px 0 0;
+    width: 288px;
+    list-style: none;
+    overflow: hidden;
+}
+
+.imglist img {
+    width: 100%;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body>
+
+<section class="wrap">
+    <ul class="imglist">
+    </ul>
+</section>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+/*
+ * 瀑布流
+ *
+ */
+
+
+$.ajax({
+    type: "GET",
+    url: "https://image.baidu.com/search/acjson",
+    data: {
+        tn: "resultjson_com",
+        ipn: "rj",
+        fp: "result",
+        word: "巴厘岛",
+        pn: 0,
+        rn: 20
+    },
+    dataType: 'jsonp',
+    jsonpCallback: "cb",
+    success: function(res) {
+        console.log(res.data);
+
+    },
+    error: function(err) {
+        console.log('请求失败：');
+    },
+    complete: function() {}
+})
+
+function cb(res) {
+    var str = "";
+    res.data.forEach(function(item) {
+        //console.log(item);
+        if(!item.thumbURL) return;
+        str += `<li class="imgitem">
+                    <div class="imgbox">
+                        <img class="main_img img-hover" src="` + item.thumbURL + `" style="width: 288px; height: 226px;">
+                    </div>
+                </li>`;
+    })
+    $(".imglist").append(str);
+}
+</script>
+</body>
+</html>
