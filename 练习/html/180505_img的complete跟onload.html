@@ -4,14 +4,18 @@
 <meta charset="UTF-8">
 <title>img的complete跟onload</title>
 <style>
-.btn{ margin: 10px; width: 80px; line-height: 32px; text-align: center; background: #ccc; }
+.btn {
+    margin: 10px;
+    width: 80px;
+    line-height: 32px;
+    text-align: center;
+    background: #ccc;
+}
 </style>
 </head>
 <body>
 
-在图片预加载编码的时候看到onload跟complete，思考，onload跟complete有什么区别？测试在chrome环境下。
-
-动手实践，编了一小段简单的测试代码
+在图片预加载编码的时候看到onload跟complete，思考，onload跟complete有什么区别？测试在chrome环境下。 动手实践，编了一小段简单的测试代码
 
 <div id="load" class="btn">图片</div>
 
@@ -32,23 +36,23 @@ document.getElementById('load').onclick = function() {
 }
 */
 
-function LoadImage(){
-	console.log('LoadImage');
-	
-	var img = new Image();
+function LoadImage() {
+    console.log('LoadImage');
+
+    var img = new Image();
     img.src = 'https://wx3.sinaimg.cn/mw690/a4613227gy1fr0tsc5xzzj20im0litmn.jpg';
-	var autoScaling = function(){
-		console.log('w:' + img.width);
-		var w = img.width,
-		h = img.height;
-	}
-	//autoScaling();
-	//处理ff下会自动读取缓存图片
-	if(img.complete){
-		console.log('1');
-		autoScaling();	
-		return;
-	}
+    var autoScaling = function() {
+        console.log('w:' + img.width);
+        var w = img.width,
+            h = img.height;
+    }
+    //autoScaling();
+    //处理ff下会自动读取缓存图片
+    if(img.complete) {
+        console.log('1');
+        autoScaling();
+        return;
+    }
 }
 
 /*
@@ -58,35 +62,25 @@ setInterval(function(){
 },1000);
 */
 
+function LoadImage2() {
 
-
-function LoadImage2(){
-	
-	var img = new Image();
+    var img = new Image();
     img.src = 'https://wx3.sinaimg.cn/mw690/a4613227gy1fr0tsc5xzzj20im0litmn.jpg';
-	console.log('Image创建');
-	var w = img.width;
+    console.log('Image创建');
 
-	
-	img.onload = function(){		
-		console.log('图片加载完成，'+ w);
-	}
-	if(img.complete){
-		console.log('complete，浏览器已经取出图像，'+ w);
-	}
+    img.onload = function() {
+        console.log('onload,图片加载完成，width:' + img.width);
+    }
+    if(img.complete) {
+        console.log('complete，浏览器已经取出图像，width:' + img.width);
+    }
 
 }
 
 document.getElementById('load').onclick = LoadImage2;
-
-
-
-
 </script>
 
-HTMLImageElement.complete 只读
-返回一个 Boolean 如果浏览器已经取出图像则返回true, 并且它是一个 supported image type,图像解码的过程中没有错误.
-
+HTMLImageElement.complete 只读 返回一个 Boolean 如果浏览器已经取出图像则返回true, 并且它是一个 supported image type,图像解码的过程中没有错误.
 
 </body>
 </html>
