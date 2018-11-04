@@ -10,17 +10,26 @@
 <meta name="description" content="">
 <link rel="stylesheet" href="../css/1803.css" />
 <style type="text/css">
-.wrap {
-    overflow: hidden;
+body {
+    max-width: 100%;
 }
 
-.imglist {
-    margin-right: -6px;
+#container {
+    margin: 0 auto;
+    padding: 10px;
+    max-width: 100%;
+    min-height: 600px;
+    background: #fff;
 }
 
-.imglist li {
-    float: left;
-    margin: 5px 5px 0 0;
+.img-list {
+    position: relative;
+}
+
+.img-list .img-item {
+    /*float: left;
+    margin: 5px 5px 0 0;*/
+    position: absolute;
     width: 288px;
     list-style: none;
     line-height: 1.6;
@@ -28,7 +37,7 @@
     overflow: hidden;
 }
 
-.imglist img {
+.img-list img {
     width: 100%;
     vertical-align: middle;
 }
@@ -36,16 +45,47 @@
 </head>
 <body>
 
-<section class="wrap">
-    <ul class="imglist">
+<div id="container">
+    <ul class="img-list">
     </ul>
-</section>
+</div>
+
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript">
 /*
  * 瀑布流
  *
  */
+
+var $container = $("#container");
+var iCell = 0,
+    iWidth = 280,
+    iSpeace = 10,
+    itemWidth = iWidth + iSpeace,
+    arrT = [],
+    arrL = [],
+    iPage = 0;
+
+//计算列数
+function setCell() {
+    iCell = Math.floor($(window).innerWidth() / itemWidth);
+    if(iCell>10){
+        iCell = 10;
+    }
+    if(iCell<5){
+        iCell = 5;
+    }
+    console.log("iCell:" + iCell);
+    $container.css("width", iCell * itemWidth + 10);
+    //定位值，数组
+    arrT = [];
+    arrL = [];
+    for(var i = 0; i < iCell; i++) {
+        arrT[i] = 0;
+        arrL[i] = itemWidth * i;
+    }
+}
+setCell();
 
 $.ajax({
     type: "GET",
@@ -56,10 +96,10 @@ $.ajax({
         fp: "result",
         word: "巴厘岛",
         pn: 0,
-        rn: 10
+        rn: 100
     },
     dataType: 'jsonp',
-    jsonpCallback: "cb",
+    jsonpCallback: "addCon",
     success: function(res) {
         //console.log(res.data);
     },
@@ -69,25 +109,71 @@ $.ajax({
     complete: function() {}
 })
 
-function cb(res) {
-    var str = "";
-    res.data.forEach(function(item) {
-
+function addCon(res) {
+    $.each(res.data, function(i, item) {
         if(!item.thumbURL) return;
-        var item_el = $('<li class="imgitem"></li>');
-        var imgbox = $('<div class="imgbox"></div>');
-        var imgbox_img = $('<img class="main_img img-hover" src="' + item.thumbURL + '" style="width: 288px;">')
-        var str = $("<p>" + item.fromPageTitle + "</p>");
+        var $item = $('<li class="img-item"></li>').appendTo(".img-list");
+        var $img = $('<img>')
+        //设置图片元素
+        $img.attr("src", item.thumbURL);
+        $img.css({
+            width: iWidth + "px",
+            height: Math.round(item.height / item.width * iWidth) + 10 + "px"
+        });
+        $img.appendTo($item);
 
-        imgbox.append(imgbox_img);
-        item_el.append(imgbox);
-        item_el.append(str);
+        //设置绝对定位值
+        var _i = getMinIndex();
+        $item.css({
+            left: arrL[_i],
+            top: arrT[_i]
+        })
+        var _h = $item.height() || $img.height();
+        arrT[_i] += _h + 10;
+        $(".img-list").height(getMax() + "px");
 
-        console.log(item_el);
-        console.log(item_el.width(), imgbox_img.width(), str.width());
-    })
-    $(".imglist").append(str);
+        console.log($item);
+        console.log($item.height(), $img.height());
+    });
+
 }
+
+function getMinIndex() {
+    var v = arrT[0];
+    var _index = 0;
+
+    for(var i = 1; i < arrT.length; i++) {
+        if(arrT[i] < v) {
+            v = arrT[i];
+            _index = i;
+        }
+    }
+    return _index;
+}
+
+function getMax() {
+    var v = arrT[0];
+
+    for(var i = 1; i < arrT.length; i++) {
+        if(arrT[i] > v) {
+            v = arrT[i];
+        }
+    }
+    return v;
+}
+
+$(window).on("resize", function() {
+    setCell();
+    $container.find('li').each(function() {
+        var _index = getMinIndex();
+        $(this).animate({
+            left: arrL[_index],
+            top: arrT[_index]
+        }, 500);
+        arrT[_index] += $(this).height() + 10;
+    });
+
+})
 </script>
 </body>
 </html>
