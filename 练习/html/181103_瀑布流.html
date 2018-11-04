@@ -16,7 +16,7 @@ body {
 
 #container {
     margin: 0 auto;
-    padding: 10px;
+    padding: 15px;
     max-width: 100%;
     min-height: 600px;
     background: #fff;
@@ -24,22 +24,43 @@ body {
 
 .img-list {
     position: relative;
+    min-height: 500px;
 }
 
 .img-list .img-item {
     /*float: left;
     margin: 5px 5px 0 0;*/
     position: absolute;
-    width: 288px;
+    width: 280px;
     list-style: none;
     line-height: 1.6;
     font-size: 14px;
     overflow: hidden;
+    transition: all .3s;
 }
-
+.img-list .img-item:hover{
+    box-shadow: 0 5px 20px 5px rgba(0,0,0,.15);
+    transform: translateY(-5px);
+}
 .img-list img {
     width: 100%;
     vertical-align: middle;
+}
+
+.img-list p {
+    padding: 10px;
+    line-height: 1.6;
+    background: #f8f8f8;
+}
+
+.img-list p strong {
+    color: red;
+    font-weight: normal;
+}
+
+.loading-more {
+    padding-top: 10px;
+    text-align: center;
 }
 </style>
 </head>
@@ -48,6 +69,7 @@ body {
 <div id="container">
     <ul class="img-list">
     </ul>
+    <div class="loading-more">加载中…</div>
 </div>
 
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
@@ -60,23 +82,25 @@ body {
 var $container = $("#container");
 var iCell = 0,
     iWidth = 280,
-    iSpeace = 10,
+    iSpeace = 15,
     itemWidth = iWidth + iSpeace,
     arrT = [],
     arrL = [],
-    iPage = 0;
+    iPage = 0,
+    is_publish = false,
+    is_more = true;
 
 //计算列数
 function setCell() {
     iCell = Math.floor($(window).innerWidth() / itemWidth);
-    if(iCell>10){
+    if(iCell > 10) {
         iCell = 10;
     }
-    if(iCell<5){
-        iCell = 5;
+    if(iCell < 5) {
+        iCell = 4;
     }
     console.log("iCell:" + iCell);
-    $container.css("width", iCell * itemWidth + 10);
+    $container.css("width", iCell * itemWidth-iSpeace);
     //定位值，数组
     arrT = [];
     arrL = [];
@@ -87,27 +111,49 @@ function setCell() {
 }
 setCell();
 
-$.ajax({
-    type: "GET",
-    url: "https://image.baidu.com/search/acjson",
-    data: {
-        tn: "resultjson_com",
-        ipn: "rj",
-        fp: "result",
-        word: "巴厘岛",
-        pn: 0,
-        rn: 100
-    },
-    dataType: 'jsonp',
-    jsonpCallback: "addCon",
-    success: function(res) {
-        //console.log(res.data);
-    },
-    error: function(err) {
-        console.log('请求失败：');
-    },
-    complete: function() {}
-})
+//jsonp跨域请求数据
+function getData() {
+    if(is_publish) {
+        return false;
+    }
+    is_publish = true;
+    $.ajax({
+        type: "GET",
+        url: "https://image.baidu.com/search/acjson",
+        data: {
+            tn: "resultjson_com",
+            ipn: "rj",
+            fp: "result",
+            word: "九寨沟",
+            pn: iPage * 30,
+            rn: 30
+        },
+        dataType: 'jsonp',
+        jsonpCallback: "addCon",
+        success: function(res) {
+            //console.log(res.data);
+        },
+        error: function(err) {
+            console.log('请求失败：');
+        },
+        complete: function() {
+            setTimeout(function() {
+                is_publish = false;
+                iPage++;
+            }, 200);
+        }
+    });
+}
+getData();
+//上拉触底请求加载
+var wh = $(window).height();
+$(window).scroll(function() {
+    var wt = $(window).scrollTop();
+    var lt = $(".loading-more").offset().top;
+    if(wt + wh + 20 > lt) {
+        getData(); //请求加载
+    }
+});
 
 function addCon(res) {
     $.each(res.data, function(i, item) {
@@ -118,9 +164,12 @@ function addCon(res) {
         $img.attr("src", item.thumbURL);
         $img.css({
             width: iWidth + "px",
-            height: Math.round(item.height / item.width * iWidth) + 10 + "px"
+            height: Math.round(item.height / item.width * iWidth) + "px"
         });
         $img.appendTo($item);
+
+        //文字描述
+        $('<p></p>').html(htmlDecode(item.fromPageTitle)).appendTo($item);
 
         //设置绝对定位值
         var _i = getMinIndex();
@@ -129,19 +178,17 @@ function addCon(res) {
             top: arrT[_i]
         })
         var _h = $item.height() || $img.height();
-        arrT[_i] += _h + 10;
+        arrT[_i] += _h + 15;
         $(".img-list").height(getMax() + "px");
 
-        console.log($item);
-        console.log($item.height(), $img.height());
+        //      console.log($item);
+        //      console.log($item.height(), $img.height());
     });
-
 }
 
 function getMinIndex() {
     var v = arrT[0];
     var _index = 0;
-
     for(var i = 1; i < arrT.length; i++) {
         if(arrT[i] < v) {
             v = arrT[i];
@@ -153,7 +200,6 @@ function getMinIndex() {
 
 function getMax() {
     var v = arrT[0];
-
     for(var i = 1; i < arrT.length; i++) {
         if(arrT[i] > v) {
             v = arrT[i];
@@ -174,6 +220,26 @@ $(window).on("resize", function() {
     });
 
 })
+
+/*
+ * JS实现HTML标签转义及反转义
+ */
+//编码
+function htmlEncode(html) {
+    var temp = document.createElement("div");
+    (temp.textContent != null) ? (temp.textContent = html) : (temp.innerText = html);
+    var output = temp.innerHTML;
+    temp = null;
+    return output;
+}
+//解码
+function htmlDecode(text) {
+    var temp = document.createElement("div");
+    temp.innerHTML = text;
+    var output = temp.innerText || temp.textContent;
+    temp = null;
+    return output;
+}
 </script>
 </body>
 </html>
