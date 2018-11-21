@@ -17,13 +17,13 @@
 
 ```
 //设置变量
-@nice-blue: #2182e8;
-@light-blue: @nice-blue + #333;
-@font-size: 14px;
+@niceBlue: #2182e8;
+@lightBlue: @niceBlue + #333;
+@fontSize: 14px;
 
 //使用变量
-.p1 { font-size: @font-size; color: @nice-blue; }
-.p2 { font-size: @font-size + 4; color: @light-blue; }
+.p1 { font-size: @fontSize; color: @niceBlue; }
+.p2 { font-size: @fontSize + 4; color: @lightBlue; }
 ```
 编译后输出:
 ```
@@ -55,11 +55,11 @@
 //调用通用属性集
 .title{
     font-size: 18px; color: #333; font-weight: bold;
-    .bordered
+    .bordered;
 }
 .desc{
     color: #666;
-    .bordered
+    .bordered;
 }
 ```
 编译后输出:
