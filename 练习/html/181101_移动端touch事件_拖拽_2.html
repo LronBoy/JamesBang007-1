@@ -14,12 +14,24 @@
 <section class="wrap">
 
     <div id="div1"></div>
+
     <style type="text/css">
+    .wrap {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #fff;
+    }
+    
     #div1 {
-        margin: 10px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
         width: 160px;
         height: 160px;
-        background: #f8f8f8;
+        background: #F24D4D;
     }
     </style>
     <script type="text/javascript">
@@ -32,27 +44,42 @@
     //      在移动端开发的时候，浏览器的模拟器时好时坏，一般不用on的方式绑定事件函数，要用事件绑定的方式(addEventListener)。
 
     var div = document.querySelector('#div1');
-    var disX = 0, //按下的坐标
-        disY = 0;
 
-    div.addEventListener('touchstart', start);
-    div.addEventListener('touchmove', move);
-    div.addEventListener('touchend', end);
+    drag(div);
+    //拖拽的封装
+    function drag(obj) {
+        obj.ontouchstart = function(ev) {
+            var ev = ev || event;
+            console.log("按下", ev);
 
-    function start(ev) {
-        div.innerHTML = "按下";
-        var e = ev.changedTouches[0];
-        disY = e.pageY; //pageY是一个只读属性，它返回触发事件的位置相对于整个 document 的 Y 坐标值。
-    }
+            var disX = ev.changedTouches[0].clientX - this.offsetLeft;
+            var disY = ev.changedTouches[0].clientY - this.offsetTop;
+            obj.style.zIndex = 10;
+            console.log(disX, disY);
 
-    function move(ev) {
-        this.innerHTML = "移动";
-    }
+            if(obj.setCapture) {
+                obj.setCapture();
+            }
 
-    function end(ev) {
-        this.innerHTML = "抬起";
-        var e = ev.changedTouches[0];
-        console.log(e.pageY, "抬起时手指垂直移动距离:" + e.pageY - disY);
+            document.ontouchmove = function(ev) {
+                var ev = ev || event;
+                //console.log("移动", ev);
+
+                obj.style.left = ev.changedTouches[0].clientX - disX + 'px';
+                obj.style.top = ev.changedTouches[0].clientY - disY + 'px';
+            }
+
+            document.ontouchend = function() {
+                console.log("抬起", ev);
+                obj.style.zIndex = 1;
+                document.ontouchmove = document.ontouchend = null;
+                //释放全局捕获 releaseCapture();
+                if(obj.releaseCapture) {
+                    obj.releaseCapture();
+                }
+            }
+            return false;
+        }
     }
     </script>
 
