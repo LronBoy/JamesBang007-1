@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>移动端touch事件_拖拽</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<script type="text/javascript">
+function rem() {
+    var html = document.documentElement;
+    var hWidth = html.getBoundingClientRect().width;
+    hWidth = hWidth > 750 ? 750 : hWidth;
+    html.style.fontSize = hWidth / 15 + "px";
+}
+(function() {
+    rem();
+})();
+window.onresize = rem;
+</script>
+<link rel="stylesheet" href="../css/1803.css" />
+</head>
+<body>
+<section class="wrap-con">
+    <div id="div1"></div>
+</section>
+
+<style type="text/css">
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background: #f0f0f0;
+}
+
+body {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 15rem;
+    min-height: 100vh;
+    background: #fff;
+    overflow: hidden;
+}
+
+#div1 {
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    width: 13rem;
+    height: 18rem;
+    background: #F24D4D;
+    border-radius: 0.4rem;
+    background: url(http://wx3.sinaimg.cn/mw690/5152ff7dly1ffonfp3fmuj20rs15ohdt.jpg) center center no-repeat;
+    background-size: cover;
+}
+</style>
+<script type="text/javascript">
+//  移动端的三大事件：
+//      手指按下: ontouchstart
+//      手指移动: ontouchmove
+//      手指抬起: ontouchend
+//
+//  注意：
+//      在移动端开发的时候，浏览器的模拟器时好时坏，一般不用on的方式绑定事件函数，要用事件绑定的方式(addEventListener)。
+
+var div = document.querySelector('#div1');
+
+drag(div);
+//拖拽的封装
+function drag(obj) {
+    var hWidth = document.documentElement.getBoundingClientRect().width
+    var num = hWidth / 15;
+
+    obj.ontouchstart = function(ev) {
+        var ev = ev || event;
+        console.log("按下", ev);
+
+        var disX = ev.changedTouches[0].clientX - this.offsetLeft;
+        var disY = ev.changedTouches[0].clientY - this.offsetTop;
+        obj.style.zIndex = 10;
+        console.log(disX, disY);
+
+        if(obj.setCapture) {
+            obj.setCapture();
+        }
+
+        document.ontouchmove = function(ev) {
+            var ev = ev || event;
+            //console.log("移动", ev);
+            var l = (ev.changedTouches[0].clientX - disX).toFixed(2);
+            obj.style.left = l + 'px';
+            obj.style.top = ev.changedTouches[0].clientY - disY + 'px';
+            if(l > num) {
+                obj.style.transform = "rotate(" + (l - num) / hWidth * 45 + "deg)";
+            } else if(l < num) {
+                obj.style.transform = "rotate(" + (l - num) / hWidth * 45 + "deg)";
+            }
+
+        }
+
+        document.ontouchend = function() {
+            console.log("抬起", ev);
+            obj.style.zIndex = 1;
+            document.ontouchmove = document.ontouchend = null;
+            //释放全局捕获 releaseCapture();
+            if(obj.releaseCapture) {
+                obj.releaseCapture();
+            }
+        }
+        return false;
+    }
+}
+</script>
+
+</body>
+</html>
