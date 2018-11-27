@@ -2,24 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
 <title>180505_移动端轮播图</title>
 <script type="text/javascript">
-function rem(){
-  var html = document.documentElement;
-  var hWidth = html.getBoundingClientRect().width;
-  hWidth = hWidth>750 ? 750 : hWidth ;
-  html.style.fontSize = hWidth/15 + "px";
+function rem() {
+    var html = document.documentElement;
+    var hWidth = html.getBoundingClientRect().width;
+    hWidth = hWidth > 750 ? 750 : hWidth;
+    html.style.fontSize = hWidth / 15 + "px";
 }
-
-(function(){
-  rem();
+(function() {
+    rem();
 })();
-
 window.onresize = rem;
 </script>
-<link href="static/swiper-4.1.0.min.css" rel="stylesheet" />
+<link href="static/swiper-4.1.0.min.css" rel="stylesheet"/>
 <style>
 html{ margin: 0 auto; background: #eee; font-size: 50px; max-width: 750px;}
 body,h1,h2,h3,h4,p,dl,dt,dd,ul,li,form,button,input,textarea,th,td,a{margin:0;padding:0}
@@ -34,8 +32,6 @@ body {
 .swiper-slide h2{ display: inline-block; line-height: .8rem; font-size: .4rem; color: #fff; background: rgba(0,0,0,.6); padding: .1rem .5rem }
 
 .parallax-bg{ width: 700px; height: 300px; position: absolute; top: 0; left: 0; display: none; }
-
-
 </style>
 </head>
 <body>
@@ -44,11 +40,9 @@ body {
     <div class="swiper-wrapper">
         <div class="swiper-slide" style="background-image: url(http://p3-q.mafengwo.net/s6/M00/64/57/wKgB4lLfahiAKA4cACIagkgGVSQ10.jpeg?imageMogr2/thumbnail/!750x300r);">
             <h2 data-swiper-parallax="-100">敦沙卡兰海洋公园</h2>
-
         </div>
         <div class="swiper-slide" style="background-image: url(https://n4-q.mafengwo.net/s11/M00/C2/7B/wKgBEFp5kFiAEA9hAAUuJadnMFI45.jpeg?imageMogr2/thumbnail/!750x300r);">
             <h2 data-swiper-parallax="-100">英伦 || 不列颠岛狂奔的日与夜</h2>
-
         </div>
         <div class="swiper-slide" style="background-image: url(https://p3-q.mafengwo.net/s11/M00/38/5E/wKgBEFp4PL-AM4bGAAuL3J6pd_o79.jpeg?imageMogr2/thumbnail/!750x300r);">
             <h2 data-swiper-parallax="-100">把故事从头讲，福建土著海岛散记</h2>
@@ -64,35 +58,30 @@ body {
     <div class="swiper-pagination"></div>
 </div>
 
-
 <script src="static/swiper-4.1.0.min.js"></script>
 <script>
-var mySwiper3 = new Swiper ('#swiper-container3', {
-	autoplay :true,
-	//effect : 'coverflow', // 切换效果 "coverflow"（3d流）
-	
-	/*Basic（Swiper一般选项）*/
-	initialSlide : 1, // 初始化时slide的索引
-	
-	
-	/* Slides grid (网格分布) */
-	centeredSlides : true, //设定为true时，active slide会居中
-	//slidesPerView: 1.1, //设置slider容器能够同时显示的slides数量(carousel模式)。
-	slidesPerView: 'auto',  //'auto'则自动根据slides的宽度来设定数量。loop模式下，需要设置另外一个参数loopedSlides。	
-	//slidesOffsetBefore : 25, //设定slide与左边框的预设偏移量（单位px）。
-	//slidesOffsetAfter : 25,
-	
-	// 如果需要分页器
-	pagination: {
-		el: '.swiper-pagination',
-		clickable :true,
-	},
-	
-	
+var mySwiper3 = new Swiper('#swiper-container3', {
+    //autoplay :true,
+    //effect : 'coverflow', // 切换效果 "coverflow"（3d流）
+
+    /*Basic（Swiper一般选项）*/
+    initialSlide: 1, // 初始化时slide的索引	
+
+    /* Slides grid (网格分布) */
+    centeredSlides : true, //设定为true时，active slide会居中
+    //slidesPerView: 1.1, //设置slider容器能够同时显示的slides数量(carousel模式)。
+    slidesPerView: 'auto', //'auto'则自动根据slides的宽度来设定数量。loop模式下，需要设置另外一个参数loopedSlides。	
+    //slidesOffsetBefore : 25, //设定slide与左边框的预设偏移量（单位px）。
+    //slidesOffsetAfter : 25,
+
+    // 如果需要分页器
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
 
 });
 </script>
-
 
 </body>
 </html>
