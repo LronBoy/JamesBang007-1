@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <script>
+      var str = "Visit Microsoft! Visit Microsoft!";
+      var n = str.replace("Microsoft", "Runoob");
+      console.log(n) // Visit Runoob! Visit Microsoft!
+
+
+      var str2 = "Mr Blue has a blue house and a blue car";
+      var n2 = str2.replace(/blue/g, "red");
+      console.log(n2) // Mr Blue has a red house and a red car
+
+      var str3 = "Mr Blue has a blue house and a blue car";
+      var n3 = str3.replace(/blue/gi, "red");
+      console.log(n3) // Mr red has a red house and a red car
+    </script>
+
+    <p>单击按钮将段落中所有“Microsoft”替换成“Runoob”：</p>
+    <p id="demo">Visit Microsoft! Visit Microsoft! Visit Microsoft!</p>
+    <button onclick="myFunction()">点我</button>
+
+    <script>
+      String.prototype.replaceAll = function(search, replacement) {
+        var target = this;
+        return target.replace(new RegExp(search, 'g'), replacement);
+      };
+
+      function myFunction() {
+        var str = document.getElementById("demo").innerHTML;
+        var n = str.replaceAll("Microsoft", "Runoob");
+        document.getElementById("demo").innerHTML = n;
+      }
+    </script>
+
+    <script type="text/javascript">
+      var msg = "Hi~如丽咨询[龇牙]服务[龇牙]现已[鼓掌]全面升级为管家服务";
+      console.log(msg);
+      var reg = /\[龇牙\]/g;
+      var name = '[龇牙]'
+      reg = /name/g
+      msg = msg.replace(reg, '123');
+      console.log(msg)
+    </script>
+
+  </body>
+</html>
