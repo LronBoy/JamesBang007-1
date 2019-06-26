@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Canvas画布 - HelloWorld</title>
+<style type="text/css">
+  canvas {
+    border: 1px solid gray;
+  }
+</style>
+</head>
+<body>
+<canvas id="myCanvas" width="600" height="300"></canvas>
+
+<script>
+  // 使用DOM方法得到画布
+  var myCanvas = document.getElementById("myCanvas");
+  // 使用画布的上下文
+  var ctx = myCanvas.getContext("2d");
+  // 画各种东西，用ctx打点调用方法，而不是myCanvas
+  ctx.fillRect(50, 50, 300, 50);
+</script>
+
+</body>
+</html>
