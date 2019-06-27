@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Canvas - 弧和圆形</title>
+<style type="text/css">
+    canvas {
+        margin: 10px;
+        border: 1px solid gray;
+    }
+</style>
+</head>
+<body>
+
+<h2>例1：画1弧度的圆弧</h2>
+<canvas id="myCanvas1" width="600" height="400"></canvas>
+<script>
+    // 使用DOM方法得到画布
+    var myCanvas1 = document.querySelector("#myCanvas1");
+    // 使用画布的上下文
+    var ctx = myCanvas1.getContext("2d");
+
+    // 弧也是笔触
+    ctx.beginPath();
+    ctx.arc(200, 200, 100, 0, 1, true); // 设置路径
+    ctx.stroke(); // 画圆弧
+</script>
+
+<h2>例2：</h2>
+<canvas id="myCanvas2" width="600" height="400"></canvas>
+<script>
+    // 使用DOM方法得到画布
+    var myCanvas2 = document.querySelector("#myCanvas2");
+    // 使用画布的上下文
+    var ctx = myCanvas2.getContext("2d");
+
+    // 弧也是笔触
+    ctx.beginPath();
+    ctx.arc(200, 200, 100, 0, 1, false);
+    ctx.stroke();
+</script>
+
+<h2>例3：绘制一个完整的圆形</h2>
+<canvas id="myCanvas3" width="600" height="400"></canvas>
+<script>
+    // 使用DOM方法得到画布
+    var myCanvas3 = document.querySelector("#myCanvas3");
+    // 使用画布的上下文
+    var ctx = myCanvas3.getContext("2d");
+
+    // 弧也是笔触
+    ctx.beginPath();
+    ctx.arc(200, 200, 100, 0, 2 * Math.PI, false);
+    ctx.stroke();
+</script>
+
+</body>
+</html>

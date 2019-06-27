@@ -166,3 +166,47 @@ ctx.stroke(); //划线
 
 可以用`ctx.lineWidth = "5"`  来设置宽度。
 
+
+### 2.3 弧和圆形
+
+绘制圆弧或者圆，我们使用arc()方法。
+
+公式：
+
+`ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise)`
+
+画一个以（x,y）为圆心的以radius为半径的圆弧（圆），从startAngle开始到endAngle结束，按照anticlockwise给定的方向（默认为顺时针）来生成。
+
+**一定要注意，canvas中角度是弧度制。**复习一下弧度制，就是在一个圆形披萨饼中，切一片披萨，让弧度边长等于圆的半径。此时无论圆形多大，此时切下来的角度是固定的，都是57.29度，成为1弧度，记做1rad。
+
+![1弧度](./img/1弧度.png)
+
+角度值和弧度制的换算：`360° = 2 * PI rad`
+
+例：画1弧度的圆弧
+```
+// 使用DOM方法得到画布
+var myCanvas1 = document.querySelector("#myCanvas1");
+// 使用画布的上下文
+var ctx = myCanvas1.getContext("2d");
+
+// 弧也是笔触
+ctx.beginPath();
+ctx.arc(200, 200, 100, 0, 1, true); // 设置路径
+ctx.stroke(); // 画圆弧
+```
+
+![画圆弧](./img/画圆弧.png)
+
+例：绘制一个完整的圆形
+
+```
+ctx.arc(200, 200, 100, 0, 2 * Math.PI, false);
+```
+
+![圆形](./img/圆形.jpg)
+
+_完整的圆形，无所谓顺时针还是逆时针。_
+
+
+
