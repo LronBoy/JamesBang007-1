@@ -1,9 +1,11 @@
 # Canvas画布
 
 
-## Canvas概述和Hello World
+## 一、Canvas概述和Hello World
 
-### 概述
+### 1.1 概述
+
+![canvas的坐标系](./img/canvas.jpg)
 
 Canvas是HTML5中新增的一个元素，它就像一块画布，可以用JavaScript在上面绘制各种图表、动画、制作游戏等。
 
@@ -14,7 +16,7 @@ WebGL也使用<canvas>元素在网页上绘制硬件加速的3D图形。
 Canvas在我们眼中是一个在面试中极度加分的项目，并且完整的去检验大家内功水平，全是面向对象。
 -->
 
-### HelloWorld
+### 2.1 HelloWorld
 
 `<canvas>`是一个标签，有一个默认的宽度，不需要了解。此时注意，如果我们要设置宽度、高度，必须设置在HTML标签上面，而不能设置在CSS上。
 
@@ -51,7 +53,7 @@ Canvas在我们眼中是一个在面试中极度加分的项目，并且完整�
 
 设置后的效果如下图：
 
-![Canvas画布 - HelloWorld](./20190627000411.jpg)
+![Canvas画布 - HelloWorld](./img/20190627000411.jpg)
 
 上面的例子中，我们就学习了两个API：
 
@@ -72,7 +74,7 @@ ctx.fillRect(x,y,w,h)
 
 <span style="color: red;">**注意事项：**</span>
 
-1、canvas的ctx对象，非常重要所有的绘制都是ctx的方法。
+(1)、canvas的ctx对象，非常重要所有的绘制都是ctx的方法。
 
 ```
 <script>
@@ -92,9 +94,52 @@ ctx.fillRect(x,y,w,h)
 </script>
 ```
 
-2、canvas的坐标系
+(2)、canvas的坐标系
 
-![canvas的坐标系](./canvas_coordinate.jpg)
+![canvas的坐标系](./img/canvas_coordinate.jpg)
 
-3、canvas兼容到IE9
+(3)、canvas兼容到IE9
 
+
+## 二、笔触和填充
+
+Canvas中能够产生颜色的是两个东西，一个叫做笔触（我们通常叫描边），一个叫做填充。
+
+### 2.1 快速绘制矩形
+
+canvas提供了三种方法绘制矩形：
+
+`fillRect(x, y, width, height)`     绘制一个填充的矩形
+
+`strokeRect(x, y, width, height)`   绘制一个矩形的边框
+
+`clearRect(x, y, width, height)`    清除指定矩形区域，让清除部分完全透明。
+
+上面提供的方法之中每一个都包含了相同的参数。x与y指定了在canvas画布上所绘制的矩形的左上角（相对于原点）的坐标。`width`和`height`设置矩形的尺寸。
+
+![stroke](./img/stroke.jpg)
+
+```
+<script>
+    // 使用DOM方法得到画布
+    var myCanvas = document.querySelector("myCanvas");
+    // 使用画布的上下文
+    var ctx = myCanvas.getContext("2d");
+    //笔触
+    ctx.strokeRect(50, 50, 300, 50);
+</script>
+```
+
+对比：
+
+![strokeRect](./img/strokeRect.jpg)
+
+设置笔触的颜色：
+
+```
+ctx.strokeStyle = "red";
+ctx.strokeRect(50, 50, 300, 50);
+```
+![strokeStyle](./img/strokeStyle.jpg)
+
+现在我们只能画一个矩形，如果我们想要画任意笔触呢？
