@@ -25,9 +25,9 @@ Canvas在我们眼中是一个在面试中极度加分的项目，并且完整�
 <meta charset="utf-8">
 <title>Canvas画布 - HelloWorld</title>
 <style type="text/css">
-  canvas {
-    border: 1px solid gray;
-  }
+    canvas {
+        border: 1px solid gray;
+    }
 </style>
 </head>
 <body>
@@ -40,12 +40,12 @@ Canvas在我们眼中是一个在面试中极度加分的项目，并且完整�
 
 ```
 <script>
-  // 使用DOM方法得到画布
-  var myCanvas = document.getElementById("myCanvas");
-  // 使用画布的上下文
-  var ctx = myCanvas.getContext("2d");
-  // 画各种东西，用ctx打点调用方法，而不是myCanvas
-  ctx.fillRect(50, 50, 300, 50);
+    // 使用DOM方法得到画布
+    var myCanvas = document.getElementById("myCanvas");
+    // 使用画布的上下文
+    var ctx = myCanvas.getContext("2d");
+    // 画各种东西，用ctx打点调用方法，而不是myCanvas
+    ctx.fillRect(50, 50, 300, 50);
 </script>
 ```
 
@@ -69,27 +69,32 @@ ctx.fillRect(x,y,w,h)
 
 `fill`是填充的意思，`rect`是`rectangle`矩形。填充一个矩形。
 
-**canvas的ctx对象，非常重要所有的绘制都是ctx的方法。**
+
+<span style="color: red;">**注意事项：**</span>
+
+1、canvas的ctx对象，非常重要所有的绘制都是ctx的方法。
 
 ```
 <script>
-  // 使用DOM方法得到画布
-  var myCanvas = document.getElementById("myCanvas");
-  //使用画布的上下文
-  var ctx = myCanvas.getContext("2d");
-  // 画各种东西，用ctx打点调用方法，而不是myCanvas
-  ctx.fillRect(50, 50, 300, 50);
+    // 使用DOM方法得到画布
+    var myCanvas = document.getElementById("myCanvas");
+    //使用画布的上下文
+    var ctx = myCanvas.getContext("2d");
+    // 画各种东西，用ctx打点调用方法，而不是myCanvas
+    ctx.fillRect(50, 50, 300, 50);
 
-  // canvas所有的绘制API都是基于ctx的事情，而不是canvas对象
-  ctx.fillStyle = "lightgreen";
-  ctx.beginPath();
-  ctx.arc(250, 250, 100, 0, Math.PI * 2, true);
-  ctx.fill();
-  ctx.closePath();
+    // canvas所有的绘制API都是基于ctx的事情，而不是canvas对象
+    ctx.fillStyle = "lightgreen";
+    ctx.beginPath();
+    ctx.arc(250, 250, 100, 0, Math.PI * 2, true);
+    ctx.fill();
+    ctx.closePath();
 </script>
 ```
 
-**canvas的坐标系**
+2、canvas的坐标系
 
 ![canvas的坐标系](./canvas_coordinate.jpg)
+
+3、canvas兼容到IE9
 
