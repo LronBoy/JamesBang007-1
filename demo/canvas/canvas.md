@@ -137,9 +137,32 @@ canvas提供了三种方法绘制矩形：
 设置笔触的颜色：
 
 ```
-ctx.strokeStyle = "red";
-ctx.strokeRect(50, 50, 300, 50);
+ctx.strokeStyle = "red"; //设置笔触颜色
+ctx.strokeRect(50, 50, 300, 50); //画一个边框
 ```
 ![strokeStyle](./img/strokeStyle.jpg)
 
 现在我们只能画一个矩形，如果我们想要画任意笔触呢？
+
+
+### 2.2 线
+
+canvas中可以允许我们绘制自定义的笔触，绘制直线非常简单：
+
+![画线](./img/画线1.png)
+
+```
+ctx.beginPath(); //开始画线
+ctx.moveTo(100, 100); //将画笔移动到一个位置
+ctx.lineTo(300, 300); //用画笔画，此时是抽象的一个线，没有显示在画布上
+ctx.stroke(); //划线
+```
+
+可以多次使用lineTo：
+
+![画线](./img/画线.png)
+
+绘制的线，也可以用fill填充，并且可以用strock来描边。需要注意的是，形状如果不封闭就fill了，此时形状会自动封闭。
+
+可以用`ctx.lineWidth = "5"`  来设置宽度。
+
