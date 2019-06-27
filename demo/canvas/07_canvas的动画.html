@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Canvas - 动画</title>
+<style type="text/css">
+    canvas {
+        margin: 10px;
+        border: 1px solid gray;
+    }
+</style>
+</head>
+<body>
+
+<canvas id="myCanvas1" width="600" height="400"></canvas>
+<script>
+    // 使用DOM方法得到画布
+    var myCanvas1 = document.querySelector("#myCanvas1");
+    // 使用画布的上下文
+    var ctx = myCanvas1.getContext("2d");
+
+    var x = 100;
+    setInterval(function() {
+        if (x > 500) x = 100;
+        x++;
+        //清屏
+        ctx.clearRect(0, 0, 600, 400);
+        //绘制一个新圆形
+        ctx.beginPath();
+        ctx.arc(x, 100, 50, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fillStyle = "orange";
+        ctx.fill();
+    }, 20);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Canvas - 动画</title>
+<style type="text/css">
+    canvas {
+        margin: 10px;
+        border: 1px solid gray;
+    }
+</style>
+</head>
+<body>
+
+<canvas id="myCanvas1" width="600" height="450"></canvas>
+<script>
+    // 使用DOM方法得到画布
+    var myCanvas1 = document.querySelector("#myCanvas1");
+    // 使用画布的上下文
+    var ctx = myCanvas1.getContext("2d");
+
+    //构造函数，圆类
+    function Ball(x, y, r, speed, color) {
+        this.x = x; //坐标x
+        this.y = y; //坐标y
+        this.r = r; //半径
+        this.speed = speed; //速度
+        this.color = color; //颜色
+        //将自己推入数组
+        actorsArr.push(this);
+    }
+    //渲染方法
+    Ball.prototype.render = function() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    }
+    //更新方法
+    Ball.prototype.update = function() {
+        if (this.x > 500) this.x = 70;
+        this.x += this.speed;
+    }
+
+    //演员数组
+    var actorsArr = [];
+    //实例化一些小球，他们都自动可以动画
+    new Ball(70, 70, 30, 1, "red");
+    new Ball(70, 150, 40, 2, "orange");
+    new Ball(70, 250, 50, 3, "blue");
+    new Ball(70, 370, 60, 4, "green");
+
+    //帧编号
+    var fno = 0;
+    //唯一的一个定时器
+    setInterval(function() {
+        //清屏
+        ctx.clearRect(0, 0, myCanvas1.width, myCanvas1.height);
+        //打印帧编号
+        fno++;
+        ctx.fillStyle = "black";
+        ctx.fillText("帧编号：" + fno, 20, 20)
+        //更新、渲染所有演员
+        for (var i = 0; i < actorsArr.length; i++) {
+            actorsArr[i].update();
+            actorsArr[i].render();
+        }
+    }, 20);
+</script>
+
+</body>
+</html>

@@ -167,7 +167,7 @@ ctx.stroke(); //划线
 可以用`ctx.lineWidth = "5"`  来设置宽度。
 
 
-### 2.3 弧和圆形
+## 三、弧和圆形
 
 绘制圆弧或者圆，我们使用arc()方法。
 
@@ -208,5 +208,112 @@ ctx.arc(200, 200, 100, 0, 2 * Math.PI, false);
 
 _完整的圆形，无所谓顺时针还是逆时针。_
 
+
+## 四、Canvas的动画
+
+要让元素在canvas上运动起来，需要使用`setInterval()`。
+
+canvas使用了一个特别特殊的模式，上屏的元素，立刻被像素化。也就是说，上屏幕的元素，你将得不到这个“对象”的引用。比如，一个圆形画到了ctx上面，此时就是一堆像素点，不是一个整体的对象了，你没有任何变量能够得到这个圆形，改变这个圆形的x、y。也就是说，这种“改变”的思路在canvas中是行不通的。
+
+要实现动画，我们必须：**每帧重新画一个**
+
+所以canvas的画图的原理就是：
+
+清屏 → 重绘 → 清屏 → 重绘  → 清屏 → 重绘 → 清屏 → 重绘  → …… 的一个过程
+
+例：向右移动的圆形
+```
+// 使用DOM方法得到画布
+var myCanvas1 = document.querySelector("#myCanvas1");
+// 使用画布的上下文
+var ctx = myCanvas1.getContext("2d");
+
+var x = 100;
+setInterval(function() {
+    if (x > 500) x = 100;
+    x++;
+    //清屏
+    ctx.clearRect(0, 0, 600, 400);
+    //绘制一个新圆形
+    ctx.beginPath();
+    ctx.arc(x, 100, 50, 0, Math.PI * 2, true);
+    ctx.closePath();
+    ctx.fillStyle = "orange";
+    ctx.fill();
+}, 20);
+```
+
+注意API：
+
+`ctx.clearRect(x,y,w,h);` 清除一个矩形区域，事实上，我们永远清除整个画布。
+
+
+## 五、上升到面向对象
+
+再来一个圆形向右移动，注意不管页面上有几个元素在运动，一定只有1个定时器。
+
+定时器负责每帧清屏一次，然后重绘所有元素。但是每一个元素的信息、状态都不同，这时我们难以维护。
+
+所以，我们不要在用全局变量来维护某一个小球的x、y、r、speed等信息，而是应该用对象来封装它。
+
+```
+// 使用DOM方法得到画布
+var myCanvas1 = document.querySelector("#myCanvas1");
+// 使用画布的上下文
+var ctx = myCanvas1.getContext("2d");
+
+//构造函数，圆类
+function Ball(x, y, r, speed, color) {
+    this.x = x; //坐标x
+    this.y = y; //坐标y
+    this.r = r; //半径
+    this.speed = speed; //速度
+    this.color = color; //颜色
+    //将自己推入数组
+    actorsArr.push(this);
+}
+//渲染方法
+Ball.prototype.render = function() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, true);
+    ctx.closePath();
+    ctx.fillStyle = this.color;
+    ctx.fill();
+}
+//更新方法
+Ball.prototype.update = function() {
+    if (this.x > 500) this.x = 70;
+    this.x += this.speed;
+}
+
+//演员数组
+var actorsArr = [];
+//实例化一些小球，他们都自动可以动画
+new Ball(70, 70, 30, 1, "red");
+new Ball(70, 150, 40, 2, "orange");
+new Ball(70, 250, 50, 3, "blue");
+new Ball(70, 370, 60, 4, "green");
+
+//帧编号
+var fno = 0;
+//唯一的一个定时器
+setInterval(function() {
+    //清屏
+    ctx.clearRect(0, 0, myCanvas1.width, myCanvas1.height);
+    //打印帧编号
+    fno++;
+    ctx.fillStyle = "black";
+    ctx.fillText("帧编号：" + fno, 20, 20)
+    //更新、渲染所有演员
+    for (var i = 0; i < actorsArr.length; i++) {
+        actorsArr[i].update();
+        actorsArr[i].render();
+    }
+}, 20);
+```
+
+让所有的演员（就是上画布的元素），都要进入数组。在定时器中，每一帧更新所有演员，渲染所有演员。
+
+![canvas的动画_上升到面向对象](./img/canvas的动画_上升到面向对象.png)
 
 
