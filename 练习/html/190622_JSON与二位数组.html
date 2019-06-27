@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JSON与二位数组</title>
+</head>
+<body>
+
+<script type="text/javascript">
+/**
+ * JSON
+ */
+let j = {
+    james: [{
+            msg: "第一条消息"
+        },
+        {
+            msg: "第二条消息"
+        }
+    ],
+    user1: [{
+            msg: "user1的消息-1"
+        },
+        {
+            msg: "user1的消息-2"
+        }
+    ]
+}
+console.log(j);
+
+/**
+ * JSON数组
+ */
+let james = [{
+        msg: "第一条消息"
+    },
+    {
+        msg: "第二条消息"
+    }
+]
+let user1 = [{
+        msg: "user1的消息-1"
+    },
+    {
+        msg: "user1的消息-2"
+    }
+]
+console.log(james, user1);
+/**
+ * 数组
+ */
+// 数组的定义：
+let arr1 = [1, 2, 3];
+let arr2 = new Array(4, 5, 6);
+// 没有任何差别，[]的性能略高，因为代码短
+let arr3 = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+console.log(arr1, arr2);
+console.log(arr3);
+
+// PHP 分配给数组的指定键的数组。
+// $age = array("Bill"=>"35","Steve"=>"37","Elon"=>"43");
+</script>
+</body>
+</html>
