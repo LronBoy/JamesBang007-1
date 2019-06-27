@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Canvas - 使用图片_CSS精灵</title>
+<style type="text/css">
+    canvas {
+        margin: 10px;
+        border: 1px solid gray;
+    }
+</style>
+</head>
+<body>
+
+<h2>实例：使用精灵制作小女孩的行走</h2>
+<canvas id="myCanvas1" width="800" height="400"></canvas>
+<script>
+    // 使用DOM方法得到画布
+    var myCanvas1 = document.querySelector("#myCanvas1");
+    // 使用画布的上下文
+    var ctx = myCanvas1.getContext("2d");
+
+    // 创建一个img对象的节点
+    var image = new Image();
+    image.src = "./img/girl.png";
+
+    var step = 0;
+    var x = 50;
+    image.onload = function() {
+        setInterval(function() {
+            //清屏
+            ctx.clearRect(0, 0, 800, 400);
+            step++;
+            if (step > 7) {
+                step = 0;
+            }
+            if (x > 700) x = 50;
+            x += 4;
+            ctx.drawImage(image, 79 * step, 108 * 2, 79, 108, x, 100, 79, 108)
+        }, 40);
+    }
+</script>
+
+
+</body>
+</html>

@@ -317,3 +317,96 @@ setInterval(function() {
 ![canvas的动画_上升到面向对象](./img/canvas的动画_上升到面向对象.png)
 
 
+## 六、使用图片
+
+canvas中不可能所有的形状都自己画，一定是设计师给我们素材，我们使用。
+
+### 6.1 基本使用
+
+canvas中使用图片，使用`drawImage`函数，但是有一个事儿必须注意，必须等`img`完全加载之后才能呈递图片。
+
+**标准套路如下：**
+
+```
+// 创建一个img对象的节点
+var image = new Image();
+image.src = "./img/cat_200.jpg";
+// 一定要等到这个图片loading之后，然后渲染它
+image.onload = function() {
+    ctx.drawImage(image, 30, 30);
+}
+```
+
+image.onload这个壳子不能省略。
+
+(1)、上面的例子，我们仅仅使用两个数字参数，表示图片的x、y：
+
+```
+ctx.drawImage(图片对象, dx, dy);
+```
+
+![使用图片](./img/使用图片1.png)
+
+图片会1:1的呈递。
+
+(2)、可以使用4个数字参数，此时可以设置图片的高度、宽度，如下：
+
+```
+ctx.drawImage(image, 30, 30, 200, 140);
+```
+
+![使用图片](./img/使用图片2.png)
+
+(3)、实际上我们还可以使用类似CSS中精灵的切片，比如，我们现在想在canvas上面呈递切片中的位置：
+
+![使用图片](./img/使用图片3.png)
+
+将这个切片，放置在画布的`100,100`，显示的宽度、高度是切片2倍，如下：
+
+```
+ctx.drawImage(image, 299, 94, 93, 76, 100, 100, 93 * 2, 76 * 2);
+```
+
+说明：
+
+![使用图片_切片_说明](./img/使用图片_切片.png)
+
+来看看MDN上面的解释：[链接](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing)
+
+```
+drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+```
+
+第一个参数和其它的是相同的，都是一个图像或者另一个 canvas 的引用。其它8个参数，前4个是定义图像源的切片位置和大小，后4个则是定义切片的目标显示位置和大小。
+
+![使用图片_切片_说明](./img/使用图片_切片_说明.jpg)
+
+
+**实例：**使用精灵制作小女孩的行走
+
+![](./img/girl.png)
+
+实现代码：
+```
+var image = new Image();
+image.src = "./img/girl.png";
+
+var step = 0;
+var x = 50;
+image.onload = function() {
+    setInterval(function() {
+        //清屏
+        ctx.clearRect(0, 0, 800, 400);
+        step++;
+        if (step > 7) {
+            step = 0;
+        }
+        if (x > 700) x = 50;
+        x += 4;
+        ctx.drawImage(image, 79 * step, 108 * 2, 79, 108, x, 100, 79, 108)
+    }, 40);
+}
+```
+
+
+**到此，我们已经学会了Canvas的基本功能和API，更多功能及API请查看MDN的文档 [链接](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API)**
