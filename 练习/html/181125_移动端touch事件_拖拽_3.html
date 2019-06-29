@@ -23,10 +23,10 @@ window.onresize = rem;
 <link rel="stylesheet" href="../css/1803.css" />
 </head>
 <body>
+
 <section class="wrap-con">
     <div id="div1"></div>
 </section>
-
 <style type="text/css">
 * {
     margin: 0;
@@ -56,18 +56,20 @@ body {
     height: 18rem;
     background: #F24D4D;
     border-radius: 0.4rem;
-    background: url(http://wx3.sinaimg.cn/mw690/5152ff7dly1ffonfp3fmuj20rs15ohdt.jpg) center center no-repeat;
+    background: url("../img/5152ff7dly1ffonfp3fmuj20rs15ohdt.jpg") center center no-repeat;
     background-size: cover;
 }
 </style>
 <script type="text/javascript">
-//  移动端的三大事件：
-//      手指按下: ontouchstart
-//      手指移动: ontouchmove
-//      手指抬起: ontouchend
-//
-//  注意：
-//      在移动端开发的时候，浏览器的模拟器时好时坏，一般不用on的方式绑定事件函数，要用事件绑定的方式(addEventListener)。
+/*
+移动端的三大事件：
+    手指按下: ontouchstart
+    手指移动: ontouchmove
+    手指抬起: ontouchend
+
+注意：
+    在移动端开发的时候，浏览器的模拟器时好时坏，一般不用on的方式绑定事件函数，要用事件绑定的方式(addEventListener)。
+*/
 
 var div = document.querySelector('#div1');
 
@@ -86,7 +88,7 @@ function drag(obj) {
         obj.style.zIndex = 10;
         console.log(disX, disY);
 
-        if(obj.setCapture) {
+        if (obj.setCapture) {
             obj.setCapture();
         }
 
@@ -96,9 +98,9 @@ function drag(obj) {
             var l = (ev.changedTouches[0].clientX - disX).toFixed(2);
             obj.style.left = l + 'px';
             obj.style.top = ev.changedTouches[0].clientY - disY + 'px';
-            if(l > num) {
+            if (l > num) {
                 obj.style.transform = "rotate(" + (l - num) / hWidth * 45 + "deg)";
-            } else if(l < num) {
+            } else if (l < num) {
                 obj.style.transform = "rotate(" + (l - num) / hWidth * 45 + "deg)";
             }
 
@@ -109,7 +111,7 @@ function drag(obj) {
             obj.style.zIndex = 1;
             document.ontouchmove = document.ontouchend = null;
             //释放全局捕获 releaseCapture();
-            if(obj.releaseCapture) {
+            if (obj.releaseCapture) {
                 obj.releaseCapture();
             }
         }

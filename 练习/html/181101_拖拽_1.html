@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<title>拖拽 1</title>
+<link rel="stylesheet" href="../css/1803.css" />
+</head>
+<body class="wrap">
+
+<div class="div1"></div>
+<style type="text/css">
+.div1 {
+    width: 180px;
+    height: 180px;
+    background: #F8F8F8;
+}
+</style>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+<pre>
+Event 对象
+        
+鼠标 / 键盘属性
+
+clientX     返回当事件被触发时，鼠标指针的水平坐标。    --> 返回当事件被触发时鼠标指针向对于浏览器页面（或客户区）的水平坐标。
+clientY     返回当事件被触发时，鼠标指针的垂直坐标。
+screenX     返回当某个事件被触发时，鼠标指针的水平坐标。  --> 返回事件发生时鼠标指针相对于屏幕的水平坐标
+screenY     返回当某个事件被触发时，鼠标指针的垂直坐标。
+
+IE 属性
+
+offsetX,offsetY	发生事件的地点在事件源元素的坐标系统中的 x 坐标和 y 坐标。 --> 只读属性, 规定了事件对象与目标节点的内填充边（padding edge）在 X 轴方向上的偏移量。
+</pre>
+
+<script type="text/javascript">
+var disX = 0,
+    disY = 0,
+    d;
+$(".div1").on("click", function(ev) {
+    console.log(ev);
+    console.log("鼠标指针向对页面的坐标，", "x:" + ev.pageX, "y:" + ev.pageY)
+    console.log("鼠标指针与目标节点的内填充边偏移量，", "x:" + ev.offsetX, "y:" + ev.offsetY)
+});
+</script>
+
+<!--
+    时间：2018-11-01
+    描述：拖拽
+-->
+<h3>实现拖拽效果主要跟鼠标的三个事件有关：</h3>
+<p>onmousedown : 选择要拖拽的元素</p>
+<p>onmousemove : 移动元素</p>
+<p>onmouseup : 释放元素</p>
+
+<div class="div2"></div>
+<style type="text/css">
+.div2 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: #333;
+}
+</style>
+
+<script type="text/javascript">
+var obj = document.querySelector(".div2");
+/*    
+obj.onmousedown = function(ev) {
+    var ev = ev || event;
+
+    var disX = ev.clientX - this.offsetLeft;
+    var disY = ev.clientY - this.offsetTop;
+    console.log(disX, disY);
+
+    document.ommousemove = function(ev) {
+        var ev = ev || event;
+        obj.style.left = ev.clientX - disX + 'px';
+        obj.style.top = ev.clientY - disY + 'px';
+        console.log(ev.clientX - disX + 'px');
+    }
+
+    document.onmouseup = function() {
+        obj.onmousemove = null;
+    }
+
+}
+*/
+
+drag(obj);
+//拖拽的封装
+function drag(obj) {
+    obj.onmousedown = function(ev) {
+        var ev = ev || event;
+
+        var disX = ev.clientX - this.offsetLeft;
+        var disY = ev.clientY - this.offsetTop;
+
+        if (obj.setCapture) {
+            obj.setCapture();
+        }
+
+        /*
+         * 如果鼠标移动过快脱离obj,移动就会失去效果
+         * 所以移动事件(onmousemove)应该绑定在document上面，同时onmouseup也应该绑定在document上。
+         */
+        document.onmousemove = function(ev) {
+            var ev = ev || event;
+            //设置新的定位
+            obj.style.left = ev.clientX - disX + 'px';
+            obj.style.top = ev.clientY - disY + 'px';
+        }
+
+        document.onmouseup = function() {
+            document.onmousemove = document.onmouseup = null;
+            //释放全局捕获 releaseCapture();
+            if (obj.releaseCapture) {
+                obj.releaseCapture();
+            }
+        }
+
+        return false;
+
+    }
+}
+</script>
+
+</body>
+</html>

@@ -2,11 +2,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>拖拽 2</title>
 </head>
-<body>
+<body class="wrap">
+
 <div id="div1"></div>
+
 <img src="https://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg" id="img1">
+
 <style>
 #div1 {
     width: 100px;
@@ -36,7 +39,7 @@ window.onload = function() {
             var disY = ev.clientY - this.offsetTop;
             obj.style.zIndex = 10;
 
-            if(obj.setCapture) {
+            if (obj.setCapture) {
                 obj.setCapture();
             }
 
@@ -51,7 +54,7 @@ window.onload = function() {
                 obj.style.zIndex = 1;
                 document.onmousemove = document.onmouseup = null;
                 //释放全局捕获 releaseCapture();
-                if(obj.releaseCapture) {
+                if (obj.releaseCapture) {
                     obj.releaseCapture();
                 }
             }

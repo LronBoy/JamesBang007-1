@@ -6,84 +6,82 @@
 <meta name="renderer" content="webkit">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
 <title>移动端touch事件_拖拽</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
 <link rel="stylesheet" href="../css/1803.css" />
 </head>
-<body>
-<section class="wrap">
+<body class="wrap">
 
-    <div id="div1"></div>
+<div id="div1"></div>
 
-    <style type="text/css">
-    .wrap {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: #fff;
-    }
-    
-    #div1 {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        width: 160px;
-        height: 160px;
-        background: #F24D4D;
-    }
-    </style>
-    <script type="text/javascript">
-    //  移动端的三大事件：
-    //      手指按下: ontouchstart
-    //      手指移动: ontouchmove
-    //      手指抬起: ontouchend
-    //
-    //  注意：
-    //      在移动端开发的时候，浏览器的模拟器时好时坏，一般不用on的方式绑定事件函数，要用事件绑定的方式(addEventListener)。
+<style type="text/css">
+.wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+}
 
-    var div = document.querySelector('#div1');
+#div1 {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 160px;
+    height: 160px;
+    background: #F24D4D;
+}
+</style>
+<script type="text/javascript">
+/*
+移动端的三大事件：
+    手指按下: ontouchstart
+    手指移动: ontouchmove
+    手指抬起: ontouchend
 
-    drag(div);
-    //拖拽的封装
-    function drag(obj) {
-        obj.ontouchstart = function(ev) {
-            var ev = ev || event;
-            console.log("按下", ev);
+注意：
+    在移动端开发的时候，浏览器的模拟器时好时坏，一般不用on的方式绑定事件函数，要用事件绑定的方式(addEventListener)。
+*/
 
-            var disX = ev.changedTouches[0].clientX - this.offsetLeft;
-            var disY = ev.changedTouches[0].clientY - this.offsetTop;
-            obj.style.zIndex = 10;
-            console.log(disX, disY);
+var div = document.querySelector('#div1');
 
-            if(obj.setCapture) {
-                obj.setCapture();
-            }
+drag(div);
+//拖拽的封装
+function drag(obj) {
+    obj.ontouchstart = function(ev) {
+        var ev = ev || event;
+        console.log("按下", ev);
 
-            document.ontouchmove = function(ev) {
-                var ev = ev || event;
-                //console.log("移动", ev);
+        var disX = ev.changedTouches[0].clientX - this.offsetLeft;
+        var disY = ev.changedTouches[0].clientY - this.offsetTop;
+        obj.style.zIndex = 10;
+        console.log(disX, disY);
 
-                obj.style.left = ev.changedTouches[0].clientX - disX + 'px';
-                obj.style.top = ev.changedTouches[0].clientY - disY + 'px';
-            }
-
-            document.ontouchend = function() {
-                console.log("抬起", ev);
-                obj.style.zIndex = 1;
-                document.ontouchmove = document.ontouchend = null;
-                //释放全局捕获 releaseCapture();
-                if(obj.releaseCapture) {
-                    obj.releaseCapture();
-                }
-            }
-            return false;
+        if (obj.setCapture) {
+            obj.setCapture();
         }
-    }
-    </script>
 
-</section>
+        document.ontouchmove = function(ev) {
+            var ev = ev || event;
+            //console.log("移动", ev);
+
+            obj.style.left = ev.changedTouches[0].clientX - disX + 'px';
+            obj.style.top = ev.changedTouches[0].clientY - disY + 'px';
+        }
+
+        document.ontouchend = function() {
+            console.log("抬起", ev);
+            obj.style.zIndex = 1;
+            document.ontouchmove = document.ontouchend = null;
+            //释放全局捕获 releaseCapture();
+            if (obj.releaseCapture) {
+                obj.releaseCapture();
+            }
+        }
+        return false;
+    }
+}
+</script>
+
 
 </body>
 </html>

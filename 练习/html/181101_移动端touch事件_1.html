@@ -6,51 +6,51 @@
 <meta name="renderer" content="webkit">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
 <title>移动端touch事件-1</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
 <link rel="stylesheet" href="../css/1803.css" />
 </head>
-<body>
-<section class="wrap">
+<body class="wrap">
 
-    <div id="div1"></div>
-    <style type="text/css">
-    	#div1{ margin: 10px; width: 160px; height: 160px; background: #f8f8f8; }
-    </style>
-    <script type="text/javascript">
-    /*
-                    移动端的三大事件：
-                        手指按下: ontouchstart
-                        手指移动: ontouchmove
-                        手指抬起: ontouchend
+<div id="div1"></div>
+<style type="text/css">
+#div1 {
+    margin: 10px;
+    width: 160px;
+    height: 160px;
+    background: #f8f8f8;
+}
+</style>
+<script type="text/javascript">
+/*
+移动端的三大事件：
+    手指按下: ontouchstart
+    手指移动: ontouchmove
+    手指抬起: ontouchend
 
-                    注意：
-                        在移动端开发的时候，浏览器的模拟器时好时坏，一般不用on的方式绑定事件函数，要用事件绑定的方式(addEventListener)。
-        */
+注意：
+    在移动端开发的时候，浏览器的模拟器时好时坏，一般不用on的方式绑定事件函数，要用事件绑定的方式(addEventListener)。
+*/
 
-    var div = document.getElementById('div1');
+var div = document.getElementById('div1');
 
-    div.addEventListener('touchstart', start);
-    div.addEventListener('touchmove', move);
-    div.addEventListener('touchend', end);
+div.addEventListener('touchstart', start);
+div.addEventListener('touchmove', move);
+div.addEventListener('touchend', end);
 
-    function start() {
-        div.innerHTML = "按下";
-        console.log('按下');
-    }
+function start() {
+    div.innerHTML = "按下";
+    console.log('按下');
+}
 
-    function move() {
-        this.innerHTML = "移动";
-        console.log('移动');
-    }
+function move() {
+    this.innerHTML = "移动";
+    console.log('移动');
+}
 
-    function end() {
-        this.innerHTML = "抬起";
-        console.log('抬起');
-    }
-    </script>
-
-</section>
+function end() {
+    this.innerHTML = "抬起";
+    console.log('抬起');
+}
+</script>
 
 </body>
 </html>

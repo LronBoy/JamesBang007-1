@@ -6,65 +6,64 @@
 <meta name="renderer" content="webkit">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
 <title>移动端touch事件_拖拽</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
 <link rel="stylesheet" href="../css/1803.css" />
 </head>
-<body>
-<section class="wrap">
+<body class="wrap">
+    
+<div id="div1"></div>
+<style type="text/css">
+#div1 {
+    margin: 10px;
+    width: 180px;
+    height: 180px;
+    background: #f8f8f8;
+}
+</style>
 
-    <div id="div1"></div>
-    <style type="text/css">
-    #div1 {
-        margin: 10px;
-        width: 180px;
-        height: 180px;
-        background: #f8f8f8;
+<script type="text/javascript">
+/*
+移动端的三大事件：
+    手指按下: ontouchstart
+    手指移动: ontouchmove
+    手指抬起: ontouchend
+
+注意：
+    在移动端开发的时候，浏览器的模拟器时好时坏，一般不用on的方式绑定事件函数，要用事件绑定的方式(addEventListener)。
+*/
+
+var div = document.querySelector('#div1');
+var disY = 0, //按下的坐标
+    h = 180;
+
+div.addEventListener('touchstart', start);
+div.addEventListener('touchmove', move);
+div.addEventListener('touchend', end);
+
+function start(ev) {
+    div.innerHTML = "按下";
+    var e = ev.changedTouches[0];
+    disY = e.pageY; //pageY是一个只读属性，它返回触发事件的位置相对于整个 document 的 Y 坐标值。
+}
+
+function move(ev) {
+    this.innerHTML = "移动";
+}
+
+function end(ev) {
+    this.innerHTML = "抬起";
+    var e = ev.changedTouches[0];
+    console.log(e.pageY, "抬起时手指垂直移动距离:" + (e.pageY - disY));
+
+    var h_new = h + (e.pageY - disY);
+    if (h_new < h) {
+        h_new = h;
+    } else if (h_new > h * 2) {
+        h_new = h * 2;
     }
-    </style>
-    <script type="text/javascript">
-    //  移动端的三大事件：
-    //      手指按下: ontouchstart
-    //      手指移动: ontouchmove
-    //      手指抬起: ontouchend
-    //
-    //  注意：
-    //      在移动端开发的时候，浏览器的模拟器时好时坏，一般不用on的方式绑定事件函数，要用事件绑定的方式(addEventListener)。
+    div.style.height = h_new + "px";
+}
+</script>
 
-    var div = document.querySelector('#div1');
-    var disY = 0, //按下的坐标
-        h = 180;
-
-    div.addEventListener('touchstart', start);
-    div.addEventListener('touchmove', move);
-    div.addEventListener('touchend', end);
-
-    function start(ev) {
-        div.innerHTML = "按下";
-        var e = ev.changedTouches[0];
-        disY = e.pageY; //pageY是一个只读属性，它返回触发事件的位置相对于整个 document 的 Y 坐标值。
-    }
-
-    function move(ev) {
-        this.innerHTML = "移动";
-    }
-
-    function end(ev) {
-        this.innerHTML = "抬起";
-        var e = ev.changedTouches[0];
-        console.log(e.pageY, "抬起时手指垂直移动距离:" + (e.pageY - disY));
-
-        var h_new = h + (e.pageY - disY);
-        if(h_new < h) {
-            h_new = h;
-        } else if(h_new > h * 2) {
-            h_new = h * 2;
-        }
-        div.style.height = h_new + "px";
-    }
-    </script>
-
-</section>
 
 </body>
 </html>
