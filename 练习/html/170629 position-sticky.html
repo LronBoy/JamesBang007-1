@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CSS3 定位	position</title>
+<title>CSS3 定位 position</title>
 <meta name="HandheldFriendly" content="true">
 <meta name="MobileOptimized" content="width">
 <meta name="viewport" id="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -12,57 +12,97 @@
 <meta name="format-detection" content="telephone=no">
 
 <style type="text/css">
-body,div{ margin: 0; padding: 0;}
-.header{width: 96%; padding: 0 2%; font-size: 20px; color: #fff; line-height: 3em; background: #333; }
-.box{ width: 96%; height: 150px; font-size: 16px; color: #fff; line-height: 1.8em; margin-bottom: 5px; background: #2cb4e8; padding:0 2%; position: relative; z-index: 1;}
-.pape .box2{ height: 50px; background: #f60;}
-.pape .box3{ height: 600px; background: #8bc34a;}
-.pape .box4{ height: 700px; background: #78909c;}
-.sticky .box2{
-	position: -webkit-sticky;
-    position: -moz-sticky;  
-    position: -ms-sticky;  
-	position: sticky; top: 1px; left: 0px; width: 96%; z-index: 2;
+body,
+div {
+    margin: 0;
+    padding: 0;
+}
 
+.header {
+    width: 96%;
+    padding: 0 2%;
+    font-size: 20px;
+    color: #fff;
+    line-height: 3em;
+    background: #333;
+}
+
+.box {
+    width: 96%;
+    height: 150px;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.8em;
+    margin-bottom: 5px;
+    background: #2cb4e8;
+    padding: 0 2%;
+    position: relative;
+    z-index: 1;
+}
+
+.pape .box2 {
+    height: 50px;
+    background: #f60;
+}
+
+.pape .box3 {
+    height: 600px;
+    background: #8bc34a;
+}
+
+.pape .box4 {
+    height: 700px;
+    background: #78909c;
+}
+
+.sticky .box2 {
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: sticky;
+    top: 1px;
+    left: 0px;
+    width: 96%;
+    z-index: 2;
 }
 </style>
 
 </head>
 <body>
 <div class="header">
-	CSS3 定位	position
+    CSS3 定位 position
 </div>
 <div class="pape sticky">
-	<div class="box box1">sticky：对象在常态时遵循常规流。它就像是relative和fixed的合体，当在屏幕中时按常规流排版，当卷动到屏幕外时则表现如fixed。该属性的表现是现实中你见到的吸附效果。（CSS3）</div>
-	<div class="box box2">position: -webkit-sticky;position: sticky;</div>
-	<div class="box box3">
-		position:sticky的使用条件<br>
-		1、具有sticky属性的元素，其父级高度必须大于sticky元素的高度。<br>		
-		2、sticky元素的底部，不能和父级底部重叠。<br>		
-		3、sticky元素的所有父级不能含有overflow:hidden 和 overflow:auto 属性<br>		
-		4、必须具有top，或 bottom 属性<br>		
-		同时要注意，sticky元素仅在他父级容器内有效，超出容器范围则不再生效了。
-	</div>
-	<div class="box box4">
-		语法：  position：static | relative | absolute | fixed | center | page | sticky<br>
-		默认值：static<br>
-		适用于：除display属性定义为table-column-group | table-column之外的所有元素<br>
-		继承性：无<br><br>
-		
-		取值：<br>
-		center：与absolute一致，但偏移定位是以定位祖先元素的中心点为参考。盒子在其包含容器垂直水平居中。（CSS3）<br>
-		page：与absolute一致。元素在分页媒体或者区域块内，元素的包含块始终是初始包含块，否则取决于每个absolute模式。（CSS3）
-		sticky：对象在常态时遵循常规流。它就像是relative和fixed的合体，当在屏幕中时按常规流排版，当卷动到屏幕外时则表现如fixed。该属性的表现是现实中你见到的吸附效果。（CSS3）
-	</div>
+    <div class="box box1">sticky：对象在常态时遵循常规流。它就像是relative和fixed的合体，当在屏幕中时按常规流排版，当卷动到屏幕外时则表现如fixed。该属性的表现是现实中你见到的吸附效果。（CSS3）</div>
+    <div class="box box2">position: -webkit-sticky;position: sticky;</div>
+    <div class="box box3">
+        position:sticky的使用条件<br>
+        1、具有sticky属性的元素，其父级高度必须大于sticky元素的高度。<br>
+        2、sticky元素的底部，不能和父级底部重叠。<br>
+        3、sticky元素的所有父级不能含有overflow:hidden 和 overflow:auto 属性<br>
+        4、必须具有top，或 bottom 属性<br>
+        同时要注意，sticky元素仅在他父级容器内有效，超出容器范围则不再生效了。
+    </div>
+    <div class="box box4">
+        语法： position：static | relative | absolute | fixed | center | page | sticky<br>
+        默认值：static<br>
+        适用于：除display属性定义为table-column-group | table-column之外的所有元素<br>
+        继承性：无<br><br>
+
+        取值：<br>
+        center：与absolute一致，但偏移定位是以定位祖先元素的中心点为参考。盒子在其包含容器垂直水平居中。（CSS3）<br>
+        page：与absolute一致。元素在分页媒体或者区域块内，元素的包含块始终是初始包含块，否则取决于每个absolute模式。（CSS3）
+        sticky：对象在常态时遵循常规流。它就像是relative和fixed的合体，当在屏幕中时按常规流排版，当卷动到屏幕外时则表现如fixed。该属性的表现是现实中你见到的吸附效果。（CSS3）
+    </div>
 </div>
 
 <script>
 var _hmt = _hmt || [];
 (function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?c6760dcdb5dc845b04e490d3d1e0eedd";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?c6760dcdb5dc845b04e490d3d1e0eedd";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
 })();
 </script>
 </body>

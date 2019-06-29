@@ -89,7 +89,7 @@ for(var i = 0; i < iList.length; i++) {
 */
 function setImgs(doc) {
     var iList = doc.images;
-    console.log("img元素的集合",iList);
+    console.log("img元素的集合", iList);
     var bWidth = document.body.clientWidth; // bWidth = bWidth>1024 ? bWidth : 1024;
     // Array.from() 方法从一个类似数组或可迭代对象创建一个新的数组实例。  es6
     // map() 方法创建一个新数组，其结果是该数组中的每个元素调用一个提供的函数。
@@ -102,7 +102,7 @@ function setImgs(doc) {
         }))
     console.log(aImg);
 
-    for(var i = 0; i < iList.length; i++) {
+    for (var i = 0; i < iList.length; i++) {
         iList[i].style = "width:" + bWidth + "px;height:" + aImg[i]['height'] / aImg[i]['width'] * bWidth + "px;";
     }
 
