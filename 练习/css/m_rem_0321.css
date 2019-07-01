@@ -1,0 +1,206 @@
+/*
+    720的设计图时: 15rem/48;   750的设计图时: 15rem/50 
+    750/15rem
+*/
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+dl,
+dt,
+dd,
+ul,
+li,
+form,
+button,
+input,
+textarea,
+th,
+td,
+a {
+  margin: 0;
+  padding: 0;
+}
+body {
+  width: 15rem;
+  margin: 0 auto;
+  font-family: Helvetica, Arial, "Microsoft YaHei";
+  font-size: 12px;
+  color: #555;
+  background: #f3f3f3;
+}
+body * {
+  -webkit-text-size-adjust: 100%;
+  -webkit-user-select: none;
+}
+a,
+input,
+button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input,
+button {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+img {
+  vertical-align: bottom;
+  background: #f5f5f5;
+  border: 0;
+}
+ul,
+ol,
+li {
+  list-style: none;
+}
+em,
+i {
+  font-style: normal;
+}
+a {
+  color: #555;
+  text-decoration: none;
+}
+input,
+textarea {
+  outline: 0;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.cb {
+  clear: both;
+}
+.p6 {
+  padding: 6px;
+}
+.mb5 {
+  margin-bottom: 10px;
+}
+.mb10 {
+  margin-bottom: 10px;
+}
+/*index新闻*/
+.newsBox {
+  margin-bottom: 0.4rem;
+  padding-top: 0.2rem;
+  padding: 0.3rem;
+  background: #fff;
+  overflow: hidden;
+}
+.newsBox .hd {
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  border-bottom: 0.08rem solid #cccccc;
+  clear: both;
+}
+.newsBox .hd h2 {
+  float: left;
+  padding-left: 0.2rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  font-size: 0.64rem;
+  color: #222;
+  font-weight: 600;
+  border-left: 0.12rem solid #fa7d3c;
+}
+.newsBox .hd a.more {
+  float: right;
+  padding-right: 0.08rem;
+  font-size: 0.4rem;
+  color: #666;
+}
+.newsBox .hd ul {
+  float: right;
+  margin-top: -0.2rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
+}
+.newsBox .hd li {
+  float: left;
+  margin: 0.3rem 0;
+  padding: 0 0.4rem;
+  height: 0.6rem;
+  line-height: 0.6rem;
+  font-size: 0.6rem;
+  text-align: center;
+  border-right: 0.06rem solid #9d9d9d;
+}
+.newsBox .hd li:last-child {
+  border: none;
+}
+.newsBox .bd .listPic {
+  overflow: hidden;
+}
+.newsBox .bd .listPic li {
+  position: relative;
+  float: left;
+  width: 7rem;
+  height: 4.36rem;
+  text-align: center;
+}
+.newsBox .bd .listPic li:first-child {
+  margin-right: 0.4rem;
+}
+.newsBox .bd .listPic li a {
+  width: 100%;
+  display: block;
+}
+.newsBox .bd .listPic li img {
+  width: 7rem;
+  height: 4.36rem;
+}
+.newsBox .bd .listPic h3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: inline-block;
+  padding: 0 0.1rem;
+  width: 6.8rem;
+  height: 1rem;
+  line-height: 1rem;
+  font-size: 0.5rem;
+  color: #fff;
+  text-align: center;
+  font-weight: normal;
+  background: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.newsBox .bd .listText li {
+  height: 1rem;
+  line-height: 1rem;
+  overflow: hidden;
+  border-bottom: 0.04rem dotted #d6d6d6;
+}
+.newsBox .bd .listText li a {
+  font-size: 0.5rem;
+  color: #333;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/*index更多*/
+.page {
+  margin: 0.3rem 0;
+  text-align: center;
+  font-size: 0.4rem;
+}
+.page .dian {
+  font-size: 0.4rem;
+  color: #ccc;
+  letter-spacing: 0.2rem;
+  margin-left: 0.2rem;
+}
+.page a {
+  color: #888;
+}

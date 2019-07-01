@@ -9,6 +9,14 @@ body {
   line-height: 1.5;
   background: #f8f8f8;
 }
+img {
+  vertical-align: bottom;
+  border: 0;
+}
+em,
+i {
+  font-style: normal;
+}
 div,
 p {
   line-height: 1.8;
@@ -36,7 +44,7 @@ p {
   font-size: 20px;
   color: #fff;
   text-indent: 10px;
-  letter-spacing: 0.5px;
+  letter-spacing: .5px;
   background: #333;
 }
 .tit-3 {
@@ -44,7 +52,7 @@ p {
   padding: 0 10px;
   font-size: 18px;
   color: #fff;
-  letter-spacing: 0.5px;
+  letter-spacing: .5px;
   background: #555;
 }
 pre {
@@ -56,4 +64,12 @@ pre {
 }
 .demo {
   margin: 20px 0;
+}
+/*
+ * 手机端
+ */
+@media screen and (max-width: 750px) {
+  .wrap {
+    padding: 10px;
+  }
 }

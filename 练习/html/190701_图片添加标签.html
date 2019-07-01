@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>图片添加标签</title>
+<link rel="stylesheet" href="../css/1803.css">
+<link rel="stylesheet" href="../css/190701_img_tag.css">
+</head>
+<body>
+
+<div class="wrap" id="app">
+    <p>{{msg}}</p>
+
+    <el-row :gutter="20">
+
+        <el-upload action="https://jsonplaceholder.typicode.com/posts/" list-type="picture-card" multiple :limit="10"
+            accept="image/*" :file-list="file_list" :on-preview="preview_picture" :on-success="upload_picture"
+            :on-remove="remove_picture">
+            <i class="el-icon-plus"></i>
+        </el-upload>
+        <!--图片预览-->
+        <el-dialog class="dialog-picture-tag" :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImage.url" alt="" @click="tapImage">
+            <div class="tag" :class="tag.location == 'l' ? 'left-tag' : 'right-tag'" v-for="(tag,index) in dialogImage.tags"
+                :key="index" :style="{ left: tag.left + 'px', top: tag.top + 'px' }">
+                <div class="dot"><i></i></div>
+                <div class="text"><span>{{ tag.name }}</span><i class="iconfont icon-guanbi" @click="delTag(index)"></i></div>
+            </div>
+            <div slot="footer" class="dialog-footer">
+                <el-input v-model="temporaryTag.name" placeholder="请输入标签内容" maxlength="30" show-word-limit></el-input>
+            </div>
+        </el-dialog>
+
+    </el-row>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script type="text/javascript">
+let vm = new Vue({
+    el: "#app",
+    data: {
+        msg: "hello word!",
+        form_data: {
+            imgs: ["201907/01/5d196a3ca1044.jpg", "img/5152ff7dly1ffonfp3fmuj20rs15ohdt.jpg"]
+        },
+        file_list: [{
+            "name": "img0",
+            "url": "https://qiufa-app.oss-cn-beijing.aliyuncs.com/201907/01/5d196a3ca1044.jpg",
+            "file_url": "201907/01/5d196a3ca1044.jpg",
+            "uid": 1561946810966,
+            "status": "success",
+            "size": {
+                "width": 658,
+                "height": 658
+            },
+            tags: [{
+                name: "标签1",
+                x: 200,
+                y: 200,
+                top: 20,
+                left: 20,
+                location: "l",
+                type: 0,
+                url: ""
+            }, {
+                "name": "5555",
+                "x": 479,
+                "y": 161,
+                "left": 546,
+                "top": 184,
+                "location": "r",
+                "type": 0,
+                "url": ""
+            }]
+        }, {
+            "name": "img0",
+            "url": "../img/5152ff7dly1ffonfp3fmuj20rs15ohdt.jpg",
+            "file_url": "img/5152ff7dly1ffonfp3fmuj20rs15ohdt.jpg",
+            "uid": 1561946810967,
+            "status": "success",
+            "size": {
+                "width": 690,
+                "height": 1035
+            },
+            tags: [{
+                name: "标签2",
+                x: 200,
+                y: 200,
+                top: 20,
+                left: 20,
+                location: "l",
+                type: 0,
+                url: ""
+            }]
+        }],
+        dialogVisible: true,
+        dialogImageIndex: 0, //弹出图片的索引值
+        tagIndex: 0, //弹出图片的索引值
+        tagText: "",
+        temporaryTag: {} //点击图片后的临时标签
+    },
+    computed: {
+        dialogImage() {
+            return this.file_list[this.dialogImageIndex];
+        }
+    },
+    methods: {
+        upload_picture(res, file, fileList) {
+            console.log(res, file, fileList);
+        },
+        remove_picture(file, fileList) {
+            console.log(file, fileList);
+        },
+        preview_picture(file) {
+            console.log(file);
+            this.dialogVisible = true;
+            this.dialogImageIndex = this.form_data.imgs.indexOf(file.file_url); //图片数组查找图片位置
+            console.log(this.dialogImageIndex);
+        },
+        tapImage(ev) {
+            console.log(ev);
+            let n = 750 / this.dialogImage.size.width, // 图片的放大倍数
+                tags = [],
+                tag = {};
+            this.temporaryTag = {
+                name: '',
+                x: parseInt(ev.offsetX / n),
+                y: parseInt(ev.offsetY / n),
+                left: ev.offsetX,
+                top: ev.offsetY,
+                location: ev.offsetX > 375 ? 'r' : 'l',
+                type: 0,
+                url: ''
+            }
+            console.log(tag);
+
+            tags = this.file_list[this.dialogImageIndex].tags.filter(item => item.name != '');
+            tags.push(this.temporaryTag);
+            this.file_list[this.dialogImageIndex].tags = tags;
+        },
+        //删除标签
+        delTag(i) {
+            this.file_list[this.dialogImageIndex].tags.splice(i, 1);
+            this.temporaryTag = {}
+        }
+    }
+})
+</script>
+
+
+</body>
+</html>
