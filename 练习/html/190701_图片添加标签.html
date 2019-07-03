@@ -27,9 +27,9 @@
             <div class="tag" :class="tag.location == 'l' ? 'left-tag' : 'right-tag'" v-for="(tag,index) in dialogImage.tags"
                 :key="index" :style="{ left: tag.left + 'px', top: tag.top + 'px' }">
                 <div class="dot"><i></i></div>
-                <div class="text"><span>{{ tag.name }}</span><i class="iconfont icon-guanbi" @click="delTag(index)"></i></div>
+                <div class="text"><span>{{ tag.name }}</span><i class="iconfont icon-guanbi" @click="delTag(index,tag)"></i></div>
             </div>
-            <div slot="footer" class="dialog-footer">
+            <div slot="footer" class="dialog-footer" v-show="temporaryTag.x>0">
                 <el-input v-model="temporaryTag.name" placeholder="请输入标签内容" maxlength="30" show-word-limit></el-input>
             </div>
         </el-dialog>
@@ -130,6 +130,9 @@ let vm = new Vue({
             let n = 750 / this.dialogImage.size.width, // 图片的放大倍数
                 tags = [],
                 tag = {};
+            if (tags.length > 5) {
+                return false;
+            }
             this.temporaryTag = {
                 name: '',
                 x: parseInt(ev.offsetX / n),
@@ -145,11 +148,15 @@ let vm = new Vue({
             tags = this.file_list[this.dialogImageIndex].tags.filter(item => item.name != '');
             tags.push(this.temporaryTag);
             this.file_list[this.dialogImageIndex].tags = tags;
+            document.querySelector('.dialog-picture-tag input').focus();
         },
         //删除标签
-        delTag(i) {
+        delTag(i, tag) {
+            console.log(i, tag)
             this.file_list[this.dialogImageIndex].tags.splice(i, 1);
-            this.temporaryTag = {}
+            if (tag.x == this.temporaryTag.x && tag.y == this.temporaryTag.y) {
+                this.temporaryTag = {}
+            }
         }
     }
 })

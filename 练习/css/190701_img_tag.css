@@ -18,7 +18,7 @@
 }
 .dialog-picture-tag .el-dialog {
   margin-top: 5vh !important;
-  width: 750px;
+  width: 790px;
 }
 .dialog-picture-tag .el-dialog__body {
   position: relative;
@@ -86,7 +86,6 @@
 .dialog-picture-tag .el-dialog__body .tag .text:hover i {
   display: inline-block;
   opacity: 1;
-  transition: opacity 0.5s;
 }
 .dialog-picture-tag .el-dialog__body .tag .text span {
   display: inline-block;
@@ -116,6 +115,7 @@
   text-align: center;
   background-color: #888;
   border-radius: 50%;
+  transition: opacity 0.5s ease 5.5s;
 }
 .dialog-picture-tag .el-dialog__body .tag.right-tag .dot {
   float: right;
