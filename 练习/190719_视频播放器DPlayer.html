@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>视频播放器DPlayer</title>
+<style type="text/css">
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#dplayer {
+    max-width: 100%;
+    max-height: 100vh;
+}
+
+.dplayer-video-wrap .dplayer-video {
+    max-width: 100%;
+    max-height: 100vh;
+}
+</style>
+</head>
+<body>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.css">
+<div id="dplayer"></div>
+<!-- <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.js"></script>
+<script>
+const dp = new DPlayer({
+    container: document.getElementById('dplayer'),
+    video: {
+        // url: 'http://qiufa-app-video.oss-cn-beijing.aliyuncs.com/201907/02/5d1b286d0f663.mp4',
+        url: "http://qiufa-app-video.oss-cn-beijing.aliyuncs.com/201907/19/5d312c7926f32.mp4",
+    },
+});
+</script>
+
+<audio src="file:///C:/Users/James/Documents/Tencent%20Files/3005147021/FileRecv/1563442074745outaudioPath.aac" controls="controls" >
+    当前浏览器不支持audio
+</audio>
+
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>js提取文本中的链接</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<style type="text/css">
+body {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.text {
+    margin: 20px 10px;
+    padding: 15px;
+    line-height: 1.8;
+    font-size: 16px;
+    color: #333;
+    background: #f5f5f5;
+}
+</style>
+
+<div class="text text1">看看链接是否可以点击了，如果不行，找我，如果行，就不要找我了！啦啦啦啦！！！http://jmsbang.com 6666 我的https://jmsbang.com</div>
+<div class="text text2"></div>
+
+
+<script>
+let text1 = document.querySelector('.text1').innerHTML;
+let text2 = document.querySelector('.text2');
+console.log(text1);
+if (text1.length > 0) {
+    // ^((http:\/\/)|(https:\/\/))?([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}(\/)
+    let reg = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+)/g;
+    text1 = text1.replace(reg, "<a href='$1$2'>$1$2</a>");
+    console.log(text1);
+    text2.innerHTML = text1;
+}
+</script>
+
+</body>
+</html>

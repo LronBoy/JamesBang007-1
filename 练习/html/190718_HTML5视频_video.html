@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>h5视频播放</title>
+</head>
+<body>
+
+<!--            
+webkit-playsinline playsinline  内联播放
+x5-video-player-type="h5"   启用x5内核H5播放器
+x5-video-orientation="portraint"    播放器方向，landscape横屏，portraint竖屏，默认值为竖屏
+x5-video-player-fullscreen="true"   全屏设置，ture和false的设置会导致布局上的不一样
+-->
+
+<!-- 抖音 -->
+<video id="theVideo" class="video-player" src="https://aweme.snssdk.com/aweme/v1/playwm/?s_vid=93f1b41336a8b7a442dbf1c29c6bbc56a7663f2e936210c832e17217b9e2eccef999c342cfa43ce764aff397258c44d74737804bc150d8f8059a9f4cfa0c9de8&amp;line=0"
+    preload="auto" type="video/mp4" width="100%" webkit-playsinline="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="portraint"
+    onerror="window.VIDEO_FAILED=1"></video>
+
+<video class="video-player" id="videoPlayer" type="video/mp4" preload="auto" loop="loop" :controls="video.is_controls" :poster="showData.video_url + '?x-oss-process=video/snapshot,t_1000,f_jpg,w_750,m_fast' "
+    webkit-playsinline playsinline x5-video-player-type="h5" x5-video-player-fullscreen="false" x-webkit-airplay=allow airplay=allow
+    x5-video-orientation="portrait" :src="showData.video_url">
+    <p>您的浏览器不支持 video 标签</p>
+</video>
+</body>
+</html>

@@ -191,7 +191,7 @@ module.exports = {
 module.exports = {
   printWidth: 120, // 指定代码换行的行长度。单行代码宽度超过指定的最大宽度，将会换行，如果都不想换，可以添加 "proseWrap": "never"
   semi: true, // 是否在语句末尾打印分号
-  tabWidth: 2,
+  tabWidth: 4,
   useTabs: false, // 使用制表符 (tab) 缩进行而不是空格 (space)。
   singleQuote: true, // 是否使用单引号，这里选择使用
   trailingComma: "none", // 多行时尽可能打印尾随逗号。"none" - 没有尾随逗号。
