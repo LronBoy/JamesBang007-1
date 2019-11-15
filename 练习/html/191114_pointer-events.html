@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>Page Title</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<!-- pointer-events -->
+
+<div class="div1-outside">outside
+    <div class="div1-inside">Inside</div>
+</div>
+<style type="text/css">
+.div1-outside {
+    width: 200px;
+    padding: 20px;
+    line-height: 60px;
+    color: #fff;
+    text-align: center;
+    background-color: #1EC7E6;
+    /* pointer-events: none; */
+}
+
+.div1-inside {
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    background-color: #444;
+    pointer-events: none;
+}
+</style>
+<script type="text/javascript">
+document.querySelector(".div1-outside").onclick = function() {
+    alert('outside')
+}
+document.querySelector(".div1-inside").onclick = function() {
+    alert('inside')
+}
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>Page Title</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<script type="text/javascript">
+function rem() {
+    var html = document.documentElement;
+    var hWidth = html.getBoundingClientRect().width;
+    hWidth = hWidth > 750 ? 750 : hWidth;
+    html.style.fontSize = hWidth / 15 + "px";
+}
+(function() {
+    rem();
+})();
+window.onresize = rem;
+</script>
+</head>
+<body>
+<style type="text/css">
+* {
+    margin: 0;
+    padding: 0;
+}
+
+video {
+    min-width: 320px;
+    min-height: 200px;
+    max-width: 100%;
+    max-height: 100%;
+    background-color: #333;
+}
+</style>
+
+<!-- <script src="../js/flv.min.js"></script>
+<video id="videoElement"></video>
+<script>
+if (flvjs.isSupported()) {
+    var videoElement = document.getElementById('videoElement');
+    var flvPlayer = flvjs.createPlayer({
+        type: 'mp4',
+        url: 'http://qiufa-app-video.oss-cn-beijing.aliyuncs.com/201911/15/5dce3cbbc8040.mp4'
+    });
+    flvPlayer.attachMediaElement(videoElement);
+    flvPlayer.load();
+    setTimeout(function() {
+        flvPlayer.play();
+    }, 200);
+}
+</script> -->
+
+
+
+<style type="text/css">
+body {
+    margin: 0 auto;
+    max-width: 750px;
+    background-color: #1f2c3b;
+}
+
+.note-video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.video-player {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.video-player .video-poster,
+.video-player video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: translate3d(-50%, -50%, 0);
+}
+
+.video-player .views {
+    position: absolute;
+    left: .3rem;
+    bottom: .3rem;
+    padding: .1rem .2rem;
+    border-radius: .26rem;
+    font-size: .26rem;
+    line-height: .3rem;
+    color: #fff;
+    background-color: rgba(51, 51, 51, .7);
+}
+
+.video-player .loading-icon-box,
+.video-player .poster-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.28rem;
+    height: 1.28rem;
+    transform: translate3d(-50%, -50%, 0);
+}
+
+.video-player .video-poster,
+.video-player .loading-icon-box,
+.video-player .poster-play-icon {
+    pointer-events: none;
+}
+</style>
+
+<div class="note-video-container" id="app">
+    <div class="video-player" @click="tapVideo">
+        <video src="http://qiufa-app-video.oss-cn-beijing.aliyuncs.com/201911/15/5dce3cbbc8040.mp4" poster="http://qiufa-app-video.oss-cn-beijing.aliyuncs.com/201911/15/5dce3cbbc8040.mp4?x-oss-process=video/snapshot,t_1000,f_jpg"
+            preload="metadata" webkit-playsinline="true" playsinline="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" style="_display: none;"
+            controls="controls">
+            您的浏览器不支持 video 标签
+        </video>
+        <img src="https://qiufa-app.oss-cn-beijing.aliyuncs.com/web/pic.jpg?x-oss-process=image/resize,m_fill,w_540,h_540" class="video-poster"
+            v-show="!video.playing">
+        <div class="views" v-show="!video.playing">
+            <!-- <svg data-v-53b0d82c="" width="16px" height="16px" class="cube-icon views-icon">
+                <use data-v-53b0d82c="" xlink:href="#views-icon"></use>
+            </svg> -->
+            116.2万次播放{{ msg }}
+        </div>
+        <img src="//s.xiaohongshu.com/formula-static/puar/public/img/play-icon.54fa333.png" class="poster-play-icon" v-show="!video.playing">
+        <div class="loading-icon-box" style="display: none;">
+            <img src="" class="loading-icon">
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+new Vue({
+    el: "#app",
+    data: {
+        msg: "6666666",
+        video: {
+            pic: 'https://qiufa-app.oss-cn-beijing.aliyuncs.com/web/pic.jpg',
+            // url: '../_bak/video.mp4',
+            url: 'https://qiufa-app.oss-cn-beijing.aliyuncs.com/web/video.mp4',
+            playing: false,
+            is_controls: true, //是否显示播放控件
+        },
+    },
+    methods: {
+        tapVideo: function() {
+            console.log('tapVideotapVideo')
+            let that = this;
+            if (that.video.playing) {
+                that.video.playing = false;
+                console.log('暂停当前播放视频');
+                // player.pause() //暂停当前播放的视频
+            } else {
+                that.video.playing = true;
+                console.log('播放视频');
+            }
+
+        },
+        playerVideo: function() {
+            let that = this;
+            let player = document.querySelector("#videoPlayer"); //播放器的元素
+
+            if (that.video.playing) {
+                that.video.playing = false
+                console.log('暂停当前播放视频')
+                player.pause() //暂停当前播放的视频
+            } else {
+                clearInterval(timer1)
+                clearInterval(timer2)
+
+                // autoplay     设置或返回是否在加载完成后随即播放音频/视频
+                // muted        设置或返回音频/视频是否静音。
+                // paused       设置或返回音频/视频是否暂停
+                // preload      设置或返回音频/视频是否应该在页面加载后进行加载。
+                // readyState   返回音频/视频当前的就绪状态      
+                // play()	    开始播放音频/视频
+                // pause()      暂停当前播放的音频/视频
+
+                //开始播放
+                timer1 = setInterval(function() {
+                    if (player.readyState == 4) { //可用数据足以开始播放
+                        clearInterval(timer1)
+                        console.log('播放视频')
+                        player.play()
+                        that.video.playing = true
+                    }
+                }, 50);
+
+                //监听播放状态
+                timer2 = setInterval(function() {
+                    if (player.paused) {
+                        clearInterval(timer2)
+                        console.log("视频已暂停播放")
+                        that.video.playing = false
+                    } else {
+                        console.log("视频没有暂停，播放中")
+                        that.video.is_controls = false
+                    }
+                }, 1000);
+            }
+        },
+    }
+})
+</script>
+
+</body>
+</html>
