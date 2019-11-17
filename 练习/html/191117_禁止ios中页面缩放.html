@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>禁止ios中页面缩放</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<style type="text/css">
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    position: relative;
+    width: 100%;
+    height: 30vh;
+    line-height: 30vh;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    background-color: #93dd9B;
+}
+
+li:nth-child(3n+2) {
+    background-color: #efa8c8;
+}
+
+li:nth-child(3n) {
+    background-color: #72c2f0;
+}
+
+p {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    line-height: 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.p2 {
+    top: 50px
+}
+</style>
+<ul>
+    <li>1
+        <p class="p1"></p>
+        <p class="p2"></p>
+    </li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+</ul>
+<script>
+// 在iOS里有一组双指手势操作的事件
+// 1、gesturestart：当一个手指已经按在屏幕上，另一个手指又触摸屏幕的时候触发。类似于touchstart的作用一样；
+// 2、gesturechange：当触摸屏幕的任何一个手指的位置发生变化的时候触发。
+// 3、gestureend：当任何一个手指从屏幕上面移开时触发。
+
+window.onload = function() {
+    // 观察屏幕上手指数
+    document.addEventListener('touchstart', function(event) {
+        document.querySelector('.p1').innerHTML = '屏幕上手指数' + event.touches.length
+        // if (event.touches.length > 1) {
+        //     event.preventDefault()
+        // }
+    });
+    document.addEventListener('touchend', function(event) {
+        document.querySelector('.p1').innerHTML = '屏幕上手指数' + event.touches.length
+    });
+
+
+    // 禁止双击缩放
+    var lastTouchEnd = 0;
+    document.addEventListener('touchend', function(event) {
+        var now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault()
+        }
+        lastTouchEnd = now;
+    }, false);
+    // 禁止双指移动缩放
+    document.addEventListener('gesturestart', function(event) {
+        document.querySelector('.p2').innerHTML = 'iOS上触发gesturestart'
+        event.preventDefault()
+    });
+}
+</script>
+
+<!-- 
+参考：
+https://blog.csdn.net/adley_app/article/details/90896840    h5 禁止在ios中点击缩放
+https://juejin.im/post/5b46ec375188251ac9767094    完美解决ios10及以上Safari无法禁止缩放的问题
+-->
+</body>
+</html>
