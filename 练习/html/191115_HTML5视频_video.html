@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>video视频播放</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<script type="text/javascript">
+function rem() {
+    var html = document.documentElement;
+    var hWidth = html.getBoundingClientRect().width;
+    hWidth = hWidth > 750 ? 750 : hWidth;
+    html.style.fontSize = hWidth / 15 + "px";
+}
+(function() {
+    rem();
+})();
+window.onresize = rem;
+</script>
+</head>
+<body>
+<style type="text/css">
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0 auto;
+    max-width: 750px;
+    background-color: #1f2c3b;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.video-player {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.video-player .video-poster,
+.video-player video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: translate(-50%, -50%);
+}
+
+.video-player .loading-icon-box,
+.video-player .poster-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.28rem;
+    height: 1.28rem;
+    transform: translate(-50%, -50%);
+}
+
+.video-player .loading-icon {
+    width: 1.28rem;
+    height: 1.28rem;
+    animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(1turn)
+    }
+}
+</style>
+<!--            
+    webkit-playsinline playsinline  内联播放
+    x5-video-player-type="h5"   启用x5内核H5播放器
+    x5-video-player-fullscreen="true"   全屏设置。ture和false的设置会导致布局上的不一样
+    x5-video-orientation="portraint"    播放器方向。landscape横屏，portraint竖屏，默认值为竖屏
+-->
+<div class="video-container" id="app">
+    <div class="video-player">
+        <video :src="video.url" :poster="video.pic" preload="metadata" webkit-playsinline="true" playsinline="true" x5-video-player-type="h5"
+            x5-video-player-fullscreen="true" style="display: none;">
+            您的浏览器不支持 video 标签
+        </video>
+        <img :src="video.pic" class="video-poster">
+        <img src="//s.xiaohongshu.com/formula-static/puar/public/img/play-icon.54fa333.png" class="poster-play-icon">
+        <div class="loading-icon-box" style="display: none;">
+            <img src="data:image/png;base64,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"
+                class="loading-icon">
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+new Vue({
+    el: "#app",
+    data: {
+        msg: "6666666",
+        video: {
+            pic: 'https://qiufa-app.oss-cn-beijing.aliyuncs.com/web/pic.jpg',
+            url: 'https://qiufa-app.oss-cn-beijing.aliyuncs.com/web/video.mp4',
+            playing: false,
+            is_controls: true, //是否显示播放控件
+        },
+    },
+    created() {
+        console.log('在实例创建完成后被立即调用');
+    },
+    mounted() {
+        console.log('在实例创建完成后被立即调用');
+
+        // autoplay     设置或返回是否在加载完成后随即播放音频/视频
+        // duration     返回当前音频/视频的长度（以秒计）
+        // ended        返回音频/视频的播放是否已结束
+        // muted        设置或返回音频/视频是否静音。
+        // paused       设置或返回音频/视频是否暂停
+        // preload      设置或返回音频/视频是否应该在页面加载后进行加载。"auto|metadata|none"   metadata - 仅加载音频/视频的元数据。
+        // readyState   返回音频/视频当前的就绪状态      
+        // play()	    开始播放音频/视频
+        // pause()      暂停当前播放的音频/视频
+
+        var videoPlay = document.querySelector(".video-player video");
+        var videoPoster = document.querySelector(".video-player .video-poster");
+        var playBtn = document.querySelector(".video-player .poster-play-icon");
+        var videoLoad = document.querySelector(".video-player .loading-icon-box");
+        var timer1 = {};
+
+        // 开始播放（点击视频封面图）
+        if (videoPoster) {
+            function playVideo() {
+                console.log("点击视频封面图")
+                // 如果暂停状态，则让其播放
+                if (videoPlay.paused) {
+                    videoPlay.play(); // 开始播放
+                    videoPlay.style.display = "block";
+                    videoLoad.style.display = "block";
+                    videoPoster.style.display = "none"; // 播放时封面图隐藏
+                    playBtn.style.display = "none";
+                    timer1 = setInterval(function() {
+                        if (videoPlay.readyState == 4) { // 可用数据足以开始播放
+                            clearInterval(timer1);
+                            console.log('播放视频');
+                            // videoPlay.play();
+                            videoLoad.style.display = "none";
+                        }
+                    }, 50);
+                    // 播放列表已结束时
+                    videoPlay.addEventListener('ended', function(ev) {
+                        console.log('播放列表已结束', ev)
+                        videoPoster.style.display = "block"; // 结束时封面图显示
+                        playBtn.style.display = "block";
+                    })
+                } else {
+                    videoPlay.pause();
+                    videoPalse.style.display = "block";
+                }
+            };
+            videoPoster.onclick = playVideo;
+            playBtn.onclick = playVideo;
+        }
+
+        // 暂停播放（点击播放器时暂停）
+        if (videoPlay) {
+            videoPlay.onclick = function() {
+                console.log("点击播放器时")
+                if (videoPlay.paused) {
+                    videoPlay.play();
+                    videoPoster.style.display = "none"; // 播放时封面图隐藏
+                    playBtn.style.display = "none";
+                } else {
+                    videoPlay.pause();
+                    videoPoster.style.display = "block"; // 暂停时封面图显示
+                    playBtn.style.display = "block";
+                }
+            };
+        }
+    },
+    methods: {
+
+    }
+})
+</script>
+
+</body>
+</html>
