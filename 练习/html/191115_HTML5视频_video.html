@@ -144,31 +144,24 @@ new Vue({
         // 开始播放（点击视频封面图）
         if (videoPoster) {
             function playVideo() {
-                console.log("点击视频封面图")
+                console.log("点击视频封面图or按钮")
                 // 如果暂停状态，则让其播放
                 if (videoPlay.paused) {
-                    videoPlay.play(); // 开始播放
+                    videoPlay.play(); // 执行开始播放
                     videoPlay.style.display = "block";
                     videoLoad.style.display = "block";
-                    videoPoster.style.display = "none"; // 播放时封面图隐藏
-                    playBtn.style.display = "none";
                     timer1 = setInterval(function() {
                         if (videoPlay.readyState == 4) { // 可用数据足以开始播放
                             clearInterval(timer1);
                             console.log('播放视频');
                             // videoPlay.play();
+                            // 首次播放，封面图隐藏，隐藏加载按钮
+                            videoPoster.style.display = "none";
                             videoLoad.style.display = "none";
                         }
                     }, 50);
-                    // 播放列表已结束时
-                    videoPlay.addEventListener('ended', function(ev) {
-                        console.log('播放列表已结束', ev)
-                        videoPoster.style.display = "block"; // 结束时封面图显示
-                        playBtn.style.display = "block";
-                    })
                 } else {
                     videoPlay.pause();
-                    videoPalse.style.display = "block";
                 }
             };
             videoPoster.onclick = playVideo;
@@ -181,15 +174,32 @@ new Vue({
                 console.log("点击播放器时")
                 if (videoPlay.paused) {
                     videoPlay.play();
-                    videoPoster.style.display = "none"; // 播放时封面图隐藏
-                    playBtn.style.display = "none";
                 } else {
                     videoPlay.pause();
-                    videoPoster.style.display = "block"; // 暂停时封面图显示
-                    playBtn.style.display = "block";
                 }
             };
+            // 播放列表已结束时
+            videoPlay.addEventListener('ended', function() {
+                console.log('播放列表已结束')
+                videoPoster.style.display = "block"; // 结束时封面图显示
+                playBtn.style.display = "block";
+            })
+            // 播放暂停时(手机浏览器后台时会自动暂停)
+            videoPlay.addEventListener('pause', function() {
+                console.log('播放暂停')
+                playBtn.style.display = "block"; // 暂停时只显示播放按钮
+            })
+            // 开始播放(微信后台时会自动暂停，微信安卓上回到前台又自动播放-->ios在微信或浏览器都没有)
+            videoPlay.addEventListener('play', function() {
+                console.log('开始播放了')
+                playBtn.style.display = "none"; // 隐藏播放按钮
+            })
         }
+        
+        // 如果是安卓浏览器里，可以进入页面后自动播放
+        // setTimeout(function() {
+        //     playVideo();
+        // }, 100);
     },
     methods: {
 
