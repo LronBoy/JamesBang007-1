@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+<script src=""></script>
+<script src="cutimg.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="themes-p"> 图片设置(注意:支持png,jpg,gif)</div>
+
+<input type="text" size="20" name="upfile" id="upfile" disabled="true">
+<input type="button" value="选择图片" onclick="path.click()">
+<input type="file" name="path" id="path" style="display:none" accept="image/gif, image/jpeg,image/png" onchange="upfile.value=this.value; previewImage(this);">
+
+<input id="setdefault" type="button" value="取消" onclick="cancer();">
+<input id="setbanner" type="text" name="setbanner" value="0" style="display:none;">
+
+
+
+<div id="preview">
+    <img id="imghead" src=''>
+</div>
+<canvas id="myCanvas">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+</body>
+</html>
