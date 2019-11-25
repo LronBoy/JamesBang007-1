@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>选择图片上传，预览canvas上预览</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style type="text/css">
+html {
+    background-color: #2e2e36;
+}
+
+body {
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 90%;
+    min-width: 1000px;
+    line-height: 1.5;
+    background-color: #fff;
+}
+
+.canvasBox {
+    display: inline-block;
+    font-size: 0;
+    border: 1px solid gray;
+}
+
+label {
+    display: inline-block;
+    padding: 0 15px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #333;
+    background-color: #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.box {
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<input type="file" name="uploadFile" id="uploadFile" value="" multiple onchange="uploadFile()" hidden>
+<label for="uploadFile">选择图片</label>
+<div class="box">
+    <div style="display: none;"><img src="" alt=""></div>
+    <div class="canvasBox">
+        <canvas id="myCanvas1" width="750" height="1000"></canvas>
+    </div>
+</div>
+
+
+<script>
+// 通过监听change事件我们可得知用户选择的文件，并且添加了一个files集合，集合中将包含file对象，每个file对象对应着一个文件
+document.querySelector('#uploadFile').onchange = function(ev) {
+    console.log(this.files);
+    // URL.createObjectURL() 静态方法会创建一个 DOMString，其中包含一个表示参数中给出的对象的URL。
+    // 这个 URL 的生命周期和创建它的窗口中的 document 绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。
+    let img_url = URL.createObjectURL(this.files[0]);
+    console.log(img_url);
+    let oImg = document.querySelector('img');
+    oImg.src = img_url;
+    oImg.style.display = 'block';
+
+    img2Canvas(img_url)
+
+}
+
+function img2Canvas(url) {
+    let cWidth = 750, // canvas 的宽
+        cHeight = 1000,
+        dWidth, // 图片在canvas 呈递的宽
+        dHeight;
+
+    // 使用DOM方法得到画布
+    var myCanvas1 = document.querySelector("#myCanvas1");
+    // 使用画布的上下文
+    var ctx = myCanvas1.getContext("2d");
+
+    // 创建一个img对象的节点
+    var image = new Image();
+    image.src = url;
+    // 一定要等到这个图片loading之后，然后渲染它
+    image.onload = function() {
+        console.log(image.width, image.height)
+
+        dWidth = cWidth;
+        dHeight = parseInt(image.height * (dWidth / image.width)); // 图片的原生高*图片宽的缩放比
+        if (cHeight > dHeight) {
+            myCanvas1.setAttribute("height", dHeight)
+        }else if (cHeight < dHeight) {
+            myCanvas1.setAttribute("height", dHeight)
+        }else{
+            myCanvas1.setAttribute("height", cHeight)
+        }
+
+        // ctx.drawImage(image, 0, 0);
+        ctx.drawImage(image, 0, 0, dWidth, dHeight);
+        // ctx.drawImage(image, 299, 94, 93, 76, 100, 100, 93 * 2, 76 * 2);
+    }
+    
+    // 点击canvas
+    myCanvas1.onclick = function(ev){
+        var ev = ev || event;
+        console.log(ev)
+        var disX = ev.clientX - this.offsetLeft;
+        var disY = ev.clientY - this.offsetTop;
+        
+        
+        
+    }
+}
+</script>
+
+</body>
+</html>
