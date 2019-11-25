@@ -35,8 +35,8 @@ label {
     height: 40px;
     line-height: 40px;
     font-size: 16px;
-    color: #333;
-    background-color: #ccc;
+    color: #fff;
+    background-color: #666;
     border-radius: 6px;
     cursor: pointer;
 }
@@ -76,6 +76,8 @@ document.querySelector('#uploadFile').onchange = function(ev) {
 function img2Canvas(url) {
     let cWidth = 750, // canvas 的宽
         cHeight = 1000,
+        dx = 0,
+        dy = 0,
         dWidth, // 图片在canvas 呈递的宽
         dHeight;
 
@@ -89,33 +91,33 @@ function img2Canvas(url) {
     image.src = url;
     // 一定要等到这个图片loading之后，然后渲染它
     image.onload = function() {
-        console.log(image.width, image.height)
-
+        // console.log(image.width, image.height)
         dWidth = cWidth;
-        dHeight = parseInt(image.height * (dWidth / image.width)); // 图片的原生高*图片宽的缩放比
-        if (cHeight > dHeight) {
-            myCanvas1.setAttribute("height", dHeight)
-        }else if (cHeight < dHeight) {
-            myCanvas1.setAttribute("height", dHeight)
-        }else{
+        dHeight = parseInt(image.height * (dWidth / image.width)); // 图片的原始高*图片宽的缩放比
+        // canvas的高，小于图片在canvas 呈递的高
+        if (cHeight < dHeight) {
+            dy = parseInt((cHeight - dHeight) / 2) // 图片上下裁剪
+            // myCanvas1.setAttribute("height", cHeight)
+        } else {
+            // dy = parseInt((cHeight - dHeight) / 2) // 图片垂直居中
             myCanvas1.setAttribute("height", cHeight)
         }
 
-        // ctx.drawImage(image, 0, 0);
-        ctx.drawImage(image, 0, 0, dWidth, dHeight);
-        // ctx.drawImage(image, 299, 94, 93, 76, 100, 100, 93 * 2, 76 * 2);
+        // 清屏
+        ctx.clearRect(0, 0, cWidth, cHeight);
+        // 渲染
+        ctx.drawImage(image, dx, dy, dWidth, dHeight);
     }
-    
+
     // 点击canvas
-    myCanvas1.onclick = function(ev){
+    myCanvas1.onclick = function(ev) {
         var ev = ev || event;
         console.log(ev)
         var disX = ev.clientX - this.offsetLeft;
         var disY = ev.clientY - this.offsetTop;
-        
-        
-        
+
     }
+
 }
 </script>
 
