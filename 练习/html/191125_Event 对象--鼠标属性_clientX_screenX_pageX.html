@@ -135,12 +135,19 @@ tr.notsupported {
     </tbody>
 </table>
 
+
+<h2>鼠标事件</h2>
+https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent
+
+<p>MouseEvent 接口指用户与指针设备( 如鼠标 )交互时发生的事件。使用此接口的常见事件包括：click，dblclick，mouseup，mousedown。</p>
+<p>MouseEvent 派生自 UIEvent，UIEvent 派生自 Event。虽然 MouseEvent.initMouseEvent() 方法保持向后兼容性，但是应该使用 MouseEvent() 构造函数创建一个 MouseEvent 对象。</p>
+
 <table class="dataintable">
     <tr>
         <th width="20%" align="left">属性</th>
         <th width="6%" align="left">读写</th>
-        <th width="66%" align="left">描述</th>
-        <th width="8%" align="left">DOM</th>
+        <th width="65%" align="left">描述</th>
+        <th width="9%" align="left">DOM</th>
     </tr>
     <tr>
         <td>altKey</td>
@@ -289,14 +296,6 @@ tr.notsupported {
 </table>
 
 
-<h2>鼠标事件</h2>
-https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent
-
-MouseEvent 接口指用户与指针设备( 如鼠标 )交互时发生的事件。使用此接口的常见事件包括：click，dblclick，mouseup，mousedown。
-
-MouseEvent 派生自 UIEvent，UIEvent 派生自 Event。虽然 MouseEvent.initMouseEvent() 方法保持向后兼容性，但是应该使用 MouseEvent() 构造函数创建一个 MouseEvent 对象。
-
-一些具体的事件都派生自 MouseEvent：WheelEvent 和DragEvent。
 
 
 <div class="div1"></div>
@@ -308,8 +307,6 @@ document.querySelector('.div1').onclick = function(ev) {
     // clientY: 380,    当事件被触发时，鼠标指针相对于浏览器页面（当前窗口的可视区域）的坐标。
     // screenX: 122, 
     // screenY: 483, 
-
-
     // layerX: 122,     相对于position为absolute或relative的父元素最外边缘的距离。ie8及ie8之前的版本没有layerX或layerY值。  ——> 返回事件相对于当前层的水平坐标。此API尚未标准化
     // layerY: 419,
     // movementX: 0,
@@ -318,7 +315,7 @@ document.querySelector('.div1').onclick = function(ev) {
     // offsetY: 35,
     // pageX: 122,      相对于文档窗口的左上角，包含了被卷去的body的部分  ——> 返回事件相对于整个文档的水平坐标。此API尚未标准化
     // pageY: 419,
-    // x: 122,          x、y和clientX、clientY相同，其值是相对于可视窗口（浏览器的可视区域）的左上角，其中浏览器可视窗口不包括窗口自身的控件和滚动条。
+    // x: 122,          x、y和clientX、clientY的别名。相对于浏览器可视区域的左上角，其中浏览器可视窗口不包括窗口自身的控件和滚动条。
     // y: 380,
 
 }
@@ -347,6 +344,18 @@ document.querySelector('.div1').onclick = function(ev) {
 <p>如图所示：</p>
 
 <p><img src="https://img-blog.csdn.net/20180612002242162?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTM0MjU4NQ==" alt=""></p>
+
+event.clientX  <!-- 返回当事件被触发时，鼠标指针 -->相对于浏览器可视区域的水平坐标 (与页面坐标不同)。
+
+<!-- 它提供事件发生时的应用客户端区域的水平坐标 (与页面坐标不同)。
+例如，不论页面是否有水平滚动，当你点击客户端区域的左上角时，鼠标事件的 clientX 值都将为 0 。最初这个属性被定义为长整型（long integer），如今 CSSOM 视图模块将其重新定义为双精度浮点数（double float）。你可以查阅浏览器兼容性部分的文档来进一步了解有关信息。 
+developer -->
+
+<!-- clientX 事件属性返回当事件被触发时鼠标指针相对于浏览器页面（或客户区）的水平坐标。客户区指的是当前窗口。
+注释：2 级 DOM 没有提供把窗口坐标转换为文档坐标的标准方法。在 IE 以外的浏览器，使用 window.pageXOffset 和 window.pageYOffset 即可。
+runoob w3school.com.cn  -->
+
+event.screenX   相对于屏幕坐标系的水平偏移量。
 
 
 
