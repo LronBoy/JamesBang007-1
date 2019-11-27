@@ -80,61 +80,28 @@ tr.notsupported {
     color: #999999;
 }
 
+.div0 {
+    position: relative;
+    margin: 20px 0;
+    width: 90%;
+    height: 400px;
+    background-color: #f5f5f5;
+}
+
 .div1 {
-    margin: 30px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    /* margin: 20px; */
+    padding: 20px;
     width: 100px;
     height: 100px;
-    border: 10px solid orange;
-    background-color: #888;
+    border: 10px solid #333;
+    background-color: #999;
 }
 </style>
 </head>
 <body>
-
-<h2>鼠标/键盘事件对象</h2>
-
-
-<table class="dataintable">
-    <tbody>
-        <tr>
-            <th width="20%" align="left">属性</th>
-            <th width="74%" align="left">描述</th>
-            <th width="6%" align="left">DOM</th>
-        </tr>
-        <tr>
-            <td><a href="event-button.html">button</a></td>
-            <td>返回当事件被触发时，哪个鼠标按钮被点击。</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td><a href="event-clientx.html">clientX</a></td>
-            <td>返回当事件被触发时，鼠标指针的水平坐标。</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td><a href="event-clienty.html">clientY</a></td>
-            <td>返回当事件被触发时，鼠标指针的垂直坐标。</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td><a href="event-relatedtarget.html">relatedTarget</a></td>
-            <td>返回与事件的目标节点相关的节点。</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td><a href="event-screenx.html">screenX</a></td>
-            <td>返回当某个事件被触发时，鼠标指针的水平坐标。</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td><a href="event-screeny.html">screenY</a></td>
-            <td>返回当某个事件被触发时，鼠标指针的垂直坐标。</td>
-            <td>2</td>
-        </tr>
-
-    </tbody>
-</table>
-
 
 <h2>鼠标事件</h2>
 https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent
@@ -168,7 +135,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent
         <td>2</td>
     </tr>
     <tr>
-        <td><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/clientX" target="_blank">clientX</a></td>
+        <td><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/clientX" target="_blank" rel="nofollow">clientX</a></td>
         <td>只读</td>
         <td>鼠标指针在点击元素（DOM）中的X坐标。</td>
         <td>2</td>
@@ -204,7 +171,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent
         <td>2</td>
     </tr>
     <tr>
-        <td>offsetX</td>
+        <td><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/offsetX" target="_blank" rel="nofollow">offsetX</a> </td>
         <td>只读</td>
         <td>鼠标指针相对于目标节点内边位置的X坐标</td>
         <td>实验性的 API</td>
@@ -216,7 +183,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent
         <td>实验性的 API</td>
     </tr>
     <tr>
-        <td>pageX</td>
+        <td><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/pageX" target="_blank" rel="nofollow">pageX</a></td>
         <td>只读</td>
         <td>鼠标指针相对于整个文档的X坐标；</td>
         <td>实验性的 API</td>
@@ -240,7 +207,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent
         <td>2</td>
     </tr>
     <tr>
-        <td>screenX</td>
+        <td><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/screenX" target="_blank" rel="nofollow">screenX</a></td>
         <td>只读</td>
         <td>鼠标指针相对于全局（屏幕）的X坐标；</td>
         <td>2</td>
@@ -295,68 +262,81 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent
     </tr>
 </table>
 
+<div class="div0">
+    <div class="div1"></div>
+</div>
 
-
-
-<div class="div1"></div>
 
 <script type="text/javascript">
 document.querySelector('.div1').onclick = function(ev) {
-    console.log(ev, ev.clientY)
-    // clientX: 122,    相对于触发事件元素的左上角的偏移。在chrome、opera、safari中是指外边缘，即把该元素边框的宽度计算在内；而firefox、ie则不包含边框值。
-    // clientY: 380,    当事件被触发时，鼠标指针相对于浏览器页面（当前窗口的可视区域）的坐标。
-    // screenX: 122, 
+    console.log(ev)
+    console.log('clientY：' + ev.clientY, 'screenY：' + ev.screenY, 'pageY：' + ev.pageY, 'offsetY：' + ev.offsetY)
+    // clientX: 122,    相对于浏览器可视区域的水平坐标 (与页面坐标不同)。
+    // clientY: 380,
+    // screenX: 122,    相对于屏幕坐标系的水平偏移量。
     // screenY: 483, 
-    // layerX: 122,     相对于position为absolute或relative的父元素最外边缘的距离。ie8及ie8之前的版本没有layerX或layerY值。  ——> 返回事件相对于当前层的水平坐标。此API尚未标准化
+    // layerX: 122,     相对于当前层的水平坐标。(此API尚未标准化) 除非事件发生在定位的元素内，否则此属性考虑页面的滚动并返回相对于整个文档的值，返回的值相对于定位的元素的左上角。
+    // 相对于position为absolute或relative的父元素最外边缘的距离。ie8及ie8之前的版本没有layerX或layerY值。      
     // layerY: 419,
     // movementX: 0,
     // movementY: 0,
-    // offsetX: 84,
+    // offsetX: 84,     事件对象与目标节点的内填充边（padding edge）在 X 轴方向上的偏移量。
     // offsetY: 35,
-    // pageX: 122,      相对于文档窗口的左上角，包含了被卷去的body的部分  ——> 返回事件相对于整个文档的水平坐标。此API尚未标准化
+    // pageX: 122,      相对于整个文档的水平坐标（包含被滚动出窗口之外的body部分）。  ——> 此API尚未标准化
     // pageY: 419,
     // x: 122,          x、y和clientX、clientY的别名。相对于浏览器可视区域的左上角，其中浏览器可视窗口不包括窗口自身的控件和滚动条。
     // y: 380,
-
+}
+document.querySelector('.div1').onmousemove = function(ev) {
+    // console.log('clientY：' + ev.clientY, 'screenY：' + ev.screenY, 'pageY：' + ev.pageY, 'offsetY：' + ev.offsetY)
 }
 </script>
 
-<h4>一、clientX、clientY</h4>
-
-<p>点击位置距离当前body可视区域的x，y坐标</p>
-
-<h4>二、pageX、pageY</h4>
-
-<p>对于整个页面来说，包括了被卷去的body部分的长度</p>
-
-<h4>三、screenX、screenY</h4>
-
-<p>点击位置距离当前电脑屏幕的x，y坐标</p>
-
-<h4>四、offsetX、offsetY</h4>
-
-<p>相对于带有定位的父盒子的x，y坐标</p>
-
-<h4>五、x、y</h4>
-
-<p>和screenX、screenY一样</p>
-
-<p>如图所示：</p>
 
 <p><img src="https://img-blog.csdn.net/20180612002242162?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTM0MjU4NQ==" alt=""></p>
 
-event.clientX  <!-- 返回当事件被触发时，鼠标指针 -->相对于浏览器可视区域的水平坐标 (与页面坐标不同)。
+<h3>event.clientX</h3>
+相对于浏览器可视区域的水平坐标 (与页面坐标不同)。
 
 <!-- 它提供事件发生时的应用客户端区域的水平坐标 (与页面坐标不同)。
 例如，不论页面是否有水平滚动，当你点击客户端区域的左上角时，鼠标事件的 clientX 值都将为 0 。最初这个属性被定义为长整型（long integer），如今 CSSOM 视图模块将其重新定义为双精度浮点数（double float）。你可以查阅浏览器兼容性部分的文档来进一步了解有关信息。 
+返回值
+被 CSSOM View Module 重新定义为一个 double 类型的浮点值. 原来这个属性是被定义为一个 long 整数. 可以在 "浏览器兼容性" 那里查看详细内容.
 developer -->
 
 <!-- clientX 事件属性返回当事件被触发时鼠标指针相对于浏览器页面（或客户区）的水平坐标。客户区指的是当前窗口。
 注释：2 级 DOM 没有提供把窗口坐标转换为文档坐标的标准方法。在 IE 以外的浏览器，使用 window.pageXOffset 和 window.pageYOffset 即可。
 runoob w3school.com.cn  -->
 
-event.screenX   相对于屏幕坐标系的水平偏移量。
+<h3>event.screenX</h3>
+相对于屏幕坐标系的水平偏移量。
 
+<!--  screenX 是只读属性，他提供了鼠标相对于屏幕坐标系的水平偏移量。
+返回值
+一个双浮点值。早期版本的规格定义这是一个整数指的像素数。有关详细信息，请参见浏览器兼容性部分。
+developer -->
+
+<h3>event.pageX</h3>
+相对于整个文档的x（水平）坐标以像素为单位的只读属性。
+
+<!-- 这个属性将基于文档的边缘，考虑任何页面的水平方向上的滚动。举个例子，如果页面向右滚动 200px 并出现了滚动条，这部分在窗口之外，然后鼠标点击距离窗口左边 100px 的位置，pageX 所返回的值将是 300。
+
+起初这个属性被定义为长整型。 CSSOM 视图模块将它重新定位为双浮点数类型。请参阅浏览器兼容性部分了解详情。 -->
+
+
+<h3>event.offsetX</h3>
+规定了事件对象与目标节点的内填充边（padding edge）在 X 轴方向上的偏移量。它包含padding值，不包含border值。
+
+<!-- MouseEvent 接口的只读属性 offsetX 规定了事件对象与目标节点的内填充边（padding edge）在 X 轴方向上的偏移量。
+返回值
+一个双精度 浮点值。早期的规范将其规定为整数值。详见浏览器兼容性部分。
+developer -->
+
+<h3>event.movementX</h3>
+提供了当前事件和上一个mousemove事件之间鼠标在水平方向上的移动值。
+换句话说，这个值是这样计算的 : currentEvent.movementX = currentEvent.screenX - previousEvent.screenX.
+
+<!-- MouseEvent.movementX 是只读属性，它提供了当前事件和上一个mousemove事件之间鼠标在水平方向上的移动值。换句话说，这个值是这样计算的 : currentEvent.movementX = currentEvent.screenX - previousEvent.screenX. -->
 
 
 </body>
