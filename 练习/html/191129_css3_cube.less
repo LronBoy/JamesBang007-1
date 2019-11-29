@@ -1,0 +1,99 @@
+body {
+    margin: 0 auto;
+    padding: 10px;
+    max-width: 1200px;
+    background-color: #333;
+}
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.cube-container {
+    width: 180px;
+    height: 180px;
+    font-size: 0;
+}
+
+.splash-viz__cube {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+}
+
+/* 
+    在CSS3中 transform 的属性包括：
+    旋转 rotate()、位移 translate()、缩放 scale()和扭曲(倾斜) skew()以及矩阵变形 matrix()。
+    
+    transform-style: preserve-3d;   让所有子元素在3D空间中呈现
+    perspective: 240px; 透视、景深效果
+*/
+.cube {
+    position: relative;
+    display: block;
+    transform-style: preserve-3d;
+    /* transform: rotateX(-33.5deg) rotateY(45deg); */
+    /* padding-bottom: 60px; */
+    width: 120px;
+}
+
+.cube-outer {
+    display: inline-block;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 240px;
+    width: 120px;
+    height: 120px;
+    /* transform: translateX(-50%) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg); */
+    transition: transform 5s linear;
+    &:hover {
+        /* transform: translateX(-50%) scale3d(1, 1, 1) rotateX(0deg) rotateY(360deg) rotateZ(0deg); */
+    }
+    .cube__face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 1px solid #fff;
+        background: rgba(141, 214, 249, 0.5);
+        transition: border-width 0.2s;
+        transition-delay: 0.2s;
+    }
+    .cube__face_1 {
+        transform: rotateX(0deg) translateZ(60px);
+        /* border-width: 1px 1px 6px 6px; */
+    }
+    .cube__face_2 {
+        transform: rotateX(-90deg) translateZ(60px);
+        border-width: 1px;
+    }
+    .cube__face_3 {
+        transform: rotateX(90deg) translateZ(60px);
+        /* border-width: 6px 1px 1px 6px; */
+    }
+    .cube__face_4 {
+        transform: rotateY(-90deg) translateZ(60px);
+        border-width: 1px;
+    }
+    .cube__face_5 {
+        transform: rotateY(90deg) translateZ(60px);
+        /* border-width: 1px 6px 6px 1px; */
+    }
+    .cube__face_6 {
+        transform: rotateY(180deg) translateZ(60px);
+        border-width: 1px;
+    }
+}
