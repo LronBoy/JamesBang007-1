@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>基于vw等viewport视区单位配合rem响应式排版和布局</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<div class="div1"></div>
+
+<div class="div2"></div>
+
+<style type="text/css">
+div {
+    margin: 20px;
+    width: 100px;
+    height: 100px;
+    background-color: #666;
+    border-radius: 6px;
+}
+
+.div2 {
+    width: calc(100px - 1.5px);
+}
+
+html {
+    font-size: 16px;
+}
+
+@media screen and (min-width: 375px) {
+    html {
+        /* iPhone6的375px尺寸作为16px基准，414px正好18px大小, 600 20px */
+        font-size: calc(100% + 2 * (100vw - 375px) / 39);
+        font-size: calc(16px + 2 * (100vw - 375px) / 39);
+    }
+}
+
+@media screen and (min-width: 414px) {
+    html {
+        /* 414px-1000px每100像素宽字体增加1px(18px-22px) */
+        font-size: calc(112.5% + 4 * (100vw - 414px) / 586);
+        font-size: calc(18px + 4 * (100vw - 414px) / 586);
+    }
+}
+
+@media screen and (min-width: 600px) {
+    html {
+        /* 600px-1000px每100像素宽字体增加1px(20px-24px) */
+        font-size: calc(125% + 4 * (100vw - 600px) / 400);
+        font-size: calc(20px + 4 * (100vw - 600px) / 400);
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    html {
+        /* 1000px往后是每100像素0.5px增加 */
+        font-size: calc(137.5% + 6 * (100vw - 1000px) / 1000);
+        font-size: calc(22px + 6 * (100vw - 1000px) / 1000);
+    }
+}
+
+
+/* iPhone6的375px尺寸作为25px基准，750px正好50px大小, 360 24px */
+/* 
+html { font-size: calc(~"25px + 25 * (100vw - 375px) / 375"); }
+@media screen and (min-width: 390px) and (max-width: 395px) {
+    html { font-size: 26px; }
+}
+@media screen and (min-width: 750px) {
+    html { font-size: 50px; }
+}
+ 
+*/
+</style>
+
+</body>
+</html>
