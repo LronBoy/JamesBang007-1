@@ -11,6 +11,10 @@
 <img src="https://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg" id="img1">
 
 <style>
+body {
+    min-height: 150vh;
+}
+
 #div1 {
     width: 100px;
     height: 100px;
@@ -36,7 +40,8 @@ window.onload = function() {
             var ev = ev || event;
 
             var disX = ev.clientX - this.offsetLeft;
-            var disY = ev.clientY - this.offsetTop;
+            var disY = ev.clientY - this.offsetTop; // == ev.offsetY
+            console.log('clientY：' + ev.clientY, 'offsetTop：' + this.offsetTop, 'disY：' + disY, 'offsetY：' + ev.offsetY)
             obj.style.zIndex = 10;
 
             if (obj.setCapture) {
