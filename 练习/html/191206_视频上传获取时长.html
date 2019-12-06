@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>视频上传</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style type="text/css">
+body {
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+label {
+    display: inline-block;
+    padding: 0 15px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #666;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.videoBox {
+    margin: 20px 0;
+}
+</style>
+</head>
+<body>
+<input type="file" name="uploadFile" id="uploadFile" value="" accept="video/*" onchange="uploadFile()" hidden>
+<label for="uploadFile">选择视频</label>
+<div class="videoBox"></div>
+
+<script>
+// 通过监听change事件我们可得知用户选择的文件，并且添加了一个files集合，集合中将包含file对象，每个file对象对应着一个文件
+document.querySelector('#uploadFile').onchange = function(ev) {
+    console.log(this.files);
+    // URL.createObjectURL() 静态方法会创建一个 DOMString，其中包含一个表示参数中给出的对象的URL。
+    // 这个 URL 的生命周期和创建它的窗口中的 document 绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。
+    let url = URL.createObjectURL(this.files[0]);
+
+    let video = document.createElement('video');
+    video.src = url;
+    video.setAttribute("preload", "metadata");
+    video.setAttribute("controls", "controls");
+    video.setAttribute("id", "myVideo");
+    document.querySelector('.videoBox').appendChild(video);
+
+    setTimeout(() => {
+        console.log(url, video.duration, '时长：' + parseInt(video.duration));
+        let myVideo = document.querySelector('#myVideo');
+        console.log('宽：' + myVideo.offsetWidth, '高：' + myVideo.offsetHeight);
+    }, 500);
+}
+
+/*
+// 只保留整数部分（丢弃小数部分）
+parseInt(5.1234); // 5
+
+// 向下取整（<= 该数值的最大整数，和parseInt()一样)
+Math.floor(5.1234); // 5  
+
+// 向上取整（有小数，整数部分就+1）
+Math.ceil(5.1234); // 6
+
+// 四舍五入（小数部分）
+Math.round(5.1234); // 5
+Math.round(5.6789); // 6
+*/
+</script>
+
+</body>
+</html>
