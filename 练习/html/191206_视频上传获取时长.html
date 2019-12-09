@@ -29,6 +29,9 @@ label {
 
 .videoBox {
     margin: 20px 0;
+    width: 400px;
+    height: 400px;
+    overflow: scroll;
 }
 </style>
 </head>
@@ -57,6 +60,8 @@ document.querySelector('#uploadFile').onchange = function(ev) {
         let myVideo = document.querySelector('#myVideo');
         console.log('宽：' + myVideo.offsetWidth, '高：' + myVideo.offsetHeight);
     }, 500);
+
+    setFileName(this.files[0])
 }
 
 /*
@@ -73,6 +78,41 @@ Math.ceil(5.1234); // 6
 Math.round(5.1234); // 5
 Math.round(5.6789); // 6
 */
+
+
+// 生成上传文件后的保存路径
+function setFileName(file) {
+    var myDate = new Date();
+    //获取当前年
+    var year = myDate.getFullYear();
+    //获取当前月
+    var month = myDate.getMonth() + 1;
+    //获取当前日
+    var date = myDate.getDate();
+    var h = myDate.getHours(); //获取当前小时数(0-23)
+    var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+    var s = myDate.getSeconds();
+    //获取当前时间    
+    var now = year + '' + conver(month) + "/" + conver(date) + "/" + conver(h) + '' + conver(m) + '' + conver(s) + '_' + getRandomNum(1000, 9999);
+    // console.log(now, file.type, file.type.split('/'))
+    if (file.type.split('/').length > 1) {
+        now += '.' + file.type.split('/')[1];
+    }
+    console.log(now)
+    return now;
+}
+
+// 日期时间处理
+function conver(s) {
+    return s < 10 ? '0' + s : s;
+}
+
+// 生成随机数
+function getRandomNum(Min, Max) {
+    let Range = Max - Min;
+    let Rand = Math.random();
+    return (Min + Math.round(Rand * Range));
+}
 </script>
 
 </body>
