@@ -5,30 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JSON 在线解析 | 菜鸟工具</title>
-<link rel='stylesheet' href='https://c.runoob.com/wp-content/plugins/Wp-Pro-Quiz/css/wpProQuiz_front.min.css?ver=0.37' />
-<script type='text/javascript' src='https://c.runoob.com/wp-includes/js/jquery/jquery.js?ver=1.12.4-wp'></script>
-<script type='text/javascript' src='https://c.runoob.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
 <link rel="canonical" href="https://c.runoob.com/front-end/53" />
 <meta name="keywords" content="JSON 在线解析">
 <meta name="description" content="JSON 在线解析是一款 JSON 格式化工具，你可以在线验证、编辑和格式化 JSON 数据，格式化后的 JSON 数据以树形结构展示，更易于阅读，此外还可以将 JSON 转换为 XML、YAML、CSV格式。..">
 
 <link href="https://cdn.staticfile.org/normalize/7.0.0/normalize.min.css" rel="stylesheet">
-
 <!-- Bootstrap Core CSS -->
 <link href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="/wp-content/themes/toolrunoob/startbootstrap/css/modern-business.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
-<link href="/wp-content/themes/toolrunoob/assets/font-awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-<!--[if lt IE 9]>
-<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-<!-- PHP 代码 -->
-<link rel="stylesheet" href="/wp-content/themes/toolrunoob/style.css?version=1.03">
 
 <!-- jQuery -->
 <!--[if gte IE 9]><!-->
@@ -38,14 +21,10 @@
 <script src="//cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
 <![endif]-->
 <script src="https://cdn.staticfile.org/clipboard.js/2.0.4/clipboard.min.js"></script>
-
 </head>
-
 <body>
 
 <div class="container">
-
-    <br>
 
     <link rel="stylesheet" type="text/css" href="//static.runoob.com/assets/jsoneditor/jsoneditor.min.css" />
     <script type="text/javascript" src="//static.runoob.com/assets/jsoneditor/jsoneditor.min.js"></script>
@@ -78,31 +57,25 @@
         }
     }
     </style>
+
     <div class="row">
-
         <div class="col-md-12">
-
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <form class="form-inline" role="form">
-                        <button type="button" class="btn btn-success" id="submitBTN" onclick="beautify();"><i class="fa fa-expand"></i>
-                            格式化</button>
-                        <button type="button" class="btn btn-default" id="submitBTN2" onclick="minify();"><i class="fa fa-compress"></i>
-                            压缩</button>
+                        <button type="button" class="btn btn-success" id="submitBTN" onclick="beautify();">格式化</button>
+                        <button type="button" class="btn btn-default" id="submitBTN2" onclick="minify();">压缩</button>
                         <button type="button" class="btn btn-warning" id="submitBTN3">验证</button>
                         <button type="button" class="btn btn-warning" onclick="jsonToxml();">JSON 转 XML</button>
                         <button type="button" class="btn btn-warning" onclick="jsonTocsv();">JSON 转 CSV</button>
                         <button type="button" class="btn btn-warning" onclick="jsonToyaml();">JSON 转 YAML</button>
-                        <a href="http://www.runoob.com/json/json-tutorial.html" target="_blank" class="btn btn-info" role="button">JSON 教程</a>
-                        <label class="pull-right"><strong style="font-size: 16px"><i class="fa fa-cogs"></i> JSON 在线解析</strong></label>
+                        <label class="pull-right"><strong style="font-size: 16px">JSON 在线解析</strong></label>
                     </form>
                 </div>
                 <div class="panel-body">
                     <div class="col-md-12" id="warning" style="display: none;">
                         <div class="alert alert-warning">
-                            <a href="#" class="close" data-dismiss="alert">
-                                &times;
-                            </a>
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
                             <p><strong>警告！</strong>JSON 格式错误。</p>
                             <p id="warning-info"></p>
                         </div>
@@ -120,13 +93,10 @@
                             <div id="jsoneditor2" style="height: 600px; width: 100%"></div>
                         </div>
                     </div>
-
-
                 </div>
                 <div class="panel-footer"></div>
             </div>
         </div>
-
     </div>
     <script type="text/javascript" src="//static.runoob.com/assets/js/jquery.format.js"></script>
     <script type="text/javascript" src="//static.runoob.com/assets/js/ObjTree.min.js"></script>
@@ -486,25 +456,8 @@
         ret.push(normalizeString(obj));
     }
     </script>
-
-    <div class="col-md-12">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- 移动版 自动调整 -->
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5751451760833794" data-ad-slot="1691338467" data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-    <br>
-    <hr>
     <!-- Footer -->
     <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; <a href="//www.runoob.com/">菜鸟教程</a> 2019</p>
-            </div>
-        </div>
     </footer>
 
 </div>
