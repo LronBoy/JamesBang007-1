@@ -26,7 +26,7 @@
 ```
 {
   "always-semicolon": true,  // 总是显示分号
-  "block-indent": "   ",  // 代码块缩进，可以是数字或字符串与空白和制表符等
+  "block-indent": "    ",  // 代码块缩进，可以是数字或字符串与空白和制表符等
   "color-case": "lower",  // 十六进制颜色统一，可选值'lower'全部小写；'upper'全部大写
   "color-shorthand": true,  // 十六进制颜色缩写与否
   "element-case": "lower",  // 选择器元素统一，可选值'lower'全部小写；'upper'全部大写
@@ -39,13 +39,13 @@
   "space-between-declarations": 1,  // 命名空间后规则
   "space-after-opening-brace": " ",  // '{' 之后的规则
   "space-after-selector-delimiter": " ",  // 选择器之后的规则
-  "space-before-closing-brace": "\n",  // '}'  之后的规则
+  "space-before-closing-brace": "\n",  // '}' 之后的规则
   "space-before-colon": "", // 冒号前的规则
   "space-before-combinator": " ", // 选择符前规则
   "space-before-opening-brace": " ",  // '{' 之前的规则
   "space-before-selector-delimiter": "", // 选择器之前的规则
   "strip-spaces": true, // 是否修剪尾随的空格
-  "tab-size": 2, // 缩进大小
+  "tab-size": 4, // 缩进大小
   "unitless-zero": true, // 是否移除0后的单位值，比如'0px'格式化为'0'
   "vendor-prefix-align": true, // 是否对齐属性和值中的前缀
   "lines-between-rulesets": 0, // 规则与规则之间的换行数
@@ -59,11 +59,11 @@
 
 以下是处理css时应用顺序的完整列表：
 
-- [总是分号](#总是分号)
-- [删除空规则集](#删除空规则集)
-- [颜色大小写](#颜色大小写)
-- [彩色速记](#彩色速记)
-- [标签大小写](#大小写)
+- [always-semicolon](#always-semicolon)
+- [remove-empty-rulesets](#remove-empty-rulesets)
+- [color-case](#color-case)
+- [color-shorthand](#color-shorthand)
+- [element-case](#element-case)
 - [eof-newline](#eof-newline)
 - [leading-zero](#leading-zero)
 - [quotes](#quotes)
@@ -101,7 +101,7 @@ Following options are ignored while processing `*.sass` files:
 
 可接受值: `true`.
 
-例: `{ "always-semicolon": true }`
+例： `{ "always-semicolon": true }`
 
 ```css
 /* before */
@@ -118,7 +118,7 @@ even if it's part of a value.
 
 在`*.scss`和`*.less`文件中，即使分号是值的一部分，也不会在`}`之后添加分号。
 
-例: `{ "always-semicolon": true }`
+例： `{ "always-semicolon": true }`
 
 ```scss
 // before
@@ -144,12 +144,12 @@ div {
 
 设置代码块内的缩进量，包括媒体查询和嵌套规则。
 
-可接受的值:
+可接受的值：
 
 * `{Number}` — 空格数;
 * `{String}` — 带有空格和制表符的字符串。请注意，此处不允许换行。
 
-Example: `{ "block-indent": 4 }`
+例： `{ "block-indent": 4 }`
 
 ```scss
 // Before:
@@ -171,7 +171,7 @@ a {
     }
 ```
 
-例: `{ "block-indent": "" }`
+例： `{ "block-indent": "" }`
 
 ```scss
 // Before:
@@ -197,12 +197,12 @@ position: happy;
 
 统一十六进制颜色的大小写。
 
-Acceptable values:
+可接受的值：
 
 * `lower` — 全部小写,
 * `upper` — 全部大写.
 
-例: `{ "color-case": "lower" }`
+例： `{ "color-case": "lower" }`
 
 ```css
 /* before */
@@ -212,16 +212,16 @@ a { color: #FFF }
 a { color: #fff }
 ```
 
-## color-shorthand
+## color-shorthand  颜色简写
 
-Whether to expand hexadecimal colors or use shorthands.
+是否扩展十六进制颜色或使用简写。
 
-Acceptable values:
+可接受的值：
 
 * `true` — use shorthands;
 * `false` — expand hexadecimal colors to 6 symbols.
 
-Example: `{ "color-shorthand": true }`
+例： `{ "color-shorthand": true }`
 
 ```css
 /* before */
@@ -231,7 +231,7 @@ b { color: #ffcc00 }
 b { color: #fc0 }
 ```
 
-Example: `{ "color-shorthand": false }`
+例： `{ "color-shorthand": false }`
 
 ```css
 /* before */
@@ -241,16 +241,16 @@ b { color: #fc0 }
 b { color: #ffcc00 }
 ```
 
-## element-case
+## element-case 标签元素大小写
 
-Unify case of element selectors.
+统一标签元素选择器的大小写。
 
-Acceptable values:
+可接受的值：
 
-* `lower` — for lowercase;
-* `upper` — for uppercase.
+* `lower` — 全部小写,
+* `upper` — 全部大写.
 
-Example: `{ "element-case": "upper" }`
+例： `{ "element-case": "upper" }`
 
 ```css
 /* before */
@@ -260,45 +260,43 @@ li > a { color: red }
 LI > A { color: red }
 ```
 
-## eof-newline
+## eof-newline  换行符
 
 Add/remove line break at EOF.
 
-Acceptable values:
+可接受的值：
 
-* `true` — add line break;
-* `false` – remove line break.
+* `true` — 添加换行符;
+* `false` – 删除换行符.
 
-Example: `{ "eof-newline": true }`
+例： `{ "eof-newline": true }`
 
 `a { color: red }` &rarr; `a { color: red }\n`
 
-Example: `{ "eof-newline": false }`
+例： `{ "eof-newline": false }`
 
 `a { color: red }\n` &rarr; `a { color: red }`
 
-## exclude
+## exclude  排除
 
-List files that should be ignored while combing.
+列出在梳理时应忽略的文件。
 
-Acceptable value:
+可接受的值：
 
-* `{String[]}` — array of
-  [Ant path patterns](http://ant.apache.org/manual/dirtasks.html#patterns).
+* `{String[]}` — [Ant 路径模式的数组](http://ant.apache.org/manual/dirtasks.html#patterns).
 
-Example: `{ "exclude": ["node_modules/**"] }` — exclude all files and
-directories under `node_modules` dir.
+例： `{ "exclude": ["node_modules/**"] }` — 排除`node_modules`目录下的所有文件和目录。
 
-## leading-zero
+## leading-zero 小数点前的0
 
-Add/remove leading zero in dimensions.
+添加/删除 小数点前的0。
 
-Acceptable values:
+可接受的值：
 
-* `true` — add leading zero;
-* `false` — remove leading zero.
+* `true` — 添加;
+* `false` — 删除.
 
-Example: `{ "leading-zero": false }`
+例： `{ "leading-zero": false }`
 
 ```css
 /* before */
@@ -308,16 +306,16 @@ p { padding: 0.5em }
 p { padding: .5em }
 ```
 
-## quotes
+## quotes   引号风格
 
-Unify quotes style.
+统一引号风格。
 
-Acceptable values:
+可接受的值：
 
-* `single` — transform all `"` to `'`;
-* `double` — transform all `'` to `"`.
+* `single` — 单引号，将所有 `"` 变换为 `'`;
+* `double` — 双引号，将所有 `'` 变换为 `"`.
 
-Example: `{ "quotes": "single" }`
+例： `{ "quotes": "single" }`
 
 ```css
 /* before */
@@ -327,30 +325,28 @@ p[href^="https://"]:before { content: "secure" }
 p[href^='https://']:before { content: 'secure' }
 ```
 
-## remove-empty-rulesets
+## remove-empty-rulesets    移除空规则集
 
-Remove all rulesets that contain nothing but spaces.
+移除所有只包含空格的规则集。 是否移除空规则集，为true时，如：'a{  }'这样的空规则集将被移除
 
-Acceptable value: `true`
+可接受的值： `true`
 
-Example: `{ "remove-empty-rulesets": true }`.
+例： `{ "remove-empty-rulesets": true }`.
 
 `a { color: red; } p { /* hey */ } b { }` &rarr; `a { color: red; } p { /* hey */ } `
 
-## sort-order
+## sort-order   排序
 
-Set sort order.
+设置排序规则。
 
-**Note**: Use one of [predefined
-configs](https://github.com/csscomb/csscomb.js/tree/master/config)
-as an example.
+**注意：**: 使用[预定义的配置](https://github.com/csscomb/csscomb.js/tree/master/config)之一作为示例。 
 
-Acceptable values:
+可接受的值：
 
 * `{Array}` of rules
-* `{Array}` of arrays of rules for groups separation
+* `{Array}` of arrays of rules for groups separation 用于组分离的规则数组
 
-Example: `{ "sort-order": [ "margin", "padding" ] }`
+例： `{ "sort-order": [ "margin", "padding" ] }`
 
 ```css
 /* before */
@@ -366,7 +362,7 @@ p {
 }
 ```
 
-Example: `{ "sort-order": [ [ "margin", "padding" ], [ "border", "background" ] ] }`
+例： `{ "sort-order": [ [ "margin", "padding" ], [ "border", "background" ] ] }`
 
 ```css
 /* before */
@@ -387,20 +383,18 @@ p {
 }
 ```
 
-### sort-order vs. preprocessors
+### sort-order vs. preprocessors    顺序与预处理器
 
-If you sort properties in `*.scss` or `*.less` files, you can use one of 3
-keywords in your config:
+If you sort properties in `*.scss` or `*.less` files, you can use one of 3 keywords in your config:
+如果您在 `*.scss` 或 `*.less` 文件中，对属性进行排序，则可以在配置中使用3个关键字之一：
 
-* `$variable` — for variable declarations (e.g. `$var` in Sass or `@var` in LESS);
-* `$include` — for all mixins except those that have been specified (e.g. `@include ...` in Sass
-  or `.mixin()` in LESS);
-* `$include mixin-name` — for mixins with specified name (e.g. `@include mixin-name` in Sass
-  or `.mixin-name()` in LESS);
-* `$extend` — for extends (e.g. `@extend .foo` in Sass or `&:extend(.foo)` in LESS);
-* `$import` — for `@import` rules.
+* `$variable` — 用于变量声明（例如Sass中的 `$var` 或LESS中的 `@var`）；
+* `$include` — 适用于所有已指定的混合器 (例如 `@include ...` in Sass or `.mixin()` in LESS); 
+* `$include mixin-name` — 用于具有指定名称的混合器 (例如 `@include mixin-name` in Sass or `.mixin-name()` in LESS);
+* `$extend` — 用于扩展 (例如 `@extend .foo` in Sass or `&:extend(.foo)` in LESS);
+* `$import` — 用于 `@import` 规则。
 
-Example: `{ "sort-order": [ [ "$variable" ], [ "$include" ], [ "top", "padding" ], [ "$include media" ] ] }`
+例： `{ "sort-order": [ [ "$variable" ], [ "$include" ], [ "top", "padding" ], [ "$include media" ] ] }`
 
 ```scss
 /* before */
@@ -429,13 +423,13 @@ p {
 }
 ```
 
-### sort-order vs. leftovers
+### sort-order vs. leftovers    顺序与剩余属性
 
-When there are properties that are not mentioned in the `sort-order` option, they are inserted after all the sorted properties in the new group in the same order they were in the source stylesheet.
+当某些属性未在`sort-order`选项中提及时，它们将以与源样式表中相同的顺序插入新组中所有已排序的属性之后。
 
-You can override this by using a “leftovers” token: `...` — just place it either in its own group, or near other properties in any other group and CSSComb would place all the properties that were not sorted where the `...` was in `sort-order`.
+您可以通过使用“剩余”标记覆盖此标记：`...`- 只需将其放置在其自己的组中，或放置在任何其他组的其他属性附近，CSSComb 会将所有未排序的属性放置在`...`处于`sort-order`中的位置。
 
-So, with this value:
+因此，有了这个值：
 
 ``` json
 {
@@ -449,21 +443,17 @@ So, with this value:
 }
 ```
 
-everything would go into five groups: variables, then group with `position`, then group containing all the leftovers plus the `border`, then group with all includes and then the `font`.
+一切属性将分为五组：`$variable`，然后`position`分组，然后将所有剩余属性和`border`分组，然后`$include`所包含项和`font`分组。
 
-## sort-order-fallback
+## sort-order-fallback 排序的补充
 
-Apply a special sort order for properties that are not specified in `sort-order`
-list.
-Works great with [leftovers](#sort-order-vs-leftovers).
-**Note:** This option is applied only if [sort order](#sort-order) list is
-provided.
+对 `sort-order` 列表中未指定的属性应用特殊排序规则。对[leftovers](#sort-order-vs-leftovers)很有效。**注意：**: 仅当提供[sort order](#sort-order)列表时，此选项才适用。
 
-Acceptable values:
+可接受的值：
 
-* `abc` - sort unknown options alphabetically.
+* `abc` - 对未知选项，按字母顺序进行排序。
 
-Example: `{ "sort-order-fallback": "abc", "sort-order": ["top"] }`
+例： `{ "sort-order-fallback": "abc", "sort-order": ["top"] }`
 
 ```scss
 // Before:
@@ -482,7 +472,7 @@ a {
 }
 ```
 
-Example: `{ "sort-order-fallback": "abc", "sort-order": ["..."] }`
+例： `{ "sort-order-fallback": "abc", "sort-order": ["..."] }`
 
 ```scss
 // Before:
@@ -500,16 +490,16 @@ a {
 }
 ```
 
-## space-after-colon
+## space-after-colon    冒号后规则
 
-Set space after `:` in declarations.
+声明在 `:` 之后的空格规则。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of whitespaces;
-* `{String}` — string with whitespaces, tabs or line breaks.
+* `{Number}` — 空格数;
+* `{String}` — 带空格、制表符或换行符的字符串。
 
-Example: `{ "space-after-colon": "" }`
+例： `{ "space-after-colon": "" }`
 
 ```scss
 // Before:
@@ -525,7 +515,7 @@ a {
 }
 ```
 
-Example: `{ "space-after-colon": 1 }`
+例： `{ "space-after-colon": 1 }`
 
 ```scss
 // Before:
@@ -541,16 +531,16 @@ a {
 }
 ```
 
-## space-after-combinator
+## space-after-combinator 选择符后规则
 
-Set space after combinator (for example, in selectors like `p > a`).
+设置在选择器之后的规则(例如，在类似 `p > a` 的选择器中)。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of whitespaces;
-* `{String}` — string with whitespaces, tabs or line breaks.
+* `{Number}` — 空格数;
+* `{String}` — 带空格、制表符或换行符的字符串。
 
-Example: `{ "space-after-combinator": 1 }`
+例： `{ "space-after-combinator": 1 }`
 
 ```scss
 // Before:
@@ -560,7 +550,7 @@ p>a { color: panda; }
 p> a { color: panda; }
 ```
 
-Example: `{ "space-after-combinator": "\n  " }`
+例： `{ "space-after-combinator": "\n  " }`
 
 ```scss
 // Before:
@@ -571,16 +561,16 @@ p >
   a { color: panda; }
 ```
 
-## space-between-declarations
+## space-between-declarations   声明之间规则
 
-Set space between declarations (i.e. `color: tomato`).
+在声明之间的规则（即 `color: tomato`）。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of whitespaces;
-* `{String}` — string with whitespaces, tabs or line breaks.
+* `{Number}` — 空格数;
+* `{String}` — 带空格、制表符或换行符的字符串。
 
-Example: `{ "space-between-declarations": 1 }`
+例： `{ "space-between-declarations": 1 }`
 
 ```scss
 // Before:
@@ -600,7 +590,7 @@ a {
     }
 ```
 
-Example: `{ "space-between-declarations": "\n  " }`
+例： `{ "space-between-declarations": "\n  " }`
 
 ```scss
 // Before:
@@ -615,16 +605,16 @@ a {
 ```
 
 
-## space-after-opening-brace
+## space-after-opening-brace    左大括号后的规则
 
-Set space after `{`.
+设置在 `{` 之后的规则。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of whitespaces;
-* `{String}` — string with whitespaces, tabs or line breaks.
+* `{Number}` — 空格数;
+* `{String}` — 带空格、制表符或换行符的字符串。
 
-Example: `{ "space-after-opening-brace": 1 }`
+例： `{ "space-after-opening-brace": 1 }`
 
 ```scss
 // Before:
@@ -634,7 +624,7 @@ a {color: panda;}
 a { color: panda;}
 ```
 
-Example: `{ "space-after-opening-brace": "\n" }`
+例： `{ "space-after-opening-brace": "\n" }`
 
 ```scss
 // Before:
@@ -645,16 +635,16 @@ a{
 color: panda;}
 ```
 
-## space-after-selector-delimiter
+## space-after-selector-delimiter 选择器分隔符之后的规则
 
-Set space after selector delimiter.
+设置在选择器分隔符之后的空间规则。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of whitespaces;
-* `{String}` — string with whitespaces, tabs or line breaks.
+* `{Number}` — 空格数;
+* `{String}` — 带空格、制表符或换行符的字符串。
 
-Example: `{ "space-after-selector-delimiter": 1 }`
+例： `{ "space-after-selector-delimiter": 1 }`
 
 ```scss
 // Before:
@@ -668,7 +658,7 @@ a, b {
     }
 ```
 
-Example: `{ "space-after-selector-delimiter": "\n" }`
+例： `{ "space-after-selector-delimiter": "\n" }`
 
 ```scss
 // Before:
@@ -683,16 +673,16 @@ b{
     }
 ```
 
-## space-before-closing-brace
+## space-before-closing-brace   右大括号前的规则
 
-Set space before `}`.
+设置在 `}` 之前的空间规则。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of whitespaces;
-* `{String}` — string with whitespaces, tabs or line breaks.
+* `{Number}` — 空格数;
+* `{String}` — 带空格、制表符或换行符的字符串。
 
-Example: `{ "space-before-closing-brace": 1 }`
+例： `{ "space-before-closing-brace": 1 }`
 
 ```scss
 // Before:
@@ -707,7 +697,7 @@ a {
     color: tomato; }
 ```
 
-Example: `{ "space-before-closing-brace": "\n" }`
+例： `{ "space-before-closing-brace": "\n" }`
 
 ```scss
 // Before:
@@ -722,16 +712,16 @@ a {
 }
 ```
 
-## space-before-colon
+## space-before-colon   冒号前的规则
 
-Set space before `:` in declarations.
+设置在 `:` 之前的空间规则。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of whitespaces;
-* `{String}` — string with whitespaces, tabs or line breaks.
+* `{Number}` — 空格数;
+* `{String}` — 带空格、制表符或换行符的字符串。
 
-Example: `{ "space-before-colon": "" }`
+例： `{ "space-before-colon": "" }`
 
 ```scss
 // Before:
@@ -747,7 +737,7 @@ a {
 }
 ```
 
-Example: `{ "space-before-colon": 1 }`
+例： `{ "space-before-colon": 1 }`
 
 ```scss
 // Before:
@@ -763,16 +753,16 @@ a {
 }
 ```
 
-## space-before-combinator
+## space-before-combinator  选择符前规则
 
-Set space before combinator (for example, in selectors like `p > a`).
+设置在选择器之前的规则(例如，在类似 `p > a` 的选择器中)。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of whitespaces;
-* `{String}` — string with whitespaces, tabs or line breaks.
+* `{Number}` — 空格数;
+* `{String}` — 带空格、制表符或换行符的字符串。
 
-Example: `{ "space-before-combinator": 1 }`
+例： `{ "space-before-combinator": 1 }`
 
 ```scss
 // Before:
@@ -782,7 +772,7 @@ p>a { color: panda; }
 p >a { color: panda; }
 ```
 
-Example: `{ "space-before-combinator": "\n" }`
+例： `{ "space-before-combinator": "\n" }`
 
 ```scss
 // Before:
@@ -795,14 +785,14 @@ p
 
 ## space-before-opening-brace
 
-Set space before `{`.
+设置在 `{` 之前的规则。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of whitespaces;
-* `{String}` — string with whitespaces, tabs or line breaks.
+* `{Number}` — 空格数;
+* `{String}` — 带空格、制表符或换行符的字符串。
 
-Example: `{ "space-before-opening-brace": 1 }`
+例： `{ "space-before-opening-brace": 1 }`
 
 ```scss
 // Before:
@@ -816,7 +806,7 @@ a {
     }
 ```
 
-Example: `{ "space-before-opening-brace": "\n" }`
+例： `{ "space-before-opening-brace": "\n" }`
 
 ```scss
 // Before:
@@ -831,16 +821,16 @@ a
     }
 ```
 
-## space-before-selector-delimiter
+## space-before-selector-delimiter  选择器分隔符之前的规则
 
-Set space before selector delimiter.
+设置在选择器分隔符之前的空间规则。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of whitespaces;
-* `{String}` — string with whitespaces, tabs or line breaks.
+* `{Number}` — 空格数;
+* `{String}` — 带空格、制表符或换行符的字符串。
 
-Example: `{ "space-before-selector-delimiter": 0 }`
+例： `{ "space-before-selector-delimiter": 0 }`
 
 ```scss
 // Before:
@@ -854,7 +844,7 @@ a, b {
     }
 ```
 
-Example: `{ "space-before-selector-delimiter": "\n" }`
+例： `{ "space-before-selector-delimiter": "\n" }`
 
 ```scss
 // Before:
@@ -869,27 +859,27 @@ a
     }
 ```
 
-## strip-spaces
+## strip-spaces 尾随空格
 
-Whether to trim trailing spaces.
+是否修剪尾随的空格。
 
-Acceptable value: `true`.
+可接受的值： `true`.
 
-Example: `{ "strip-spaces": true }`
+例： `{ "strip-spaces": true }`
 
 `a { color: red } \n \n \n` &rarr; `a { color: red }\n`
 
 `a { color: red }\t` &rarr; `a { color: red }`
 
-## tab-size
+## tab-size tab缩进大小
 
-Set tab size (number of spaces to replace hard tabs).
+设置制表符大小（替换制表符的空格数）。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of whitespaces;
+* `{Number}` — 空格数;
 
-Example: `{ "tab-size": 2 }`
+例： `{ "tab-size": 2 }`
 
 ```scss
 // Before:
@@ -905,22 +895,21 @@ a {
 
 ## template
 
-**Note:** See [configuration docs](configuration.md#override-templates-settings)
-for more information.
+**注意**：有关更多信息，请参阅[配置文档](configuration.md#override-templates-settings)。
 
-Acceptable value:
+可接受的值：
 
 * `{String}` — path to the `.css` file.
 
-Example: `{ "template": "example.css" }`
+例： `{ "template": "example.css" }`
 
-## unitless-zero
+## unitless-zero    0后的单位值
 
-Whether to remove units in zero-valued dimensions.
+是否移除0后的单位值。
 
-Acceptable value: `true`.
+可接受的值： `true`.
 
-Example: `{ "unitless-zero": true }`
+例： `{ "unitless-zero": true }`
 
 ```css
 /* before */
@@ -930,13 +919,13 @@ img { border: 0px }
 img { border: 0 }
 ```
 
-## vendor-prefix-align
+## vendor-prefix-align  前缀对齐
 
-Whether to align prefixes in properties and values.
+是否对齐属性和值中的前缀。
 
-Acceptable value: `true`.
+可接受的值： `true`.
 
-Example: `{ "vendor-prefix-align": true }`
+例： `{ "vendor-prefix-align": true }`
 
 ```css
 /* before */
@@ -964,13 +953,13 @@ a
 
 ## lines-between-rulesets
 
-Number of line breaks between rulesets or @rules.
+规则集与规则集之间的换行数。
 
-Acceptable values:
+可接受的值：
 
-* `{Number}` — number of newlines;
+* `{Number}` — 换行数;
 
-Example: `{ "lines-between-rulesets":  1}`
+例： `{ "lines-between-rulesets":  1}`
 
 ```scss
 // Before:
@@ -1012,11 +1001,11 @@ Example: `{ "lines-between-rulesets":  1}`
 
 ## verbose
 
-Whether to use `--verbose` option in CLI.
+是否在CLI中使用 `--verbose` 选项。
 
-Acceptable value: `true`.
+可接受的值： `true`.
 
-Example: `{ "verbose": true }`
+例： `{ "verbose": true }`
 
 ```bash
 csscomb ./test
