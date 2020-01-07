@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>dialog 元素表示一个对话框或其他交互式组件</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<!-- 
+<dialog open>
+  <p>Greetings, one and all!</p>
+</dialog>
+ -->
+
+
+<link rel="stylesheet" href="http://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Button.css">
+<link rel="stylesheet" href="http://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Dialog.css">
+<style>
+    dialog { border: 0; }
+dialog p { margin: 0; }
+#back{animation:none;}
+
+dialog {
+	-webkit-backdrop-filter: blur(5px);	
+	backdrop-filter: blur(5px);	
+}
+</style>
+
+
+<button id="button" class="ui-button ui-button-primary">点击我出现弹框</button>
+
+
+<script src="http://qidian.gtimg.com/lulu/theme/peak/js/plugin/jquery.js"></script>
+<script src="http://qidian.gtimg.com/lulu/theme/peak/js/common/ui/Loading.js"></script>
+<script src="http://qidian.gtimg.com/lulu/theme/peak/js/common/ui/Dialog.js"></script>
+<script type="text/javascript">
+button.onclick = function() {
+    new Dialog().alert('弹框出现啦！');
+};
+</script>
+
+
+</body>
+</html>
