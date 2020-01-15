@@ -126,6 +126,8 @@ new Vue({
         console.log('在实例创建完成后被立即调用');
 
         // autoplay     设置或返回是否在加载完成后随即播放音频/视频
+        // buffered     返回表示音频/视频已缓冲部分的 TimeRanges 对象。
+        // currentTime  设置或返回音频/视频中的当前播放位置（以秒计）。
         // duration     返回当前音频/视频的长度（以秒计）
         // ended        返回音频/视频的播放是否已结束
         // muted        设置或返回音频/视频是否静音。
@@ -195,7 +197,7 @@ new Vue({
                 playBtn.style.display = "none"; // 隐藏播放按钮
             })
         }
-        
+
         // 如果是安卓浏览器里，可以进入页面后自动播放
         // setTimeout(function() {
         //     playVideo();

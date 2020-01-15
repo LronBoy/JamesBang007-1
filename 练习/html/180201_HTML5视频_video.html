@@ -1,87 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,user-scalable=no">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>HTML5 video 视频标签</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
-<link href="./css/video.css" rel="stylesheet">
-<script>
-(function(){
-  var html = document.documentElement;
-  var hWidth = html.getBoundingClientRect().width;
-  hWidth = hWidth>750 ? 750 : hWidth ;
-  html.style.fontSize = hWidth/15 + "px";
+<script type="text/javascript">
+(function() {
+    var html = document.documentElement;
+    var hWidth = html.getBoundingClientRect().width;
+    hWidth = hWidth > 750 ? 750 : hWidth;
+    html.style.fontSize = hWidth / 15 + "px";
 })()
 </script>
+<link href="../css/video.css" rel="stylesheet">
 </head>
 <body>
 http://www.runoob.com/html/html5-video.html
 
 <h3>定义和用法</h3>
-< video> 标签定义视频，比如电影片段或其他视频流。
+`&lt;video&gt;` 标签定义视频，比如电影片段或其他视频流。
 
 
 <h3>实例</h3>
 <p>一段简单的 HTML5 视频：</p>
 <video src="http://www.runoob.com/try/demo_source/mov_bbb.mp4" controls="controls" style="width: 320px; height: 176px;">
-您的浏览器不支持 video 标签。
+    您的浏览器不支持 video 标签。
 </video>
 
 
 <h3>浏览器支持</h3>
 <p>
-Internet Explorer 9+, Firefox, Opera, Chrome, 和 Safari 支持 < video> 元素. <br>
-注意: Internet Explorer 8 或者更早的IE版本不支持 < video> 元素。
+    Internet Explorer 9+, Firefox, Opera, Chrome, 和 Safari 支持 video 元素. <br>
+    注意: Internet Explorer 8 或者更早的IE版本不支持 video 元素。
 </p>
 
 <h3>实例 1： 为视频创建简单的播放/暂停以及调整尺寸控件：</h3>
+
 <div class="demo1">
-
-<div class="demo1Con"> 
-  <button onclick="playPause()">播放/暂停</button> 
-  <button onclick="makeBig()">放大</button>
-  <button onclick="makeSmall()">缩小</button>
-  <button onclick="makeNormal()">普通</button>
-  <br> 
-    <video id="video1" width="300" poster="image/video_poster_demo1.jpg">
-        <source src="http://www.runoob.com/try/demo_source/mov_bbb.mp4" type="video/mp4">
-        <source src="http://www.runoob.com/try/demo_source/mov_bbb.ogg" type="video/ogg">
+    <div class="demo1Con">
+        <button onclick="playPause()">播放/暂停</button>
+        <button onclick="makeBig()">放大</button>
+        <button onclick="makeSmall()">缩小</button>
+        <button onclick="makeNormal()">普通</button>
+        <br>
+        <video id="video1" width="300" poster="image/video_poster_demo1.jpg">
+            <source src="http://www.runoob.com/try/demo_source/mov_bbb.mp4" type="video/mp4">
+            <source src="http://www.runoob.com/try/demo_source/mov_bbb.ogg" type="video/ogg">
             您的浏览器不支持 HTML5 video 标签。
-    </video>
-</div> 
-
-<script> 
-var myVideo1 = document.getElementById("video1"); 
-
-function playPause()
-{ 
-    if(myVideo1.paused){
-      myVideo1.play(); 
-    }else{ 
-      myVideo1.pause();
-    }      
-}
-function makeBig()
-{ 
-    myVideo1.width=360; 
-}
-function makeSmall()
-{ 
-    myVideo1.width=250; 
-}
-function makeNormal()
-{ 
-    myVideo1.width=300; 
-}
-myVideo1.addEventListener("ended",function(){
-     console.log("播放结束");
-     //$('.videoCon').hide();
-})
-</script> 
-
+        </video>
+    </div>
 </div>
+
+<script type="text/javascript">
+var myVideo1 = document.getElementById("video1");
+
+function playPause() {
+    if (myVideo1.paused) {
+        myVideo1.play();
+    } else {
+        myVideo1.pause();
+    }
+}
+
+function makeBig() {
+    myVideo1.width = 360;
+}
+
+function makeSmall() {
+    myVideo1.width = 250;
+}
+
+function makeNormal() {
+    myVideo1.width = 300;
+}
+myVideo1.addEventListener("ended", function() {
+    console.log("播放结束");
+    //$('.videoCon').hide();
+})
+</script>
 <!--demo1 end-->
 
 
@@ -89,56 +89,51 @@ myVideo1.addEventListener("ended",function(){
 <h3>实例 2： 全屏视频</h3>
 
 <div class="demo2">
-
-<div class="video2">
-    <img src="http://4g.scmsebh.com/zhuanti/bixiufu/image/video.jpg" alt=""/>
-    <div class="videoCon">
-        <div class="videoClose"><i class="iconfont icon-guanbi1">x</i></div>
-        <div class="player">
-        <video  src="http://mssp001-1251110283.coscd.myqcloud.com/1.mp4" poster="http://4g.scmsebh.com/zhuanti/bixiufu/image/video_bg.jpg" type="video/mp4" style="width: 100%;" id="video2"></video>
+    <video loop="loop" data-autoplay="true" data-poster="https://i1.mifile.cn/f/i/2018/mi8/summary/mimengposter.jpg" controls width="100%">
+        <source src="https://v.mifile.cn/b2c-mimall-media/a1e1260560e84ea74892127210c835ce.mp4" type="video/mp4">
+    </video>
+    <br>
+    <div class="video2">
+        <img src="https://i1.mifile.cn/f/i/2018/mi8/summary/mimengposter.jpg" alt="" />
+        <div class="videoCon">
+            <div class="videoClose"><i class="iconfont icon-guanbi1">x</i></div>
+            <div class="player">
+                <video src="https://v.mifile.cn/b2c-mimall-media/a1e1260560e84ea74892127210c835ce.mp4" poster="https://i1.mifile.cn/f/i/2018/mi8/summary/mimengposter.jpg"
+                    preload="metadata" type="video/mp4" style="width: 100%;" id="video2">
+                    您的浏览器不支持 video 标签
+                </video>
+            </div>
         </div>
     </div>
 </div>
-
-<script>
+<script type="text/javascript">
 var videoPlayer2 = document.querySelector(".video2 img");
 var videoClose2 = document.querySelector(".video2 .videoClose");
 var videoCon2 = document.querySelector(".video2 .videoCon");
 var myVideo2 = document.getElementById("video2");
 
-
-videoPlayer2.onclick = function(){
+videoPlayer2.onclick = function() {
     //$('.videoCon').show();    
     //$('.videoCon video').attr('autoplay','true');
     videoCon2.style.display = "block";
-    setTimeout(function(){
+    setTimeout(function() {
         myVideo2.play();
-    },1000);
+    }, 1000);
 };
 
-videoClose2.onclick = function(){
+videoClose2.onclick = function() {
     //$('.videoCon').hide();
     //myVideo.pause();
     videoCon2.style.display = "none";
 };
 
-myVideo2.addEventListener("ended,pause",function(){
-     console.log("播放结束");
-     //$('.videoCon').hide();
-     videoCon2.style.display = "none";
+myVideo2.addEventListener("ended,pause", function() {
+    console.log("播放结束");
+    //$('.videoCon').hide();
+    videoCon2.style.display = "none";
 })
 </script>
-
-</div>
 <!--demo2 end-->
-
-
-
-
-
-
-
-
 
 </body>
 </html>
