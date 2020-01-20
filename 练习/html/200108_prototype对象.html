@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>prototype对象</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<p></p>
+<script type="text/javascript">
+// 类和类之间如何通信？
+// ● 类和类之间没有第三方， 发布订阅模式（ 观察者模式）， 比如：
+
+// 老师
+function Teacher() {
+    this.students = [];
+    console.log(this)
+}
+// 老师留作业
+Teacher.prototype.liuzuoye = function(txt) {
+    for (var i = 0; i < this.students.length; i++) {
+        this.students[i].listen(txt);
+    }
+}
+
+// 学生
+function Student(name, myteacher) {
+    this.name = name;
+    this.teacher = myteacher;
+    this.teacher.students.push(this); // 将自己推入老师的学生数组
+    // laoshi.students.push(this);
+}
+// 学生听讲
+Student.prototype.listen = function(txt) {
+    console.log("我是" + this.name + "，我收到了老师的作业" + txt);
+}
+
+var laoshi = new Teacher();
+var xiaoming = new Student("小明", laoshi);
+var xiaohong = new Student("小红", laoshi);
+
+laoshi.liuzuoye("背书！");
+</script>
+
+</body>
+</html>
