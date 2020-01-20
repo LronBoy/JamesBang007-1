@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>如何用原生 JS 实现一个最简单的 v-show 指令？</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+
+<style type="text/css">
+body {
+    margin: 15px auto;
+    max-width: 1200px;
+}
+
+.box {
+    margin: 15px 0;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    background-color: #d0d0d5;
+    border-radius: 4px;
+}
+
+.ui-button {
+    display: inline-block;
+    line-height: 20px;
+    font-size: 14px;
+    text-align: center;
+    color: #4c5161;
+    border: 1px solid #d0d0d5;
+    border-radius: 4px;
+    padding: 9px 15px;
+    min-width: 50px;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-decoration: none;
+    -webkit-transition: border-color .15s, background-color .15s, opacity .15s;
+    transition: border-color .15s, background-color .15s, opacity .15s;
+    cursor: pointer;
+    overflow: visible;
+}
+
+button,
+[type="button"],
+[type="submit"] {
+    outline: 0;
+}
+
+button.ui-button {
+    height: 20px;
+    -ms-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.ui-button:hover {
+    color: #4c5161;
+    border-color: #ababaf;
+    text-decoration: none;
+}
+
+.ui-button-primary {
+    border: 1px solid #2486ff;
+    background-color: #2486ff;
+    color: #fff;
+}
+
+.ui-button-primary:hover {
+    background-color: #0160d5;
+    border-color: #0160d5;
+    color: #fff;
+}
+</style>
+</head>
+<body>
+<!-- 
+如何用原生 JS 实现一个最简单的 v-show 指令？
+http://www.alloyteam.com/2019/12/14124/
+-->
+
+
+<div class="box" v-show="isShow">Hello World！</div>
+
+<button class="ui-button ui-button-primary" onClick="model.isShow = true">显示</button>
+<button class="ui-button ui-button-primary" onClick="model.isShow = false">隐藏</button>
+
+<script>
+// 第 1 步: 定义数据和视图
+var model = {
+    isShow: true
+}
+var view = document.querySelector('div')
+
+// 第 2 步: 定义视图刷新方法
+var updateView = function(value) {
+    view.style.display = value ? '' : 'none'
+}
+
+// 第 3 步: 设置初始视图表现
+var directiveKey = view.getAttribute('v-show')
+updateView(model[directiveKey])
+
+// 第 4 步: 监听数据变化，然后刷新视图，达到数据驱动的目的
+Object.defineProperty(model, 'isShow', {
+    set: function(val) {
+        updateView(val)
+    }
+})
+</script>
+
+</body>
+</html>
