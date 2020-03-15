@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Page Title</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<h2>调用手机的默认相机</h2>
+
+<h3>image图片</h3>
+<input type="file" accept="image/*" capture="camera">
+
+<h3>image图片 – 多选</h3>
+<input type="file" accept="image/*" multiple>
+
+<h3>image图片 - 前置摄像头调用</h3>
+<input type="file" accept="image/*" capture="user">
+
+<h3>video视频</h3>
+<input type="file" accept="video/*" capture="camcorder">
+
+<h3>audio音频</h3>
+<input type="file" accept="audio/*" capture="microphone">
+
+
+<h2>移动端H5调用摄像头(选择上传图片)</h2>
+
+<div>
+    <p>
+        <label>照相机</label>
+        <input type="file" id='image' accept="image/*" capture='camera'>
+    </p>
+    <p>
+        <label>摄像机</label>
+        <input type="file" id='video' accept="video/*" capture='camcorder'>
+    </p>
+    <p>
+        <input type="file" id="file" multiple>
+    </p>
+</div>
+
+<script type="text/javascript">
+// 在各个机型都可以点击 file 调用相册 和 摄像头拍照
+// 1. 在老版本的安卓中，必须加上capture，否则只能调用相册 
+// 2. 在IOS中 加了capture，就只能调用摄像头不能调用相册
+// 判断ios，如果是ios就去掉capture属性.
+let info = navigator.userAgent.toLowerCases();
+if (info.match(/iPhone\sOS/i)) {
+    dom.removeAttribute("capture")
+}
+
+// 读取图片(fileChoose即为input)
+fileChoose.change = () => {
+    let file = fileChoose.files[0],
+        reader = new FileReader();
+    reader.onLoad = () => {
+        img.src = reader.result
+    };
+    reader.readAsDataURL(file)
+}
+</script>
+
+
+
+
+<script>
+window.onload = function() {
+    console.log('onload 事件会在页面加载完成后立即发生')
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>MediaDevices.getUserMedia</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="http://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Button.css">
+</head>
+<body>
+
+<p>通过 <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia" rel="nofollow">MediaDevices.getUserMedia()</a>
+    获取用户多媒体权限时，需要注意其只工作于以下三种环境：</p>
+<ul>
+    <li><code>localhost</code> 域</li>
+    <li>开启了 HTTPS 的域</li>
+    <li>使用 <code>file:///</code> 协议打开的本地文件</li>
+</ul>
+<p>其他情况下，比如在一个 <code>HTTP</code> 站点上，<code>navigator.mediaDevices</code> 的值为 <code>undefined</code>。</p>
+<p>如果想要 <code>HTTP</code> 环境下也能使用和调试 <code>MediaDevices.getUserMedia()</code>，可通过开启 Chrome 的相应参数。</p>
+<!-- <h3>通过相应参数启动 Chrome</h3>
+<p>传递相应参数来启动 Chrome，以 <code>http://example.com</code> 为例，</p>
+<div class="highlight highlight-source-shell">
+    <pre> --unsafely-treat-insecure-origin-as-secure=<span class="pl-s"><span class="pl-pds">"</span><a href="http://example.com" rel="noreferrer noopener" class="rgh-linkified-code"><span class="pl-pds"></span>http://example.com</a><span class="pl-pds">"</span></span></pre>
+</div>
+<h3>开启相应 flag</h3>
+<p>通过传递相应参数来启动 Chrome <code>Insecure origins treated as secure</code> flag 并填入相应白名单。</p>
+<ul>
+    <li>打开 <code>chrome://flags/#unsafely-treat-insecure-origin-as-secure</code></li>
+    <li>将该 flag 切换成 <code>enable</code> 状态</li>
+    <li>输入框中填写需要开启的域名，譬如 <code>http://example.com"</code>，多个以逗号分隔。</li>
+    <li>重启后生效。</li>
+</ul>
+<h2>相关资源</h2>
+<ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia" rel="nofollow">MediaDevices.getUserMedia()</a></li>
+    <li><a href="https://stackoverflow.com/a/34198101/1553656" rel="nofollow">getUserMedia() in chrome 47 without using https</a></li>
+</ul> -->
+
+
+<!-- ********************************* -->
+
+
+<style type="text/css">
+video {
+    margin: 20px 0;
+    width: 400px;
+    height: 400px;
+    background-color: #222;
+}
+
+@media screen and (max-width: 500px) {
+    video {
+        width: 360px;
+        height: 360px;
+    }
+}
+</style>
+
+<button id="button" class="ui-button" onclick="getMedia()">打开摄像头</button>
+
+<div>
+    <video autoplay="autoplay"></video>
+    <p class="err-tips"></p>
+</div>
+
+
+<script>
+// MediaDevices.getUserMedia() 会提示用户给予使用媒体输入的许可，媒体输入会产生一个MediaStream，里面包含了请求的媒体类型的轨道。
+
+// function getMedia() {
+//     let constraints = { audio: true, video: true };
+//     navigator.mediaDevices.getUserMedia(constraints)
+//         .then(function(stream) {
+//             /* 使用这个stream stream */
+//             alert(1);
+//         })
+//         .catch(function(err) {
+//             /* 处理error */
+//             alert(0);
+//             console.log(err);
+//         });
+// }
+
+function getMedia() {
+    // 想要获取一个最接近 1280x720 的相机分辨率
+    var constraints = { audio: true, video: { width: 1280, height: 720 } };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(mediaStream) {
+            var video = document.querySelector('video');
+            video.srcObject = mediaStream;
+            video.onloadedmetadata = function(e) {
+                video.play();
+            };
+        })
+        .catch(function(err) {
+            console.log(err.name + ": " + err.message);
+            document.querySelector('.err-tips').innerHTML = err.name + ": " + err.message;
+        }); // 总是在最后检查错误
+}
+</script>
+
+</body>
+</html>

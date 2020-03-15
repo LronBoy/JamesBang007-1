@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>Notification</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<h1>Notifications API 的通知接口用于向用户配置和显示桌面通知。</h1>
+<p>
+    https://developer.mozilla.org/zh-CN/docs/Web/API/notification
+</p>
+
+
+<button onclick="notifyMe()">Notify me!</button>
+
+<script type="text/javascript">
+function notifyMe() {
+    // 先检查浏览器是否支持
+    if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
+    }
+
+    // 检查用户是否同意接受通知
+    else if (Notification.permission === "granted") {
+        console.log(Notification.permission);
+        // If it's okay let's create a notification
+        var notification = new Notification("Hi there!", {
+            body: "通知描述", // 通知中额外显示的字符串
+            tag: new Date().getTime(), //赋予通知一个ID
+            icon: 'https://tva3.sinaimg.cn/crop.0.0.180.180.180/6f2927fbjw1e8qgp5bmzyj2050050aa8.jpg', // 一个图片的URL，将被用于显示通知的图标。
+            data: {}, // 您想要与通知相关联的任意数据。这可以是任何数据类型。
+            // renotify: true, // 在新通知替换旧通知后是否应通知用户
+            // silent: true, // 是否要有声音
+        });
+    }
+
+    // 否则我们需要向用户获取权限
+    else if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function(permission) {
+            // 如果用户同意，就可以向他们发送通知
+            if (permission === "granted") {
+                var notification = new Notification("Hi there!");
+            }
+        });
+    }
+
+
+    // 最后，如果执行到这里，说明用户已经拒绝对相关通知进行授权
+    // 出于尊重，我们不应该再打扰他们了
+}
+</script>
+
+</body>
+</html>

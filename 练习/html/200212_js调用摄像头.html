@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Page Title</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<style type="text/css">
+.box1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    width: 100%;
+    padding: 6px 0;
+}
+
+video,
+canvas {
+    border: 1px solid #000;
+    display: block;
+
+}
+
+p {
+    line-height: 1.5em;
+    border-left: 10px solid #ccc;
+    text-align: justify;
+    background-color: #eee;
+    padding: 10px;
+}
+
+label {
+    display: block;
+    padding: 6px 0;
+}
+
+label input[type=file] {
+    border: 1px solid #000;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 750px) {
+    body {
+        background-color: lightblue;
+    }
+    .box1{
+        flex-direction: column;
+    }
+    .box1 video,
+    .box1 canvas{ width: 360px; height: 360px; }
+}
+</style>
+
+<body>
+<div>
+    <b>调用移动端摄像头</b><br>
+    <label>照相机： <input type="file" id='image' accept="image/*" capture='camera'></label>
+    <label>摄像机： <input type="file" id='video' accept="video/*" capture='camcorder'></label>
+</div>
+<hr>
+<div class="box1">
+    <div>
+        <button onclick="getMedia()">开启摄像头</button>
+        <video id="video" width="600" height="400" autoplay="autoplay"></video>
+    </div>
+    <div>
+        <button onclick="takePhoto()">拍照</button>
+        <canvas id="canvas" width="600" height="400"></canvas>
+    </div>
+</div>
+<hr>
+<div class="box2">
+    <p>
+        <b>MediaDevices.getUserMedia()</b>会提示用户给予使用媒体输入的许可，媒体输入会产生一个MediaStream，里面包含了请求的媒体类型的轨道。此流可以包含一个视频轨道（来自硬件或者虚拟视频源，比如相机、视频采集设备和屏幕共享服务等等）、一个音频轨道（同样来自硬件或虚拟音频源，比如麦克风、A/D转换器等等），也可能是其它轨道类型。
+        它返回一个 Promise 对象，成功后会resolve回调一个 MediaStream 对象。若用户拒绝了使用权限，或者需要的媒体源不可用，promise会reject回调一个<b>PermissionDeniedError</b>或者<b>NotFoundError</b>。
+        返回的promise对象可能既不会resolve也不会reject，因为用户不是必须选择允许或拒绝。
+    </p>
+    <p>
+        <b>constraints</b><br>
+        作为一个MediaStreamConstraints 对象，指定了请求的媒体类型和相对应的参数。
+        constraints 参数是一个包含了video 和 audio两个成员的MediaStreamConstraints
+        对象，用于说明请求的媒体类型。必须至少一个类型或者两个同时可以被指定。如果浏览器无法找到指定的媒体类型或者无法满足相对应的参数要求，那么返回的Promise对象就会处于rejected［失败］状态，NotFoundError作为rejected［失败］回调的参数。
+    </p>
+    <p>
+        <b>切换前置后置摄像头</b><br>
+        var front = false;<br>
+        document.getElementById('flip-button').onclick = function() { front = !front; };<br>
+        var constraints = { video: { facingMode: (front? "user" : "environment") } };
+    </p>
+</div>
+
+<script>
+function getMedia() {
+    let constraints = {
+        video: {
+            width: 600,
+            height: 400
+        },
+        audio: true
+    };
+    //获得video摄像头区域
+    let video = document.getElementById("video");
+
+    // 这里介绍新的方法，返回一个 Promise对象
+    // 这个Promise对象返回成功后的回调函数带一个 MediaStream 对象作为其参数
+    // then()是Promise对象里的方法
+    // then()方法是异步执行，当then()前的方法执行完后再执行then()内部的程序
+
+    // 避免数据没有获取到
+    let promise = navigator.mediaDevices.getUserMedia(constraints);
+    // 成功调用
+    promise.then(function(MediaStream) {
+        /* 使用这个MediaStream */
+        video.srcObject = MediaStream;
+        video.play();
+        console.log(MediaStream); // 对象
+    })
+    // 失败调用
+    promise.catch(function(err) {
+        /* 处理error */
+        console.log(err); // 拒签
+    });
+}
+
+function takePhoto() {
+    //获得Canvas对象
+    let video = document.getElementById("video");
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, 600, 400);
+}
+</script>
+
+
+
+
+<script>
+window.onload = function() {
+    console.log('onload 事件会在页面加载完成后立即发生')
+}
+</script>
+
+</body>
+</html>

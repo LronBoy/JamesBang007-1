@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>MediaDevices.getUserMedia</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="http://qidian.gtimg.com/lulu/theme/peak/css/common/ui/Button.css">
+</head>
+<body>
+
+<style type="text/css">
+video {
+    margin: 20px 0;
+    width: 400px;
+    height: 400px;
+    background-color: #222;
+}
+
+@media screen and (max-width: 500px) {
+    video {
+        width: 360px;
+        height: 360px;
+    }
+}
+</style>
+
+<button id="button" class="ui-button" onclick="getMedia()">打开摄像头</button>
+
+<div>
+    <video autoplay="autoplay"></video>
+    <p class="err-tips"></p>
+</div>
+
+
+<script>
+// MediaDevices 的方法 enumerateDevices() 请求一个可用的媒体输入和输出设备的列表，例如麦克风，摄像机，耳机设备等。 返回的 Promise 完成时，会带有一个描述设备的 MediaDeviceInfo 的数组。
+
+if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+    console.log("不支持 enumerateDevices() .");
+    // return false; // return 语句只能放在function中
+} else {
+    console.log(666666)
+}
+
+// 列出相机和麦克风
+/* navigator.mediaDevices.enumerateDevices()
+    .then(function(devices) {
+        devices.forEach(function(device) {
+            console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
+        });
+        let new_devices = devices.filter((d) => {
+            return "audioinput" === d.kind || "videoinput" === d.kind
+        });
+        console.log(new_devices);
+    })
+    .catch(function(err) {
+        console.log(err.name + ": " + err.message);
+    }); */
+
+async function getInputDevices(type) {
+    var new_devices = [];
+    // 列出相机和麦克风
+    await navigator.mediaDevices.enumerateDevices()
+        .then(function(devices) {
+            devices.filter((d) => {
+                return type === d.kind; // "audioinput" === d.kind || "videoinput" === d.kind
+            }).forEach((d) => {
+                new_devices.push({
+                    label: d.label,
+                    deviceId: d.deviceId,
+                    kind: d.kind
+                })
+            });
+        })
+        .catch(function(err) {
+            console.log(err.name + ": " + err.message);
+        });
+    return new_devices;
+}
+getInputDevices('audioinput').then(function(res) {
+    console.log(res);
+});
+
+
+
+
+// MediaDevices.getUserMedia() 会提示用户给予使用媒体输入的许可，媒体输入会产生一个MediaStream，里面包含了请求的媒体类型的轨道。
+
+function getMedia() {
+    // 想要获取一个最接近 1280x720 的相机分辨率
+    var constraints = { audio: true, video: { width: 1280, height: 720 } };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(mediaStream) {
+            var video = document.querySelector('video');
+            video.srcObject = mediaStream;
+            video.onloadedmetadata = function(e) {
+                video.play();
+            };
+        })
+        .catch(function(err) {
+            console.log(err.name + ": " + err.message);
+            document.querySelector('.err-tips').innerHTML = err.name + ": " + err.message;
+        }); // 总是在最后检查错误
+}
+</script>
+
+</body>
+</html>
