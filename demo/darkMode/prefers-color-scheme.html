@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>Page Title</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<div class="row">
+    <div class="day">Day (initial)</div>
+    <div class="day light-scheme">Day (changes in light scheme)</div>
+    <div class="day dark-scheme">Day (changes in dark scheme)</div> <br>
+</div>
+
+<div class="row">
+    <div class="night">Night (initial)</div>
+    <div class="night light-scheme">Night (changes in light scheme)</div>
+    <div class="night dark-scheme">Night (changes in dark scheme)</div>
+</div>
+
+<style type="text/css">
+:root {
+    color-scheme: light dark;
+}
+
+.day {
+    background: #eee;
+    color: black;
+}
+
+.night {
+    background: #333;
+    color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+    .day.dark-scheme {
+        background: #333;
+        color: white;
+    }
+
+    .night.dark-scheme {
+        background: black;
+        color: #ddd;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .day.light-scheme {
+        background: white;
+        color: #555;
+    }
+
+    .night.light-scheme {
+        background: #eee;
+        color: black;
+    }
+}
+
+.row {
+    display: flex;
+}
+
+.day,
+.night {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 1em;
+    width: 33%;
+    height: 7em;
+    text-align: center;
+    vertical-align: middle;
+}
+</style>
+
+</body>
+</html>
