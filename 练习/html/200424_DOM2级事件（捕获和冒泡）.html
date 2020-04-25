@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>DOM2级事件（捕获和冒泡）</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<style type="text/css">
+body {
+    margin: 0 auto;
+    max-width: 1200px;
+    line-height: 2;
+    font-style: 16px;
+    color: #fff;
+}
+
+div,
+p {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.outerDiv {
+    margin: 20px;
+    width: 300px;
+    height: 300px;
+    background: #666;
+}
+
+.innerDiv {
+    width: 250px;
+    height: 200px;
+    background: #00aa7f;
+}
+
+.p1 {
+    height: 100px;
+    background: #55aaff;
+}
+</style>
+</head>
+<body>
+
+<div class="outerDiv">
+    外层DIV
+    <div class="innerDiv">
+        内层DIV
+        <p class="p1">p标签，啦啦啦啦</p>
+    </div>
+</div>
+
+<script type="text/javascript">
+// document.querySelector('.outerDiv').onclick = function(ev) {
+//     console.log('外层DIV，被点击');
+// }
+
+// document.querySelector('.innerDiv').onclick = function(ev) {
+//     console.log('内层DIV，被点击');
+// }
+
+// document.querySelector('.p1').onclick = function(ev) {
+//     console.log('p标签，被点击');
+// }
+
+
+// js冒泡和捕获是事件的两种行为，使用 event.stopPropagation() 起到阻止捕获和冒泡阶段中当前事件的进一步传播。
+// 使用 event.preventDefault() 可以取消默认事件。对于冒泡和捕获的优先顺序请看之前
+// 阻止冒泡，IE则是使用 e.cancelBubble = true
+
+document.querySelector('.outerDiv').addEventListener('click', function() {
+    console.log('事件句柄-冒泡：外层DIV，被点击');
+}, false);
+document.querySelector('.innerDiv').addEventListener('click', function(ev) {
+    console.log('事件句柄-冒泡：内层DIV，被点击');
+    window.event ? window.event.cancelBubble = true : ev.stopPropagation();
+}, false);
+document.querySelector('.p1').addEventListener('click', function() {
+    console.log('事件句柄-冒泡：p标签，被点击');
+    window.event ? window.event.cancelBubble = true : ev.stopPropagation();
+}, false);
+
+
+// document.querySelector('.outerDiv').addEventListener('click', function() {
+//     console.log('事件句柄——捕获：外层DIV，被点击');
+// }, true);
+// document.querySelector('.innerDiv').addEventListener('click', function() {
+//     console.log('事件句柄——捕获：内层DIV，被点击');
+//     window.event ? window.event.cancelBubble = true : ev.stopPropagation();
+// }, true);
+// document.querySelector('.p1').addEventListener('click', function() {
+//     console.log('事件句柄——捕获：p标签，被点击');
+// }, true);
+</script>
+
+</body>
+</html>
