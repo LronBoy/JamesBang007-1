@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>JS常用功能</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+
+<section>
+</section>
+
+<script type="text/javascript">
+/**
+ * JS动态添加、删除class类
+ */
+// js原生
+// 添加
+document.getElementById("div1").classList.add("className");
+document.querySelector('#div1').classList.add('className');
+// 删除
+document.getElementById("div1").classList.remove("className");
+document.querySelector('#div1').classList.remove('className');
+
+// jQuery版
+$("#div1").addClass("className"); // 添加
+$("#div1").removeClass("className"); // 删除
+</script>
+
+</body>
+</html>
