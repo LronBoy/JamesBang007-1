@@ -6,6 +6,7 @@
 
 iOS 和安卓分别从 iOS 13 和 Android 10（不同厂商不尽相同，部分 Android 9 也支持） 开始加入深色模式的支持，各大浏览器纷纷开始支持深色模式，微信 iOS 客户端已于 7.0.12 支持了深色模式（安卓即将支持），网页端适配深色模式后将更进一步提高用户体验的一致性。
 
+![深色模式](https://www.w3cplus.com/sites/default/files/blogs/2019/1905/css-dark-mode-1.gif)
 
 
 ## 如何切换深色模式

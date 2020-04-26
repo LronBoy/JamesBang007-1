@@ -2,26 +2,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
 <title>JavaScript Array 对象</title>
 </head>
 <body>
 
-<h2>filter()  检测数组元素，并返回符合条件所有元素的数组。</h2>
+<h2>filter() 检测数组元素，并返回符合条件所有元素的数组。</h2>
 <p>
-定义：
-  filter()方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。
-语法：
-  array.filter(function(currentValue,index,arr), thisValue)
+    定义：
+    filter()方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。
+    语法：
+    array.filter(function(currentValue,index,arr), thisValue)
 </p>
 
 实例1：数组元素筛选
 <script>
-var arr1 = [1,2,3,4,'aa','bb','cc','dd'];
+var arr1 = [1, 2, 3, 4, 'aa', 'bb', 'cc', 'dd'];
 
-var arr1_re = arr1.filter(function(v){
-  return  v != 2;
+var arr1_re = arr1.filter(function(v) {
+    return v != 2;
 });
 
 console.log(arr1_re);
@@ -30,16 +30,16 @@ console.log(arr1_re);
 
 实例2：
 <script>
-var arr2_1 = [1,2,3,4,'aa','bb','cc','dd'];
-var arr2_2 = [3,'aa'];
+var arr2_1 = [1, 2, 3, 4, 'aa', 'bb', 'cc', 'dd'];
+var arr2_2 = [3, 'aa'];
 var str2 = '';
 
-console.log( ...arr2_2 );
+console.log(...arr2_2);
 
-arr2_1.forEach(function(cv){
-  str2 += cv;
+arr2_1.forEach(function(cv) {
+    str2 += cv;
 });
-console.log( 'str2：'+ str2 );
+console.log('str2：' + str2);
 
 /*
 var arr2_re = arr2_1.filter(function(v){
@@ -61,7 +61,6 @@ console.log(arr2_re);
 
 
 
-
 <h2>indexOf() 搜索数组中的元素，并返回它所在的位置。</h2>
 
 <script>
@@ -73,29 +72,34 @@ console.log(a);
 var fruits1 = ["Banana", "Orange", "Apple", "Mango", "aa", "bb", "cc", "dd"];
 var fruits2 = ["Apple", "bb", "dd"];
 
-fruits2.forEach(function(v){
-  var n = fruits1.indexOf(v);
-  console.log(n);
+fruits2.forEach(function(v) {
+    var n = fruits1.indexOf(v);
+    console.log(n);
 
 });
 </script>
 
 
 
-<h2>splice()  从数组中添加或删除元素。</h2>
+<h2>splice() 从数组中添加或删除元素。</h2>
 
 <script>
 var fruits1 = ["Banana", "Orange", "Apple", "Mango", "aa", "bb", "cc", "dd"];
 var fruits2 = ["Apple", "bb", "dd"];
 console.log(fruits1);
 
-fruits2.forEach(function(v){
-  var n = fruits1.indexOf(v);
-  fruits1.splice(n,1);
+fruits2.forEach(function(v) {
+    var n = fruits1.indexOf(v);
+    fruits1.splice(n, 1);
 });
 console.log(fruits1);
-
 </script>
+
+
+
+
+
+
 
 </body>
 </html>
