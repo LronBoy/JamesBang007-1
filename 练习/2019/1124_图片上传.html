@@ -8,23 +8,74 @@
 <title>图片上传</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
+<style type="text/css">
+html {
+    background-color: #222;
+}
+
+body {
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 1200px;
+    line-height: 1.5;
+    background-color: #f8f8f8;
+}
+
+.uploadBtn {
+    display: inline-block;
+    padding: 0 15px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #666;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.box {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    width: 100%;
+    min-height: 50px;
+}
+
+.box img {
+    flex: 0 1 auto;
+    margin: 5px;
+    width: auto;
+    min-width: 50px;
+    max-width: 100%;
+    height: auto;
+}
+</style>
 </head>
 <body>
-<input type="file" name="uploadFile" id="uploadFile" value="" multiple onchange="uploadFile()" hidden>
-<label for="uploadFile">选择图片</label>
-<div><img src="" alt="" style="display: none;"></div>
+
+<input type="file" name="uploadFile" id="uploadFile" value="" accept="image/*" multiple onchange="uploadFile()" hidden>
+<label for="uploadFile" class="uploadBtn">选择图片</label>
+
+<div class="box">
+    <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt=""> -->
+</div>
 
 <script>
-// 通过监听change事件我们可得知用户选择的文件，并且添加了一个files集合，集合中将包含file对象，每个file对象对应着一个文件
+// 通过监听 change 事件，我们可得知用户选择的文件，并且添加了一个 files 集合，集合中将包含 file 对象，每个 file 对象对应着一个文件。
 document.querySelector('#uploadFile').onchange = function(ev) {
     console.log(this.files);
-    // URL.createObjectURL() 静态方法会创建一个 DOMString，其中包含一个表示参数中给出的对象的URL。
-    // 这个 URL 的生命周期和创建它的窗口中的 document 绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。
-    let url = URL.createObjectURL(this.files[0]);
-    console.log(url);
-    let oImg = document.querySelector('img');
-    oImg.src = url;
-    oImg.style.display = 'block';
+    // for...of 语句在可迭代对象（包括 Array，Map，Set，String，TypedArray，arguments 对象等）上创建一个迭代循环
+    // 对于 for...of 的循环，可以由 break, throw, continue 或 return 终止。
+    for (let file of this.files) {
+        // URL.createObjectURL() 静态方法会创建一个 DOMString，其中包含一个表示参数中给出的对象的 URL。
+        // 这个 URL 的生命周期和创建它的窗口中的 document 绑定。这个新的 URL 对象表示指定的 File 对象或 Blob 对象。
+        let url = URL.createObjectURL(file);
+        console.log(url);
+        let img = document.createElement('img');
+        img.src = url;
+        document.querySelector('.box').appendChild(img);
+    }
 }
 </script>
 

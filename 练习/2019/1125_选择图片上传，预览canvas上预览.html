@@ -47,10 +47,14 @@ label {
 </style>
 </head>
 <body>
-<input type="file" name="uploadFile" id="uploadFile" value="" multiple onchange="uploadFile()" hidden>
+
+<input type="file" name="uploadFile" id="uploadFile" value="" accept="image/*" onchange="uploadFile()" hidden>
 <label for="uploadFile">选择图片</label>
+
 <div class="box">
-    <div style="display: none;"><img src="" alt=""></div>
+    <div style="display: none;">
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="">
+    </div>
     <div class="canvasBox">
         <canvas id="myCanvas1" width="750" height="1000"></canvas>
     </div>
@@ -58,19 +62,18 @@ label {
 
 
 <script>
-// 通过监听change事件我们可得知用户选择的文件，并且添加了一个files集合，集合中将包含file对象，每个file对象对应着一个文件
+// 通过监听 change 事件，我们可得知用户选择的文件，并且添加了一个 files 集合，集合中将包含 file 对象，每个 file 对象对应着一个文件。
 document.querySelector('#uploadFile').onchange = function(ev) {
     console.log(this.files);
     // URL.createObjectURL() 静态方法会创建一个 DOMString，其中包含一个表示参数中给出的对象的URL。
-    // 这个 URL 的生命周期和创建它的窗口中的 document 绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。
+    // 这个 URL 的生命周期和创建它的窗口中的 document 绑定。这个新的 URL 对象表示指定的 File 对象或 Blob 对象。
     let img_url = URL.createObjectURL(this.files[0]);
     console.log(img_url);
     let oImg = document.querySelector('img');
     oImg.src = img_url;
     oImg.style.display = 'block';
 
-    img2Canvas(img_url)
-
+    img2Canvas(img_url);
 }
 
 function img2Canvas(url) {
