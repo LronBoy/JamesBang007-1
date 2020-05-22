@@ -59,7 +59,9 @@
 
 **在手机上安装Charles的根证书：**
 
-以IOS为例，在Safri上打开Charles的根证书下载网址： chls.pro/ssl 。
+<span style="color:#f40">IOS</span>
+
+在Safri上打开Charles的根证书下载网址： chls.pro/ssl 。
 
 顺利的话会出现这样的画面，继续点安装，一路点确定。然后去设置里的描述文件管理如果看到有绿色的勾勾就说明安装成功了。
 
@@ -70,24 +72,48 @@
 如果不能下载，检查手机是否正确设置了代理，Charles是否已经打开并配置正确。
 
 
+<span style="color:#f40">Android<!-- 7.0 之后抓包 unknown 和证书无效的解决方案 --></span>
+
+在浏览器上打开Charles的根证书下载网址： chls.pro/ssl ，安装证书。
+
+如果无法安装的话，需要手动安装证书(需root)。
+
+> 系统证书目录：`/system/etc/security/cacerts/`
+> 
+> 其中的每个证书的命名规则如下：
+> 
+> `<Certificate_Hash>.<Number>`
+> 
+> 文件名是一个Hash值，而后缀是一个数字。
+> 
+> 文件名可以用下面的命令计算出来：
+> 
+> `openssl x509 -subject_hash_old -in <Certificate_File>`
+> 这个<Certificate_File> 就是你下载的证书的名字，你计算出hash值以后，就把原来证书的名字，就是这个<Certificate_File>，改成hash值点Number的格式（<Certificate_Hash>.<Number>的格式）
+> 
+> 后缀名的数字是为了防止文件名冲突的，比如如果两个证书算出的Hash值是一样的话，那么一个证书的后缀名数字可以设置成0，而另一个证书的后缀名数字可以设置成1
+
+这里可以选择使用《夜神模拟器》来代替手机，默认安装好就已经是root了的。
+
+
 
 **电脑端的根证书安装**
 
-以MAC为例，直接在Charles的Help菜单中安装；安装完成后去系统的钥匙串访问中信任它。
+直接在Charles的 Help 菜单中安装；安装完成后去系统的钥匙串访问中信任它。
 
-[](https://upload-images.jianshu.io/upload_images/4722219-d9f728b335d353fc.png)
+<!-- [](https://upload-images.jianshu.io/upload_images/4722219-d9f728b335d353fc.png) -->
+![](./step4_pc.png)
 
 完成后：试试看抓一下QQ空间的数据，将*.qq.com 添加到SSL Proxy的Setting中后，配置好手机代理，打开手机QQ空间App。可以看到抓取到的报文如下：
 
 [](https://upload-images.jianshu.io/upload_images/4722219-a9e33ad9f6c602e9.png)
 
 
-**几点说明：**
+<!-- **几点说明：**
 
-- 本文的操作指南是在MAC+iphone5s+Charles上实践的。文中开头已经讲述了HTTPS使用中间人代理抓包的简单原理和核心操作思想，其他环境下可以类比。
 - 有些人认为https可以完美防止中间人攻击，无法抓到https的明文包...... 其实是不对的，TLS的设计只能说是从技术上最大限度地保护网络报文的安全，它无法防止用户自己作死。
 - 网络安全和用户的安全意识是强相关的，技术的防范能力总是有限的。在实际生活中养成良好的上网习惯，千万不能随意信任不明来源的证书，轻视浏览器、操作系统或其他App给我们发出的安全警告。
 
-
+ -->
 
 
